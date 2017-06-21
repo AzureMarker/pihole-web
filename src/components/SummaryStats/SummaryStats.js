@@ -43,34 +43,34 @@ class SummaryStats extends Component {
     return (
       <div className="row">
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-info">
+          <div className="card card-inverse card-primary">
             <div className="card-block">
-              <h3 className="statistic">{this.state.blockedQueries}</h3>
-              <p>Queries Blocked Last 24 Hours</p>
+              <h3>{this.state.blockedQueries}</h3>
+              <p style={{marginBottom: "0px"}}>Queries Blocked</p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-success">
             <div className="card-block">
-              <h3 className="statistic">{this.state.totalQueries}</h3>
-              <p>Queries Last 24 Hours</p>
+              <h3>{this.state.totalQueries}</h3>
+              <p style={{marginBottom: "0px"}}>Total Queries</p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-warning">
             <div className="card-block">
-              <h3 className="statistic">{this.state.percentBlocked}</h3>
-              <p>Queries Blocked Last 24 Hours</p>
+              <h3>{this.state.percentBlocked}</h3>
+              <p style={{marginBottom: "0px"}}>Percent Blocked</p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-danger">
             <div className="card-block">
-              <h3 className="statistic">{this.state.gravityDomains}</h3>
-              <p>Domains On Blocklists</p>
+              <h3>{this.state.gravityDomains}</h3>
+              <p style={{marginBottom: "0px"}}>Domains On Blocklist</p>
             </div>
           </div>
         </div>
