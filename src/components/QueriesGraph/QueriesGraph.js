@@ -159,7 +159,7 @@ class QueriesGraph extends Component {
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              Queries over time
+              Queries Over Last 24 Hours
             </div>
             <div className="card-block">
               <Line width={970} height={250} data={this.state.data} options={this.state.options}/>
