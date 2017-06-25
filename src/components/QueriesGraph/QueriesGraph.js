@@ -119,26 +119,23 @@ class QueriesGraph extends Component {
         res.ads_over_time = this.parseObjectForGraph(res.ads_over_time);
         res.domains_over_time = this.parseObjectForGraph(res.domains_over_time);
 
-        // Set data
-        let totalQueries = [];
-        let blockedQueries = [];
-        let labels = [];
-
         // Remove last data point as it's not yet finished
         res.ads_over_time[0].splice(-1, 1);
+        res.ads_over_time[1].splice(-1, 1);
         res.domains_over_time[0].splice(-1, 1);
+        res.domains_over_time[1].splice(-1, 1);
 
         // Generate labels
+        let labels = [];
         for(let i in res.ads_over_time[0]) {
-          labels.push(new Date(1000 * res.ads_over_time[0][i]));
-          totalQueries.push(res.domains_over_time[1][i]);
-          blockedQueries.push(res.ads_over_time[1][i]);
+          if(res.ads_over_time[0].hasOwnProperty(i))
+            labels.push(new Date(1000 * res.ads_over_time[0][i]));
         }
 
         let data = this.state.data;
         data.labels = labels;
-        data.datasets[0].data = totalQueries;
-        data.datasets[1].data = blockedQueries;
+        data.datasets[0].data = res.domains_over_time[1];
+        data.datasets[1].data = res.ads_over_time[1];
 
         this.setState({
           data: data
