@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
+import { padNumber, parseObjectForGraph } from './../../utils/graph_utils'
 
 class QueriesGraph extends Component {
   constructor(props) {
@@ -41,10 +42,6 @@ class QueriesGraph extends Component {
           mode: "x-axis",
           callbacks: {
             title: (tooltipItem, data) => {
-              let padNumber = (num) => {
-                return ("00" + num).substr(-2,2);
-              };
-
               let time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
               let h = parseInt(time[1], 10);
               let m = parseInt(time[2], 10) || 0;
@@ -97,27 +94,12 @@ class QueriesGraph extends Component {
     this.updateGraph = this.updateGraph.bind(this);
   }
 
-  parseObjectForGraph(p){
-    let keys = Object.keys(p);
-    keys.sort(function(a, b) {
-      return a - b;
-    });
-
-    let arr = [], idx = [];
-    for(let i = 0; i < keys.length; i++) {
-      arr.push(p[keys[i]]);
-      idx.push(keys[i]);
-    }
-
-    return [idx,arr];
-  }
-
   updateGraph() {
     fetch("http://pi.hole:4747/stats/overTime/graphs")
       .then(res => res.json())
       .then(res => {
-        res.ads_over_time = this.parseObjectForGraph(res.ads_over_time);
-        res.domains_over_time = this.parseObjectForGraph(res.domains_over_time);
+        res.ads_over_time = parseObjectForGraph(res.ads_over_time);
+        res.domains_over_time = parseObjectForGraph(res.domains_over_time);
 
         // Remove last data point as it's not yet finished
         res.ads_over_time[0].splice(-1, 1);
