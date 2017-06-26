@@ -83,6 +83,9 @@ class QueryTypesOverTime extends Component {
       .then(res => {
         res.query_types = parseObjectForGraph(res.query_types);
 
+        // Remove last data point as it's not yet finished
+        res.query_types[0].splice(-1, 1);
+
         let labels = [];
         let data_A = [];
         let data_AAAA = [];

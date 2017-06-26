@@ -65,6 +65,8 @@ class ForwardDestOverTime extends Component {
       .then(res => res.json())
       .then(res => {
         res.over_time = parseObjectForGraph(res.over_time);
+        // Remove last data point as it's not yet finished
+        res.over_time[0].splice(-1, 1);
 
         let labels = [];
         let timestamps = res.over_time[0];
