@@ -2,30 +2,13 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph } from './../../utils/graph_utils';
 
-class QueryTypesOverTime extends Component {
+class ForwardDestOverTime extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
         labels: [],
-        datasets: [
-          {
-            label: "A: IPv4 queries",
-            pointRadius: 0,
-            pointHitRadius: 5,
-            pointHoverRadius: 5,
-            backgroundColor: "#20a8d8",
-            data: []
-          },
-          {
-            label: "AAAA: IPv6 queries",
-            pointRadius: 0,
-            pointHitRadius: 5,
-            pointHoverRadius: 5,
-            backgroundColor: "#f86c6b",
-            data: []
-          }
-        ]
+        datasets: []
       },
       options: {
         tooltips: {
@@ -39,7 +22,7 @@ class QueryTypesOverTime extends Component {
               let m = parseInt(time[2], 10) || 0;
               let from = padNumber(h)+":"+padNumber(m-5)+":00";
               let to = padNumber(h)+":"+padNumber(m+4)+":59";
-              return "Query types from "+from+" to "+to;
+              return "Forward destinations from "+from+" to "+to;
             },
             label: (tooltipItems, data) => {
               return data.datasets[tooltipItems.datasetIndex].label + ": " + (100.0*tooltipItems.yLabel).toFixed(1) + "%";
@@ -78,40 +61,68 @@ class QueryTypesOverTime extends Component {
   }
 
   updateGraph() {
-    fetch("http://pi.hole:4747/stats/overTime/query_types")
+    fetch("http://pi.hole:4747/stats/overTime/forward_dest")
       .then(res => res.json())
       .then(res => {
-        res.query_types = parseObjectForGraph(res.query_types);
+        res.over_time = parseObjectForGraph(res.over_time);
 
         let labels = [];
-        let data_A = [];
-        let data_AAAA = [];
-        let timestamps = res.query_types[0];
-        let plotdata = res.query_types[1];
+        let timestamps = res.over_time[0];
+        let plotdata = res.over_time[1];
+        let destinations = res.forward_destinations;
+        let datasets = [];
+        let colors = [
+          "#20a8d8",
+          "#f86c6b",
+          "#4dbd74",
+          "#f8cb00",
+          "#263238",
+          "#63c2de",
+          "#b0bec5"
+        ];
 
+        // Fill in default values
+        let i = 0;
+        for(let destination in destinations) {
+          if(!destinations.hasOwnProperty(destination)) continue;
+
+          datasets.push({
+            label: destination.split("|")[0],
+            // If we ran out of colors, make a random one
+            backgroundColor: i < colors.length
+              ? colors[i]
+              : '#' + parseInt(Math.random() * 0xffffff, 10).toString(16),
+            pointRadius: 0,
+            pointHitRadius: 5,
+            pointHoverRadius: 5,
+            data: []
+          });
+
+          i++;
+        }
+
+        // Fill in data & labels
         for(let j in timestamps) {
-          if(timestamps.hasOwnProperty(j)) {
-            let h = parseInt(timestamps[j], 10);
-            let d = new Date(1000 * h);
+          if(!timestamps.hasOwnProperty(j)) continue;
 
-            let sum = plotdata[j][0] + plotdata[j][1];
-            let A = 0, AAAA = 0;
+          let h = parseInt(timestamps[j], 10);
+          let d = new Date(1000 * h);
 
-            if (sum > 0) {
-              A = plotdata[j][0] / sum;
-              AAAA = plotdata[j][1] / sum;
+          let sum = plotdata[j].reduce((sum, next) => sum + next);
+
+          if (sum > 0) {
+            for(let destination in datasets) {
+              if(datasets.hasOwnProperty(destination))
+                datasets[destination].data.push(plotdata[j][destination] / sum);
             }
-
-            labels.push(d);
-            data_A.push(A);
-            data_AAAA.push(AAAA);
           }
+
+          labels.push(d);
         }
 
         let data = this.state.data;
         data.labels = labels;
-        data.datasets[0].data = data_A;
-        data.datasets[1].data = data_AAAA;
+        data.datasets = datasets;
 
         this.setState({
           data: data
@@ -131,13 +142,13 @@ class QueryTypesOverTime extends Component {
       <div className="col-md-12 col-lg-6">
         <div className="card">
           <div className="card-header">
-            Query Types Over Time
+            Forward Destinations Over Time
           </div>
           <div className="card-block">
             <Line width={400} height={150} data={this.state.data} options={this.state.options}/>
           </div>
           {
-            this.state.data.datasets[0].data.length === 0 && this.state.data.datasets[1].data.length === 0
+            this.state.data.datasets.length === 0
               ?
               <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
                 <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>
@@ -151,4 +162,4 @@ class QueryTypesOverTime extends Component {
   }
 }
 
-export default QueryTypesOverTime;
+export default ForwardDestOverTime;
