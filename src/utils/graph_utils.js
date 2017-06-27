@@ -16,3 +16,16 @@ export let parseObjectForGraph = (p) => {
 
   return [idx,arr];
 };
+
+// Credit: http://stackoverflow.com/questions/1787322/htmlspecialchars-equivalent-in-javascript/4835406#4835406
+export let escapeHtml = (text) => {
+  let map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#039;"
+  };
+
+  return text.replace(/[&<>"']/g, (m) => map[m]);
+};
