@@ -4,6 +4,7 @@ import QueriesGraph from './../../components/QueriesGraph';
 import QueryTypesOverTime from './../../components/QueryTypesOverTime';
 import ForwardDestOverTime from './../../components/ForwardDestOverTime';
 import TopDomains from './../../components/TopDomains';
+import TopBlocked from './../../components/TopBlocked';
 
 class Dashboard extends Component {
   render() {
@@ -17,6 +18,7 @@ class Dashboard extends Component {
         </div>
         <div className="row">
           <TopDomains/>
+          <TopBlocked/>
         </div>
       </div>
     );

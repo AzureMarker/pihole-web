@@ -51,7 +51,7 @@ class TopDomains extends Component {
                       let stat = this.state.top_domains[item];
                       let percentage = stat / this.state.total_queries * 100;
                       return (
-                        <tr key={stat}>
+                        <tr key={item}>
                           <td>
                             {escapeHtml(item)}
                           </td>
