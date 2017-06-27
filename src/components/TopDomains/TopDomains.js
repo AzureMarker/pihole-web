@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { escapeHtml } from './../../utils/graph_utils'
+import { escapeHtml } from './../../utils/graph_utils';
 
 class TopDomains extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      total_ads: 0,
       total_queries: 0,
       top_domains: {}
     };
@@ -19,7 +18,6 @@ class TopDomains extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
-          total_ads: res.ads_blocked_today,
           total_queries: res.dns_queries_today,
           top_domains: res.top_domains
         });
