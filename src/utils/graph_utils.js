@@ -4,9 +4,7 @@ export let padNumber = (num) => {
 
 export let parseObjectForGraph = (p) => {
   let keys = Object.keys(p);
-  keys.sort(function(a, b) {
-    return a - b;
-  });
+  keys.sort((a, b) => a - b);
 
   let arr = [], idx = [];
   for(let i = 0; i < keys.length; i++) {
