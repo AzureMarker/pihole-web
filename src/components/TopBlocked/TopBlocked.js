@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { escapeHtml } from './../../utils/graph_utils';
 
 class TopBlocked extends Component {
   constructor(props) {
@@ -53,7 +52,7 @@ class TopBlocked extends Component {
                     return (
                       <tr key={item}>
                         <td>
-                          {escapeHtml(item)}
+                          {item}
                         </td>
                         <td>
                           {stat}
