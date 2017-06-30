@@ -5,6 +5,7 @@ import QueryTypesOverTime from './../../components/QueryTypesOverTime';
 import ForwardDestOverTime from './../../components/ForwardDestOverTime';
 import TopDomains from './../../components/TopDomains';
 import TopBlocked from './../../components/TopBlocked';
+import TopClients from './../../components/TopClients';
 
 class Dashboard extends Component {
   render() {
@@ -19,6 +20,7 @@ class Dashboard extends Component {
         <div className="row">
           <TopDomains/>
           <TopBlocked/>
+          <TopClients/>
         </div>
       </div>
     );
