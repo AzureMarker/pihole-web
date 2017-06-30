@@ -95,7 +95,7 @@ class QueriesGraph extends Component {
   }
 
   updateGraph() {
-    fetch("http://pi.hole:4747/stats/overTime/graphs")
+    fetch("http://pi.hole:4747/stats/overTime/graph")
       .then(res => res.json())
       .then(res => {
         res.ads_over_time = parseObjectForGraph(res.ads_over_time);
