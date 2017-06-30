@@ -58,7 +58,7 @@ class TopDomains extends Component {
                             {stat}
                           </td>
                           <td>
-                            <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + stat}>
+                            <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>
                               <div className="progress-bar bg-success" style={{width: percentage + "%"}}/>
                             </div>
                           </td>

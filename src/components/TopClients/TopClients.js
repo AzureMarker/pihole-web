@@ -69,7 +69,7 @@ class TopClients extends Component {
                           {stat}
                         </td>
                         <td>
-                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + stat.toLocaleString()}>
+                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>
                             <div className="progress-bar bg-primary" style={{width: percentage + "%"}}/>
                           </div>
                         </td>

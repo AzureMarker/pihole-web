@@ -58,7 +58,7 @@ class TopBlocked extends Component {
                           {stat}
                         </td>
                         <td>
-                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + stat}>
+                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_blocked.toLocaleString()}>
                             <div className="progress-bar bg-warning" style={{width: percentage + "%"}}/>
                           </div>
                         </td>
