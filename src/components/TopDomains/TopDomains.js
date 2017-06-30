@@ -55,7 +55,7 @@ class TopDomains extends Component {
                             {item}
                           </td>
                           <td>
-                            {stat}
+                            {stat.toLocaleString()}
                           </td>
                           <td>
                             <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>
