@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from './../../utils/api';
 
 class SummaryStats extends Component {
   constructor(props) {
@@ -14,8 +15,7 @@ class SummaryStats extends Component {
   }
 
   updateStats() {
-    fetch("http://pi.hole:4747/stats/summary")
-      .then(res => res.json())
+    api.getSummary()
       .then(res => {
         this.setState({
           blockedQueries: res.ads_blocked_today.toLocaleString(),

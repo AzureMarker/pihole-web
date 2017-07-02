@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from './../../utils/api';
 
 class TopBlocked extends Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class TopBlocked extends Component {
   }
 
   updateChart() {
-    fetch("http://pi.hole:4747/stats/top_ads")
-      .then(res => res.json())
+    api.getTopBlocked()
       .then(res => {
         this.setState({
           total_blocked: res.ads_blocked_today,

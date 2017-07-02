@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph } from './../../utils/graph_utils';
+import api from './../../utils/api';
 
 class QueryTypesOverTime extends Component {
   constructor(props) {
@@ -78,8 +79,7 @@ class QueryTypesOverTime extends Component {
   }
 
   updateGraph() {
-    fetch("http://pi.hole:4747/stats/overTime/query_types")
-      .then(res => res.json())
+    api.getQueryTypesOverTime()
       .then(res => {
         res.query_types = parseObjectForGraph(res.query_types);
 

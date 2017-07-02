@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from './../../utils/api';
 
 class TopDomains extends Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class TopDomains extends Component {
   }
 
   updateChart() {
-    fetch("http://pi.hole:4747/stats/top_domains")
-      .then(res => res.json())
+    api.getTopDomains()
       .then(res => {
         this.setState({
           total_queries: res.dns_queries_today,

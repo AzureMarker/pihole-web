@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 import 'ionicons/dist/css/ionicons.min.css';
-
-// Containers
 import Full from './containers/Full'
 
 const history = createBrowserHistory();

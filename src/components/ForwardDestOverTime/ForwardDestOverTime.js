@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph } from './../../utils/graph_utils';
+import api from './../../utils/api';
 
 class ForwardDestOverTime extends Component {
   constructor(props) {
@@ -61,8 +62,7 @@ class ForwardDestOverTime extends Component {
   }
 
   updateGraph() {
-    fetch("http://pi.hole:4747/stats/overTime/forward_dest")
-      .then(res => res.json())
+    api.getForwardDestOverTime()
       .then(res => {
         res.over_time = parseObjectForGraph(res.over_time);
         // Remove last data point as it's not yet finished

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph } from './../../utils/graph_utils';
+import api from './../../utils/api';
 
 class QueriesGraph extends Component {
   constructor(props) {
@@ -95,8 +96,7 @@ class QueriesGraph extends Component {
   }
 
   updateGraph() {
-    fetch("http://pi.hole:4747/stats/overTime/graph")
-      .then(res => res.json())
+    api.getGraph()
       .then(res => {
         res.ads_over_time = parseObjectForGraph(res.ads_over_time);
         res.domains_over_time = parseObjectForGraph(res.domains_over_time);
