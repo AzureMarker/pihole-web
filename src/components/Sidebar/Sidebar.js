@@ -20,6 +20,16 @@ class Sidebar extends Component {
       <div className="sidebar">
         <nav className="sidebar-nav">
           <ul className="nav">
+            <li className="nav-title">
+              <img src="/img/logo.svg" className="img-responsive pull-left" style={{height: "67px"}} alt=""/>
+              <p className="pull-left" style={{paddingLeft: "15px", textTransform: "initial", fontSize: "14px", marginBottom: "initial", lineHeight: "14px", color: "white"}}>
+                Pi-hole
+              </p>
+              <br/>
+              <span style={{textTransform: "initial", paddingLeft: "15px"}}>
+                <i className="fa fa-circle text-success"/> Online
+              </span>
+            </li>
             <li className="nav-item">
               <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"/> Dashboard</NavLink>
             </li>
