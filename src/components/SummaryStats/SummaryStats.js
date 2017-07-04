@@ -5,10 +5,11 @@ class SummaryStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      blockedQueries: 0,
-      totalQueries: 0,
-      percentBlocked: "0%",
-      gravityDomains: 0
+      blockedQueries: "---",
+      totalQueries: "---",
+      percentBlocked: "---",
+      gravityDomains: "---",
+      uniqueClients: "---"
     };
 
     this.updateStats = this.updateStats.bind(this);
@@ -21,7 +22,8 @@ class SummaryStats extends Component {
           blockedQueries: res.ads_blocked_today.toLocaleString(),
           totalQueries: res.dns_queries_today.toLocaleString(),
           percentBlocked: res.ads_percentage_today.toFixed(2).toLocaleString() + "%",
-          gravityDomains: res.domains_being_blocked.toLocaleString()
+          gravityDomains: res.domains_being_blocked.toLocaleString(),
+          uniqueClients: res.unique_clients.toLocaleString()
         });
       })
       .catch(() => {
@@ -46,7 +48,7 @@ class SummaryStats extends Component {
           <div className="card card-inverse card-success">
             <div className="card-block">
               <h3>{this.state.totalQueries}</h3>
-              <p style={{marginBottom: "0px"}}>Total Queries</p>
+              <p style={{marginBottom: "0px"}}>{"Total Queries (" + this.state.uniqueClients + " clients)"}</p>
             </div>
           </div>
         </div>
