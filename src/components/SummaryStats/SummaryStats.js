@@ -20,7 +20,7 @@ class SummaryStats extends Component {
         this.setState({
           blockedQueries: res.ads_blocked_today.toLocaleString(),
           totalQueries: res.dns_queries_today.toLocaleString(),
-          percentBlocked: res.ads_percentage_today.toLocaleString() + "%",
+          percentBlocked: res.ads_percentage_today.toFixed(2).toLocaleString() + "%",
           gravityDomains: res.domains_being_blocked.toLocaleString()
         });
       })
