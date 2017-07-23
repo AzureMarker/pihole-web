@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api } from './../../utils';
+import { api, makeCancelable } from '../../utils';
 
 class TopBlocked extends Component {
   constructor(props) {
@@ -14,19 +14,21 @@ class TopBlocked extends Component {
   }
 
   updateChart() {
-    api.getTopBlocked()
-      .then(res => {
-        this.setState({
-          total_blocked: res.ads_blocked_today,
-          top_blocked: res.top_ads
-        });
+    this.updateHandler = makeCancelable(api.getTopBlocked(), { repeat: this.updateChart, interval: 10 * 1000 });
+    this.updateHandler.promise.then(res => {
+      this.setState({
+        total_blocked: res.ads_blocked_today,
+        top_blocked: res.top_ads
       });
-
-    setTimeout(this.updateChart, 10 * 1000);
+    });
   }
 
   componentDidMount() {
     this.updateChart();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
   }
 
   render() {

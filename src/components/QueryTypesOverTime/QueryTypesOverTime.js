@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api } from '../../utils';
+import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
 class QueryTypesOverTime extends Component {
   constructor(props) {
@@ -78,54 +78,59 @@ class QueryTypesOverTime extends Component {
   }
 
   updateGraph() {
-    api.getQueryTypesOverTime()
-      .then(res => {
-        res.query_types = parseObjectForGraph(res.query_types);
+    this.updateHandler = makeCancelable(
+      api.getQueryTypesOverTime(),
+      { repeat: this.updateGraph, interval: 10 * 60 * 1000 }
+    );
+    this.updateHandler.promise.then(res => {
+      res.query_types = parseObjectForGraph(res.query_types);
 
-        // Remove last data point as it's not yet finished
-        res.query_types[0].splice(-1, 1);
+      // Remove last data point as it's not yet finished
+      res.query_types[0].splice(-1, 1);
 
-        let labels = [];
-        let data_A = [];
-        let data_AAAA = [];
-        let timestamps = res.query_types[0];
-        let plotdata = res.query_types[1];
+      let labels = [];
+      let data_A = [];
+      let data_AAAA = [];
+      let timestamps = res.query_types[0];
+      let plotdata = res.query_types[1];
 
-        for(let j in timestamps) {
-          if(timestamps.hasOwnProperty(j)) {
-            let h = parseInt(timestamps[j], 10);
-            let d = new Date(1000 * h);
+      for(let j in timestamps) {
+        if(timestamps.hasOwnProperty(j)) {
+          let h = parseInt(timestamps[j], 10);
+          let d = new Date(1000 * h);
 
-            let sum = plotdata[j][0] + plotdata[j][1];
-            let A = 0, AAAA = 0;
+          let sum = plotdata[j][0] + plotdata[j][1];
+          let A = 0, AAAA = 0;
 
-            if (sum > 0) {
-              A = plotdata[j][0] / sum;
-              AAAA = plotdata[j][1] / sum;
-            }
-
-            labels.push(d);
-            data_A.push(A);
-            data_AAAA.push(AAAA);
+          if (sum > 0) {
+            A = plotdata[j][0] / sum;
+            AAAA = plotdata[j][1] / sum;
           }
+
+          labels.push(d);
+          data_A.push(A);
+          data_AAAA.push(AAAA);
         }
+      }
 
-        let data = this.state.data;
-        data.labels = labels;
-        data.datasets[0].data = data_A;
-        data.datasets[1].data = data_AAAA;
+      let data = this.state.data;
+      data.labels = labels;
+      data.datasets[0].data = data_A;
+      data.datasets[1].data = data_AAAA;
 
-        this.setState({
-          data: data
-        });
-      })
-      .catch(() => null);
-
-    setTimeout(this.updateGraph, 10 * 60 * 1000);
+      this.setState({
+        data: data
+      });
+    })
+    .catch(() => null);
   }
 
   componentDidMount() {
     this.updateGraph();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
   }
 
   render() {

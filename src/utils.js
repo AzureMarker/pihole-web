@@ -1,4 +1,4 @@
-import config from '../config';
+import config from './config';
 
 export let padNumber = (num) => {
   return ("00" + num).substr(-2,2);
@@ -15,6 +15,40 @@ export let parseObjectForGraph = (p) => {
   }
 
   return [idx,arr];
+};
+
+export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) => {
+  let hasCanceled = false;
+  let repeatId = null;
+
+  const handle = (resolve, reject, val, isError) => {
+    if(hasCanceled)
+      reject({isCanceled: true});
+    else {
+      if(isError)
+        reject(val);
+      else
+        resolve(val);
+
+      if(repeat)
+        repeatId = setTimeout(repeat, interval);
+    }
+  };
+
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then(
+      val => handle(resolve, reject, val, false),
+      error => handle(resolve, reject, error, true)
+    );
+  });
+
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      clearTimeout(repeatId);
+      hasCanceled = true;
+    },
+  };
 };
 
 export let api = {

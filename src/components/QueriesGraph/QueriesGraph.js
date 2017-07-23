@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api } from '../../utils';
+import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
 class QueriesGraph extends Component {
   constructor(props) {
@@ -95,40 +95,42 @@ class QueriesGraph extends Component {
   }
 
   updateGraph() {
-    api.getGraph()
-      .then(res => {
-        res.ads_over_time = parseObjectForGraph(res.ads_over_time);
-        res.domains_over_time = parseObjectForGraph(res.domains_over_time);
+    this.updateHandler = makeCancelable(api.getGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
+    this.updateHandler.promise.then(res => {
+      res.ads_over_time = parseObjectForGraph(res.ads_over_time);
+      res.domains_over_time = parseObjectForGraph(res.domains_over_time);
 
-        // Remove last data point as it's not yet finished
-        res.ads_over_time[0].splice(-1, 1);
-        res.ads_over_time[1].splice(-1, 1);
-        res.domains_over_time[0].splice(-1, 1);
-        res.domains_over_time[1].splice(-1, 1);
+      // Remove last data point as it's not yet finished
+      res.ads_over_time[0].splice(-1, 1);
+      res.ads_over_time[1].splice(-1, 1);
+      res.domains_over_time[0].splice(-1, 1);
+      res.domains_over_time[1].splice(-1, 1);
 
-        // Generate labels
-        let labels = [];
-        for(let i in res.ads_over_time[0]) {
-          if(res.ads_over_time[0].hasOwnProperty(i))
-            labels.push(new Date(1000 * res.ads_over_time[0][i]));
-        }
+      // Generate labels
+      let labels = [];
+      for(let i in res.ads_over_time[0]) {
+        if(res.ads_over_time[0].hasOwnProperty(i))
+          labels.push(new Date(1000 * res.ads_over_time[0][i]));
+      }
 
-        let data = this.state.data;
-        data.labels = labels;
-        data.datasets[0].data = res.domains_over_time[1];
-        data.datasets[1].data = res.ads_over_time[1];
+      let data = this.state.data;
+      data.labels = labels;
+      data.datasets[0].data = res.domains_over_time[1];
+      data.datasets[1].data = res.ads_over_time[1];
 
-        this.setState({
-          data: data
-        });
-      })
-      .catch(() => null);
-
-    setTimeout(this.updateGraph, 10 * 60 * 1000);
+      this.setState({
+        data: data
+      });
+    })
+    .catch(() => null);
   }
 
   componentDidMount() {
     this.updateGraph();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
   }
 
   render() {

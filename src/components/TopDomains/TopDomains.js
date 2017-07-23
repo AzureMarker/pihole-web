@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api } from './../../utils';
+import { api, makeCancelable } from '../../utils';
 
 class TopDomains extends Component {
   constructor(props) {
@@ -14,19 +14,21 @@ class TopDomains extends Component {
   }
 
   updateChart() {
-    api.getTopDomains()
-      .then(res => {
-        this.setState({
-          total_queries: res.dns_queries_today,
-          top_domains: res.top_domains
-        });
+    this.updateHandler = makeCancelable(api.getTopDomains(), { repeat: this.updateChart, interval: 10 * 1000 });
+    this.updateHandler.promise.then(res => {
+      this.setState({
+        total_queries: res.dns_queries_today,
+        top_domains: res.top_domains
       });
-
-    setTimeout(this.updateChart, 10 * 1000);
+    });
   }
 
   componentDidMount() {
     this.updateChart();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
   }
 
   render() {

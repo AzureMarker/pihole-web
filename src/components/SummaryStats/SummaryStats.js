@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api } from './../../utils';
+import { api, makeCancelable } from '../../utils';
 
 class SummaryStats extends Component {
   constructor(props) {
@@ -16,29 +16,34 @@ class SummaryStats extends Component {
   }
 
   updateStats() {
-    api.getSummary()
-      .then(res => {
-        this.setState({
-          blockedQueries: res.ads_blocked_today.toLocaleString(),
-          totalQueries: res.dns_queries_today.toLocaleString(),
-          percentBlocked: res.ads_percentage_today.toFixed(2).toLocaleString() + "%",
-          gravityDomains: res.domains_being_blocked.toLocaleString(),
-          uniqueClients: res.unique_clients.toLocaleString()
-        });
-      })
-      .catch(() => {
+    this.updateHandler = makeCancelable(api.getSummary(), { repeat: this.updateStats, interval: 5000 });
+    this.updateHandler.promise.then(res => {
+      this.setState({
+        blockedQueries: res.ads_blocked_today.toLocaleString(),
+        totalQueries: res.dns_queries_today.toLocaleString(),
+        percentBlocked: res.ads_percentage_today.toFixed(2).toLocaleString() + "%",
+        gravityDomains: res.domains_being_blocked.toLocaleString(),
+        uniqueClients: res.unique_clients.toLocaleString()
+      });
+    })
+    .catch((err) => {
+      if(!err.isCanceled) {
         this.setState({
           blockedQueries: "Lost",
           totalQueries: "Connection",
           percentBlocked: "To",
           gravityDomains: "API"
         });
-      });
-    setTimeout(this.updateStats, 5000);
+      }
+    });
   }
 
   componentDidMount() {
     this.updateStats();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
   }
 
   render() {
