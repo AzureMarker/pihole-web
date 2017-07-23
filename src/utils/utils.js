@@ -1,6 +1,23 @@
 import config from '../config';
 
-export default {
+export let padNumber = (num) => {
+  return ("00" + num).substr(-2,2);
+};
+
+export let parseObjectForGraph = (p) => {
+  let keys = Object.keys(p);
+  keys.sort((a, b) => a - b);
+
+  let arr = [], idx = [];
+  for(let i = 0; i < keys.length; i++) {
+    arr.push(p[keys[i]]);
+    idx.push(keys[i]);
+  }
+
+  return [idx,arr];
+};
+
+export let api = {
   getSummary() {
     return this.get("stats/summary");
   },
@@ -39,4 +56,4 @@ export default {
 
     return "http://" + apiLocation + "/" + endpoint;
   }
-}
+};

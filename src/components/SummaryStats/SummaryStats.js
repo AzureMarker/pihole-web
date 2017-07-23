@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import api from './../../utils/api';
+import { api } from './../../utils';
 
 class SummaryStats extends Component {
   constructor(props) {

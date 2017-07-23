@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph } from './../../utils/graph_utils';
-import api from './../../utils/api';
+import { padNumber, parseObjectForGraph, api } from '../../utils';
 
 class QueriesGraph extends Component {
   constructor(props) {
