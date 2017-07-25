@@ -1,0 +1,6 @@
+{
+  "name": "QueryLog",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./QueryLog.js"
+}

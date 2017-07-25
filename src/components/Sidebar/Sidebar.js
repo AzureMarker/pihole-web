@@ -31,7 +31,10 @@ class Sidebar extends Component {
               </span>
             </li>
             <li className="nav-item">
-              <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="icon-speedometer"/> Dashboard</NavLink>
+              <NavLink to={'/dashboard'} className="nav-link" activeClassName="active"><i className="fa fa-dashboard"/> Dashboard</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to={'/query-log'} className="nav-link" activeClassName="active"><i className="fa fa-database"/> Query Log</NavLink>
             </li>
           </ul>
         </nav>

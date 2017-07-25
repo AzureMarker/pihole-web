@@ -73,6 +73,9 @@ export let api = {
   getTopClients() {
     return this.get("stats/top_clients");
   },
+  getHistory() {
+    return this.get("stats/history");
+  },
   get(url) {
     return fetch(this.urlFor(url)).then(data => data.json());
   },
