@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api, makeCancelable } from '../../utils';
+import { api, makeCancelable, padNumber } from '../../utils';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -67,30 +67,31 @@ const columns = [
     Header: "Time",
     id: "time",
     accessor: r => r[0],
-    minWidth: 80,
+    minWidth: 135,
     Cell: row => {
       const date = new Date(row.value * 1000);
 
-      return date.toLocaleTimeString();
+      return `${date.getFullYear()}-${padNumber(date.getMonth())}-${padNumber(date.getDay())}
+              ${padNumber(date.getHours())}-${padNumber(date.getMinutes())}-${padNumber(date.getSeconds())}`;
     }
   },
   {
     Header: "Type",
     id: "type",
     accessor: r => r[1],
-    minWidth: 50
+    minWidth: 40
   },
   {
     Header: "Domain",
     id: "domain",
     accessor: r => r[2],
-    minWidth: 240
+    minWidth: 280
   },
   {
     Header: "Client",
     id: "client",
     accessor: r => r[3],
-    minWidth: 140
+    minWidth: 100
   },
   {
     Header: "Status",
@@ -116,7 +117,7 @@ const columns = [
   },
   {
     Header: "Action",
-    minWidth: 100
+    minWidth: 80
   }
 ];
 
