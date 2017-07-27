@@ -1,5 +1,6 @@
 const routes = {
-  '/': 'Home',
-  '/dashboard': 'Dashboard'
+  '/': 'Admin',
+  '/dashboard': 'Dashboard',
+  '/query-log': 'Query Log'
 };
 export default routes;

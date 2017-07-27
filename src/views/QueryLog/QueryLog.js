@@ -37,27 +37,23 @@ class QueryLog extends Component {
 
   render() {
     return (
-      <div className="card">
-        <div className="card-header">Query Log</div>
-        <div className="card-block">
-          <ReactTable
-            className="-striped"
-            columns={columns}
-            showPaginationTop={true}
-            data={this.state.history}
-            loading={this.state.loading}
-            getTrProps={(state, rowInfo) => {
-              if(rowInfo && rowInfo.row.status !== 0)
-                return {
-                  style: {
-                    color: [1, 4, 5].includes(rowInfo.row.status) ? 'red' : 'green'
-                  }
-                };
-              else
-                return {};
-            }} />
-        </div>
-      </div>
+      <ReactTable
+        className="-striped"
+        style={{ background: "white", marginBottom: "24px" }}
+        columns={columns}
+        showPaginationTop={true}
+        data={this.state.history}
+        loading={this.state.loading}
+        getTrProps={(state, rowInfo) => {
+          if(rowInfo && rowInfo.row.status !== 0)
+            return {
+              style: {
+                color: [1, 4, 5].includes(rowInfo.row.status) ? 'red' : 'green'
+              }
+            };
+          else
+            return {};
+        }} />
     );
   }
 }
