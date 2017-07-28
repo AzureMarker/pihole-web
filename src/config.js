@@ -7,4 +7,7 @@ if(process.env.NODE_ENV === "development")
 else
   config = productionConfig;
 
+if(process.env.REACT_APP_FAKE_API)
+  config.fakeAPI = true;
+
 export default config;
