@@ -42,6 +42,7 @@ class QueryLog extends Component {
         style={{ background: "white", marginBottom: "24px" }}
         columns={columns}
         showPaginationTop={true}
+        filterable={true}
         data={this.state.history}
         loading={this.state.loading}
         getTrProps={(state, rowInfo) => {
@@ -53,7 +54,11 @@ class QueryLog extends Component {
             };
           else
             return {};
-        }} />
+        }}
+        defaultSorted={[{
+          id: "time",
+          desc: true
+        }]} />
     );
   }
 }
