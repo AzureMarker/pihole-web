@@ -51,13 +51,13 @@ export default class TopClients extends Component {
                   Object.keys(this.state.top_clients).map((item, index) => {
                     let hostname = "";
                     let ipAddr = "";
-                    let stat = this.state.top_clients[item];
-                    let percentage = stat / this.state.total_queries * 100;
+                    const stat = this.state.top_clients[item];
+                    const percentage = stat / this.state.total_queries * 100;
 
                     // Check if we have the IP and hostname
                     // ex. localhost|127.0.0.1
                     if(item.includes("|")) {
-                      let parts = item.split("|");
+                      const parts = item.split("|");
                       hostname = parts[0];
                       ipAddr = parts[1];
                     }

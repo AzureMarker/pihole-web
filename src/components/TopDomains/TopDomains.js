@@ -49,8 +49,8 @@ export default class TopDomains extends Component {
                   </tr>
                   {
                     Object.keys(this.state.top_domains).map((item, index) => {
-                      let stat = this.state.top_domains[item];
-                      let percentage = stat / this.state.total_queries * 100;
+                      const stat = this.state.top_domains[item];
+                      const percentage = stat / this.state.total_queries * 100;
                       return (
                         <tr key={item}>
                           <td>

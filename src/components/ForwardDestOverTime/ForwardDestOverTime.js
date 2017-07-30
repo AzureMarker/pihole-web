@@ -16,12 +16,12 @@ export default class ForwardDestOverTime extends Component {
           mode: "x-axis",
           callbacks: {
             title: (tooltipItem, data) => {
-              let label = tooltipItem[0].xLabel;
-              let time = label.match(/(\d?\d):?(\d?\d?)/);
-              let h = parseInt(time[1], 10);
-              let m = parseInt(time[2], 10) || 0;
-              let from = padNumber(h)+":"+padNumber(m-5)+":00";
-              let to = padNumber(h)+":"+padNumber(m+4)+":59";
+              const label = tooltipItem[0].xLabel;
+              const time = label.match(/(\d?\d):?(\d?\d?)/);
+              const h = parseInt(time[1], 10);
+              const m = parseInt(time[2], 10) || 0;
+              const from = padNumber(h)+":"+padNumber(m-5)+":00";
+              const to = padNumber(h)+":"+padNumber(m+4)+":59";
               return "Forward destinations from "+from+" to "+to;
             },
             label: (tooltipItems, data) => {
@@ -70,12 +70,12 @@ export default class ForwardDestOverTime extends Component {
       // Remove last data point as it's not yet finished
       res.over_time[0].splice(-1, 1);
 
-      let labels = [];
-      let timestamps = res.over_time[0];
-      let plotdata = res.over_time[1];
-      let destinations = res.forward_destinations;
-      let datasets = [];
-      let colors = [
+      const labels = [];
+      const timestamps = res.over_time[0];
+      const plotdata = res.over_time[1];
+      const destinations = res.forward_destinations;
+      const datasets = [];
+      const colors = [
         "#20a8d8",
         "#f86c6b",
         "#4dbd74",
@@ -109,10 +109,10 @@ export default class ForwardDestOverTime extends Component {
       for(let j in timestamps) {
         if(!timestamps.hasOwnProperty(j)) continue;
 
-        let h = parseInt(timestamps[j], 10);
-        let d = new Date(1000 * h);
+        const h = parseInt(timestamps[j], 10);
+        const d = new Date(1000 * h);
 
-        let sum = plotdata[j].reduce((sum, next) => sum + next);
+        const sum = plotdata[j].reduce((sum, next) => sum + next);
 
         if (sum > 0) {
           for(let destination in datasets) {
@@ -124,7 +124,7 @@ export default class ForwardDestOverTime extends Component {
         labels.push(d);
       }
 
-      let data = this.state.data;
+      const data = this.state.data;
       data.labels = labels;
       data.datasets = datasets;
 

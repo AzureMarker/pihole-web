@@ -49,8 +49,8 @@ export default class TopBlocked extends Component {
                 </tr>
                 {
                   Object.keys(this.state.top_blocked).map((item, index) => {
-                    let stat = this.state.top_blocked[item];
-                    let percentage = stat / this.state.total_blocked * 100;
+                    const stat = this.state.top_blocked[item];
+                    const percentage = stat / this.state.total_blocked * 100;
                     return (
                       <tr key={item}>
                         <td>

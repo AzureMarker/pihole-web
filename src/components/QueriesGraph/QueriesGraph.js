@@ -42,19 +42,19 @@ export default class QueriesGraph extends Component {
           mode: "x-axis",
           callbacks: {
             title: (tooltipItem, data) => {
-              let time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-              let h = parseInt(time[1], 10);
-              let m = parseInt(time[2], 10) || 0;
-              let from = padNumber(h) + ":" + padNumber(m) + ":00";
-              let to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
+              const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
+              const h = parseInt(time[1], 10);
+              const m = parseInt(time[2], 10) || 0;
+              const from = padNumber(h) + ":" + padNumber(m) + ":00";
+              const to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
 
               return "Queries from " + from + " to " + to;
             },
             label: (tooltipItems, data) => {
               if (tooltipItems.datasetIndex === 1) {
                 let percentage = 0.0;
-                let total = parseInt(data.datasets[0].data[tooltipItems.index], 10);
-                let blocked = parseInt(data.datasets[1].data[tooltipItems.index], 10);
+                const total = parseInt(data.datasets[0].data[tooltipItems.index], 10);
+                const blocked = parseInt(data.datasets[1].data[tooltipItems.index], 10);
 
                 if (total > 0)
                   percentage = 100.0 * blocked / total;
@@ -107,13 +107,13 @@ export default class QueriesGraph extends Component {
       res.domains_over_time[1].splice(-1, 1);
 
       // Generate labels
-      let labels = [];
+      const labels = [];
       for(let i in res.ads_over_time[0]) {
         if(res.ads_over_time[0].hasOwnProperty(i))
           labels.push(new Date(1000 * res.ads_over_time[0][i]));
       }
 
-      let data = this.state.data;
+      const data = this.state.data;
       data.labels = labels;
       data.datasets[0].data = res.domains_over_time[1];
       data.datasets[1].data = res.ads_over_time[1];

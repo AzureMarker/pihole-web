@@ -1,14 +1,14 @@
 import config from './config';
 
-export let padNumber = (num) => {
+export const padNumber = (num) => {
   return ("00" + num).substr(-2,2);
 };
 
-export let parseObjectForGraph = (p) => {
-  let keys = Object.keys(p);
+export const parseObjectForGraph = (p) => {
+  const keys = Object.keys(p);
   keys.sort((a, b) => a - b);
 
-  let arr = [], idx = [];
+  const arr = [], idx = [];
   for(let i = 0; i < keys.length; i++) {
     arr.push(p[keys[i]]);
     idx.push(keys[i]);
@@ -51,7 +51,7 @@ export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) =>
   };
 };
 
-export let api = {
+export const api = {
   getSummary() {
     return this.get("stats/summary");
   },

@@ -33,12 +33,12 @@ export default class QueryTypesOverTime extends Component {
           mode: "x-axis",
           callbacks: {
             title: (tooltipItem, data) => {
-              let label = tooltipItem[0].xLabel;
-              let time = label.match(/(\d?\d):?(\d?\d?)/);
-              let h = parseInt(time[1], 10);
-              let m = parseInt(time[2], 10) || 0;
-              let from = padNumber(h)+":"+padNumber(m-5)+":00";
-              let to = padNumber(h)+":"+padNumber(m+4)+":59";
+              const label = tooltipItem[0].xLabel;
+              const time = label.match(/(\d?\d):?(\d?\d?)/);
+              const h = parseInt(time[1], 10);
+              const m = parseInt(time[2], 10) || 0;
+              const from = padNumber(h)+":"+padNumber(m-5)+":00";
+              const to = padNumber(h)+":"+padNumber(m+4)+":59";
               return "Query types from "+from+" to "+to;
             },
             label: (tooltipItems, data) => {
@@ -88,18 +88,18 @@ export default class QueryTypesOverTime extends Component {
       // Remove last data point as it's not yet finished
       res.query_types[0].splice(-1, 1);
 
-      let labels = [];
-      let data_A = [];
-      let data_AAAA = [];
-      let timestamps = res.query_types[0];
-      let plotdata = res.query_types[1];
+      const labels = [];
+      const data_A = [];
+      const data_AAAA = [];
+      const timestamps = res.query_types[0];
+      const plotdata = res.query_types[1];
 
       for(let j in timestamps) {
         if(timestamps.hasOwnProperty(j)) {
-          let h = parseInt(timestamps[j], 10);
-          let d = new Date(1000 * h);
+          const h = parseInt(timestamps[j], 10);
+          const d = new Date(1000 * h);
 
-          let sum = plotdata[j][0] + plotdata[j][1];
+          const sum = plotdata[j][0] + plotdata[j][1];
           let A = 0, AAAA = 0;
 
           if (sum > 0) {
@@ -113,7 +113,7 @@ export default class QueryTypesOverTime extends Component {
         }
       }
 
-      let data = this.state.data;
+      const data = this.state.data;
       data.labels = labels;
       data.datasets[0].data = data_A;
       data.datasets[1].data = data_AAAA;
