@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Header from '../../components/Header/';
-import Sidebar from '../../components/Sidebar/';
-import Breadcrumb from '../../components/Breadcrumb/';
-import Aside from '../../components/Aside/';
-import Footer from '../../components/Footer/';
-import Dashboard from '../../views/Dashboard/';
+import Header from '../../components/Header';
+import Sidebar from '../../components/Sidebar';
+import Breadcrumb from '../../components/Breadcrumb';
+import Aside from '../../components/Aside';
+import Footer from '../../components/Footer';
+import Dashboard from '../../views/Dashboard';
 import QueryLog from '../../components/QueryLog';
+import Whitelist from '../../views/Whitelist';
 
 class Full extends Component {
   render() {
@@ -22,6 +23,7 @@ class Full extends Component {
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
                 <Redirect exact from="/" to="/dashboard"/>
                 <Route path="/query-log" name="Query Log" component={QueryLog}/>
+                <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
               </Switch>
             </div>
           </main>
