@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
 export default class TopClients extends Component {
+  state = {
+    total_queries: 0,
+    top_clients: {}
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      total_queries: 0,
-      top_clients: {}
-    };
-
     this.updateChart = this.updateChart.bind(this);
   }
 
@@ -48,7 +47,7 @@ export default class TopClients extends Component {
                   <th>Frequency</th>
                 </tr>
                 {
-                  Object.keys(this.state.top_clients).map((item, index) => {
+                  Object.keys(this.state.top_clients).map((item) => {
                     let hostname = "";
                     let ipAddr = "";
                     const stat = this.state.top_clients[item];

@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
 export default class SummaryStats extends Component {
+  state = {
+    blockedQueries: "---",
+    totalQueries: "---",
+    percentBlocked: "---",
+    gravityDomains: "---",
+    uniqueClients: "---"
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      blockedQueries: "---",
-      totalQueries: "---",
-      percentBlocked: "---",
-      gravityDomains: "---",
-      uniqueClients: "---"
-    };
-
     this.updateStats = this.updateStats.bind(this);
   }
 

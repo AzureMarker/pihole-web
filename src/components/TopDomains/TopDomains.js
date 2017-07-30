@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
 export default class TopDomains extends Component {
+  state = {
+    total_queries: 0,
+    top_domains: {}
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      total_queries: 0,
-      top_domains: {}
-    };
-
     this.updateChart = this.updateChart.bind(this);
   }
 
@@ -48,7 +47,7 @@ export default class TopDomains extends Component {
                     <th>Frequency</th>
                   </tr>
                   {
-                    Object.keys(this.state.top_domains).map((item, index) => {
+                    Object.keys(this.state.top_domains).map(item => {
                       const stat = this.state.top_domains[item];
                       const percentage = stat / this.state.total_queries * 100;
                       return (

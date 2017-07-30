@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
 export default class TopBlocked extends Component {
+  state = {
+    total_blocked: 0,
+    top_blocked: {}
+  };
+
   constructor(props) {
     super(props);
-
-    this.state = {
-      total_blocked: 0,
-      top_blocked: {}
-    };
-
     this.updateChart = this.updateChart.bind(this);
   }
 
@@ -48,7 +47,7 @@ export default class TopBlocked extends Component {
                   <th>Frequency</th>
                 </tr>
                 {
-                  Object.keys(this.state.top_blocked).map((item, index) => {
+                  Object.keys(this.state.top_blocked).map(item => {
                     const stat = this.state.top_blocked[item];
                     const percentage = stat / this.state.total_blocked * 100;
                     return (

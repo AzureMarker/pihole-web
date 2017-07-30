@@ -3,60 +3,60 @@ import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
 export default class ForwardDestOverTime extends Component {
+  state = {
+    data: {
+      labels: [],
+      datasets: []
+    },
+    options: {
+      tooltips: {
+        enabled: true,
+        mode: "x-axis",
+        callbacks: {
+          title: tooltipItem => {
+            const label = tooltipItem[0].xLabel;
+            const time = label.match(/(\d?\d):?(\d?\d?)/);
+            const h = parseInt(time[1], 10);
+            const m = parseInt(time[2], 10) || 0;
+            const from = padNumber(h)+":"+padNumber(m-5)+":00";
+            const to = padNumber(h)+":"+padNumber(m+4)+":59";
+            return "Forward destinations from "+from+" to "+to;
+          },
+          label: (tooltipItems, data) => {
+            return data.datasets[tooltipItems.datasetIndex].label + ": " + (100.0*tooltipItems.yLabel).toFixed(1) + "%";
+          }
+        }
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          type: "time",
+          time: {
+            unit: "hour",
+            displayFormats: {
+              hour: "HH:mm"
+            },
+            tooltipFormat: "HH:mm"
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            mix: 0.0,
+            max: 1.0,
+            beginAtZero: true,
+            callback: (value, index, values) => Math.round(value*100) + "%"
+          },
+          stacked: true
+        }]
+      },
+      maintainAspectRatio: true
+    }
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      data: {
-        labels: [],
-        datasets: []
-      },
-      options: {
-        tooltips: {
-          enabled: true,
-          mode: "x-axis",
-          callbacks: {
-            title: (tooltipItem, data) => {
-              const label = tooltipItem[0].xLabel;
-              const time = label.match(/(\d?\d):?(\d?\d?)/);
-              const h = parseInt(time[1], 10);
-              const m = parseInt(time[2], 10) || 0;
-              const from = padNumber(h)+":"+padNumber(m-5)+":00";
-              const to = padNumber(h)+":"+padNumber(m+4)+":59";
-              return "Forward destinations from "+from+" to "+to;
-            },
-            label: (tooltipItems, data) => {
-              return data.datasets[tooltipItems.datasetIndex].label + ": " + (100.0*tooltipItems.yLabel).toFixed(1) + "%";
-            }
-          }
-        },
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            type: "time",
-            time: {
-              unit: "hour",
-              displayFormats: {
-                hour: "HH:mm"
-              },
-              tooltipFormat: "HH:mm"
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              mix: 0.0,
-              max: 1.0,
-              beginAtZero: true,
-              callback: (value, index, values) => Math.round(value*100) + "%"
-            },
-            stacked: true
-          }]
-        },
-        maintainAspectRatio: true
-      }
-    };
-
     this.updateGraph = this.updateGraph.bind(this);
   }
 
@@ -128,9 +128,7 @@ export default class ForwardDestOverTime extends Component {
       data.labels = labels;
       data.datasets = datasets;
 
-      this.setState({
-        data: data
-      });
+      this.setState({ data });
     })
     .catch(() => null);
   }

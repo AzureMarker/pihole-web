@@ -5,15 +5,13 @@ import 'react-table/react-table.css';
 
 export default class QueryLog extends Component {
   updateHandler = null;
+  state = {
+    history: [],
+    loading: true
+  };
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      history: [],
-      loading: true
-    };
-
     this.updateTable = this.updateTable.bind(this);
   }
 
