@@ -6,7 +6,7 @@ import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 import Dashboard from '../../views/Dashboard/';
-import QueryLog from '../../views/QueryLog';
+import QueryLog from '../../components/QueryLog';
 
 class Full extends Component {
   render() {
