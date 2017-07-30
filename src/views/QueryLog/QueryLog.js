@@ -118,7 +118,8 @@ const columns = [
   },
   {
     Header: "Action",
-    minWidth: 80
+    minWidth: 80,
+    filterable: false
   }
 ];
 
