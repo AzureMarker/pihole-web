@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 
-class Sidebar extends Component {
+export default class Sidebar extends Component {
   handleClick(e) {
     e.preventDefault();
     e.target.parentElement.classList.toggle('open');
@@ -55,5 +55,3 @@ class Sidebar extends Component {
     )
   }
 }
-
-export default Sidebar;

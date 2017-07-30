@@ -3,7 +3,7 @@ import { api, makeCancelable, padNumber } from '../../utils';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-class QueryLog extends Component {
+export default class QueryLog extends Component {
   updateHandler = null;
 
   constructor(props) {
@@ -122,5 +122,3 @@ const columns = [
     filterable: false
   }
 ];
-
-export default QueryLog;

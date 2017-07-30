@@ -9,7 +9,7 @@ import Dashboard from '../../views/Dashboard';
 import QueryLog from '../../components/QueryLog';
 import Whitelist from '../../views/Whitelist';
 
-class Full extends Component {
+export default class Full extends Component {
   render() {
     return (
       <div className="app">
@@ -34,5 +34,3 @@ class Full extends Component {
     );
   }
 }
-
-export default Full;

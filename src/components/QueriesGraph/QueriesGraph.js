@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
-class QueriesGraph extends Component {
+export default class QueriesGraph extends Component {
   constructor(props) {
     super(props);
 
@@ -159,5 +159,3 @@ class QueriesGraph extends Component {
     );
   }
 }
-
-export default QueriesGraph;

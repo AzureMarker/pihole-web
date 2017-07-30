@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
-class SummaryStats extends Component {
+export default class SummaryStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,5 +85,3 @@ class SummaryStats extends Component {
     );
   }
 }
-
-export default SummaryStats;

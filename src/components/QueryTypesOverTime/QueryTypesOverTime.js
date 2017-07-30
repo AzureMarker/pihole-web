@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
-class QueryTypesOverTime extends Component {
+export default class QueryTypesOverTime extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -157,5 +157,3 @@ class QueryTypesOverTime extends Component {
     );
   }
 }
-
-export default QueryTypesOverTime;

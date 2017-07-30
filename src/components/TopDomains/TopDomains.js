@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
-class TopDomains extends Component {
+export default class TopDomains extends Component {
   constructor(props) {
     super(props);
 
@@ -86,5 +86,3 @@ class TopDomains extends Component {
     );
   }
 }
-
-export default TopDomains;

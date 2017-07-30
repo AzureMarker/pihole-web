@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { api, makeCancelable } from '../../utils';
 
-class TopBlocked extends Component {
+export default class TopBlocked extends Component {
   constructor(props) {
     super(props);
 
@@ -86,5 +86,3 @@ class TopBlocked extends Component {
     );
   }
 }
-
-export default TopBlocked;

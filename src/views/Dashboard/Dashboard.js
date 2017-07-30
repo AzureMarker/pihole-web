@@ -7,7 +7,7 @@ import TopDomains from './../../components/TopDomains';
 import TopBlocked from './../../components/TopBlocked';
 import TopClients from './../../components/TopClients';
 
-class Dashboard extends Component {
+export default class Dashboard extends Component {
   render() {
     return (
       <div className="animated fadeIn">
@@ -26,5 +26,3 @@ class Dashboard extends Component {
     );
   }
 }
-
-export default Dashboard;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
 
-class ForwardDestOverTime extends Component {
+export default class ForwardDestOverTime extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -167,5 +167,3 @@ class ForwardDestOverTime extends Component {
     );
   }
 }
-
-export default ForwardDestOverTime;
