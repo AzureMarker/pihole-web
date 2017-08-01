@@ -50,7 +50,7 @@ export default class Whitelist extends Component {
           this.state.successMsg
             ? <Alert message={this.state.successMsg} type="success" onClick={() => this.setState({ successMsg: "" })}/>
             : null
-          }
+        }
         {
           this.state.errorMsg
             ? <Alert message={this.state.errorMsg} type="danger" onClick={() => this.setState({ errorMsg: "" })}/>
@@ -63,7 +63,7 @@ export default class Whitelist extends Component {
                 <button className="btn btn-danger btn-sm pull-right" type="button">
                   <span className="fa fa-trash-o"/>
                 </button>
-                <span style={{display: "table-cell", verticalAlign: "middle", height: "32px"}}>
+                <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
                   {item}
                 </span>
               </li>
