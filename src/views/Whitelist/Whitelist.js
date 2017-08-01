@@ -14,6 +14,8 @@ export default class Whitelist extends Component {
   constructor(props) {
     super(props);
     this.onAdd = this.onAdd.bind(this);
+    this.onRemove = this.onRemove.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
   }
 
   onAdd(domain) {
@@ -58,6 +60,17 @@ export default class Whitelist extends Component {
     }
   }
 
+  onRefresh() {
+    this.refreshHandler = makeCancelable(api.getWhitelist());
+    this.refreshHandler.promise.then(data => {
+      this.setState({ domains: data.whitelist });
+    });
+  }
+
+  componentDidMount() {
+    this.onRefresh();
+  }
+
   componentWillUnmount() {
     if(this.addHandler)
       this.addHandler.cancel();
@@ -68,10 +81,10 @@ export default class Whitelist extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: "24px" }}>
         <h2 style={{textAlign: "center"}}>Whitelist</h2>
         <br/>
-        <DomainInput onAdd={this.onAdd} onRefresh={console.log}/>
+        <DomainInput onAdd={this.onAdd} onRefresh={this.onRefresh}/>
         <p>Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.</p>
         <p>
           Some of the domains shown below are the ad list domains, which are automatically added in order to prevent
