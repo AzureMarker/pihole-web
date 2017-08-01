@@ -76,6 +76,16 @@ export const api = {
   getHistory() {
     return this.get("stats/history");
   },
+  getWhitelist() {
+    return this.get("dns/whitelist");
+  },
+  //TODO: Implement whitelisting in FTL API
+  addWhitelist(domain) {
+    return new Promise(resolve => setTimeout(() => resolve({ status: "success" }), 1000));
+  },
+  removeWhitelist(domain) {
+    return new Promise(resolve => setTimeout(() => resolve({ status: "success" }), 1000));
+  },
   get(url) {
     return fetch(this.urlFor(url)).then(data => data.json());
   },
