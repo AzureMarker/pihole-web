@@ -18,15 +18,26 @@ export default class Whitelist extends Component {
   onAdd(domain) {
     if(domain.length > 0) {
       if(this.state.domains.includes(domain))
-        this.setState({ errorMsg: domain + " is already added", successMsg: "", infoMsg: "" });
+        this.setState({
+          infoMsg: "",
+          successMsg: "",
+          errorMsg: domain + " is already added"
+        });
       else {
         this.setState(prevState => ({
           domains: [...prevState.domains, domain],
-          successMsg: "Successfully added " + domain,
           infoMsg: "",
+          successMsg: "Successfully added " + domain,
           errorMsg: ""
         }));
       }
+    }
+  }
+
+  onRemove(domain) {
+    if(this.state.domains.includes(domain)) {
+      //TODO: Run API call to remove domain
+      this.setState(prevState => ({ domains: prevState.domains.filter(item => item !== domain) }));
     }
   }
 
@@ -60,7 +71,7 @@ export default class Whitelist extends Component {
           {
             this.state.domains.map(item => (
               <li key={item} className="list-group-item">
-                <button className="btn btn-danger btn-sm pull-right" type="button">
+                <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
                   <span className="fa fa-trash-o"/>
                 </button>
                 <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
