@@ -44,6 +44,8 @@ export default class Whitelist extends Component {
   render() {
     return (
       <div>
+        <h2 style={{textAlign: "center"}}>Whitelist</h2>
+        <br/>
         <DomainInput onAdd={this.onAdd} onRefresh={console.log}/>
         <p>Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.</p>
         <p>
