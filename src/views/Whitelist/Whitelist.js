@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DomainInput from "../../components/DomainInput";
 import Alert from "../../components/Alert";
+import { api, makeCancelable } from "../../utils";
 
 export default class Whitelist extends Component {
   state = {
@@ -24,12 +25,17 @@ export default class Whitelist extends Component {
           errorMsg: domain + " is already added"
         });
       else {
-        this.setState(prevState => ({
-          domains: [...prevState.domains, domain],
-          infoMsg: "",
-          successMsg: "Successfully added " + domain,
-          errorMsg: ""
-        }));
+        this.addHandler = makeCancelable(api.addWhitelist(domain));
+        this.addHandler.promise.then(() => {
+          this.setState(prevState => ({
+            domains: [...prevState.domains, domain],
+            infoMsg: "",
+            successMsg: "Successfully added " + domain,
+            errorMsg: ""
+          }));
+        });
+
+        this.setState({ infoMsg: "Adding " + domain + " ..." });
       }
     }
   }
@@ -39,6 +45,11 @@ export default class Whitelist extends Component {
       //TODO: Run API call to remove domain
       this.setState(prevState => ({ domains: prevState.domains.filter(item => item !== domain) }));
     }
+  }
+
+  componentWillUnmount() {
+    if(this.addHandler)
+      this.addHandler.cancel();
   }
 
   render() {
