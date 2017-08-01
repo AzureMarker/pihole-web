@@ -18,7 +18,7 @@ export default class Whitelist extends Component {
   onAdd(domain) {
     if(domain.length > 0) {
       if(this.state.domains.includes(domain))
-        this.setState({ errorMsg: "That domain is already added", successMsg: "", infoMsg: "" });
+        this.setState({ errorMsg: domain + " is already added", successMsg: "", infoMsg: "" });
       else {
         this.setState(prevState => ({
           domains: [...prevState.domains, domain],
@@ -41,9 +41,21 @@ export default class Whitelist extends Component {
           See <a href="https://github.com/pi-hole/pi-hole/blob/master/adlists.default" target="_blank" rel="noopener noreferrer">here</a> for
           the default set of ad lists.
         </p>
-        {this.state.infoMsg ? Alert(this.state.infoMsg, "info", () => this.setState({ infoMsg: "" })) : null}
-        {this.state.successMsg ? Alert(this.state.successMsg, "success", () => this.setState({ successMsg: "" })) : null}
-        {this.state.errorMsg ? Alert(this.state.errorMsg, "danger", () => this.setState({ errorMsg: "" })) : null}
+        {
+          this.state.infoMsg
+            ? <Alert message={this.state.infoMsg} type="info" onClick={() => this.setState({ infoMsg: "" })}/>
+            : null
+        }
+        {
+          this.state.successMsg
+            ? <Alert message={this.state.successMsg} type="success" onClick={() => this.setState({ successMsg: "" })}/>
+            : null
+          }
+        {
+          this.state.errorMsg
+            ? <Alert message={this.state.errorMsg} type="danger" onClick={() => this.setState({ errorMsg: "" })}/>
+            : null
+        }
         <ul className="list-group">
           {
             this.state.domains.map(item => (
