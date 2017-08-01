@@ -42,7 +42,18 @@ export default class Whitelist extends Component {
 
   onRemove(domain) {
     if(this.state.domains.includes(domain)) {
-      //TODO: Run API call to remove domain
+      const prevDomains = this.state.domains.slice();
+
+      this.removeHandler = makeCancelable(api.removeWhitelist(domain));
+      this.removeHandler.promise.catch(() => {
+        this.setState(prevState => ({
+          domains: prevDomains,
+          infoMsg: "",
+          successMsg: "",
+          errorMsg: "Failed to remove " + domain
+        }));
+      });
+
       this.setState(prevState => ({ domains: prevState.domains.filter(item => item !== domain) }));
     }
   }
@@ -50,6 +61,9 @@ export default class Whitelist extends Component {
   componentWillUnmount() {
     if(this.addHandler)
       this.addHandler.cancel();
+
+    if(this.removeHandler)
+      this.removeHandler.cancel();
   }
 
   render() {
