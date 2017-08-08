@@ -77,6 +77,9 @@ export default class Whitelist extends Component {
 
     if(this.removeHandler)
       this.removeHandler.cancel();
+
+    if(this.refreshHandler)
+      this.refreshHandler.cancel();
   }
 
   render() {
