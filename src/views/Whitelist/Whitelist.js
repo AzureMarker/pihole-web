@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DomainInput from "../../components/DomainInput";
 import Alert from "../../components/Alert";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
+import DomainList from "../../components/DomainList";
 
 export default class Whitelist extends Component {
   state = {
@@ -85,7 +86,7 @@ export default class Whitelist extends Component {
   render() {
     return (
       <div style={{ marginBottom: "24px" }}>
-        <h2 style={{textAlign: "center"}}>Whitelist</h2>
+        <h2 className="text-center">Whitelist</h2>
         <br/>
         <DomainInput onAdd={this.onAdd} onRefresh={this.onRefresh}/>
         <p>Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.</p>
@@ -110,20 +111,7 @@ export default class Whitelist extends Component {
             ? <Alert message={this.state.errorMsg} type="danger" onClick={() => this.setState({ errorMsg: "" })}/>
             : null
         }
-        <ul className="list-group">
-          {
-            this.state.domains.map(item => (
-              <li key={item} className="list-group-item">
-                <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
-                  <span className="fa fa-trash-o"/>
-                </button>
-                <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
-                  {item}
-                </span>
-              </li>
-            ))
-          }
-        </ul>
+        <DomainList domains={this.state.domains} onRemove={this.onRemove}/>
       </div>
     );
   }
