@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api, makeCancelable } from '../../utils';
+import { api, ignoreCancel, makeCancelable } from '../../utils';
 
 export default class TopBlocked extends Component {
   state = {
@@ -19,7 +19,7 @@ export default class TopBlocked extends Component {
         total_blocked: res.ads_blocked_today,
         top_blocked: res.top_ads
       });
-    });
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {

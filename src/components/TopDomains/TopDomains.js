@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api, makeCancelable } from '../../utils';
+import { api, ignoreCancel, makeCancelable } from '../../utils';
 
 export default class TopDomains extends Component {
   state = {
@@ -19,7 +19,7 @@ export default class TopDomains extends Component {
         total_queries: res.dns_queries_today,
         top_domains: res.top_domains
       });
-    });
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {

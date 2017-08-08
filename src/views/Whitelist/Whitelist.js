@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DomainInput from "../../components/DomainInput";
 import Alert from "../../components/Alert";
-import { api, makeCancelable } from "../../utils";
+import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 export default class Whitelist extends Component {
   state = {
@@ -35,7 +35,7 @@ export default class Whitelist extends Component {
             successMsg: "Successfully added " + domain,
             errorMsg: ""
           }));
-        });
+        }).catch(ignoreCancel);
 
         this.setState({ infoMsg: "Adding " + domain + " ..." });
       }
@@ -47,7 +47,7 @@ export default class Whitelist extends Component {
       const prevDomains = this.state.domains.slice();
 
       this.removeHandler = makeCancelable(api.removeWhitelist(domain));
-      this.removeHandler.promise.catch(() => {
+      this.removeHandler.promise.catch(ignoreCancel).catch(() => {
         this.setState(prevState => ({
           domains: prevDomains,
           infoMsg: "",
@@ -64,7 +64,7 @@ export default class Whitelist extends Component {
     this.refreshHandler = makeCancelable(api.getWhitelist());
     this.refreshHandler.promise.then(data => {
       this.setState({ domains: data.whitelist });
-    });
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {

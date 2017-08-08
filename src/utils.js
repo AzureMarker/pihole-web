@@ -51,6 +51,11 @@ export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) =>
   };
 };
 
+export const ignoreCancel = err => {
+  if(!err.isCanceled)
+    throw err;
+};
+
 export const api = {
   getSummary() {
     return this.get("stats/summary");

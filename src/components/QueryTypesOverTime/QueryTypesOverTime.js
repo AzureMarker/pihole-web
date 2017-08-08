@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
+import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../../utils';
 
 export default class QueryTypesOverTime extends Component {
   state = {
@@ -119,8 +119,7 @@ export default class QueryTypesOverTime extends Component {
       data.datasets[1].data = data_AAAA;
 
       this.setState({ data });
-    })
-    .catch(() => null);
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {

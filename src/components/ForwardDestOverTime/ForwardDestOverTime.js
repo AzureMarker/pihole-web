@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api, makeCancelable } from '../../utils';
+import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../../utils';
 
 export default class ForwardDestOverTime extends Component {
   state = {
@@ -129,8 +129,7 @@ export default class ForwardDestOverTime extends Component {
       data.datasets = datasets;
 
       this.setState({ data });
-    })
-    .catch(() => null);
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {

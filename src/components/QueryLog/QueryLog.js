@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { api, makeCancelable, padNumber } from '../../utils';
+import { api, ignoreCancel, makeCancelable, padNumber } from '../../utils';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
@@ -22,7 +22,7 @@ export default class QueryLog extends Component {
         history: data.history,
         loading: false
       });
-    });
+    }).catch(ignoreCancel);
   }
 
   componentDidMount() {
