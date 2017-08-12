@@ -94,7 +94,11 @@ export const api = {
     return fetch(this.urlFor(url)).then(data => data.json());
   },
   post(url, data) {
-    return fetch(this.urlFor(url), { method: "POST", body: JSON.stringify(data) }).then(data => data.json());
+    return fetch(this.urlFor(url), {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: new Headers({ "Content-Type": "application/json" })
+    }).then(data => data.json());
   },
   delete(url) {
     return fetch(this.urlFor(url), { method: "DELETE" }).then(data => data.json());
