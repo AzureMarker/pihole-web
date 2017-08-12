@@ -38,7 +38,11 @@ export default class Whitelist extends Component {
           }));
         }).catch(ignoreCancel);
 
-        this.setState({ infoMsg: "Adding " + domain + " ..." });
+        this.setState({
+          infoMsg: "Adding " + domain + " ...",
+          successMsg: "",
+          errorMsg: ""
+        });
       }
     }
   }
