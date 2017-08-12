@@ -84,15 +84,20 @@ export const api = {
   getWhitelist() {
     return this.get("dns/whitelist");
   },
-  //TODO: Implement whitelisting in FTL API
   addWhitelist(domain) {
-    return new Promise(resolve => setTimeout(() => resolve({ status: "success" }), 1000));
+    return this.post("dns/whitelist", { "domain": domain });
   },
   removeWhitelist(domain) {
-    return new Promise(resolve => setTimeout(() => resolve({ status: "success" }), 1000));
+    return this.delete("dns/whitelist/" + domain);
   },
   get(url) {
     return fetch(this.urlFor(url)).then(data => data.json());
+  },
+  post(url, data) {
+    return fetch(this.urlFor(url), { method: "POST", body: JSON.stringify(data) }).then(data => data.json());
+  },
+  delete(url) {
+    return fetch(this.urlFor(url), { method: "DELETE" }).then(data => data.json());
   },
   urlFor(endpoint) {
     let apiLocation;
