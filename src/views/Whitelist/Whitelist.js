@@ -28,6 +28,8 @@ export default class Whitelist extends Component {
           errorMsg: domain + " is already added"
         });
       else {
+        const prevDomains = this.state.domains.slice();
+
         this.addHandler = makeCancelable(api.addWhitelist(domain));
         this.addHandler.promise.then(() => {
           this.setState(prevState => ({
@@ -36,7 +38,15 @@ export default class Whitelist extends Component {
             successMsg: "Successfully added " + domain,
             errorMsg: ""
           }));
-        }).catch(ignoreCancel);
+        }).catch(ignoreCancel).catch(res => {
+          console.log(res);
+          this.setState({
+            domains: prevDomains,
+            infoMsg: "",
+            successMsg: "",
+            errorMsg: "Failed to add " + domain
+          });
+        });
 
         this.setState({
           infoMsg: "Adding " + domain + " ...",

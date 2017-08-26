@@ -91,17 +91,23 @@ export const api = {
     return this.delete("dns/whitelist/" + domain);
   },
   get(url) {
-    return fetch(this.urlFor(url)).then(data => data.json());
+    return fetch(this.urlFor(url)).then(this.convertJSON);
   },
   post(url, data) {
     return fetch(this.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" })
-    }).then(data => data.json());
+    }).then(this.convertJSON);
   },
   delete(url) {
-    return fetch(this.urlFor(url), { method: "DELETE" }).then(data => data.json());
+    return fetch(this.urlFor(url), { method: "DELETE" }).then(this.convertJSON);
+  },
+  async convertJSON(data) {
+    if(!data.ok)
+      return Promise.reject({ data: data, json: await data.json() });
+    else
+      return data.json();
   },
   urlFor(endpoint) {
     let apiLocation;
