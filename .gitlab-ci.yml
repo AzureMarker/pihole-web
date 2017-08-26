@@ -8,9 +8,13 @@ pages:
   - npm -v
   - node -v
   - npm install
+  - npm ls
   - npm run build
   - rm -rf public
   - mv build public
+  cache:
+    paths:
+    - node_modules/
   artifacts:
     paths:
     - public # mandatory, other folder won't work
