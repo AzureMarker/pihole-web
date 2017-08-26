@@ -5,6 +5,8 @@ pages:
   variables:
     REACT_APP_FAKE_API: 1
   script:
+  - npm -v
+  - node -v
   - npm install
   - npm run build
   - rm -rf public
