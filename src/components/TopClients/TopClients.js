@@ -55,11 +55,13 @@ export default class TopClients extends Component {
 
                     // Check if we have the IP and hostname
                     // ex. localhost|127.0.0.1
+                    const parts = item.split("|");
                     if(item.includes("|")) {
-                      const parts = item.split("|");
                       hostname = parts[0];
                       ipAddr = parts[1];
                     }
+                    else
+                      ipAddr = parts[0];
 
                     return (
                       <tr key={item}>
