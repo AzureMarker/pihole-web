@@ -114,7 +114,7 @@ export const api = {
 
     if(config.developmentMode) {
       if(config.fakeAPI)
-        apiLocation = window.location.host + "/fakeAPI";
+        apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
       else
         apiLocation = "pi.hole:4747";
     }
