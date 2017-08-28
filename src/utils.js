@@ -119,6 +119,6 @@ export const api = {
     else
       apiLocation = window.location.hostname + ":4747";
 
-    return location.protocol + "//" + apiLocation + "/" + endpoint;
+    return window.location.protocol + "//" + apiLocation + "/" + endpoint;
   }
 };
