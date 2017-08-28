@@ -112,12 +112,10 @@ export const api = {
   urlFor(endpoint) {
     let apiLocation;
 
-    if(config.developmentMode) {
-      if(config.fakeAPI)
-        apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
-      else
-        apiLocation = "pi.hole:4747";
-    }
+    if(config.fakeAPI)
+      apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
+    else if(config.developmentMode)
+      apiLocation = "pi.hole:4747";
     else
       apiLocation = window.location.hostname + ":4747";
 
