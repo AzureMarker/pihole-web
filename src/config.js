@@ -10,4 +10,6 @@ else
 if(process.env.REACT_APP_FAKE_API)
   config.fakeAPI = true;
 
+console.log(config);
+
 export default config;
