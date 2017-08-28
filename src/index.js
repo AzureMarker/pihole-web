@@ -7,11 +7,9 @@ import Full from './containers/Full'
 
 const history = createBrowserHistory();
 
-console.log(process.env.PUBLIC_URL);
-
 ReactDOM.render(
   (
-    <HashRouter basename={process.env.PUBLIC_URL} history={history}>
+    <HashRouter history={history}>
       <Switch>
         <Route path="/" name="Home" component={Full}/>
       </Switch>
