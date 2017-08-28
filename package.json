@@ -2,7 +2,7 @@
   "name": "pi-hole_web",
   "version": "1.0.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "/admin",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
