@@ -86,7 +86,6 @@ export default class ListPage extends Component {
         <DomainInput
           domains={this.state.domains}
           apiCall={this.props.add}
-          hasWildcard={false}
           onAdding={this.onAdding}
           onAlreadyAdded={this.onAlreadyAdded}
           onAdded={this.onAdded}
