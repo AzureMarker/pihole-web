@@ -4,7 +4,7 @@ import ListPage from "../../components/ListPage";
 
 export default props => (
   <ListPage
-    title="Blacklist"
+    title="Blacklist (Exact)"
     add={api.addBlacklist}
     remove={api.removeBlacklist}
     refresh={api.getBlacklist}
