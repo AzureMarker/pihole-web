@@ -9,6 +9,7 @@ import Dashboard from '../../views/Dashboard';
 import QueryLog from '../../components/QueryLog';
 import Whitelist from "../../views/Whitelist";
 import Blacklist from "../../views/Blacklist";
+import Wildlist from "../../views/Wildlist/Wildlist";
 
 export default props => (
   <div className="app">
@@ -24,6 +25,7 @@ export default props => (
             <Route path="/query-log" name="Query Log" component={QueryLog}/>
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
+            <Route path="/wildlist" name="Wildlist" component={Wildlist}/>
           </Switch>
         </div>
       </main>
