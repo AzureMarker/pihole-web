@@ -48,6 +48,11 @@ export default () => (
             <i className="fa fa-check-square-o"/> Whitelist
           </NavLink>
         </li>
+        <li className="nav-item">
+          <NavLink to={'/blacklist'} className="nav-link" activeClassName="active">
+            <i className="fa fa-ban"/> Blacklist
+          </NavLink>
+        </li>
       </ul>
     </nav>
   </div>

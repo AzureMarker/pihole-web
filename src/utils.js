@@ -58,54 +58,72 @@ export const ignoreCancel = err => {
 
 export const api = {
   getSummary() {
-    return this.get("stats/summary");
+    return api.get("stats/summary");
   },
   getGraph() {
-    return this.get("stats/overTime/graph");
+    return api.get("stats/overTime/graph");
   },
   getQueryTypesOverTime() {
-    return this.get("stats/overTime/query_types");
+    return api.get("stats/overTime/query_types");
   },
   getForwardDestOverTime() {
-    return this.get("stats/overTime/forward_dest");
+    return api.get("stats/overTime/forward_dest");
   },
   getTopDomains() {
-    return this.get("stats/top_domains");
+    return api.get("stats/top_domains");
   },
   getTopBlocked() {
-    return this.get("stats/top_ads");
+    return api.get("stats/top_ads");
   },
   getTopClients() {
-    return this.get("stats/top_clients");
+    return api.get("stats/top_clients");
   },
   getHistory() {
-    return this.get("stats/history");
+    return api.get("stats/history");
   },
   getWhitelist() {
-    return this.get("dns/whitelist");
+    return api.get("dns/whitelist");
+  },
+  getBlacklist() {
+    return api.get("dns/blacklist");
+  },
+  getWildlist() {
+    return api.get("dns/wildlist");
   },
   addWhitelist(domain) {
-    return this.post("dns/whitelist", { "domain": domain });
+    return api.post("dns/whitelist", { "domain": domain });
+  },
+  addBlacklist(domain) {
+    return api.post("dns/blacklist", { "domain": domain });
+  },
+  addWildlist(domain) {
+    return api.post("dns/wildlist", { "domain": domain });
   },
   removeWhitelist(domain) {
-    return this.delete("dns/whitelist/" + domain);
+    return api.delete("dns/whitelist/" + domain);
+  },
+  removeBlacklist(domain) {
+    return api.delete("dns/blacklist/" + domain);
+  },
+  removeWildlist(domain) {
+    return api.delete("dns/wildlist/" + domain);
   },
   get(url) {
-    return fetch(this.urlFor(url)).then(this.convertJSON);
+    return fetch(api.urlFor(url)).then(api.convertJSON);
   },
   post(url, data) {
-    return fetch(this.urlFor(url), {
+    return fetch(api.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" })
-    }).then(this.convertJSON);
+    }).then(api.convertJSON);
   },
   delete(url) {
-    return fetch(this.urlFor(url), { method: "DELETE" }).then(this.convertJSON);
+    return fetch(api.urlFor(url), { method: "DELETE" }).then(api.convertJSON);
   },
   async convertJSON(data) {
     if(!data.ok)
-      return Promise.reject({ data: data, json: await data.json() });
+      return Promise.reject({ data, json: await data.json() });
     else
       return data.json();
   },

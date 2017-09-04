@@ -1,26 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ignoreCancel, makeCancelable } from "../../utils";
 
 export default class DomainInput extends Component {
   state = {
     domain: ""
   };
 
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.onAdd = this.onAdd.bind(this);
-  }
-
-  handleChange(e) {
+  handleChange = (e) =>
     this.setState({ domain: e.target.value });
-  }
 
-  onAdd() {
-    this.props.onAdd(this.state.domain);
-    this.setState({ domain: "" });
-  }
+  onAdd = () => {
+    if(this.state.domain.length > 0) {
+      if(this.props.domains.includes(this.state.domain))
+        this.props.onAlreadyAdded(this.state.domain);
+      else {
+        const prevDomains = this.props.domains.slice();
+        const domain = this.state.domain;
+
+        this.addHandler = makeCancelable(this.props.apiCall(this.state.domain));
+        this.addHandler.promise.then(() => {
+          this.props.onAdded(domain)
+        }).catch(ignoreCancel).catch(() => {
+          this.props.onFailed(domain, prevDomains)
+        });
+
+        this.props.onAdding(this.state.domain)
+      }
+
+      this.setState({ domain: "" });
+    }
+  };
 
   render() {
     return (
@@ -44,6 +54,11 @@ export default class DomainInput extends Component {
 }
 
 DomainInput.propTypes = {
-  onAdd: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired
+  domains: PropTypes.array.isRequired,
+  onAdding: PropTypes.func.isRequired,
+  onAlreadyAdded: PropTypes.func.isRequired,
+  onAdded: PropTypes.func.isRequired,
+  onFailed: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired,
+  apiCall: PropTypes.func.isRequired
 };
