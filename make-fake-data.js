@@ -167,9 +167,6 @@ function write(path, data) {
   fs.writeFileSync(path, JSON.stringify(data));
 }
 
-console.log(JSON.stringify(topList(10, 10, faker.internet.domainName)));
-console.log(JSON.stringify(topAds(10)));
-
 console.log("Deleting old fake API data...");
 
 remove("public/fakeAPI/dns/whitelist");
