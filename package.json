@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "/admin",
   "devDependencies": {
+    "faker": "^4.1.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-sass": "^2.3.2",
@@ -26,8 +27,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-fake": "REACT_APP_FAKE_API=1 react-scripts start",
+    "start-fake": "node make-fake-data.js && REACT_APP_FAKE_API=1 react-scripts start",
     "build": "react-scripts build",
+    "build-fake": "node make-fake-data.js && REACT_APP_FAKE_API=1 react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
