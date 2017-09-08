@@ -158,13 +158,13 @@ function remove(path) {
   }
 }
 
-function write(path, data) {
-  const dir = path.dirname(path);
+function write(filePath, data) {
+  const dir = path.dirname(filePath);
 
   if(!fs.existsSync(dir))
     fs.mkdirSync(dir);
 
-  fs.writeFileSync(path, JSON.stringify(data));
+  fs.writeFileSync(filePath, JSON.stringify(data));
 }
 
 console.log("Deleting old fake API data...");
