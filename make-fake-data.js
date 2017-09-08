@@ -1,5 +1,6 @@
 const faker = require('faker');
 const fs = require('fs');
+const path = require('path');
 
 function list(listType) {
   const result = {};
@@ -158,6 +159,11 @@ function remove(path) {
 }
 
 function write(path, data) {
+  const dir = path.dirname(path);
+
+  if(!fs.existsSync(dir))
+    fs.mkdirSync(dir);
+
   fs.writeFileSync(path, JSON.stringify(data));
 }
 
