@@ -1,6 +1,7 @@
 const faker = require('faker');
 const fs = require('fs');
 const path = require('path');
+const mkdirp = require('mkdirp');
 
 function list(listType) {
   const result = {};
@@ -162,7 +163,7 @@ function write(filePath, data) {
   const dir = path.dirname(filePath);
 
   if(!fs.existsSync(dir))
-    fs.mkdirSync(dir);
+    mkdirp.sync(dir);
 
   fs.writeFileSync(filePath, JSON.stringify(data));
 }
