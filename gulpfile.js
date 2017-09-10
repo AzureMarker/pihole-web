@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
+let gulp = require('gulp');
+let concat = require('gulp-concat');
+let sass = require('gulp-sass');
 
 gulp.task('sass', function () {
   return gulp.src('./scss/style.scss')
