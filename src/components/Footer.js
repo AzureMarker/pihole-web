@@ -13,9 +13,9 @@ import React from 'react';
 
 export default () => (
   <footer className="app-footer">
-    <div className="pull-right hidden-xs">
-      <b>Pi-hole Version </b> <span id="piholeVersion">vDev </span>
-      <b>Web Interface Version </b> <span id="webVersion">vDev</span>
+    <div className="pull-right">
+      <b className="hidden-xs-down">Core Version: </b><b className="hidden-sm-up">C: </b> <span id="piholeVersion">vDev</span>
+      <b className="hidden-xs-down"> Admin Version: </b><b className="hidden-sm-up"> A: </b> <span id="webVersion">vDev</span>
     </div>
     <div>
       <i className="fa fa-github"/> <strong>

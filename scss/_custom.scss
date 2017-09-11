@@ -1,1 +1,12 @@
 // Here you can add other styles
+@include media-breakpoint-down(xs) {
+  .hidden-xs-down {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .hidden-sm-up {
+    display: none;
+  }
+}
