@@ -10,6 +10,7 @@
 
 
 import React from 'react';
+import { Link } from "react-router-dom";
 
 //const sidebarToggle = (e) => {
 //  e.preventDefault();
@@ -34,11 +35,11 @@ const mobileSidebarToggle = (e) => {
 export default () => (
   <header className="app-header navbar">
     <button className="navbar-toggler mobile-sidebar-toggler d-lg-none" onClick={mobileSidebarToggle} type="button">&#9776;</button>
-    <a className="navbar-brand" href="https://pi-hole.net">
+    <Link to="/dashboard" className="navbar-brand">
       <span style={{color: "white", paddingLeft: "45px", lineHeight: "40px"}}>
         Pi-<b>hole</b>
       </span>
-    </a>
+    </Link>
     <ul className="nav navbar-nav d-md-down-none mr-auto">
       <li className="nav-item">
         <button className="nav-link navbar-toggler sidebar-toggler" type="button" onClick={sidebarMinimize}>&#9776;</button>
