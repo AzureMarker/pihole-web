@@ -12,22 +12,21 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-//const sidebarToggle = (e) => {
+//const sidebarToggle = e => {
 //  e.preventDefault();
 //  document.body.classList.toggle('sidebar-hidden');
 //};
 
-const sidebarMinimize = (e) => {
+const sidebarMinimize = e => {
   e.preventDefault();
   document.body.classList.toggle('sidebar-minimized');
 };
 
-const mobileSidebarToggle = (e) => {
-  e.preventDefault();
+export const mobileSidebarToggle = () => {
   document.body.classList.toggle('sidebar-mobile-show');
 };
 
-//const asideToggle = (e) => {
+//const asideToggle = e => {
 //  e.preventDefault();
 //  document.body.classList.toggle('aside-menu-hidden');
 //};
