@@ -26,6 +26,10 @@ export const mobileSidebarToggle = () => {
   document.body.classList.toggle('sidebar-mobile-show');
 };
 
+export const mobileSidebarHide = () => {
+  document.body.classList.remove('sidebar-mobile-show');
+};
+
 //const asideToggle = e => {
 //  e.preventDefault();
 //  document.body.classList.toggle('aside-menu-hidden');

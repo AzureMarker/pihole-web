@@ -13,7 +13,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom'
 import { Nav, NavItem } from 'reactstrap';
 import logo from '../img/logo.svg';
-import { mobileSidebarToggle } from "./Header";
+import { mobileSidebarHide } from "./Header";
 
 const nav = {
   items: [
@@ -61,7 +61,7 @@ const activeRoute = (routeName, props) =>
 
 const navItem = (item, key) => (
     <NavItem key={key}>
-    <NavLink to={item.url} onClick={mobileSidebarToggle} className="nav-link" activeClassName="active">
+    <NavLink to={item.url} onClick={mobileSidebarHide} className="nav-link" activeClassName="active">
       <i className={item.icon}/>{item.name}
     </NavLink>
   </NavItem>

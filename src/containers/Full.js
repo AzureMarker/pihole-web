@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Header from '../components/Header';
+import Header, { mobileSidebarHide } from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Breadcrumb from '../components/Breadcrumb';
 import Aside from '../components/Aside';
@@ -27,7 +27,7 @@ export default props => (
     <Header />
     <div className="app-body">
       <Sidebar {...props}/>
-      <main className="main">
+      <main className="main" onClick={mobileSidebarHide}>
         <Breadcrumb />
         <div className="container-fluid">
           <Switch>
