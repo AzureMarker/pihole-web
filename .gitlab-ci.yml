@@ -6,6 +6,7 @@ pages:
     REACT_APP_FAKE_API: 1
   script:
   - npm install
+  - npm run gulp sass
   - npm run build-fake
   - rm -rf public
   - mv build public

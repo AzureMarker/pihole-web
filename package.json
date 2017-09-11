@@ -31,6 +31,7 @@
     "start-fake": "node make-fake-data.js && REACT_APP_FAKE_API=1 react-scripts start",
     "build": "react-scripts build",
     "build-fake": "node make-fake-data.js && REACT_APP_FAKE_API=1 react-scripts build",
+    "gulp": "gulp",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
