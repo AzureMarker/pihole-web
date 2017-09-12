@@ -88,19 +88,21 @@ const columns = [
     Header: "Type",
     id: "type",
     accessor: r => r[1],
-    minWidth: 50
+    minWidth: 40
   },
   {
     Header: "Domain",
     id: "domain",
     accessor: r => r[2],
-    minWidth: 200
+    minWidth: 200,
+    className: "horizontal-scroll"
   },
   {
     Header: "Client",
     id: "client",
     accessor: r => r[3],
-    minWidth: 150
+    minWidth: 120,
+    className: "horizontal-scroll"
   },
   {
     Header: "Status",

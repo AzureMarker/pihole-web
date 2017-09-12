@@ -10,3 +10,8 @@
     display: none;
   }
 }
+
+.ReactTable .rt-td.horizontal-scroll {
+  overflow: auto;
+  text-overflow: clip;
+}
