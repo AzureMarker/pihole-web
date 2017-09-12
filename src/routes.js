@@ -12,5 +12,7 @@
 export default {
   '/dashboard': 'Dashboard',
   '/query-log': 'Query Log',
-  '/whitelist': 'Whitelist'
+  '/whitelist': 'Whitelist',
+  '/blacklist': 'Blacklist (Exact)',
+  '/wildlist': 'Blacklist (Wildcard)'
 };
