@@ -36,11 +36,12 @@ function history(length) {
   return {
     "history": (new Array(length)).fill(null).map((_, i) => {
       const isIPv4 = faker.random.boolean();
+      const isHostname = faker.random.boolean();
       return [
         startDate + i,
         isIPv4 ? "IPv4" : "IPv6",
         faker.internet.domainName(),
-        isIPv4 ? faker.internet.ip() : faker.internet.ipv6(),
+        isHostname ? faker.internet.domainWord() + ".local" : isIPv4 ? faker.internet.ip() : faker.internet.ipv6(),
         Math.floor(Math.random() * 5) + 1
       ];
     })
