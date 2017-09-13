@@ -129,6 +129,20 @@ const columns = [
   {
     Header: "Action",
     minWidth: 80,
-    filterable: false
+    filterable: false,
+    Cell: data => {
+      if([1, 4, 5].includes(data.row.status))
+        return (
+          <button type="button" className="btn btn-success" onClick={() => api.addWhitelist(data.row.domain)}>
+            Whitelist
+          </button>
+        );
+      if([2, 3].includes(data.row.status))
+        return (
+          <button type="button" className="btn btn-danger" onClick={() => api.addBlacklist(data.row.domain)}>
+            Blacklist
+          </button>
+        );
+    }
   }
 ];
