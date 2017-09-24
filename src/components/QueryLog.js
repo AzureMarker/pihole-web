@@ -77,7 +77,7 @@ const columns = [
     Header: "Time",
     id: "time",
     accessor: r => r[0],
-    minWidth: 70,
+    width: 70,
     Cell: row => {
       const date = new Date(row.value * 1000);
 
@@ -88,7 +88,7 @@ const columns = [
     Header: "Type",
     id: "type",
     accessor: r => r[1],
-    minWidth: 40
+    width: 45
   },
   {
     Header: "Domain",
@@ -108,7 +108,7 @@ const columns = [
     Header: "Status",
     id: "status",
     accessor: r => r[4],
-    minWidth: 140,
+    width: 140,
     Cell: row => {
       switch(row.value) {
         case 1:
@@ -128,7 +128,7 @@ const columns = [
   },
   {
     Header: "Action",
-    minWidth: 80,
+    width: 100,
     filterable: false,
     Cell: data => {
       if([1, 4, 5].includes(data.row.status))
