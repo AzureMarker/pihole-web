@@ -8,7 +8,6 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-
 import developmentConfig from './config.development';
 import productionConfig from './config.production';
 
