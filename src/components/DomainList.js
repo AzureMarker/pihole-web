@@ -31,16 +31,22 @@ export default class DomainList extends Component {
     return (
       <ul className="list-group">
         {
-          this.props.domains.map(item => (
-            <li key={item} className="list-group-item">
-              <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
-                <span className="fa fa-trash-o"/>
-              </button>
-              <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
-              {item}
-            </span>
-            </li>
-          ))
+          this.props.domains.length > 0
+            ?
+            this.props.domains.map(item => (
+              <li key={item} className="list-group-item">
+                <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
+                  <span className="fa fa-trash-o"/>
+                </button>
+                <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
+                {item}
+              </span>
+              </li>
+            ))
+            :
+            <div className="alert alert-info" role="alert">
+              There are no domains in this list
+            </div>
         }
       </ul>
     );
