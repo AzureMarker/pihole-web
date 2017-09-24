@@ -2,7 +2,7 @@
 *  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
 *  Network-wide ad blocking via your own hardware.
 *
-*  Admin Web Interface
+*  Web Interface
 *  Queries Graph component
 *
 *  This file is copyright under the latest version of the EUPL.
