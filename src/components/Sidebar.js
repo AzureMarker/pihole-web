@@ -46,6 +46,11 @@ const nav = {
           icon: 'fa fa-ban'
         }
       ]
+    },
+    {
+      name: 'Login',
+      url: '/login',
+      icon: 'fa fa-user'
     }
   ]
 };

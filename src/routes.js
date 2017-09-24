@@ -13,5 +13,6 @@ export default {
   '/query-log': 'Query Log',
   '/whitelist': 'Whitelist',
   '/blacklist': 'Blacklist (Exact)',
-  '/wildlist': 'Blacklist (Wildcard)'
+  '/wildlist': 'Blacklist (Wildcard)',
+  '/login': 'Login'
 };

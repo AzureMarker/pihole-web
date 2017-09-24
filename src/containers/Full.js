@@ -20,14 +20,15 @@ import QueryLog from '../components/QueryLog';
 import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
 import Wildlist from "../views/Wildlist";
+import Login from "../views/Login";
 
 export default props => (
   <div className="app">
-    <Header />
+    <Header/>
     <div className="app-body">
       <Sidebar {...props}/>
       <main className="main" onClick={mobileSidebarHide}>
-        <Breadcrumb />
+        <Breadcrumb/>
         <div className="container-fluid">
           <Switch>
             <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
@@ -36,11 +37,12 @@ export default props => (
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
             <Route path="/wildlist" name="Wildlist" component={Wildlist}/>
+            <Route path="/login" name="Login" component={Login}/>
           </Switch>
         </div>
       </main>
-      <Aside />
+      <Aside/>
     </div>
-    <Footer />
+    <Footer/>
   </div>
 );

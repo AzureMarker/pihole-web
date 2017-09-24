@@ -10,7 +10,33 @@
   }
 }
 
+.app-body {
+  background: #ecf0f5;
+}
+
 .ReactTable .rt-td.horizontal-scroll {
   overflow: auto;
   text-overflow: clip;
+}
+
+.btn-card-tool {
+  background: transparent;
+  color: white;
+  border: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+}
+
+#loginform {
+  padding: 15px;
+}
+
+#loginform div.row {
+  margin: 0;
+}
+
+.login-box-msg {
+  margin: 0;
+  text-align: center;
+  padding: 0 20px 20px 20px;
 }
