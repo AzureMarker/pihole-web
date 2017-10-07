@@ -42,7 +42,7 @@ export default class TopClients extends Component {
 
   render() {
     return (
-      <div className="col-md-6">
+      <div className="col-md-4">
         <div className="card">
           <div className="card-header">
             Top Clients
