@@ -9,3 +9,11 @@ env:
 script:
   - npm run gulp sass
   - npm run build-fake
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local-dir: build
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
