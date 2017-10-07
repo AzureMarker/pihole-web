@@ -5,8 +5,9 @@ cache:
   directories:
     - node_modules
 env:
-  - REACT_APP_FAKE_API=1
-  - PUBLIC_URL=https://pi-hole.github.io/web
+  global:
+    - REACT_APP_FAKE_API=1
+    - PUBLIC_URL=https://pi-hole.github.io/web
 script:
   - npm run gulp sass
   - npm run build-fake
