@@ -10,6 +10,7 @@ env:
 script:
   - npm run gulp sass
   - npm run build-fake
+  - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
 
 deploy:
   provider: pages
