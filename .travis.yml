@@ -9,8 +9,8 @@ env:
     - PUBLIC_URL=/web
 script:
   - npm run gulp sass
-  - npm run build-fake
   - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
+  - npm run build-fake
 
 deploy:
   provider: pages
