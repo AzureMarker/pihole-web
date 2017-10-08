@@ -54,7 +54,9 @@ export default class Login extends Component {
           <div className="card-body">
             <form id="loginform">
               <div className={'form-group' + (this.state.error ? ' has-error' : '')}>
-                <input type="password" className="form-control" value={this.state.password} placeholder="Password" autoFocus/>
+                <input type="password" className="form-control"
+                       value={this.state.password} onChange={e => this.setState({ password: e.target.value })}
+                       placeholder="Password" autoFocus/>
               </div>
               <div className="row">
                 <div className="col-8">
