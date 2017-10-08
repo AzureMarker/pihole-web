@@ -27,6 +27,14 @@
   padding-right: 0;
 }
 
+.has-error {
+  color: rgb(248, 108, 107);
+}
+
+.form-group.has-error .form-control {
+  border-color: rgb(248, 108, 107);
+}
+
 #loginform {
   padding: 15px;
 }

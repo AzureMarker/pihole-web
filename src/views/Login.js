@@ -18,6 +18,28 @@ export default class Login extends Component {
     forgotPasswordCollapsed: true
   };
 
+  handlePasswordChange = e => {
+    if(e.keyCode === 13) {
+      this.onAuth();
+    }
+    else
+      this.setState({ password: e.target.value })
+  };
+
+  onAuth = () => {
+    this.setState({ password: '' });
+
+    // TODO: Authenticate against server
+    let auth = false;
+
+    if(auth) {
+
+    }
+    else {
+      this.setState({ error: true });
+    }
+  };
+
   render() {
     return (
       <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3" style={{'float': 'none'}}>
@@ -56,7 +78,7 @@ export default class Login extends Component {
             <form id="loginform">
               <div className={'form-group' + (this.state.error ? ' has-error' : '')}>
                 <input type="password" className="form-control"
-                       value={this.state.password} onChange={e => this.setState({ password: e.target.value })}
+                       value={this.state.password} onChange={this.handlePasswordChange}
                        placeholder="Password" autoFocus/>
               </div>
               <div className="row">
@@ -67,7 +89,7 @@ export default class Login extends Component {
                   </ul>
                 </div>
                 <div className="col-4">
-                  <button type="submit" href="#" className="btn btn-primary pull-right">
+                  <button type="submit" href="#" className="btn btn-primary pull-right" onClick={this.onAuth}>
                     Log in
                   </button>
                 </div>
@@ -76,14 +98,15 @@ export default class Login extends Component {
                 <div className="row">
                   <div style={{'width': '100%'}}>
                     <div className={'card ' + (this.state.error ? 'border-danger': 'border-primary collapsed-card')}>
-                      <div className={'card-header ' + (this.state.error ? 'bg-danger' : 'bg-primary')}>
+                      <div className={'card-header ' + (this.state.error ? 'bg-danger' : 'bg-primary')}
+                           style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
                         <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
                           Forgot password
                         </h3>
 
                         <span className="pull-right">
-                          <button type="button" className="btn btn-card-tool" style={{ 'cursor': 'pointer' }}
-                                  onClick={() => {
+                          <button type="button" className="btn btn-card-tool"
+                                  style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={() => {
                                     console.log("click");
                                     this.setState({
                                       forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed
