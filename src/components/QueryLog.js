@@ -132,13 +132,13 @@ const columns = [
     Cell: data => {
       if([1, 4, 5].includes(data.row.status))
         return (
-          <button type="button" className="btn btn-success form-control" onClick={() => api.addWhitelist(data.row.domain)}>
+          <button type="button" className="btn btn-success full-width" onClick={() => api.addWhitelist(data.row.domain)}>
             Whitelist
           </button>
         );
       if([2, 3].includes(data.row.status))
         return (
-          <button type="button" className="btn btn-danger form-control" onClick={() => api.addBlacklist(data.row.domain)}>
+          <button type="button" className="btn btn-danger full-width" onClick={() => api.addBlacklist(data.row.domain)}>
             Blacklist
           </button>
         );
