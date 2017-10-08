@@ -13,8 +13,9 @@ import logo from '../img/logo.svg';
 
 export default class Login extends Component {
   state = {
-    'password': '',
-    'error': false
+    password: '',
+    error: false,
+    forgotPasswordCollapsed: true
   };
 
   render() {
@@ -61,7 +62,7 @@ export default class Login extends Component {
               <div className="row">
                 <div className="col-8">
                   <ul style={{'paddingLeft': '10px'}}>
-                    <li><samp>Return</samp> &rarr; Log in and go to requested page ({/* TODO <?php echo $scriptname; ?> */})</li>
+                    <li><samp>Return</samp> &rarr; Log in</li>
                     <li><samp>Ctrl+Return</samp> &rarr; Log in and go to Settings page</li>
                   </ul>
                 </div>
@@ -76,19 +77,29 @@ export default class Login extends Component {
                   <div style={{'width': '100%'}}>
                     <div className={'card ' + (this.state.error ? 'border-danger': 'border-primary collapsed-card')}>
                       <div className={'card-header ' + (this.state.error ? 'bg-danger' : 'bg-primary')}>
-                        <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>Forgot password</h3>
+                        <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
+                          Forgot password
+                        </h3>
 
                         <span className="pull-right">
-                          <button type="button" className="btn btn-card-tool" data-toggle="collapse" data-target="#forgotPassword" aria-expanded="false" aria-controls="forgotPassword">
-                            <i className={'fa ' + (this.state.error ? 'fa-minus' : 'fa-plus')}/>
+                          <button type="button" className="btn btn-card-tool" style={{ 'cursor': 'pointer' }}
+                                  onClick={() => {
+                                    console.log("click");
+                                    this.setState({
+                                      forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed
+                                    })
+                                  }}>
+                            <i className={'fa ' + (!this.state.forgotPasswordCollapsed !== this.state.error ? 'fa-minus' : 'fa-plus')}/>
                           </button>
                         </span>
                       </div>
-                      <div id="forgotPassword" className="card-body bg-light collapse" style={{'padding': '10px'}}>
-                        After installing Pi-hole for the first time, a password is generated and displayed to the user. The
-                        password cannot be retrieved later on, but it is possible to set a new password (or explicitly disable
-                        the password by setting an empty password) using the command
-                        <pre>sudo pihole -a -p</pre>
+                      <div id="forgotPassword"
+                           className={'card-body bg-light' + (this.state.forgotPasswordCollapsed !== this.state.error ? ' collapse' : '')}
+                           style={{'padding': '10px'}}>
+                        After installing Pi-hole for the first time, a password is generated and displayed to the user.
+                        The password cannot be retrieved later on, but it is possible to set a new password (or
+                        explicitly disable the password by setting an empty password) using the command:
+                        <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
                       </div>
                     </div>
                   </div>
