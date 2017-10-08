@@ -19,11 +19,11 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="mainbox col-md-6 offset-md-3 col-sm-8 offset-sm-2" style={{'float': 'none'}}>
+      <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3" style={{'float': 'none'}}>
         <div className="card">
           <div className="card-header">
             <div style={{'textAlign': 'center'}}>
-              <img src={logo} alt="Logo" width="50%"/>
+              <img src={logo} alt="Logo" width="30%"/>
             </div>
             <br/>
 
