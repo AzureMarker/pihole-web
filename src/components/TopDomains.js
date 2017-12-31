@@ -42,7 +42,7 @@ export default class TopDomains extends Component {
 
   render() {
     return (
-      <div className="col-md-6">
+      <div className="col-md-6 col-xl-4">
         <div className="card">
           <div className="card-header">
             Top Domains
