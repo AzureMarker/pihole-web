@@ -11,6 +11,7 @@ script:
   - npm run gulp sass
   - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
   - npm run build-fake
+  - echo "web.pi-hole.io" > build/CNAME
 
 deploy:
   provider: pages
