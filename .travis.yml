@@ -6,7 +6,7 @@ cache:
     - node_modules
 env:
   global:
-    - PUBLIC_URL=//web.pi-hole.io
+    - PUBLIC_URL=/
 script:
   - npm run gulp sass
   - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
