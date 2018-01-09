@@ -13,16 +13,23 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 
+function reply_data(data) {
+  return {
+    "data": data,
+    "errors": []
+  }
+}
+
 function list(listType) {
   const result = {};
 
   result[listType + "list"] = (new Array(10)).fill(null).map(() => faker.internet.domainName());
 
-  return result;
+  return reply_data(result);
 }
 
 function status() {
-  return {"status": 1}
+  return reply_data({"status": 1});
 }
 
 function pastDate() {
@@ -32,7 +39,7 @@ function pastDate() {
 function history(length) {
   const startDate = pastDate();
 
-  return {
+  return reply_data({
     "history": (new Array(length)).fill(null).map((_, i) => {
       const isIPv4 = faker.random.boolean();
       const isHostname = faker.random.boolean();
@@ -44,24 +51,27 @@ function history(length) {
         Math.floor(Math.random() * 5) + 1
       ];
     })
-  };
+  });
 }
 
 function summary() {
   const total = faker.random.number();
   const ads = faker.random.number({max: total});
   const forwarded = faker.random.number({ max: total });
+  const clients = faker.random.number();
 
-  return {
-    "domains_being_blocked": faker.random.number(),
-    "dns_queries_today": total,
-    "ads_blocked_today": ads,
-    "ads_percentage_today": ads * 100 / total,
+  return reply_data({
+    "domains_blocked": faker.random.number(),
+    "total_queries": total,
+    "blocked_queries": ads,
+    "percent_blocked": ads * 100 / total,
     "unique_domains": faker.random.number({ max: total }),
-    "queries_forwarded": forwarded,
-    "queries_cached": total - forwarded,
-    "unique_clients": faker.random.number({ max: total })
-  }
+    "forwarded_queries": forwarded,
+    "cached_queries": total - forwarded,
+    "total_clients": clients,
+    "unique_clients": faker.random.number({ max: clients }),
+    ... status()
+  });
 }
 
 function topList(length, max, fakeData) {
@@ -84,31 +94,31 @@ function topList(length, max, fakeData) {
   return result;
 }
 
-function topAds(length) {
+function topBlocked(length) {
   const totalQueries = faker.random.number();
 
-  return {
-    "top_ads": topList(length, totalQueries, faker.internet.domainName),
-    "ads_blocked_today": totalQueries
-  };
+  return reply_data({
+    "top_blocked": topList(length, totalQueries, faker.internet.domainName),
+    "blocked_queries": totalQueries
+  });
 }
 
 function topDomains(length) {
   const totalQueries = faker.random.number();
 
-  return {
+  return reply_data({
     "top_domains": topList(length, totalQueries, faker.internet.domainName),
-    "dns_queries_today": totalQueries
-  }
+    "total_queries": totalQueries
+  });
 }
 
 function topClients(length) {
   const totalQueries = faker.random.number();
 
-  return {
+  return reply_data({
     "top_clients": topList(length, totalQueries, faker.internet.ip),
-    "dns_queries_today": totalQueries
-  }
+    "total_queries": totalQueries
+  });
 }
 
 function forwardDestOverTime(range, totalDest) {
@@ -122,10 +132,10 @@ function forwardDestOverTime(range, totalDest) {
     });
   }
 
-  return {
+  return reply_data({
     "over_time": graph,
     "forward_destinations": forwardDest
-  }
+  });
 }
 
 function queryTypesOverTime(range) {
@@ -136,12 +146,10 @@ function queryTypesOverTime(range) {
     queryTypes[(startDate + 600 * i).toString()] = [faker.random.number(), faker.random.number()];
   }
 
-  return {
-    "query_types": queryTypes
-  }
+  return reply_data(queryTypes);
 }
 
-function graph(range) {
+function historyOverTime(range) {
   const startDate = pastDate();
   const domains = {};
   const ads = {};
@@ -155,10 +163,10 @@ function graph(range) {
     ads[time] = numAds;
   }
 
-  return {
+  return reply_data({
     "domains_over_time": domains,
-    "ads_over_time": ads
-  }
+    "blocked_over_time": ads
+  });
 }
 
 function remove(path) {
@@ -185,12 +193,12 @@ remove("public/fakeAPI/dns/whitelist");
 remove("public/fakeAPI/dns/blacklist");
 remove("public/fakeAPI/dns/wildlist");
 remove("public/fakeAPI/dns/status");
-remove("public/fakeAPI/stats/overTime/graph");
-remove("public/fakeAPI/stats/overTime/forward_dest");
+remove("public/fakeAPI/stats/overTime/history");
+remove("public/fakeAPI/stats/overTime/forward_destinations");
 remove("public/fakeAPI/stats/overTime/query_types");
 remove("public/fakeAPI/stats/summary");
 remove("public/fakeAPI/stats/history");
-remove("public/fakeAPI/stats/top_ads");
+remove("public/fakeAPI/stats/top_blocked");
 remove("public/fakeAPI/stats/top_domains");
 remove("public/fakeAPI/stats/top_clients");
 
@@ -200,12 +208,12 @@ write("public/fakeAPI/dns/whitelist", list("white"));
 write("public/fakeAPI/dns/blacklist", list("black"));
 write("public/fakeAPI/dns/wildlist", list("wild"));
 write("public/fakeAPI/dns/status", status());
-write("public/fakeAPI/stats/overTime/graph", graph(144));
-write("public/fakeAPI/stats/overTime/forward_dest", forwardDestOverTime(144, 3));
+write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
+write("public/fakeAPI/stats/overTime/forward_destinations", forwardDestOverTime(144, 3));
 write("public/fakeAPI/stats/overTime/query_types", queryTypesOverTime(144));
 write("public/fakeAPI/stats/summary", summary());
 write("public/fakeAPI/stats/history", history(5000));
-write("public/fakeAPI/stats/top_ads", topAds(10));
+write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
 
