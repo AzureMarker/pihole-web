@@ -144,7 +144,7 @@ export const api = {
       return data.json();
   },
   checkForErrors(data) {
-    if(data.errors.length > 0) {
+    if(!data.errors || data.errors.length > 0) {
       return Promise.reject(data.errors);
     }
     return Promise.resolve(data.data);
