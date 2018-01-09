@@ -29,7 +29,7 @@ export default class QueryLog extends Component {
     this.updateHandler = makeCancelable(api.getHistory());
     this.updateHandler.promise.then(data => {
       this.setState({
-        history: data.history,
+        history: data,
         loading: false
       });
     }).catch(ignoreCancel);
