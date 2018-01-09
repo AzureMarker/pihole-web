@@ -29,10 +29,10 @@ export default class SummaryStats extends Component {
     this.updateHandler = makeCancelable(api.getSummary(), { repeat: this.updateStats, interval: 5000 });
     this.updateHandler.promise.then(res => {
       this.setState({
-        blockedQueries: res.ads_blocked_today.toLocaleString(),
-        totalQueries: res.dns_queries_today.toLocaleString(),
-        percentBlocked: res.ads_percentage_today.toFixed(2).toLocaleString() + "%",
-        gravityDomains: res.domains_being_blocked.toLocaleString(),
+        blockedQueries: res.blocked_queries.toLocaleString(),
+        totalQueries: res.total_queries.toLocaleString(),
+        percentBlocked: res.percent_blocked.toFixed(2).toLocaleString() + "%",
+        gravityDomains: res.domains_blocked.toLocaleString(),
         uniqueClients: res.unique_clients.toLocaleString()
       });
     })

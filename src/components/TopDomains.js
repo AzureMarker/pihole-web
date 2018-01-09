@@ -26,7 +26,7 @@ export default class TopDomains extends Component {
     this.updateHandler = makeCancelable(api.getTopDomains(), { repeat: this.updateChart, interval: 10 * 1000 });
     this.updateHandler.promise.then(res => {
       this.setState({
-        total_queries: res.dns_queries_today,
+        total_queries: res.total_queries,
         top_domains: res.top_domains
       });
     }).catch(ignoreCancel);

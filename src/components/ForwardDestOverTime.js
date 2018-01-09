@@ -14,6 +14,7 @@ import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } fro
 
 export default class ForwardDestOverTime extends Component {
   state = {
+    loading: true,
     data: {
       labels: [],
       datasets: []
@@ -83,7 +84,7 @@ export default class ForwardDestOverTime extends Component {
       const labels = [];
       const timestamps = res.over_time[0];
       const plotdata = res.over_time[1];
-      const destinations = res.forward_destinations;
+      const destinations = res.forward_data;
       const datasets = [];
       const colors = [
         "#20a8d8",
@@ -138,7 +139,7 @@ export default class ForwardDestOverTime extends Component {
       data.labels = labels;
       data.datasets = datasets;
 
-      this.setState({ data });
+      this.setState({ data, loading: false });
     }).catch(ignoreCancel);
   }
 
@@ -161,7 +162,7 @@ export default class ForwardDestOverTime extends Component {
             <Line width={400} height={150} data={this.state.data} options={this.state.options}/>
           </div>
           {
-            this.state.data.datasets.length === 0
+            this.state.loading
               ?
               <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
                 <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>

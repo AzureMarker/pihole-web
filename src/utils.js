@@ -70,20 +70,20 @@ export const api = {
   getSummary() {
     return api.get("stats/summary");
   },
-  getGraph() {
-    return api.get("stats/overTime/graph");
+  getHistoryGraph() {
+    return api.get("stats/overTime/history");
   },
   getQueryTypesOverTime() {
     return api.get("stats/overTime/query_types");
   },
   getForwardDestOverTime() {
-    return api.get("stats/overTime/forward_dest");
+    return api.get("stats/overTime/forward_destinations");
   },
   getTopDomains() {
     return api.get("stats/top_domains");
   },
   getTopBlocked() {
-    return api.get("stats/top_ads");
+    return api.get("stats/top_blocked");
   },
   getTopClients() {
     return api.get("stats/top_clients");
@@ -119,17 +119,23 @@ export const api = {
     return api.delete("dns/wildlist/" + domain);
   },
   get(url) {
-    return fetch(api.urlFor(url)).then(api.convertJSON);
+    return fetch(api.urlFor(url))
+      .then(api.convertJSON)
+      .then(api.checkForErrors);
   },
   post(url, data) {
     return fetch(api.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" })
-    }).then(api.convertJSON);
+    })
+      .then(api.convertJSON)
+      .then(api.checkForErrors);
   },
   delete(url) {
-    return fetch(api.urlFor(url), { method: "DELETE" }).then(api.convertJSON);
+    return fetch(api.urlFor(url), { method: "DELETE" })
+      .then(api.convertJSON)
+      .then(api.checkForErrors);
   },
   async convertJSON(data) {
     if(!data.ok)
@@ -137,15 +143,21 @@ export const api = {
     else
       return data.json();
   },
+  checkForErrors(data) {
+    if(data.errors.length > 0) {
+      return Promise.reject(data.errors);
+    }
+    return Promise.resolve(data.data);
+  },
   urlFor(endpoint) {
     let apiLocation;
 
     if(config.fakeAPI)
       apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
     else if(config.developmentMode)
-      apiLocation = "pi.hole:4747";
+      apiLocation = "pi.hole/admin/api";
     else
-      apiLocation = window.location.hostname + ":4747";
+      apiLocation = window.location.hostname + "/admin/api";
 
     return window.location.protocol + "//" + apiLocation + "/" + endpoint;
   }

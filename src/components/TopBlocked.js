@@ -26,7 +26,7 @@ export default class TopBlocked extends Component {
     this.updateHandler = makeCancelable(api.getTopBlocked(), { repeat: this.updateChart, interval: 10 * 1000 });
     this.updateHandler.promise.then(res => {
       this.setState({
-        total_blocked: res.ads_blocked_today,
+        total_blocked: res.blocked_queries,
         top_blocked: res.top_ads
       });
     }).catch(ignoreCancel);

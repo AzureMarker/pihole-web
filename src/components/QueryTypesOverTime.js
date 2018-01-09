@@ -14,6 +14,7 @@ import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } fro
 
 export default class QueryTypesOverTime extends Component {
   state = {
+    loading: true,
     data: {
       labels: [],
       datasets: [
@@ -93,16 +94,16 @@ export default class QueryTypesOverTime extends Component {
       { repeat: this.updateGraph, interval: 10 * 60 * 1000 }
     );
     this.updateHandler.promise.then(res => {
-      res.query_types = parseObjectForGraph(res.query_types);
+      res = parseObjectForGraph(res);
 
       // Remove last data point as it's not yet finished
-      res.query_types[0].splice(-1, 1);
+      res[0].splice(-1, 1);
 
       const labels = [];
       const data_A = [];
       const data_AAAA = [];
-      const timestamps = res.query_types[0];
-      const plotdata = res.query_types[1];
+      const timestamps = res[0];
+      const plotdata = res[1];
 
       for(let j in timestamps) {
         if(timestamps.hasOwnProperty(j)) {
@@ -128,7 +129,7 @@ export default class QueryTypesOverTime extends Component {
       data.datasets[0].data = data_A;
       data.datasets[1].data = data_AAAA;
 
-      this.setState({ data });
+      this.setState({ data, loading: false });
     }).catch(ignoreCancel);
   }
 
@@ -151,7 +152,7 @@ export default class QueryTypesOverTime extends Component {
             <Line width={400} height={150} data={this.state.data} options={this.state.options}/>
           </div>
           {
-            this.state.data.datasets[0].data.length === 0 && this.state.data.datasets[1].data.length === 0
+            this.state.loading
               ?
               <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
                 <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>

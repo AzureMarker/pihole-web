@@ -14,6 +14,7 @@ import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } fro
 
 export default class QueriesGraph extends Component {
   state = {
+    loading: true,
     data: {
       labels: [],
       datasets: [
@@ -104,30 +105,30 @@ export default class QueriesGraph extends Component {
   }
 
   updateGraph() {
-    this.updateHandler = makeCancelable(api.getGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
+    this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
     this.updateHandler.promise.then(res => {
-      res.ads_over_time = parseObjectForGraph(res.ads_over_time);
+      res.blocked_over_time = parseObjectForGraph(res.blocked_over_time);
       res.domains_over_time = parseObjectForGraph(res.domains_over_time);
 
       // Remove last data point as it's not yet finished
-      res.ads_over_time[0].splice(-1, 1);
-      res.ads_over_time[1].splice(-1, 1);
+      res.blocked_over_time[0].splice(-1, 1);
+      res.blocked_over_time[1].splice(-1, 1);
       res.domains_over_time[0].splice(-1, 1);
       res.domains_over_time[1].splice(-1, 1);
 
       // Generate labels
       const labels = [];
-      for(let i in res.ads_over_time[0]) {
-        if(res.ads_over_time[0].hasOwnProperty(i))
-          labels.push(new Date(1000 * res.ads_over_time[0][i]));
+      for(let i in res.blocked_over_time[0]) {
+        if(res.blocked_over_time[0].hasOwnProperty(i))
+          labels.push(new Date(1000 * res.blocked_over_time[0][i]));
       }
 
       const data = this.state.data;
       data.labels = labels;
       data.datasets[0].data = res.domains_over_time[1];
-      data.datasets[1].data = res.ads_over_time[1];
+      data.datasets[1].data = res.blocked_over_time[1];
 
-      this.setState({ data });
+      this.setState({ data, loading: false });
     }).catch(ignoreCancel);
   }
 
@@ -151,7 +152,7 @@ export default class QueriesGraph extends Component {
               <Line width={970} height={250} data={this.state.data} options={this.state.options}/>
             </div>
             {
-              this.state.data.datasets[0].data.length === 0 && this.state.data.datasets[1].data.length === 0
+              this.state.loading
               ?
                 <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
                   <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>

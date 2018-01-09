@@ -26,7 +26,7 @@ export default class TopClients extends Component {
     this.updateHandler = makeCancelable(api.getTopClients(), { repeat: this.updateChart, interval: 10 * 1000 });
     this.updateHandler.promise.then(res => {
       this.setState({
-        total_queries: res.dns_queries_today,
+        total_queries: res.total_queries,
         top_clients: res.top_clients
       });
     }).catch(ignoreCancel);
