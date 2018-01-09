@@ -84,7 +84,7 @@ export default class ForwardDestOverTime extends Component {
       const labels = [];
       const timestamps = res.over_time[0];
       const plotdata = res.over_time[1];
-      const destinations = res.forward_data;
+      const destinations = res.forward_destinations;
       const datasets = [];
       const colors = [
         "#20a8d8",
