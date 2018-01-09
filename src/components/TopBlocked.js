@@ -27,7 +27,7 @@ export default class TopBlocked extends Component {
     this.updateHandler.promise.then(res => {
       this.setState({
         total_blocked: res.blocked_queries,
-        top_blocked: res.top_ads
+        top_blocked: res.top_blocked
       });
     }).catch(ignoreCancel);
   }
