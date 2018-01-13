@@ -20,12 +20,8 @@ function reply_data(data) {
   }
 }
 
-function list(listType) {
-  const result = {};
-
-  result[listType + "list"] = (new Array(10)).fill(null).map(() => faker.internet.domainName());
-
-  return reply_data(result);
+function list() {
+  return reply_data((new Array(10)).fill(null).map(() => faker.internet.domainName()));
 }
 
 function status() {

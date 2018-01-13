@@ -69,7 +69,7 @@ export default class ListPage extends Component {
   onRefresh = () => {
     this.refreshHandler = makeCancelable(this.props.refresh());
     this.refreshHandler.promise.then(data => {
-      this.setState({ domains: data[Object.keys(data)[0]] });
+      this.setState({ domains: data });
     }).catch(ignoreCancel);
   };
 
