@@ -157,7 +157,7 @@ export const api = {
     else if(config.developmentMode)
       apiLocation = "pi.hole/admin/api";
     else
-      apiLocation = window.location.hostname + "/admin/api";
+      apiLocation = window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/admin/api";
 
     return window.location.protocol + "//" + apiLocation + "/" + endpoint;
   }
