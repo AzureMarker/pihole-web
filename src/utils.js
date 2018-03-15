@@ -117,6 +117,9 @@ export const api = {
   removeWildlist(domain) {
     return api.delete("dns/wildlist/" + domain);
   },
+  getStatus() {
+    return api.get("dns/status")
+  },
   get(url) {
     return fetch(api.urlFor(url), {
       credentials: this.credentialType()

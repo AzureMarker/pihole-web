@@ -14,6 +14,7 @@ import { Nav, NavItem } from 'reactstrap';
 import logo from '../img/logo.svg';
 import { mobileSidebarHide } from "./Header";
 import { api } from "../utils";
+import StatusBadge from "./StatusBadge";
 
 const nav = {
   items: [
@@ -126,7 +127,7 @@ export default props => {
             </p>
             <br/>
             <span style={{textTransform: "initial", paddingLeft: "15px"}}>
-              <i className="fa fa-circle text-success"/> Online
+              <StatusBadge/>
             </span>
           </li>
           {navList(nav.items, props)}
