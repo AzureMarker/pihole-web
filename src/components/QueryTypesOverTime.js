@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../utils';
+import { padNumber, api, makeCancelable, ignoreCancel } from '../utils';
 
 export default class QueryTypesOverTime extends Component {
   state = {
@@ -94,34 +94,27 @@ export default class QueryTypesOverTime extends Component {
       { repeat: this.updateGraph, interval: 10 * 60 * 1000 }
     );
     this.updateHandler.promise.then(res => {
-      res = parseObjectForGraph(res);
-
       // Remove last data point as it's not yet finished
-      res[0].splice(-1, 1);
+      res.splice(-1, 1);
 
       const labels = [];
       const data_A = [];
       const data_AAAA = [];
-      const timestamps = res[0];
-      const plotdata = res[1];
 
-      for(let j in timestamps) {
-        if(timestamps.hasOwnProperty(j)) {
-          const h = parseInt(timestamps[j], 10);
-          const d = new Date(1000 * h);
+      for(let step of res) {
+        const date = new Date(1000 * step.timestamp);
 
-          const sum = plotdata[j][0] + plotdata[j][1];
-          let A = 0, AAAA = 0;
+        const sum = step.data.reduce((a, b) => a + b);
+        let A = 0, AAAA = 0;
 
-          if (sum > 0) {
-            A = plotdata[j][0] / sum;
-            AAAA = plotdata[j][1] / sum;
-          }
-
-          labels.push(d);
-          data_A.push(A);
-          data_AAAA.push(AAAA);
+        if (sum > 0) {
+          A = step.data[0] / sum;
+          AAAA = step.data[1] / sum;
         }
+
+        labels.push(date);
+        data_A.push(A);
+        data_AAAA.push(AAAA);
       }
 
       const data = this.state.data;
