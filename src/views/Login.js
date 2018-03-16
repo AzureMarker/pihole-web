@@ -107,10 +107,7 @@ export default class Login extends Component {
                         <span className="pull-right">
                           <button type="button" className="btn btn-card-tool"
                                   style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={() => {
-                                    console.log("click");
-                                    this.setState({
-                                      forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed
-                                    })
+                                    this.setState({ forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed })
                                   }}>
                             <i className={'fa ' + (!this.state.forgotPasswordCollapsed !== this.state.error ? 'fa-minus' : 'fa-plus')}/>
                           </button>
