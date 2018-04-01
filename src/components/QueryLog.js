@@ -17,7 +17,7 @@ export default class QueryLog extends Component {
   updateHandler = null;
   state = {
     history: [],
-    loading: true,
+    loading: true
   };
 
   constructor(props) {
