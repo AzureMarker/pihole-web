@@ -17,7 +17,7 @@ export default class QueryLog extends Component {
   updateHandler = null;
   state = {
     history: [],
-    loading: true
+    loading: true,
   };
 
   constructor(props) {
@@ -71,6 +71,14 @@ export default class QueryLog extends Component {
   }
 }
 
+const status = {
+  "1": "Blocked",
+  "2": "Allowed (forwarded)",
+  "3": "Allowed (cached)",
+  "4": "Blocked (wildcard)",
+  "5": "Blocked (blacklist)"
+};
+
 const columns = [
   {
     Header: "Time",
@@ -104,26 +112,17 @@ const columns = [
     className: "horizontal-scroll"
   },
   {
-    Header: "Status",
-    id: "status",
-    accessor: r => r[4],
-    width: 140,
-    Cell: row => {
-      switch(row.value) {
-        case 1:
-          return "Blocked";
-        case 2:
-          return "Allowed (forwarded)";
-        case 3:
-          return "Allowed (cached)";
-        case 4:
-          return "Blocked (wildcard)";
-        case 5:
-          return "Blocked (blacklist)";
-        default:
-          return "Unknown";
-      }
-    }
+      Header: "Status",
+      id: "status",
+      accessor: r => r[4],
+      width: 140,
+      Cell: row => status[row.value],
+      filterMethod: (filter, row) =>
+        status[row[filter.id]]
+          .toLowerCase()
+          .includes(
+            filter.value.toLowerCase()
+          )
   },
   {
     Header: "Action",
