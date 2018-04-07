@@ -9,6 +9,7 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { api } from "../utils";
 import logo from '../img/logo.svg';
 
 export default class Login extends Component {
@@ -27,17 +28,16 @@ export default class Login extends Component {
   };
 
   onAuth = () => {
-    this.setState({ password: '' });
+    this.setState({ password: '', error: false });
 
-    // TODO: Authenticate against server
-    let auth = false;
-
-    if(auth) {
-
-    }
-    else {
-      this.setState({ error: true });
-    }
+    api.authenticate(this.state.password)
+      .then(() => {
+        // Assume it's ok since there was no error
+        // TODO: verify response
+        // TODO: transition to logged in mode
+        console.log("Logged In");
+      })
+      .catch(() => this.setState({ error: true }));
   };
 
   render() {

@@ -67,6 +67,14 @@ export const ignoreCancel = err => {
 };
 
 export const api = {
+  authenticate(key) {
+    return fetch(api.urlFor("auth"), {
+      headers: new Headers({ "X-Pi-hole-Authenticate": key }),
+      credentials: this.credentialType()
+    })
+      .then(api.convertJSON)
+      .then(api.checkForErrors);
+  },
   getSummary() {
     return api.get("stats/summary");
   },
@@ -119,7 +127,9 @@ export const api = {
     return api.delete("dns/wildlist/" + domain);
   },
   get(url) {
-    return fetch(api.urlFor(url))
+    return fetch(api.urlFor(url), {
+      credentials: this.credentialType()
+    })
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
@@ -127,13 +137,17 @@ export const api = {
     return fetch(api.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
-      headers: new Headers({ "Content-Type": "application/json" })
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: this.credentialType()
     })
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
   delete(url) {
-    return fetch(api.urlFor(url), { method: "DELETE" })
+    return fetch(api.urlFor(url), {
+      method: "DELETE",
+      credentials: this.credentialType()
+    })
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
@@ -160,5 +174,10 @@ export const api = {
       apiLocation = window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/admin/api";
 
     return window.location.protocol + "//" + apiLocation + "/" + endpoint;
+  },
+  credentialType() {
+    // Development API requests use a different origin (pi.hole) since it is running off of the developer's machine.
+    // Therefore, allow credentials to be used across origins when in development mode.
+    return config.developmentMode ? "include" : "same-origin";
   }
 };
