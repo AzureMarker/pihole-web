@@ -112,17 +112,17 @@ const columns = [
     className: "horizontal-scroll"
   },
   {
-      Header: "Status",
-      id: "status",
-      accessor: r => r[4],
-      width: 140,
-      Cell: row => status[row.value],
-      filterMethod: (filter, row) =>
-        status[row[filter.id]]
-          .toLowerCase()
-          .includes(
-            filter.value.toLowerCase()
-          )
+    Header: "Status",
+    id: "status",
+    accessor: r => r[4],
+    width: 140,
+    Cell: row => status[row.value],
+    filterMethod: (filter, row) =>
+      status[row[filter.id]]
+        .toLowerCase()
+        .includes(
+          filter.value.toLowerCase()
+        )
   },
   {
     Header: "Action",
