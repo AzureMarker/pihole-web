@@ -6,13 +6,13 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 ### Web [Preview](https://web.pi-hole.io)
 
 ## Changes compared to the AdminLTE interface
-- eliminates the reliance on server-side rendering scripts
-- eliminates spaghetti code resulted from heavily modifying the base AdminLTE template
-- reduces attack vectors by using JavaScript’s explicit imports instead of importing entire .php files
-- makes it easier for new developers to figure out the code, which speeds up development
-- makes the split between client and server code much more explicit
-- allows us to easily generate fake data for testing
-- includes all the benefits that come from React (ES6 JavaScript), including automatic DOM manipulations, stateful development, and component-based development
+- Eliminates the reliance on server-side rendering scripts
+- Eliminates spaghetti code resulted from heavily modifying the base AdminLTE template
+- Reduces attack vectors by forcing interactions to go through an API instead of directly calling server functions.
+- Makes it easier for new developers to figure out the code, which speeds up development
+- Makes the split between client and server code much more explicit
+- Allows us to easily generate fake data for testing
+- Includes all the benefits that come from React (ES6 JavaScript), including automatic DOM manipulations and reusable components
 
 ## Getting Started (Development)
 
