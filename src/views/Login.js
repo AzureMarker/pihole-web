@@ -9,6 +9,7 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
@@ -45,6 +46,9 @@ export default class Login extends Component {
   };
 
   render() {
+    if(api.loggedIn)
+      return <Redirect to="/"/>;
+
     return (
       <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3" style={{'float': 'none'}}>
         <div className="card">
