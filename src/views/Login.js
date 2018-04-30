@@ -9,6 +9,7 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
 
@@ -27,10 +28,11 @@ export default class Login extends Component {
   };
 
   onAuth = () => {
-    const password = this.state.password;
-    this.setState({ password: '', error: false });
+    // Hash the password twice before sending to the API
+    let hashedPassword = sha("sha256").update(this.state.password).digest("hex");
+    hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
-    api.authenticate(password)
+    api.authenticate(hashedPassword)
       .then(() => {
         // Assume it's ok since there was no error
         // TODO: verify response
@@ -38,6 +40,8 @@ export default class Login extends Component {
         console.log("Logged In");
       })
       .catch(() => this.setState({ error: true }));
+
+    this.setState({ password: '', error: false });
   };
 
   render() {
