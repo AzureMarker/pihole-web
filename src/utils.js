@@ -67,6 +67,7 @@ export const ignoreCancel = err => {
 };
 
 export const api = {
+  loggedIn: false,
   authenticate(key) {
     return fetch(api.urlFor("auth"), {
       headers: new Headers({ "X-Pi-hole-Authenticate": key }),

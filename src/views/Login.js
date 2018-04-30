@@ -37,6 +37,7 @@ export default class Login extends Component {
         // Assume it's ok since there was no error
         // TODO: verify response
         // TODO: transition to logged in mode
+        api.loggedIn = true;
         console.log("Logged In");
       })
       .catch(() => this.setState({ error: true }));
