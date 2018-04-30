@@ -8,17 +8,17 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import { Component } from 'react';
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { api } from "../utils";
 
 export default class Logout extends Component {
   componentWillMount() {
     api.loggedIn = false;
     api.logout();
-    this.props.history.push('/');
   }
 
   render() {
-    return null;
+    return <Redirect to="/"/>;
   }
 }
