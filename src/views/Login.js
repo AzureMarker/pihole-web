@@ -19,8 +19,15 @@ export default class Login extends Component {
   state = {
     password: '',
     error: false,
-    forgotPasswordCollapsed: true
+    forgotPasswordCollapsed: true,
+    cookiesEnabled: false
   };
+
+  componentWillMount() {
+    // Check if cookies are enabled
+    if(navigator.cookieEnabled)
+      this.setState({ cookiesEnabled: true });
+  }
 
   handlePasswordChange = e => {
     if(e.keyCode === 13)
@@ -78,10 +85,14 @@ export default class Login extends Component {
                     </Fragment>
                   ) : null
               }
+              {
+                !this.state.cookiesEnabled ?
+                  <div className="text-center" style={{'color': '#F00'}}>
+                    Verify that cookies are allowed for <code>{window.location.host}</code>
+                  </div>
+                  : null
+              }
             </p>
-            <div id="cookieInfo" className="card-title text-center" style={{'color': '#F00', 'fontSize': '150%'}} hidden>
-              Verify that cookies are allowed for <code>{window.location.host}</code>
-            </div>
             {
               this.state.error
                 ?
@@ -90,8 +101,7 @@ export default class Login extends Component {
                     <i className="fa fa-times-circle-o"/> Wrong password!
                   </label>
                 </div>
-                :
-                null
+                : null
             }
           </div>
 
