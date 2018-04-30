@@ -76,6 +76,9 @@ export const api = {
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
+  logout() {
+    return api.delete("auth");
+  },
   getSummary() {
     return api.get("stats/summary");
   },
