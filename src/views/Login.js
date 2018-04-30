@@ -42,9 +42,14 @@ export default class Login extends Component {
     hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
     api.authenticate(hashedPassword)
-      .then(() => {
-        // Assume it's ok since there was no error
-        // TODO: verify response
+      .then(data => {
+        // Verify status
+        if(data.status !== "success") {
+          console.log("Failed to log in:");
+          console.log(data);
+          return;
+        }
+
         api.loggedIn = true;
 
         // Redirect to the page the user was originally going to, or if that doesn't exist, go to home
