@@ -8,11 +8,12 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
+import routes from "../routes";
 
 export default class Login extends Component {
   state = {
@@ -38,7 +39,10 @@ export default class Login extends Component {
         // Assume it's ok since there was no error
         // TODO: verify response
         api.loggedIn = true;
-        this.props.history.push('/');
+
+        // Redirect to the page the user was originally going to, or if that doesn't exist, go to home
+        const redirect = this.props.location.state.from || '/';
+        this.props.history.push(redirect);
       })
       .catch(() => this.setState({ error: true }));
 
@@ -65,6 +69,15 @@ export default class Login extends Component {
             </div>
             <p className="login-box-msg">
               Sign in to start your session
+              {
+                this.props.location.state && this.props.location.state.from.pathname in routes ?
+                  (
+                    <Fragment>
+                      <br/>
+                      You will be transferred to the {routes[this.props.location.state.from.pathname]}
+                    </Fragment>
+                  ) : null
+              }
             </p>
             <div id="cookieInfo" className="card-title text-center" style={{'color': '#F00', 'fontSize': '150%'}} hidden>
               Verify that cookies are allowed for <code>{window.location.host}</code>
