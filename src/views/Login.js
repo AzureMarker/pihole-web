@@ -20,17 +20,17 @@ export default class Login extends Component {
   };
 
   handlePasswordChange = e => {
-    if(e.keyCode === 13) {
+    if(e.keyCode === 13)
       this.onAuth();
-    }
     else
       this.setState({ password: e.target.value })
   };
 
   onAuth = () => {
+    const password = this.state.password;
     this.setState({ password: '', error: false });
 
-    api.authenticate(this.state.password)
+    api.authenticate(password)
       .then(() => {
         // Assume it's ok since there was no error
         // TODO: verify response
