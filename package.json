@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "/admin",
+  "proxy": "http://pi.hole",
   "devDependencies": {
     "faker": "^4.1.0",
     "gulp": "^3.9.1",
