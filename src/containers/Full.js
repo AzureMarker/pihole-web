@@ -21,6 +21,7 @@ import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
 import Wildlist from "../views/Wildlist";
 import Login from "../views/Login";
+import Logout from "../views/Logout";
 
 export default props => (
   <div className="app">
@@ -38,6 +39,7 @@ export default props => (
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
             <Route path="/wildlist" name="Wildlist" component={Wildlist}/>
             <Route path="/login" name="Login" component={Login}/>
+            <Route path="/logout" name="Logout" component={Logout}/>
           </Switch>
         </div>
       </main>

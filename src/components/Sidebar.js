@@ -56,8 +56,16 @@ const nav = {
     },
     {
       name: 'Login',
-      url: '/login', icon: 'fa fa-user',
+      url: '/login',
+      icon: 'fa fa-user',
       auth: false,
+      authStrict: true
+    },
+    {
+      name: 'Logout',
+      url: '/logout',
+      icon: 'fa fa-user-times',
+      auth: true,
       authStrict: true
     }
   ]

@@ -3,17 +3,22 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  URL path to name associations
+*  Logout the user
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-export default {
-  '/dashboard': 'Dashboard',
-  '/query-log': 'Query Log',
-  '/whitelist': 'Whitelist',
-  '/blacklist': 'Blacklist (Exact)',
-  '/wildlist': 'Blacklist (Wildcard)',
-  '/login': 'Login',
-  '/logout': 'Logout'
-};
+import { Component } from 'react';
+import { api } from "../utils";
+
+export default class Logout extends Component {
+  componentWillMount() {
+    // TODO: remove auth cookie
+    api.loggedIn = false;
+    this.props.history.push('/');
+  }
+
+  render() {
+    return null;
+  }
+}
