@@ -13,7 +13,6 @@ import { api } from "../utils";
 
 export default class Logout extends Component {
   componentWillMount() {
-    // TODO: remove auth cookie
     api.loggedIn = false;
     api.logout();
     this.props.history.push('/');
