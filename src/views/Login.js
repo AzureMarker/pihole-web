@@ -41,6 +41,8 @@ export default class Login extends Component {
     let hashedPassword = sha("sha256").update(this.state.password).digest("hex");
     hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
+    this.setState({ password: '', error: false });
+
     api.authenticate(hashedPassword)
       .then(data => {
         // Verify status
@@ -57,8 +59,6 @@ export default class Login extends Component {
         this.props.history.push(redirect);
       })
       .catch(() => this.setState({ error: true }));
-
-    this.setState({ password: '', error: false });
   };
 
   render() {
