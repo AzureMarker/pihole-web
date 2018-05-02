@@ -125,7 +125,7 @@ export default class Login extends Component {
                   </ul>
                 </div>
                 <div className="col-4">
-                  <button type="submit" href="#" className="btn btn-primary pull-right" onClick={this.onAuth}>
+                  <button type="submit" className="btn btn-primary pull-right" style={{'cursor': 'pointer'}} onClick={this.onAuth}>
                     Log in
                   </button>
                 </div>
