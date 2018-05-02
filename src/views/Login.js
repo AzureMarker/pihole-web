@@ -118,14 +118,8 @@ export default class Login extends Component {
                        placeholder="Password" autoFocus/>
               </div>
               <div className="row">
-                <div className="col-8">
-                  <ul style={{'paddingLeft': '10px'}}>
-                    <li><samp>Return</samp> &rarr; Log in</li>
-                    <li><samp>Ctrl+Return</samp> &rarr; Log in and go to Settings page</li>
-                  </ul>
-                </div>
-                <div className="col-4">
-                  <button type="submit" className="btn btn-primary pull-right" style={{'cursor': 'pointer'}} onClick={this.onAuth}>
+                <div className="col-12">
+                  <button type="submit" className="btn btn-primary float-right" style={{'cursor': 'pointer'}} onClick={this.onAuth}>
                     Log in
                   </button>
                 </div>

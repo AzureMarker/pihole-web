@@ -30,29 +30,27 @@ export default class ForgotPassword extends Component {
 
   render() {
     return (
-      <div className="row">
-        <div style={{'width': '100%'}}>
-          <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary collapsed-card')}>
-            <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
-                 style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
-              <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
-                Forgot password
-              </h3>
+      <div style={{'width': '100%'}}>
+        <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary collapsed-card')}>
+          <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
+               style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
+            <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
+              Forgot password
+            </h3>
 
-              <span className="pull-right">
-                <button type="button" className="btn btn-card-tool"
-                        style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={this.onClick}>
-                  <i className={'fa ' + (this.isCollapsed() ? 'fa-minus' : 'fa-plus')}/>
-                </button>
-              </span>
-            </div>
-            <div className={'card-body bg-light' + (this.isCollapsed() ? '' : ' collapse')}
-                 style={{'padding': '10px'}}>
-              After installing Pi-hole for the first time, a password is generated and displayed to the user.
-              The password cannot be retrieved later on, but it is possible to set a new password (or
-              explicitly disable the password by setting an empty password) using the command:
-              <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
-            </div>
+            <span className="pull-right">
+              <button type="button" className="btn btn-card-tool"
+                      style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={this.onClick}>
+                <i className={'fa ' + (this.isCollapsed() ? 'fa-minus' : 'fa-plus')}/>
+              </button>
+            </span>
+          </div>
+          <div className={'card-body bg-light' + (this.isCollapsed() ? '' : ' collapse')}
+               style={{'padding': '10px'}}>
+            After installing Pi-hole for the first time, a password is generated and displayed to the user.
+            The password cannot be retrieved later on, but it is possible to set a new password (or
+            explicitly disable the password by setting an empty password) using the command:
+            <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
           </div>
         </div>
       </div>
