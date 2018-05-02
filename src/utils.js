@@ -173,7 +173,7 @@ export const api = {
     if(config.fakeAPI)
       apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
     else if(config.developmentMode)
-      apiLocation = "pi.hole/admin/api";
+      apiLocation = "pi.hole:8000/admin/api";
     else
       apiLocation = window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/admin/api";
 

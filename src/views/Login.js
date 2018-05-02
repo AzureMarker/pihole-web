@@ -29,20 +29,32 @@ export default class Login extends Component {
       this.setState({ cookiesEnabled: true });
   }
 
+  /**
+   * Called when the user types into the password box.
+   * If they clicked Enter, try to authenticate them.
+   * Otherwise update the password in the state.
+   *
+   * @param e the event
+   */
   handlePasswordChange = e => {
     if(e.keyCode === 13)
-      this.onAuth();
+      this.authenticate();
     else
       this.setState({ password: e.target.value })
   };
 
-  onAuth = () => {
+  /**
+   * Try to authenticate the user
+   */
+  authenticate = () => {
     // Hash the password twice before sending to the API
     let hashedPassword = sha("sha256").update(this.state.password).digest("hex");
     hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
+    // Clear the state
     this.setState({ password: '', error: false });
 
+    // Send the password to the API to authenticate the user
     api.authenticate(hashedPassword)
       .then(data => {
         // Verify status
@@ -58,10 +70,12 @@ export default class Login extends Component {
         const redirect = this.props.location.state.from || '/';
         this.props.history.push(redirect);
       })
+      // If there was an error, tell the user they used the wrong password
       .catch(() => this.setState({ error: true }));
   };
 
   render() {
+    // If the user is already logged in, then go to the home page
     if(api.loggedIn)
       return <Redirect to="/"/>;
 
@@ -82,6 +96,8 @@ export default class Login extends Component {
             <p className="login-box-msg">
               Sign in to start your session
               {
+                // If the user tried to go to a protected page and is not logged in,
+                // tell them they will be redirected once login is successful
                 this.props.location.state && this.props.location.state.from.pathname in routes ?
                   (
                     <Fragment>
@@ -91,6 +107,7 @@ export default class Login extends Component {
                   ) : null
               }
               {
+                // If cookies are not enabled (or detected), show a warning
                 !this.state.cookiesEnabled ?
                   <div className="text-center" style={{'color': '#F00'}}>
                     Verify that cookies are allowed for <code>{window.location.host}</code>
@@ -119,7 +136,8 @@ export default class Login extends Component {
               </div>
               <div className="row">
                 <div className="col-12">
-                  <button type="submit" className="btn btn-primary float-right" style={{'cursor': 'pointer'}} onClick={this.onAuth}>
+                  <button type="submit" className="btn btn-primary float-right" style={{'cursor': 'pointer'}}
+                          onClick={this.authenticate}>
                     Log in
                   </button>
                 </div>
