@@ -14,12 +14,12 @@ import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
 import routes from "../routes";
+import ForgotPassword from "../components/ForgotPassword";
 
 export default class Login extends Component {
   state = {
     password: '',
     error: false,
-    forgotPasswordCollapsed: true,
     cookiesEnabled: false
   };
 
@@ -131,35 +131,7 @@ export default class Login extends Component {
                 </div>
               </div>
               <br/>
-                <div className="row">
-                  <div style={{'width': '100%'}}>
-                    <div className={'card ' + (this.state.error ? 'border-danger': 'border-primary collapsed-card')}>
-                      <div className={'card-header ' + (this.state.error ? 'bg-danger' : 'bg-primary')}
-                           style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
-                        <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
-                          Forgot password
-                        </h3>
-
-                        <span className="pull-right">
-                          <button type="button" className="btn btn-card-tool"
-                                  style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={() => {
-                                    this.setState({ forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed })
-                                  }}>
-                            <i className={'fa ' + (!this.state.forgotPasswordCollapsed !== this.state.error ? 'fa-minus' : 'fa-plus')}/>
-                          </button>
-                        </span>
-                      </div>
-                      <div id="forgotPassword"
-                           className={'card-body bg-light' + (this.state.forgotPasswordCollapsed !== this.state.error ? ' collapse' : '')}
-                           style={{'padding': '10px'}}>
-                        After installing Pi-hole for the first time, a password is generated and displayed to the user.
-                        The password cannot be retrieved later on, but it is possible to set a new password (or
-                        explicitly disable the password by setting an empty password) using the command:
-                        <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <ForgotPassword error={this.state.error}/>
             </form>
           </div>
         </div>
