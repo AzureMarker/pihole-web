@@ -33,7 +33,7 @@ export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) =>
 
   const handle = (resolve, reject, val, isError) => {
     if(hasCanceled)
-      reject({isCanceled: true});
+      reject({ isCanceled: true });
     else {
       if(isError)
         reject(val);
@@ -134,6 +134,7 @@ export const api = {
     return fetch(api.urlFor(url), {
       credentials: this.credentialType()
     })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
@@ -154,6 +155,20 @@ export const api = {
     })
       .then(api.convertJSON)
       .then(api.checkForErrors);
+  },
+  /**
+   * If the user is logged in, check if the user's session has lapsed.
+   * If so, log them out and refresh the page.
+   */
+  checkIfLoggedOut(response) {
+    if(api.loggedIn && response.status === 401) {
+      // Clear the user's old session and refresh the page
+      document.cookie = 'user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      window.location.reload();
+      return Promise.reject({ isCanceled: true })
+    }
+
+    return Promise.resolve(response);
   },
   async convertJSON(data) {
     if(!data.ok)
