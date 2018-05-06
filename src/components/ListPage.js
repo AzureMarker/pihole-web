@@ -10,12 +10,13 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 import DomainInput from "./DomainInput";
 import Alert from "./Alert";
 import DomainList from "./DomainList";
 import { ignoreCancel, makeCancelable } from "../utils";
 
-export default class ListPage extends Component {
+class ListPage extends Component {
   state = {
     domains: [],
     infoMsg: "",
@@ -23,9 +24,14 @@ export default class ListPage extends Component {
     errorMsg: ""
   };
 
+  constructor(props) {
+    super(props);
+    this.t = props.t;
+  }
+
   onAdding = domain =>
     this.setState({
-      infoMsg: "Adding " + domain + " ...",
+      infoMsg: this.t("Adding {{domain}}...", { domain }),
       successMsg: "",
       errorMsg: ""
     });
@@ -34,14 +40,14 @@ export default class ListPage extends Component {
     this.setState({
       infoMsg: "",
       successMsg: "",
-      errorMsg: domain + " is already added"
+      errorMsg: this.t("{{domain}} is already added", { domain })
     });
 
   onAdded = domain =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
       infoMsg: "",
-      successMsg: "Successfully added " + domain,
+      successMsg: this.t("Successfully added {{domain}}", { domain }),
       errorMsg: ""
     }));
 
@@ -50,7 +56,7 @@ export default class ListPage extends Component {
       domains: prevDomains,
       infoMsg: "",
       successMsg: "",
-      errorMsg: "Failed to add " + domain
+      errorMsg: this.t("Failed to add {{domain}}", { domain })
     });
 
   onRemoved = domain =>
@@ -63,7 +69,7 @@ export default class ListPage extends Component {
       domains: prevDomains,
       infoMsg: "",
       successMsg: "",
-      errorMsg: "Failed to remove " + domain
+      errorMsg: this.t("Failed to remove {{domain}}", { domain })
     }));
 
   onRefresh = () => {
@@ -101,9 +107,7 @@ export default class ListPage extends Component {
           onAdded={this.onAdded}
           onFailed={this.onAddFailed}
           onRefresh={this.onRefresh}/>
-        {
-          this.props.note
-        }
+        { this.props.note }
         {
           this.state.infoMsg
             ? <Alert message={this.state.infoMsg} type="info" onClick={() => this.setState({ infoMsg: "" })}/>
@@ -136,3 +140,5 @@ ListPage.propTypes = {
   refresh: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired
 };
+
+export default translate(["common", "lists"])(ListPage);

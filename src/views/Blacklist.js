@@ -9,14 +9,22 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from 'react';
+import { translate } from 'react-i18next';
 import { api } from "../utils";
 import ListPage from "../components/ListPage";
 
-export default props => (
-  <ListPage
-    title="Blacklist (Exact)"
-    add={api.addBlacklist}
-    remove={api.removeBlacklist}
-    refresh={api.getBlacklist}
-    {...props}/>
-);
+const Blacklist = props => {
+  const { t } = props;
+
+  return (
+    <ListPage
+      title={`${t("Blacklist")} (${t("Exact")})`}
+      add={api.addBlacklist}
+      remove={api.removeBlacklist}
+      refresh={api.getBlacklist}
+      {...props}
+    />
+  )
+};
+
+export default translate("location")(Blacklist);

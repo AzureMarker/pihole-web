@@ -9,20 +9,27 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from 'react';
+import { translate } from 'react-i18next';
 import ListPage from "../components/ListPage";
 import { api } from "../utils";
 
-export default props => (
-  <ListPage
-    title="Blacklist (Wildcard)"
-    note={(
-      <p>
-        Note: Only the domain and subdomains of the blocked domain will be blocked.
-        You can not block in the regex sense.
-      </p>
-    )}
-    add={api.addWildlist}
-    remove={api.removeWildlist}
-    refresh={api.getWildlist}
-    {...props}/>
-);
+const Wildlist = props => {
+  const { t } = props;
+
+  return (
+    <ListPage
+      title={`${t("Blacklist")} (${t("Wildcard")})`}
+      note={(
+        <p>
+          {t("Note: Only the domain and subdomains of the blocked domain will be blocked.")}
+        </p>
+      )}
+      add={api.addWildlist}
+      remove={api.removeWildlist}
+      refresh={api.getWildlist}
+      {...props}
+    />
+  );
+};
+
+export default translate(["location", "lists"])(Wildlist);

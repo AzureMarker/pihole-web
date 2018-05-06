@@ -10,9 +10,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 import { ignoreCancel, makeCancelable } from "../utils";
 
-export default class DomainInput extends Component {
+class DomainInput extends Component {
   state = {
     domain: ""
   };
@@ -43,16 +44,18 @@ export default class DomainInput extends Component {
   };
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="form-group input-group">
         <input
-          type="text" className="form-control" placeholder="Add a domain (example.com or sub.example.com)"
+          type="text" className="form-control" placeholder={t("Add a domain (example.com or sub.example.com)")}
           value={this.state.domain} onKeyPress={(e) => e.charCode === 13 ? this.onAdd() : null}
           onChange={this.handleChange}
         />
         <span className="input-group-btn">
           <button onClick={this.onAdd} className="btn btn-secondary" type="button">
-            Add
+            {t("Add")}
           </button>
           <button onClick={this.props.onRefresh} className="btn btn-secondary" type="button">
             <i className="fa fa-refresh"/>
@@ -72,3 +75,5 @@ DomainInput.propTypes = {
   onRefresh: PropTypes.func.isRequired,
   apiCall: PropTypes.func.isRequired
 };
+
+export default translate(["common", "lists"])(DomainInput);
