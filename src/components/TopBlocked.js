@@ -9,9 +9,10 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { api, ignoreCancel, makeCancelable } from '../utils';
 
-export default class TopBlocked extends Component {
+class TopBlocked extends Component {
   state = {
     total_blocked: 0,
     top_blocked: {}
@@ -41,20 +42,22 @@ export default class TopBlocked extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="col-md-6 col-xl-4">
         <div className="card">
           <div className="card-header">
-            Top Blocked Domains
+            {t("Top Blocked Domains")}
           </div>
           <div className="card-block">
             <div style={{overflowX: "auto"}}>
               <table className="table table-bordered">
                 <tbody>
                 <tr>
-                  <th>Domain</th>
-                  <th>Hits</th>
-                  <th>Frequency</th>
+                  <th>{t("Domain")}</th>
+                  <th>{t("Hits")}</th>
+                  <th>{t("Frequency")}</th>
                 </tr>
                 {
                   Object.keys(this.state.top_blocked).map(item => {
@@ -69,7 +72,13 @@ export default class TopBlocked extends Component {
                           {stat.toLocaleString()}
                         </td>
                         <td>
-                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_blocked.toLocaleString()}>
+                          <div className="progress progress-sm"
+                               title={
+                                 t("{{percent}}% of {{total}}", {
+                                   percent: percentage.toFixed(1),
+                                   total: this.state.total_blocked.toLocaleString()
+                                 })
+                               }>
                             <div className="progress-bar bg-warning" style={{width: percentage + "%"}}/>
                           </div>
                         </td>
@@ -95,3 +104,5 @@ export default class TopBlocked extends Component {
     );
   }
 }
+
+export default translate(["common", "dashboard"])(TopBlocked);
