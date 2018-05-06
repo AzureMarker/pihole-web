@@ -15,6 +15,9 @@
   "dependencies": {
     "chart.js": "^2.5.0",
     "history": "^4.6.1",
+    "i18next": "^11.2.3",
+    "i18next-browser-languagedetector": "^2.2.0",
+    "i18next-xhr-backend": "^1.5.1",
     "ionicons": "^3.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -22,6 +25,7 @@
     "react-addons-transition-group": "15.5.2",
     "react-chartjs-2": "^2.6.2",
     "react-dom": "^15.5.4",
+    "react-i18next": "^7.6.1",
     "react-router-dom": "4.1.1",
     "react-table": "^6.5.1",
     "react-transition-group": "^1.2.0",

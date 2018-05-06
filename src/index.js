@@ -14,16 +14,20 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 import 'ionicons/dist/css/ionicons.min.css';
 import Full from './containers/Full'
+import i18n from './i18n';
+import { I18nextProvider } from 'react-i18next'
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
   (
-    <HashRouter history={history}>
-      <Switch>
-        <Route path="/" name="Home" component={Full}/>
-      </Switch>
-    </HashRouter>
+    <I18nextProvider i18n={i18n}>
+      <HashRouter history={history}>
+        <Switch>
+          <Route path="/" name="Home" component={Full}/>
+        </Switch>
+      </HashRouter>
+    </I18nextProvider>
   ),
   document.getElementById('root')
 );
