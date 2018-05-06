@@ -1,10 +1,10 @@
 {
-    "Query Log": "Historie",
-    "Whitelist": "Whitelist",
-    "Blacklist": "Blacklist",
-    "Dashboard": "Dashboard",
-    "Exact": "genau",
-    "Wildcard": "",
+    "Query Log": "DNS Anfragen Logbuch",
+    "Whitelist": "Weißliste",
+    "Blacklist": "Schwarzliste",
+    "Dashboard": "Startseite",
+    "Exact": "exakt",
+    "Wildcard": "Wildcard",
     "Login": "Anmelden",
     "Logout": "Abmelden"
 }

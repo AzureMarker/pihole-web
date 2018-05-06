@@ -2,10 +2,10 @@
     "Adding {{domain}}...": "Ajouter à la",
     "Successfully added {{domain}}": "Ajouté à la liste",
     "Failed to add {{domain}}": "Échec lors de l'ajout",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
-    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
-    "Add a domain (example.com or sub.example.com)": "",
-    "{{domain}} is already added": "",
-    "Failed to remove {{domain}}": "",
-    "There are no domains in this list": ""
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Notice: Il n' est pas possible d' autoriser un sous-domaine d' une wildcard précédemment bloquée.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Notice: Seulement le domaine et ses sous-domaines seront bloqués.",
+    "Add a domain (example.com or sub.example.com)": "Ajouter un domaine (par exemple example.com, ou sous.domaine.com)",
+    "{{domain}} is already added": "(domaine) est déja présent.",
+    "Failed to remove {{domain}}": "impossible d' enlever ce domaine",
+    "There are no domains in this list": "il n' y a pas de domaines dans cette liste"
 }
