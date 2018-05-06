@@ -9,6 +9,7 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from 'react';
+import { translate } from 'react-i18next';
 import { NavLink } from 'react-router-dom'
 import { Nav, NavItem } from 'reactstrap';
 import logo from '../img/logo.svg';
@@ -63,10 +64,10 @@ const handleClick = (e) => {
 const activeRoute = (routeName, props) =>
   props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
 
-const navItem = (item, key) => (
-    <NavItem key={key}>
+const navItem = (item, key, props) => (
+  <NavItem key={key}>
     <NavLink to={item.url} onClick={mobileSidebarHide} className="nav-link" activeClassName="active">
-      <i className={item.icon}/>{item.name}
+      <i className={item.icon}/>{props.t(item.name)}
     </NavLink>
   </NavItem>
 );
@@ -75,15 +76,15 @@ const navDropdown = (item, key, props) => (
   <li key={key} className={activeRoute(item.url, props)}>
     <a className="nav-link nav-dropdown-toggle" style={{ "cursor": "pointer" }} onClick={handleClick}><i className={item.icon}/>{item.name}</a>
     <ul className="nav-dropdown-items">
-      {navList(item.children)}
+      {navList(item.children, props)}
     </ul>
   </li>
 );
 
 const navList = (items, props) =>
-  items.map((item, index) => item.children ? navDropdown(item, index, props) : navItem(item, index));
+  items.map((item, index) => item.children ? navDropdown(item, index, props) : navItem(item, index, props));
 
-export default props => {
+const Sidebar = props => {
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">
@@ -107,4 +108,6 @@ export default props => {
       </nav>
     </div>
   )
-}
+};
+
+export default translate("location")(Sidebar);
