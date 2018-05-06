@@ -9,9 +9,10 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { api, ignoreCancel, makeCancelable } from '../utils';
 
-export default class TopClients extends Component {
+class TopClients extends Component {
   state = {
     total_queries: 0,
     top_clients: {}
@@ -41,20 +42,22 @@ export default class TopClients extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="col-md-6 col-xl-4">
         <div className="card">
           <div className="card-header">
-            Top Clients
+            {t("Top Clients")}
           </div>
           <div className="card-block">
             <div style={{overflowX: "auto"}}>
               <table className="table table-bordered">
                 <tbody>
                 <tr>
-                  <th>Client</th>
-                  <th>Requests</th>
-                  <th>Frequency</th>
+                  <th>{t("Client")}</th>
+                  <th>{t("Requests")}</th>
+                  <th>{t("Frequency")}</th>
                 </tr>
                 {
                   Object.keys(this.state.top_clients).map((item) => {
@@ -82,7 +85,13 @@ export default class TopClients extends Component {
                           {stat.toLocaleString()}
                         </td>
                         <td>
-                          <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>
+                          <div className="progress progress-sm"
+                               title={
+                                 t("{{percent}}% of {{total}}", {
+                                   percent: percentage.toFixed(1),
+                                   total: this.state.total_queries.toLocaleString()
+                                 })
+                               }>
                             <div className="progress-bar bg-primary" style={{width: percentage + "%"}}/>
                           </div>
                         </td>
@@ -108,3 +117,5 @@ export default class TopClients extends Component {
     );
   }
 }
+
+export default translate(["common", "dashboard"])(TopClients);
