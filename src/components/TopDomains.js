@@ -9,9 +9,10 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { api, ignoreCancel, makeCancelable } from '../utils';
 
-export default class TopDomains extends Component {
+class TopDomains extends Component {
   state = {
     total_queries: 0,
     top_domains: {}
@@ -41,20 +42,22 @@ export default class TopDomains extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="col-md-6 col-xl-4">
         <div className="card">
           <div className="card-header">
-            Top Domains
+            {t("Top Permitted Domains")}
           </div>
           <div className="card-block">
             <div style={{overflowX: "auto"}}>
               <table className="table table-bordered">
                 <tbody>
                   <tr>
-                    <th>Domain</th>
-                    <th>Hits</th>
-                    <th>Frequency</th>
+                    <th>{t("Domain")}</th>
+                    <th>{t("Hits")}</th>
+                    <th>{t("Frequency")}</th>
                   </tr>
                   {
                     Object.keys(this.state.top_domains).map(item => {
@@ -69,7 +72,13 @@ export default class TopDomains extends Component {
                             {stat.toLocaleString()}
                           </td>
                           <td>
-                            <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>
+                            <div className="progress progress-sm"
+                                 title={
+                                   t("{{percent}}% of {{total}}", {
+                                     percent: percentage.toFixed(1),
+                                     total: this.state.total_queries.toLocaleString()
+                                   })
+                                 }>
                               <div className="progress-bar bg-success" style={{width: percentage + "%"}}/>
                             </div>
                           </td>
@@ -95,3 +104,5 @@ export default class TopDomains extends Component {
     );
   }
 }
+
+export default translate(["common", "dashboard"])(TopDomains);
