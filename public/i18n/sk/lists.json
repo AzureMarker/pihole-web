@@ -1,0 +1,11 @@
+{
+    "Adding {{domain}}...": "Pridávanie {{domain}}",
+    "Successfully added {{domain}}": "Úspešne pridáná {{domain}}",
+    "Failed to add {{domain}}": "Nepodarilo sa pridať {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Poznámka: Pridanie subdomény do bielej listiny už blokovanej domény s pomocou špecialnych znakov(wildcard) nie je možné.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Poznámka: Iba domény a subdomény blokovaných domén budú blokované.",
+    "Add a domain (example.com or sub.example.com)": "Pridať doménu  (example.com alebo sub.example.com)",
+    "{{domain}} is already added": "{{domain}} je už pridaná",
+    "Failed to remove {{domain}}": "Zlyhalo odstranenie {{domain}}",
+    "There are no domains in this list": "V tomto liste sa nenachádzajú žiadne domény "
+}

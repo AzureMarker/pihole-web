@@ -1,0 +1,10 @@
+{
+    "Password": "Clau",
+    "Sign in to start your session": "Identificat per iniciar sessió",
+    "Log in": "",
+    "Forgot Password": "He oblidat la clau ",
+    "forgot_password_description": "",
+    "Wrong Password!": "Clau incorrecta",
+    "You will be transferred to the {{page}}": "Serás redirigit a {{page}}",
+    "Verify that cookies are allowed for {{host}}": "Verifica que s'han permés les cookies per {{host}}"
+}

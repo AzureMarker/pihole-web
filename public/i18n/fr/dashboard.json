@@ -1,0 +1,19 @@
+{
+    "Domains On Blocklist": "Domaines étant bloqués",
+    "Query Types": "Type de requêtes",
+    "Forward Destinations": "Destinations transférées",
+    "Top Permitted Domains": "Domaines fréquents",
+    "Top Blocked Domains": "Publicitaires fréquents",
+    "Top Clients": "Clients fréquents",
+    "Total Queries (1 client)": "",
+    "Queries Blocked": "",
+    "Percent Blocked": "",
+    "Queries Over Last 24 Hours": "",
+    "Clients Over Last 24 Hours": "",
+    "Queries Answered By": "",
+    "Queries from {{from}} to {{to}}": "",
+    "Total Queries": "",
+    "Blocked Queries": "",
+    "Client activity from {{from}} to {{to}}": "",
+    "{{percent}}% of {{total}}": ""
+}

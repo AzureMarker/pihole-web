@@ -1,0 +1,11 @@
+{
+    "Adding {{domain}}...": "Ajouter à la",
+    "Successfully added {{domain}}": "Ajouté à la liste",
+    "Failed to add {{domain}}": "Échec lors de l'ajout",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
+    "Add a domain (example.com or sub.example.com)": "",
+    "{{domain}} is already added": "",
+    "Failed to remove {{domain}}": "",
+    "There are no domains in this list": ""
+}

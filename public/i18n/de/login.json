@@ -1,0 +1,10 @@
+{
+    "Password": "Passwort",
+    "Sign in to start your session": "Melde dich an um deine Session zu starten",
+    "Log in": "Anmelden",
+    "Forgot Password": "Passwort vergessen",
+    "forgot_password_description": "Nach der erstmaligen Installation von Pi-hole, wird ein Passwort generiert und dem Benutzer angezeigt. Das Passwort kann später nicht wiederhergestellt werden, es ist aber möglich ein neues Passwort zu setzen (oder das Passwort zu deaktivieren indem man ein leeres Passwort eingibt) mit dem Befehl:",
+    "Wrong Password!": "Falsches Passwort!",
+    "You will be transferred to the {{page}}": "Du wirst weitergeleitet werden zu {{page}}",
+    "Verify that cookies are allowed for {{host}}": "Stelle sicher das cookies erlaubt sind für {{host}}"
+}

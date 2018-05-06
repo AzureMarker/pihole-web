@@ -1,0 +1,19 @@
+{
+    "Domains On Blocklist": "Počet možních blokovaních domén",
+    "Query Types": "Typy dotazov",
+    "Forward Destinations": "Přepínaní destinací",
+    "Top Permitted Domains": "Najpoužívanejší Domény",
+    "Top Blocked Domains": "Najčastejší Inzerti",
+    "Top Clients": "Najčastejší Klienti",
+    "Total Queries (1 client)": "Celkovo žádostí (1 klient)",
+    "Queries Blocked": "Blokované dotazy",
+    "Percent Blocked": "Procento blokovaných",
+    "Queries Over Last 24 Hours": "Dotazú za posledních 24 hodín",
+    "Clients Over Last 24 Hours": "Klienti za posledních 24 hodín",
+    "Queries Answered By": "Zodpovědených dotazú",
+    "Queries from {{from}} to {{to}}": "Dotazy od {{from}} do {{to}}",
+    "Total Queries": "Celkovo dotazú",
+    "Blocked Queries": "Blokované dotazy",
+    "Client activity from {{from}} to {{to}}": "Klientská aktivita od {{from}} do {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% z {{total}}"
+}
