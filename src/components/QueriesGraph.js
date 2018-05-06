@@ -10,93 +10,15 @@
 
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
+import { translate } from 'react-i18next';
 import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../utils';
 
-export default class QueriesGraph extends Component {
+class QueriesGraph extends Component {
   state = {
     loading: true,
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: "Total Queries",
-          data: [],
-          fill: true,
-          backgroundColor: "rgba(220,220,220,0.5)",
-          borderColor: "rgba(0, 166, 90,.8)",
-          pointBorderColor: "rgba(0, 166, 90,.8)",
-          pointRadius: 1,
-          pointHoverRadius: 5,
-          pointHitRadius: 5,
-          cubicInterpolationMode: "monotone"
-        },
-        {
-          label: "Blocked Queries",
-          data: [],
-          fill: true,
-          backgroundColor: "rgba(0,192,239,0.5)",
-          borderColor: "rgba(0,192,239,1)",
-          pointBorderColor: "rgba(0,192,239,1)",
-          pointRadius: 1,
-          pointHoverRadius: 5,
-          pointHitRadius: 5,
-          cubicInterpolationMode: "monotone"
-        }
-      ]
-    },
-    options: {
-      tooltips: {
-        enabled: true,
-        mode: "x-axis",
-        callbacks: {
-          title: tooltipItem => {
-            const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-            const h = parseInt(time[1], 10);
-            const m = parseInt(time[2], 10) || 0;
-            const from = padNumber(h) + ":" + padNumber(m) + ":00";
-            const to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
-
-            return "Queries from " + from + " to " + to;
-          },
-          label: (tooltipItems, data) => {
-            if (tooltipItems.datasetIndex === 1) {
-              let percentage = 0.0;
-              const total = parseInt(data.datasets[0].data[tooltipItems.index], 10);
-              const blocked = parseInt(data.datasets[1].data[tooltipItems.index], 10);
-
-              if (total > 0)
-                percentage = 100.0 * blocked / total;
-
-              return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel
-                + " (" + percentage.toFixed(1) + "%)";
-            }
-            else
-              return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel;
-          }
-        }
-      },
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          type: "time",
-          time: {
-            unit: "hour",
-            displayFormats: {
-              hour: "HH:mm"
-            },
-            tooltipFormat: "HH:mm"
-          }
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      },
-      maintainAspectRatio: false
-    }
+    labels: [],
+    domains_over_time: [],
+    blocked_over_time: []
   };
 
   constructor(props) {
@@ -123,12 +45,12 @@ export default class QueriesGraph extends Component {
           labels.push(new Date(1000 * res.blocked_over_time[0][i]));
       }
 
-      const data = this.state.data;
-      data.labels = labels;
-      data.datasets[0].data = res.domains_over_time[1];
-      data.datasets[1].data = res.blocked_over_time[1];
-
-      this.setState({ data, loading: false });
+      this.setState({
+        loading: false,
+        labels: labels,
+        domains_over_time: res.domains_over_time[1],
+        blocked_over_time: res.blocked_over_time[1]
+      });
     }).catch(ignoreCancel);
   }
 
@@ -141,15 +63,95 @@ export default class QueriesGraph extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
+    const data = {
+      labels: this.state.labels,
+      datasets: [
+        {
+          label: t("Total Queries"),
+          data: this.state.domains_over_time,
+          fill: true,
+          backgroundColor: "rgba(220,220,220,0.5)",
+          borderColor: "rgba(0, 166, 90,.8)",
+          pointBorderColor: "rgba(0, 166, 90,.8)",
+          pointRadius: 1,
+          pointHoverRadius: 5,
+          pointHitRadius: 5,
+          cubicInterpolationMode: "monotone"
+        },
+        {
+          label: t("Blocked Queries"),
+          data: this.state.blocked_over_time,
+          fill: true,
+          backgroundColor: "rgba(0,192,239,0.5)",
+          borderColor: "rgba(0,192,239,1)",
+          pointBorderColor: "rgba(0,192,239,1)",
+          pointRadius: 1,
+          pointHoverRadius: 5,
+          pointHitRadius: 5,
+          cubicInterpolationMode: "monotone"
+        }
+      ]
+    };
+
+    const options = {
+      tooltips: {
+        enabled: true,
+        mode: "x-axis",
+        callbacks: {
+          title: tooltipItem => {
+            const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
+            const h = parseInt(time[1], 10);
+            const m = parseInt(time[2], 10) || 0;
+            const from = padNumber(h) + ":" + padNumber(m) + ":00";
+            const to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
+
+            return t("Queries from {{from}} to {{to}}", { from, to });
+          },
+          label: (tooltipItems, data) => {
+            if (tooltipItems.datasetIndex === 1) {
+              let percentage = 0.0;
+              const total = parseInt(data.datasets[0].data[tooltipItems.index], 10);
+              const blocked = parseInt(data.datasets[1].data[tooltipItems.index], 10);
+
+              if (total > 0)
+                percentage = 100.0 * blocked / total;
+
+              return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel
+                + " (" + percentage.toFixed(1) + "%)";
+            }
+            else
+              return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel;
+          }
+        }
+      },
+      legend: { display: false },
+      scales: {
+        xAxes: [{
+          type: "time",
+          time: {
+            unit: "hour",
+            displayFormats: { hour: "HH:mm" },
+            tooltipFormat: "HH:mm"
+          }
+        }],
+          yAxes: [{
+          ticks: { beginAtZero: true }
+        }]
+      },
+      maintainAspectRatio: false
+    };
+
     return (
       <div className="row">
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              Queries Over Last 24 Hours
+              {t("Queries Over Last 24 Hours")}
             </div>
             <div className="card-block">
-              <Line width={970} height={250} data={this.state.data} options={this.state.options}/>
+              <Line width={970} height={250} data={data} options={options}/>
             </div>
             {
               this.state.loading
@@ -166,3 +168,5 @@ export default class QueriesGraph extends Component {
     );
   }
 }
+
+export default translate(["common", "dashboard"])(QueriesGraph);

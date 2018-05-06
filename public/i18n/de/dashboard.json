@@ -6,7 +6,7 @@
     "Top Blocked Domains": "Top blockierte Domains",
     "Top Clients": "Top Geräte",
     "Total Queries ({{count}} clients)": "Anzahl der Anfragen (1 Gerät)",
-    "Total Queries ({{count}} clients)_plural": "Anzahl der Anfragen ({{clients}} Geräte)",
+    "Total Queries ({{count}} clients)_plural": "Anzahl der Anfragen ({{count}} Geräte)",
     "Queries Blocked": "Anfragen geblockt",
     "Percent Blocked": "Prozent geblockt",
     "Queries Over Last 24 Hours": "Anfragen in den letzten 24 Stunden",
