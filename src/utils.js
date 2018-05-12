@@ -140,12 +140,10 @@ export const api = {
     let apiLocation;
 
     if(config.fakeAPI)
-      apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
-    else if(config.developmentMode)
-      apiLocation = "pi.hole/admin/api";
+      apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
     else
-      apiLocation = window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/admin/api";
+      apiLocation = "/admin/api";
 
-    return window.location.protocol + "//" + apiLocation + "/" + endpoint;
+    return apiLocation + "/" + endpoint;
   }
 };

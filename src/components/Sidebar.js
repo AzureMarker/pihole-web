@@ -29,7 +29,7 @@ const nav = {
     {
       name: 'Whitelist',
       url: '/whitelist',
-      icon: 'fa fa-check-square-o'
+      icon: 'fa fa-check-circle-o'
     },
     {
       name: 'Blacklist',
