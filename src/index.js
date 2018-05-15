@@ -13,18 +13,17 @@ import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import 'ionicons/dist/css/ionicons.min.css';
 import Full from './containers/Full'
-import i18n from './i18n';
-import { I18nextProvider } from 'react-i18next'
+import { setupI18n } from './i18n';
+
+setupI18n();
 
 ReactDOM.render(
   (
-    <I18nextProvider i18n={i18n}>
-      <HashRouter>
-        <Switch>
-          <Route path="/" name="Home" component={Full}/>
-        </Switch>
-      </HashRouter>
-    </I18nextProvider>
+    <HashRouter>
+      <Switch>
+        <Route path="/" name="Home" component={Full}/>
+      </Switch>
+    </HashRouter>
   ),
   document.getElementById('root')
 );
