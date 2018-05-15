@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "chart.js": "^2.7.2",
-    "i18next": "^11.2.3",
+    "i18next": "^11.3.2",
     "i18next-browser-languagedetector": "^2.2.0",
     "i18next-xhr-backend": "^1.5.1",
     "ionicons": "^3.0.0",
