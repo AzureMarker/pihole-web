@@ -11,10 +11,10 @@ script:
   - npm run gulp sass
   - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
   - 'if [ "$TRAVIS_BRANCH" = "master" ]; then
-      npm run build-fake
+      npm run build-fake;
       echo "web.pi-hole.io" > build/CNAME;
     else
-      npm run build
+      npm run build;
     fi'
   - tar -czvf pihole-web.tar.gz build
   - wget https://ftl.pi-hole.net:8080/FTL-client
