@@ -16,7 +16,7 @@ script:
     else
       npm run build;
     fi'
-  - tar -czvf pihole-web.tar.gz build
+  - tar -czvf pihole-web.tar.gz -C build .
   - wget https://ftl.pi-hole.net:8080/FTL-client
   - chmod +x ./FTL-client
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./FTL-client "${TRAVIS_BRANCH}" pihole-web.tar.gz "${TRAVIS_SECRET}"; fi'
