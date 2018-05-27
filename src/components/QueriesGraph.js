@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../utils';
+import { padNumber, api, makeCancelable, ignoreCancel } from '../utils';
 
 export default class QueriesGraph extends Component {
   state = {
@@ -107,26 +107,14 @@ export default class QueriesGraph extends Component {
   updateGraph() {
     this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
     this.updateHandler.promise.then(res => {
-      res.blocked_over_time = parseObjectForGraph(res.blocked_over_time);
-      res.domains_over_time = parseObjectForGraph(res.domains_over_time);
-
       // Remove last data point as it's not yet finished
-      res.blocked_over_time[0].splice(-1, 1);
-      res.blocked_over_time[1].splice(-1, 1);
-      res.domains_over_time[0].splice(-1, 1);
-      res.domains_over_time[1].splice(-1, 1);
-
-      // Generate labels
-      const labels = [];
-      for(let i in res.blocked_over_time[0]) {
-        if(res.blocked_over_time[0].hasOwnProperty(i))
-          labels.push(new Date(1000 * res.blocked_over_time[0][i]));
-      }
+      res.blocked_over_time.splice(-1, 1);
+      res.domains_over_time.splice(-1, 1);
 
       const data = this.state.data;
-      data.labels = labels;
-      data.datasets[0].data = res.domains_over_time[1];
-      data.datasets[1].data = res.blocked_over_time[1];
+      data.labels = res.domains_over_time.map(step => new Date(1000 * step.timestamp));
+      data.datasets[0].data = res.domains_over_time.map(step => step.count);
+      data.datasets[1].data = res.blocked_over_time.map(step => step.count);
 
       this.setState({ data, loading: false });
     }).catch(ignoreCancel);
