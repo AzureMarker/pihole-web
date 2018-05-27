@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { padNumber, parseObjectForGraph, api, makeCancelable, ignoreCancel } from '../utils';
+import { padNumber, api, makeCancelable, ignoreCancel } from '../utils';
 
 export default class ForwardDestOverTime extends Component {
   state = {
@@ -77,13 +77,10 @@ export default class ForwardDestOverTime extends Component {
       { repeat: this.updateGraph, interval: 10 * 60 * 1000 }
     );
     this.updateHandler.promise.then(res => {
-      res.over_time = parseObjectForGraph(res.over_time);
       // Remove last data point as it's not yet finished
-      res.over_time[0].splice(-1, 1);
+      res.over_time.splice(-1, 1);
 
       const labels = [];
-      const timestamps = res.over_time[0];
-      const plotdata = res.over_time[1];
       const destinations = res.forward_destinations;
       const datasets = [];
       const colors = [
@@ -96,17 +93,15 @@ export default class ForwardDestOverTime extends Component {
         "#b0bec5"
       ];
 
-      // Fill in default values
+      // Fill in destination information
       let i = 0;
-      for(let destination in destinations) {
-        if(!destinations.hasOwnProperty(destination)) continue;
-
+      for(let destination of destinations) {
         datasets.push({
           label: destination.split("|")[0],
           // If we ran out of colors, make a random one
           backgroundColor: i < colors.length
             ? colors[i]
-            : '#' + parseInt(Math.random() * 0xffffff, 10).toString(16),
+            : '#' + parseInt("" + Math.random() * 0xffffff, 10).toString(16),
           pointRadius: 0,
           pointHitRadius: 5,
           pointHoverRadius: 5,
@@ -117,22 +112,18 @@ export default class ForwardDestOverTime extends Component {
       }
 
       // Fill in data & labels
-      for(let j in timestamps) {
-        if(!timestamps.hasOwnProperty(j)) continue;
-
-        const h = parseInt(timestamps[j], 10);
-        const d = new Date(1000 * h);
-
-        const sum = plotdata[j].reduce((sum, next) => sum + next);
+      for(let step of res.over_time) {
+        const date = new Date(1000 * step.timestamp);
+        const sum = step.data.reduce((a, b) => a + b);
 
         if (sum > 0) {
           for(let destination in datasets) {
             if(datasets.hasOwnProperty(destination))
-              datasets[destination].data.push(plotdata[j][destination] / sum);
+              datasets[destination].data.push(step.data[destination] / sum);
           }
         }
 
-        labels.push(d);
+        labels.push(date);
       }
 
       const data = this.state.data;

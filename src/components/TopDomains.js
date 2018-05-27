@@ -15,7 +15,7 @@ import { api, ignoreCancel, makeCancelable } from '../utils';
 class TopDomains extends Component {
   state = {
     total_queries: 0,
-    top_domains: {}
+    top_domains: []
   };
 
   constructor(props) {
@@ -60,16 +60,15 @@ class TopDomains extends Component {
                     <th>{t("Frequency")}</th>
                   </tr>
                   {
-                    Object.keys(this.state.top_domains).map(item => {
-                      const stat = this.state.top_domains[item];
-                      const percentage = stat / this.state.total_queries * 100;
+                    this.state.top_domains.map(item => {
+                      const percentage = item.count / this.state.total_queries * 100;
                       return (
-                        <tr key={item}>
+                        <tr key={item.domain}>
                           <td>
-                            {item}
+                            {item.domain}
                           </td>
                           <td>
-                            {stat.toLocaleString()}
+                            {item.count.toLocaleString()}
                           </td>
                           <td>
                             <div className="progress progress-sm"
