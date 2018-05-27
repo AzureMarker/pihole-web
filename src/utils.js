@@ -14,19 +14,6 @@ export const padNumber = (num) => {
   return ("00" + num).substr(-2,2);
 };
 
-export const parseObjectForGraph = (p) => {
-  const keys = Object.keys(p);
-  keys.sort((a, b) => a - b);
-
-  const arr = [], idx = [];
-  for(let i = 0; i < keys.length; i++) {
-    arr.push(p[keys[i]]);
-    idx.push(keys[i]);
-  }
-
-  return [idx,arr];
-};
-
 export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) => {
   let hasCanceled = false;
   let repeatId = null;
@@ -177,22 +164,20 @@ export const api = {
       return data.json();
   },
   checkForErrors(data) {
-    if(!data.errors || data.errors.length > 0) {
-      return Promise.reject(data.errors);
+    if(data.error) {
+      return Promise.reject(data.error);
     }
-    return Promise.resolve(data.data);
+    return Promise.resolve(data);
   },
   urlFor(endpoint) {
     let apiLocation;
 
     if(config.fakeAPI)
-      apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
-    else if(config.developmentMode)
-      apiLocation = "pi.hole:8000/admin/api";
+      apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
     else
-      apiLocation = window.location.hostname + (window.location.port ? ':' + window.location.port : '') + "/admin/api";
+      apiLocation = "/admin/api";
 
-    return window.location.protocol + "//" + apiLocation + "/" + endpoint;
+    return apiLocation + "/" + endpoint;
   },
   credentialType() {
     // Development API requests use a different origin (pi.hole) since it is running off of the developer's machine.

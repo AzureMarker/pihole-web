@@ -14,7 +14,7 @@ import { api, ignoreCancel, makeCancelable } from '../utils';
 export default class TopClients extends Component {
   state = {
     total_queries: 0,
-    top_clients: {}
+    top_clients: []
   };
 
   constructor(props) {
@@ -57,29 +57,16 @@ export default class TopClients extends Component {
                   <th>Frequency</th>
                 </tr>
                 {
-                  Object.keys(this.state.top_clients).map((item) => {
-                    let hostname = "";
-                    let ipAddr = "";
-                    const stat = this.state.top_clients[item];
-                    const percentage = stat / this.state.total_queries * 100;
-
-                    // Check if we have the IP and hostname
-                    // ex. localhost|127.0.0.1
-                    const parts = item.split("|");
-                    if(item.includes("|")) {
-                      hostname = parts[0];
-                      ipAddr = parts[1];
-                    }
-                    else
-                      ipAddr = parts[0];
+                  this.state.top_clients.map(item => {
+                    const percentage = item.count / this.state.total_queries * 100;
 
                     return (
-                      <tr key={item}>
+                      <tr key={item.name + "|" + item.ip}>
                         <td>
-                          {hostname !== "" ? hostname : ipAddr}
+                          {item.name !== "" ? item.name : item.ip}
                         </td>
                         <td>
-                          {stat.toLocaleString()}
+                          {item.count.toLocaleString()}
                         </td>
                         <td>
                           <div className="progress progress-sm" title={percentage.toFixed(1) + "% of " + this.state.total_queries.toLocaleString()}>

@@ -35,3 +35,13 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 the [Tutorial](https://reactjs.org/tutorial/tutorial.html) before diving too deep into the code.
 - When you are ready to make changes, make a branch off of `development` in your fork to work in. When you're ready to
 make a pull request, base the PR against `development`.
+
+## Testing With Fake Data
+
+- Follow the "Getting Started" guide above
+- Checkout the branch you want to test using `git checkout`
+- Run `npm install` just to make sure you have the correct dependencies for the branch
+- Run `npm start-fake` to start the web interface with fake data
+    - See the `npm start` section of the getting started guide above for more details,
+    like the port number
+- Note: interactive API features, like adding to the whitelist, will not work with fake data
