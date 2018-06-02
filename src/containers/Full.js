@@ -21,6 +21,8 @@ import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
 import Wildlist from "../views/Wildlist";
 import Login from "../views/Login";
+import Logout from "../views/Logout";
+import { api } from "../utils";
 
 export default props => (
   <div className="app">
@@ -33,11 +35,12 @@ export default props => (
           <Switch>
             <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
             <Redirect exact from="/" to="/dashboard"/>
-            <Route path="/query-log" name="Query Log" component={QueryLog}/>
+            <AuthRoute path="/query-log" name="Query Log" component={QueryLog}/>
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
             <Route path="/wildlist" name="Wildlist" component={Wildlist}/>
             <Route path="/login" name="Login" component={Login}/>
+            <AuthRoute path="/logout" name="Logout" component={Logout}/>
           </Switch>
         </div>
       </main>
@@ -46,3 +49,31 @@ export default props => (
     <Footer/>
   </div>
 );
+
+/**
+ * Create a route which requires authentication.
+ * If the user is unauthenticated, they will be redirected to the login page.
+ * If the user logs in at the redirected login page, they will go to their original destination.
+ *
+ * @param Component The component that the authenticated user will see
+ * @param rest The rest of the Route arguments
+ * @returns Route
+ */
+const AuthRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      api.loggedIn ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
