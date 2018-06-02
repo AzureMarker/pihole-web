@@ -26,9 +26,9 @@ export default class StatusBadge extends Component {
     return (
       this.state.status === "enabled"
       ?
-        <span><i className="fa fa-circle text-success"/> Online</span>
+        <span><i className="fa fa-circle text-success"/> Enabled</span>
       :
-        <span><i className="fa fa-circle text-danger"/> Offline</span>
+        <span><i className="fa fa-circle text-danger"/> Disabled</span>
     );
   }
 }
