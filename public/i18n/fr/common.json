@@ -9,5 +9,7 @@
     "Add": "Ajouter",
     "Time": "Temps",
     "Type": "Type",
-    "Action": "Action"
+    "Action": "Action",
+    "Enabled": "",
+    "Disabled": ""
 }

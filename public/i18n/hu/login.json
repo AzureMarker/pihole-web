@@ -1,0 +1,10 @@
+{
+    "Password": "Jelszó",
+    "Sign in to start your session": "Jelentkezzen be a munkamenet megkezdéséhez",
+    "Log in": "Belépés",
+    "Forgot Password": "Jelszó emlékeztető",
+    "forgot_password_description": "elfelejtett_jeszó_leírása",
+    "Wrong Password!": "Hibás Jelszó!",
+    "You will be transferred to the {{page}}": "Ön átkerül az {{page}} oldalra",
+    "Verify that cookies are allowed for {{host}}": "Ellenőrizze, hogy a cookie-k engedélyezve vannak e {{host}}"
+}

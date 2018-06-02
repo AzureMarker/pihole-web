@@ -9,5 +9,7 @@
     "Add": "Add",
     "Time": "Time",
     "Type": "Type",
-    "Action": "Action"
+    "Action": "Action",
+    "Enabled": "Enabled",
+    "Disabled": "Disabled"
 }

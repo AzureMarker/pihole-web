@@ -9,5 +9,7 @@
     "Add": "Přidát",
     "Time": "Čas",
     "Type": "Typ",
-    "Action": "Akce"
+    "Action": "Akce",
+    "Enabled": "",
+    "Disabled": ""
 }

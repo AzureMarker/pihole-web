@@ -9,5 +9,7 @@
     "Add": "Pridať",
     "Time": "Čas",
     "Type": "Typ",
-    "Action": "Akcia"
+    "Action": "Akcia",
+    "Enabled": "",
+    "Disabled": ""
 }
