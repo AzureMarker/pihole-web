@@ -85,7 +85,8 @@ function fetchTag(lang, tag) {
         if(typeof item.definition === "string") {
           map[item.term] = item.definition;
         } else if(item.definition === null) {
-          map[item.term] = "";
+          // Don't add missing strings. They will be loaded from the fallback language.
+          return map;
         } else {
           // Check if there's just singular and plural
           if(Object.keys(item.definition).length === 2) {
