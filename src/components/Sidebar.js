@@ -13,44 +13,60 @@ import { NavLink } from 'react-router-dom'
 import { Nav, NavItem } from 'reactstrap';
 import logo from '../img/logo.svg';
 import { mobileSidebarHide } from "./Header";
+import { api } from "../utils";
 
 const nav = {
   items: [
     {
       name: 'Dashboard',
       url: '/dashboard',
-      icon: 'fa fa-dashboard'
+      icon: 'fa fa-dashboard',
+      auth: false
     },
     {
       name: 'Query Log',
       url: '/query-log',
-      icon: 'fa fa-database'
+      icon: 'fa fa-database',
+      auth: true
     },
     {
       name: 'Whitelist',
       url: '/whitelist',
-      icon: 'fa fa-check-circle-o'
+      icon: 'fa fa-check-circle-o',
+      auth: false
     },
     {
       name: 'Blacklist',
       icon: 'fa fa-ban',
+      auth: false,
       children: [
         {
           name: 'Exact',
           url: '/blacklist',
-          icon: 'fa fa-ban'
+          icon: 'fa fa-ban',
+          auth: false
         },
         {
           name: 'Wildcard',
           url: '/wildlist',
-          icon: 'fa fa-ban'
+          icon: 'fa fa-ban',
+          auth: false
         }
       ]
     },
     {
       name: 'Login',
       url: '/login',
-      icon: 'fa fa-user'
+      icon: 'fa fa-user',
+      auth: false,
+      authStrict: true
+    },
+    {
+      name: 'Logout',
+      url: '/logout',
+      icon: 'fa fa-user-times',
+      auth: true,
+      authStrict: true
     }
   ]
 };
@@ -81,7 +97,18 @@ const navDropdown = (item, key, props) => (
 );
 
 const navList = (items, props) =>
-  items.map((item, index) => item.children ? navDropdown(item, index, props) : navItem(item, index));
+  items.map((item, index) => {
+    // Don't show an item if it requires auth and we're not logged in
+    if(item.auth && !api.loggedIn)
+      return null;
+
+    // Some items (login page) should only be shown when logged in or logged out, not both
+    if(item.authStrict && item.auth !== api.loggedIn)
+      return null;
+
+    // At this point it's ok to show the item
+    return item.children ? navDropdown(item, index, props) : navItem(item, index);
+  });
 
 export default props => {
   return (
