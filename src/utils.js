@@ -132,6 +132,7 @@ export const api = {
       headers: new Headers({ "Content-Type": "application/json" }),
       credentials: this.credentialType()
     })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
@@ -140,6 +141,7 @@ export const api = {
       method: "DELETE",
       credentials: this.credentialType()
     })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
