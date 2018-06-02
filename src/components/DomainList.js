@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { ignoreCancel, makeCancelable } from "../utils";
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class DomainList extends Component {
   onRemove(domain) {
@@ -37,9 +37,13 @@ class DomainList extends Component {
             ?
             this.props.domains.map(item => (
               <li key={item} className="list-group-item">
-                <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
-                  <span className="fa fa-trash-o"/>
-                </button>
+                {
+                  api.loggedIn ?
+                    <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
+                      <span className="fa fa-trash-o"/>
+                    </button>
+                    : null
+                }
                 <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
                 {item}
               </span>

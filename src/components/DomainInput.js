@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { ignoreCancel, makeCancelable } from "../utils";
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class DomainInput extends Component {
   state = {
@@ -52,11 +52,16 @@ class DomainInput extends Component {
           type="text" className="form-control" placeholder={t("Add a domain (example.com or sub.example.com)")}
           value={this.state.domain} onKeyPress={(e) => e.charCode === 13 ? this.onAdd() : null}
           onChange={this.handleChange}
+          disabled={!api.loggedIn}
         />
         <span className="input-group-btn">
-          <button onClick={this.onAdd} className="btn btn-secondary" type="button">
-            {t("Add")}
-          </button>
+          {
+            api.loggedIn ?
+              <button onClick={this.onAdd} className="btn btn-secondary" type="button">
+                {t("Add")}
+              </button>
+              : null
+          }
           <button onClick={this.props.onRefresh} className="btn btn-secondary" type="button">
             <i className="fa fa-refresh"/>
           </button>

@@ -14,5 +14,6 @@ export default {
   '/whitelist': 'Whitelist',
   '/blacklist': 'Blacklist (Exact)',
   '/wildlist': 'Blacklist (Wildcard)',
-  '/login': 'Login'
+  '/login': 'Login',
+  '/logout': 'Logout'
 };
