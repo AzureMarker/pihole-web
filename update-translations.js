@@ -10,9 +10,19 @@
 
 const fs = require("fs-extra");
 const fetch = require('node-fetch');
+const MultiProgress = require('multi-progress');
 
 const PROJECT_ID = 66305;
 const I18N_FOLDER = "public/i18n";
+
+const multi = new MultiProgress(process.stderr);
+
+const apiToken = process.env.POEDITOR_API_TOKEN;
+
+if(!apiToken) {
+  console.log("Please set the POEDITOR_API_TOKEN environment variable");
+  process.exit(1);
+}
 
 /**
  * Convert a key-value map into a format for application/x-www-form-urlencoded
@@ -35,7 +45,7 @@ function getTranslatedLanguages() {
     {
       method: "POST",
       body: makeFormData({
-        "api_token": process.env.POEDITOR_API_TOKEN,
+        "api_token": apiToken,
         "id": PROJECT_ID,
       }),
       headers: { "Content-Type": "application/x-www-form-urlencoded" }
@@ -54,16 +64,15 @@ function getTranslatedLanguages() {
  *
  * @param lang the language code
  * @param tag the tag
+ * @param bar the progress bar
  */
-function fetchTag(lang, tag) {
-  console.log(`Exporting ${lang}:${tag}`);
-
+function fetchTag(lang, tag, bar) {
   fetch(
     "https://api.poeditor.com/v2/projects/export",
     {
       method: "POST",
       body: makeFormData({
-        "api_token": process.env.POEDITOR_API_TOKEN,
+        "api_token": apiToken,
         "id": PROJECT_ID,
         "language": lang,
         "type": "json",
@@ -73,11 +82,14 @@ function fetchTag(lang, tag) {
     }
   )
     .then(exportResponse => {
-      console.log(`Downloading ${lang}:${tag}`);
+      bar.tick();
       return exportResponse.json();
     })
     .then(exportData => fetch(exportData.result.url))
-    .then(langResponse => langResponse.json())
+    .then(langResponse => {
+      bar.tick();
+      return langResponse.json();
+    })
     .then(langData => {
       const parsedData = langData.reduce((map, item) => {
 
@@ -113,7 +125,7 @@ function fetchTag(lang, tag) {
       }, {});
 
       fs.outputFileSync(`${I18N_FOLDER}/${lang}/${tag}.json`, JSON.stringify(parsedData, null, 4));
-      console.log(`Finished downloading ${lang}:${tag}`);
+      bar.tick();
     });
 }
 
@@ -133,8 +145,16 @@ function fetchAllTags(lang) {
     "footer"
   ];
 
-  for(let tag of tags)
-    fetchTag(lang, tag);
+  const bar = multi.newBar(`${lang}\t:percent\t[:bar]`, {
+    // 3 steps per tag: export, download, and parse
+    total: 3 * tags.length
+  });
+
+  // Render at 0%
+  bar.tick(0);
+
+  for(const tag of tags)
+    fetchTag(lang, tag, bar);
 }
 
 // Remove old translations
@@ -142,11 +162,11 @@ console.log("Deleting old translations");
 fs.emptyDirSync(I18N_FOLDER);
 
 // Get the translated languages and download the translations
+console.log("Fetching languages");
 getTranslatedLanguages()
   .then(languages => {
-    console.log(`Languages over 90% translated: ${languages}`);
+    console.log(`Languages over 90% translated: ${languages.join(", ")}`);
 
     for(const lang of languages)
       fetchAllTags(lang);
   });
-

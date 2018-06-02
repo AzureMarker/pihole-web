@@ -11,6 +11,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-sass": "^4.0.1",
     "node-fetch": "^2.1.2",
+    "multi-progress": "^2.0.0",
     "react-scripts": "^1.1.4"
   },
   "dependencies": {
