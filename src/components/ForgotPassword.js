@@ -24,14 +24,14 @@ export default class ForgotPassword extends Component {
   };
 
   /**
-   * @returns {Boolean|boolean} If the body should be collapsed
+   * @returns {Boolean|boolean} If the body should be expanded
    */
-  isCollapsed = () => this.props.error || !this.state.collapsed;
+  isExpanded = () => this.props.error || !this.state.collapsed;
 
   render() {
     return (
       <div style={{'width': '100%'}}>
-        <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary collapsed-card')}>
+        <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary')}>
           <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
                style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
             <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
@@ -41,11 +41,11 @@ export default class ForgotPassword extends Component {
             <span className="pull-right">
               <button type="button" className="btn btn-card-tool"
                       style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={this.onClick}>
-                <i className={'fa ' + (this.isCollapsed() ? 'fa-minus' : 'fa-plus')}/>
+                <i className={'fa ' + (this.isExpanded() ? 'fa-minus' : 'fa-plus')}/>
               </button>
             </span>
           </div>
-          <div className={'card-body bg-light' + (this.isCollapsed() ? '' : ' collapse')}
+          <div className={'card-body bg-light' + (this.isExpanded() ? '' : ' collapse')}
                style={{'padding': '10px'}}>
             After installing Pi-hole for the first time, a password is generated and displayed to the user.
             The password cannot be retrieved later on, but it is possible to set a new password (or
