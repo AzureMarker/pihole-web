@@ -10,17 +10,59 @@
 
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
+import { translate } from 'react-i18next';
 import { padNumber, api, makeCancelable, ignoreCancel } from '../utils';
 
-export default class QueriesGraph extends Component {
+class QueriesGraph extends Component {
   state = {
     loading: true,
-    data: {
-      labels: [],
+    labels: [],
+    domains_over_time: [],
+    blocked_over_time: []
+  };
+
+  constructor(props) {
+    super(props);
+    this.updateGraph = this.updateGraph.bind(this);
+  }
+
+  updateGraph() {
+    this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
+    this.updateHandler.promise.then(res => {
+      // Remove last data point as it's not yet finished
+      res.blocked_over_time.splice(-1, 1);
+      res.domains_over_time.splice(-1, 1);
+
+      const labels = res.domains_over_time.map(step => new Date(1000 * step.timestamp));
+      const domains_over_time = res.domains_over_time.map(step => step.count);
+      const blocked_over_time = res.blocked_over_time.map(step => step.count);
+
+      this.setState({
+        loading: false,
+        labels,
+        domains_over_time,
+        blocked_over_time
+      });
+    }).catch(ignoreCancel);
+  }
+
+  componentDidMount() {
+    this.updateGraph();
+  }
+
+  componentWillUnmount() {
+    this.updateHandler.cancel();
+  }
+
+  render() {
+    const { t } = this.props;
+
+    const data = {
+      labels: this.state.labels,
       datasets: [
         {
-          label: "Total Queries",
-          data: [],
+          label: t("Total Queries"),
+          data: this.state.domains_over_time,
           fill: true,
           backgroundColor: "rgba(220,220,220,0.5)",
           borderColor: "rgba(0, 166, 90,.8)",
@@ -31,8 +73,8 @@ export default class QueriesGraph extends Component {
           cubicInterpolationMode: "monotone"
         },
         {
-          label: "Blocked Queries",
-          data: [],
+          label: t("Blocked Queries"),
+          data: this.state.blocked_over_time,
           fill: true,
           backgroundColor: "rgba(0,192,239,0.5)",
           borderColor: "rgba(0,192,239,1)",
@@ -43,8 +85,9 @@ export default class QueriesGraph extends Component {
           cubicInterpolationMode: "monotone"
         }
       ]
-    },
-    options: {
+    };
+
+    const options = {
       tooltips: {
         enabled: true,
         mode: "x-axis",
@@ -56,7 +99,7 @@ export default class QueriesGraph extends Component {
             const from = padNumber(h) + ":" + padNumber(m) + ":00";
             const to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
 
-            return "Queries from " + from + " to " + to;
+            return t("Queries from {{from}} to {{to}}", { from, to });
           },
           label: (tooltipItems, data) => {
             if (tooltipItems.datasetIndex === 1) {
@@ -75,69 +118,32 @@ export default class QueriesGraph extends Component {
           }
         }
       },
-      legend: {
-        display: false
-      },
+      legend: { display: false },
       scales: {
         xAxes: [{
           type: "time",
           time: {
             unit: "hour",
-            displayFormats: {
-              hour: "HH:mm"
-            },
+            displayFormats: { hour: "HH:mm" },
             tooltipFormat: "HH:mm"
           }
         }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
+          yAxes: [{
+          ticks: { beginAtZero: true }
         }]
       },
       maintainAspectRatio: false
-    }
-  };
+    };
 
-  constructor(props) {
-    super(props);
-    this.updateGraph = this.updateGraph.bind(this);
-  }
-
-  updateGraph() {
-    this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
-    this.updateHandler.promise.then(res => {
-      // Remove last data point as it's not yet finished
-      res.blocked_over_time.splice(-1, 1);
-      res.domains_over_time.splice(-1, 1);
-
-      const data = this.state.data;
-      data.labels = res.domains_over_time.map(step => new Date(1000 * step.timestamp));
-      data.datasets[0].data = res.domains_over_time.map(step => step.count);
-      data.datasets[1].data = res.blocked_over_time.map(step => step.count);
-
-      this.setState({ data, loading: false });
-    }).catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateGraph();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
-
-  render() {
     return (
       <div className="row">
         <div className="col-md-12">
           <div className="card">
             <div className="card-header">
-              Queries Over Last 24 Hours
+              {t("Queries Over Last 24 Hours")}
             </div>
             <div className="card-block">
-              <Line width={970} height={250} data={this.state.data} options={this.state.options}/>
+              <Line width={970} height={250} data={data} options={options}/>
             </div>
             {
               this.state.loading
@@ -154,3 +160,5 @@ export default class QueriesGraph extends Component {
     );
   }
 }
+
+export default translate(["common", "dashboard"])(QueriesGraph);

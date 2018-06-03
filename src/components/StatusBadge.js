@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { api, makeCancelable, ignoreCancel } from '../utils';
 
-export default class StatusBadge extends Component {
+class StatusBadge extends Component {
   state = {
     status: "enabled"
   };
@@ -23,12 +24,16 @@ export default class StatusBadge extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       this.state.status === "enabled"
       ?
-        <span><i className="fa fa-circle text-success"/> Enabled</span>
+        <span><i className="fa fa-circle text-success"/>&nbsp;{t("Enabled")}</span>
       :
-        <span><i className="fa fa-circle text-danger"/> Disabled</span>
+        <span><i className="fa fa-circle text-danger"/>&nbsp;{t("Disabled")}</span>
     );
   }
 }
+
+export default translate("common")(StatusBadge);

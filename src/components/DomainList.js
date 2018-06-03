@@ -10,9 +10,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 import { api, ignoreCancel, makeCancelable } from "../utils";
 
-export default class DomainList extends Component {
+class DomainList extends Component {
   onRemove(domain) {
     if(this.props.domains.includes(domain)) {
       const prevDomains = this.props.domains.slice();
@@ -27,6 +28,8 @@ export default class DomainList extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <ul className="list-group">
         {
@@ -48,13 +51,13 @@ export default class DomainList extends Component {
             ))
             :
             <div className="alert alert-info" role="alert">
-              There are no domains in this list
+              {t("There are no domains in this list")}
             </div>
         }
       </ul>
     );
   }
-};
+}
 
 DomainList.propTypes = {
   domains: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -62,3 +65,5 @@ DomainList.propTypes = {
   onFailed: PropTypes.func.isRequired,
   apiCall: PropTypes.func.isRequired
 };
+
+export default translate(["common", "lists"])(DomainList);

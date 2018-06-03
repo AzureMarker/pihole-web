@@ -1,0 +1,21 @@
+{
+    "Domains On Blocklist": "Domén na čiernej listine",
+    "Query Types": "Typy žiadostí",
+    "Forward Destinations": "Presmerovanie cieľov",
+    "Top Permitted Domains": "Najpoužívanejšie povolené domény",
+    "Top Blocked Domains": "Najčastejší blokované domény\n",
+    "Top Clients": "Najčastejší klienti",
+    "Total Queries ({{count}} clients)_1": "Celkovo žiadostí (1 klient)",
+    "Total Queries ({{count}} clients)_3": "Celkovo žiadostí ({{clients}} klientov)",
+    "Total Queries ({{count}} clients)_5": "Celkovo žiadostí ({{clients}} klienti)",
+    "Queries Blocked": "Blokované žiadosti",
+    "Percent Blocked": "Percento blokovaných",
+    "Queries Over Last 24 Hours": "Žiadosti za posledných 24 hodín",
+    "Clients Over Last 24 Hours": "Klienti za posledných 24 hodín",
+    "Queries Answered By": "Zodpovedané žiadosti",
+    "Queries from {{from}} to {{to}}": "Žiadosti od {{from}} do {{to}}",
+    "Total Queries": "Celkovo žiadostí",
+    "Blocked Queries": "Blokované žiadosti",
+    "Client activity from {{from}} to {{to}}": "Klientská aktivita od {{from}} do {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% z {{total}}"
+}

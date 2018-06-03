@@ -1,0 +1,10 @@
+{
+    "Password": "Contraseña",
+    "Sign in to start your session": "Introduzca sus datos de inicio de sesión",
+    "Log in": "Iniciar sesión",
+    "Forgot Password": "Olvidé la contraseña",
+    "forgot_password_description": "Frase para recordar la contraseña",
+    "Wrong Password!": "Contraseña incorrecta",
+    "You will be transferred to the {{page}}": "Será trasferido a la página: {{page}}",
+    "Verify that cookies are allowed for {{host}}": "Verifique que {{host}} admite cookies."
+}

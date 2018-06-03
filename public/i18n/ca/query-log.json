@@ -1,0 +1,7 @@
+{
+    "Blocked": "Bloquejat",
+    "Allowed (forwarded)": "Permès (reenviat)",
+    "Allowed (cached)": "Permès (al cau)",
+    "Blocked (wildcard)": "Bloquejat (comodí)",
+    "Blocked (blacklist)": "Bloquejat (Llista negra)"
+}

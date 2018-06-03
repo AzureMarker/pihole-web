@@ -1,0 +1,20 @@
+{
+    "Domains On Blocklist": "blockierte Domains",
+    "Query Types": "Anfragetypen",
+    "Forward Destinations": "Weiterleitungsziele",
+    "Top Permitted Domains": "Top erlaubte Domains",
+    "Top Blocked Domains": "Top blockierte Domains",
+    "Top Clients": "Top Geräte",
+    "Total Queries ({{count}} clients)": "Anzahl der Anfragen (1 Gerät)",
+    "Total Queries ({{count}} clients)_plural": "Anzahl der Anfragen ({{count}} Geräte)",
+    "Queries Blocked": "Anfragen geblockt",
+    "Percent Blocked": "Prozent geblockt",
+    "Queries Over Last 24 Hours": "Anfragen in den letzten 24 Stunden",
+    "Clients Over Last 24 Hours": "Klienten in den letzten 24 Stunden",
+    "Queries Answered By": "Anfragen beantwortet von",
+    "Queries from {{from}} to {{to}}": "Anfragen von {{from}} bis {{to}}",
+    "Total Queries": "Gesamte Anfragen",
+    "Blocked Queries": "Geblockte Anfragen",
+    "Client activity from {{from}} to {{to}}": "Geräteaktivität von {{from}} bis {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% von {{total}}"
+}

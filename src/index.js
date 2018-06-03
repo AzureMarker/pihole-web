@@ -14,11 +14,14 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import 'ionicons/dist/css/ionicons.min.css';
 import Full from './containers/Full'
 import { api } from "./utils";
+import { setupI18n } from './i18n';
 
 // Before rendering anything, check if there is a session cookie.
 // Note: the user could have an old session, so the first API call
 // will set loggedIn to false if necessary
 api.loggedIn = document.cookie.includes("user_id=");
+
+setupI18n();
 
 ReactDOM.render(
   (

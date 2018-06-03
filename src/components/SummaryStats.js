@@ -9,9 +9,10 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from 'react';
+import { translate } from 'react-i18next';
 import { api, makeCancelable } from '../utils';
 
-export default class SummaryStats extends Component {
+class SummaryStats extends Component {
   state = {
     blockedQueries: "---",
     totalQueries: "---",
@@ -33,7 +34,7 @@ export default class SummaryStats extends Component {
         totalQueries: res.total_queries.toLocaleString(),
         percentBlocked: res.percent_blocked.toFixed(2).toLocaleString() + "%",
         gravityDomains: res.domains_blocked.toLocaleString(),
-        uniqueClients: res.unique_clients.toLocaleString()
+        uniqueClients: res.unique_clients
       });
     })
     .catch((err) => {
@@ -57,13 +58,17 @@ export default class SummaryStats extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="row">
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-success">
             <div className="card-block">
               <h3>{this.state.totalQueries}</h3>
-              <p style={{marginBottom: "0px"}}>{"Total Queries (" + this.state.uniqueClients + " clients)"}</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Total Queries ({{count}} clients)", { count: this.state.uniqueClients })}
+              </p>
             </div>
           </div>
         </div>
@@ -71,7 +76,9 @@ export default class SummaryStats extends Component {
           <div className="card card-inverse card-primary">
             <div className="card-block">
               <h3>{this.state.blockedQueries}</h3>
-              <p style={{marginBottom: "0px"}}>Queries Blocked</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Queries Blocked")}
+              </p>
             </div>
           </div>
         </div>
@@ -79,7 +86,9 @@ export default class SummaryStats extends Component {
           <div className="card card-inverse card-warning">
             <div className="card-block">
               <h3>{this.state.percentBlocked}</h3>
-              <p style={{marginBottom: "0px"}}>Percent Blocked</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Percent Blocked")}
+              </p>
             </div>
           </div>
         </div>
@@ -87,7 +96,9 @@ export default class SummaryStats extends Component {
           <div className="card card-inverse card-danger">
             <div className="card-block">
               <h3>{this.state.gravityDomains}</h3>
-              <p style={{marginBottom: "0px"}}>Domains On Blocklist</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Domains On Blocklist")}
+              </p>
             </div>
           </div>
         </div>
@@ -95,3 +106,5 @@ export default class SummaryStats extends Component {
     );
   }
 }
+
+export default translate(['common', 'dashboard'])(SummaryStats);
