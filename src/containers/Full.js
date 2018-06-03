@@ -19,7 +19,7 @@ import Dashboard from '../views/Dashboard';
 import QueryLog from '../components/QueryLog';
 import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
-import Wildlist from "../views/Wildlist";
+import Regexlist from "../views/Regexlist";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import { api } from "../utils";
@@ -38,7 +38,7 @@ export default props => (
             <AuthRoute path="/query-log" name="Query Log" component={QueryLog}/>
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
-            <Route path="/wildlist" name="Wildlist" component={Wildlist}/>
+            <Route path="/regexlist" name="Regexlist" component={Regexlist}/>
             <Route path="/login" name="Login" component={Login}/>
             <AuthRoute path="/logout" name="Logout" component={Logout}/>
           </Switch>

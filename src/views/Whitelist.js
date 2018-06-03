@@ -19,7 +19,8 @@ const Whitelist = props => {
   return (
     <ListPage
       title={t("Whitelist")}
-      note={<p>{t("Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.")}</p>}
+      note={<p>{t("Note: Whitelisting a subdomain of a regex blocked domain is not possible.")}</p>}
+      placeholder={t("Add a domain (example.com or sub.example.com)")}
       add={api.addWhitelist}
       remove={api.removeWhitelist}
       refresh={api.getWhitelist}

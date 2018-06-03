@@ -49,8 +49,8 @@ const nav = {
           auth: false
         },
         {
-          name: 'Wildcard',
-          url: '/wildlist',
+          name: 'Regex',
+          url: '/regexlist',
           icon: 'fa fa-ban',
           auth: false
         }

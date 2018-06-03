@@ -211,7 +211,7 @@ console.log("Deleting old fake API data...");
 
 remove("public/fakeAPI/dns/whitelist");
 remove("public/fakeAPI/dns/blacklist");
-remove("public/fakeAPI/dns/wildlist");
+remove("public/fakeAPI/dns/regexlist");
 remove("public/fakeAPI/dns/status");
 remove("public/fakeAPI/stats/overTime/history");
 remove("public/fakeAPI/stats/overTime/forward_destinations");
@@ -224,9 +224,9 @@ remove("public/fakeAPI/stats/top_clients");
 
 console.log("Generating new fake API data...");
 
-write("public/fakeAPI/dns/whitelist", list("white"));
-write("public/fakeAPI/dns/blacklist", list("black"));
-write("public/fakeAPI/dns/wildlist", list("wild"));
+write("public/fakeAPI/dns/whitelist", list());
+write("public/fakeAPI/dns/blacklist", list());
+write("public/fakeAPI/dns/regexlist", list());
 write("public/fakeAPI/dns/status", status());
 write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/overTime/forward_destinations", forwardDestOverTime(144, 3));
