@@ -2,6 +2,6 @@
     "Blocked": "Blokkoltak",
     "Allowed (forwarded)": "Engedélyezett (továbbítás)",
     "Allowed (cached)": "Engedélyezett (tároltak)",
-    "Blocked (wildcard)": "Blokkolt (névjegy)",
+    "Blocked (regex)": "Blokkolt (névjegy)",
     "Blocked (blacklist)": "Blokkolt (tíltólista)"
 }

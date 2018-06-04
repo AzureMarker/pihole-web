@@ -2,6 +2,6 @@
     "Blocked": "Bloqué",
     "Allowed (forwarded)": "Autorisé et transmis",
     "Allowed (cached)": "Autorisé et transmis depuis le cache",
-    "Blocked (wildcard)": "Wildcard bloqué",
+    "Blocked (regex)": "Wildcard bloqué",
     "Blocked (blacklist)": "Bloqué depuis la liste noire"
 }
