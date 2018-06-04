@@ -11,5 +11,6 @@
     "Type": "Type",
     "Action": "Action",
     "Enabled": "Enabled",
-    "Disabled": "Disabled"
+    "Disabled": "Disabled",
+    "Regex": "Regex"
 }

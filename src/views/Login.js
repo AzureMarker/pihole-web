@@ -13,10 +13,11 @@ import { Redirect } from 'react-router-dom';
 import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
-import routes from "../routes";
+import { routes } from "../routes";
 import ForgotPassword from "../components/ForgotPassword";
+import { translate } from 'react-i18next';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     password: '',
     error: false,
@@ -79,6 +80,8 @@ export default class Login extends Component {
     if(api.loggedIn)
       return <Redirect to="/"/>;
 
+    const { t } = this.props;
+
     return (
       <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3" style={{'float': 'none'}}>
         <div className="card">
@@ -93,16 +96,19 @@ export default class Login extends Component {
                 Pi-<b>hole</b>
               </span>
             </div>
-            <p className="login-box-msg">
-              Sign in to start your session
+            <div className="login-box-msg">
+              {t("Sign in to start your session")}
               {
                 // If the user tried to go to a protected page and is not logged in,
                 // tell them they will be redirected once login is successful
-                this.props.location.state && this.props.location.state.from.pathname in routes ?
+                this.props.location.state && this.props.location.state.from.pathname in routes(t) ?
                   (
                     <Fragment>
                       <br/>
-                      You will be transferred to the {routes[this.props.location.state.from.pathname]}
+                      {t(
+                        "You will be transferred to the {{page}}",
+                        { page: routes(t)[this.props.location.state.from.pathname] }
+                      )}
                     </Fragment>
                   ) : null
               }
@@ -110,17 +116,17 @@ export default class Login extends Component {
                 // If cookies are not enabled (or detected), show a warning
                 !this.state.cookiesEnabled ?
                   <div className="text-center" style={{'color': '#F00'}}>
-                    Verify that cookies are allowed for <code>{window.location.host}</code>
+                    {t("Verify that cookies are allowed for {{host}}", { host: window.location.host })}
                   </div>
                   : null
               }
-            </p>
+            </div>
             {
               this.state.error
                 ?
                 <div className="form-group has-error login-box-msg">
                   <label className="control-label">
-                    <i className="fa fa-times-circle-o"/> Wrong password!
+                    <i className="fa fa-times-circle-o"/> {t("Wrong Password!")}
                   </label>
                 </div>
                 : null
@@ -132,13 +138,13 @@ export default class Login extends Component {
               <div className={'form-group' + (this.state.error ? ' has-error' : '')}>
                 <input type="password" className="form-control"
                        value={this.state.password} onChange={this.handlePasswordChange}
-                       placeholder="Password" autoFocus/>
+                       placeholder={t("Password")} autoFocus/>
               </div>
               <div className="row">
                 <div className="col-12">
                   <button type="submit" className="btn btn-primary float-right" style={{'cursor': 'pointer'}}
                           onClick={this.authenticate}>
-                    Log in
+                    {t("Log in")}
                   </button>
                 </div>
               </div>
@@ -151,3 +157,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default translate(["common", "login"])(Login);

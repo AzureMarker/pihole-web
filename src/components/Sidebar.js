@@ -16,62 +16,7 @@ import logo from '../img/logo.svg';
 import { mobileSidebarHide } from "./Header";
 import { api } from "../utils";
 import StatusBadge from "./StatusBadge";
-
-const nav = {
-  items: [
-    {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'fa fa-dashboard',
-      auth: false
-    },
-    {
-      name: 'Query Log',
-      url: '/query-log',
-      icon: 'fa fa-database',
-      auth: true
-    },
-    {
-      name: 'Whitelist',
-      url: '/whitelist',
-      icon: 'fa fa-check-circle-o',
-      auth: false
-    },
-    {
-      name: 'Blacklist',
-      icon: 'fa fa-ban',
-      auth: false,
-      children: [
-        {
-          name: 'Exact',
-          url: '/blacklist',
-          icon: 'fa fa-ban',
-          auth: false
-        },
-        {
-          name: 'Regex',
-          url: '/regexlist',
-          icon: 'fa fa-ban',
-          auth: false
-        }
-      ]
-    },
-    {
-      name: 'Login',
-      url: '/login',
-      icon: 'fa fa-user',
-      auth: false,
-      authStrict: true
-    },
-    {
-      name: 'Logout',
-      url: '/logout',
-      icon: 'fa fa-user-times',
-      auth: true,
-      authStrict: true
-    }
-  ]
-};
+import { nav } from '../routes';
 
 const handleClick = (e) => {
   e.preventDefault();
@@ -133,7 +78,7 @@ const Sidebar = props => {
               <StatusBadge/>
             </span>
           </li>
-          {navList(nav.items, props)}
+          {navList(nav, props)}
         </Nav>
       </nav>
     </div>

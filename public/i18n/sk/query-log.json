@@ -2,6 +2,6 @@
     "Blocked": "Blokované",
     "Allowed (forwarded)": "Povolené (pretlačené)",
     "Allowed (cached)": "Povolené (cached)",
-    "Blocked (wildcard)": "Blokované (wildcard)",
+    "Blocked (regex)": "Blokované (wildcard)",
     "Blocked (blacklist)": "Blokované (čierna listina)"
 }

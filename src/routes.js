@@ -3,17 +3,71 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  URL path to name associations
+*  Navigation information
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-export default {
-  '/dashboard': 'Dashboard',
-  '/query-log': 'Query Log',
-  '/whitelist': 'Whitelist',
-  '/blacklist': 'Blacklist (Exact)',
-  '/regexlist': 'Blacklist (Regex)',
-  '/login': 'Login',
-  '/logout': 'Logout'
-};
+export const routes = t => ({
+  '/dashboard': t('Dashboard'),
+  '/query-log': t('Query Log'),
+  '/whitelist': t('Whitelist'),
+  '/blacklist': `${t('Blacklist')} (${t('Exact')})`,
+  '/regexlist': `${t('Blacklist')} (${t('Regex')})`,
+  '/login': t('Login'),
+  '/logout': t('Logout')
+});
+
+export const nav = [
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'fa fa-dashboard',
+    auth: false
+  },
+  {
+    name: 'Query Log',
+    url: '/query-log',
+    icon: 'fa fa-database',
+    auth: true
+  },
+  {
+    name: 'Whitelist',
+    url: '/whitelist',
+    icon: 'fa fa-check-circle-o',
+    auth: false
+  },
+  {
+    name: 'Blacklist',
+    icon: 'fa fa-ban',
+    auth: false,
+    children: [
+      {
+        name: 'Exact',
+        url: '/blacklist',
+        icon: 'fa fa-ban',
+        auth: false
+      },
+      {
+        name: 'Regex',
+        url: '/regexlist',
+        icon: 'fa fa-ban',
+        auth: false
+      }
+    ]
+  },
+  {
+    name: 'Login',
+    url: '/login',
+    icon: 'fa fa-user',
+    auth: false,
+    authStrict: true
+  },
+  {
+    name: 'Logout',
+    url: '/logout',
+    icon: 'fa fa-user-times',
+    auth: true,
+    authStrict: true
+  }
+];
