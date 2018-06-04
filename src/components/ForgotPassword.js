@@ -10,8 +10,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 
-export default class ForgotPassword extends Component {
+class ForgotPassword extends Component {
   state = {
     collapsed: true
   };
@@ -29,13 +30,15 @@ export default class ForgotPassword extends Component {
   isExpanded = () => this.props.error || !this.state.collapsed;
 
   render() {
+    const { t } = this.props;
+
     return (
       <div style={{'width': '100%'}}>
         <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary')}>
           <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
                style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
             <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
-              Forgot password
+              {t("Forgot Password")}
             </h3>
 
             <span className="pull-right">
@@ -45,11 +48,8 @@ export default class ForgotPassword extends Component {
               </button>
             </span>
           </div>
-          <div className={'card-body bg-light' + (this.isExpanded() ? '' : ' collapse')}
-               style={{'padding': '10px'}}>
-            After installing Pi-hole for the first time, a password is generated and displayed to the user.
-            The password cannot be retrieved later on, but it is possible to set a new password (or
-            explicitly disable the password by setting an empty password) using the command:
+          <div className={'card-body bg-light' + (this.isExpanded() ? '' : ' collapse')} style={{'padding': '10px'}}>
+            {t("forgot_password_description")}
             <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
           </div>
         </div>
@@ -61,3 +61,5 @@ export default class ForgotPassword extends Component {
 ForgotPassword.propTypes = {
   error: PropTypes.bool.isRequired
 };
+
+export default translate("login")(ForgotPassword);
