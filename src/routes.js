@@ -13,7 +13,7 @@ export const routes = t => ({
   '/query-log': t('Query Log'),
   '/whitelist': t('Whitelist'),
   '/blacklist': `${t('Blacklist')} (${t('Exact')})`,
-  '/wildlist': `${t('Blacklist')} (${t('Regex')})`,
+  '/wildlist': `${t('Blacklist')} (${t('Wildcard')})`,
   '/login': t('Login'),
   '/logout': t('Logout')
 });
