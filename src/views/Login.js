@@ -158,4 +158,4 @@ class Login extends Component {
   }
 }
 
-export default translate(["common", "login"])(Login);
+export default translate(["login", "location"])(Login);

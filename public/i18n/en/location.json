@@ -6,5 +6,6 @@
     "Exact": "Exact",
     "Wildcard": "Wildcard",
     "Login": "Login",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Regex": "Regex"
 }
