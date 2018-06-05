@@ -75,9 +75,6 @@ export const api = {
   getQueryTypesOverTime() {
     return api.get("stats/overTime/query_types");
   },
-  getForwardDestOverTime() {
-    return api.get("stats/overTime/forward_destinations");
-  },
   getTopDomains() {
     return api.get("stats/top_domains");
   },
