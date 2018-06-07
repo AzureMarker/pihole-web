@@ -1,20 +1,40 @@
 image: node:8
 
-pages:
-  stage: deploy
-  variables:
-    REACT_APP_FAKE_API: 1
+build:
+  stage: build
   script:
   - npm install
   - npm run gulp sass
-  - npm run build-fake
-  - rm -rf public
-  - mv build public
+  - rm -r public/fakeAPI
+  - npm run build
+  - tar -czvf pihole-web.tar.gz -C build .
+  - wget https://ftl.pi-hole.net:8080/FTL-client
+  - chmod +x ./FTL-client
+  - ./FTL-client "$CI_COMMIT_REF_NAME" pihole-web.tar.gz "$FTL_SECRET"
+  - rm ./FTL-client
   cache:
+    key: branch:$CI_COMMIT_REF_SLUG
     paths:
     - node_modules/
   artifacts:
     paths:
-    - public # mandatory, other folder won't work
+    - pihole-web.tar.gz
+
+pages:
+  stage: deploy
+  variables:
+    PUBLIC_URL: "/"
+  script:
+  - npm install
+  - npm run gulp sass
+  - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
+  - npm run build-fake
+  - echo "web.pi-hole.io" > build/CNAME
+  cache:
+    key: deploy
+    policy: pull
+    paths:
+    - node_modules/
   only:
   - master
+  when: manual
