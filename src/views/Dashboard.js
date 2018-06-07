@@ -24,6 +24,7 @@ export default () => (
       api.loggedIn ?
         <Fragment>
           <div className="row">
+            {/* TODO: Add clients over time */}
           </div>
           <div className="row">
             <TopDomains/>
