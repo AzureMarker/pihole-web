@@ -27,6 +27,7 @@ class ClientsGraph extends Component {
   constructor(props) {
     super(props);
     this.graphRef = React.createRef();
+    this.updateGraph = this.updateGraph.bind(this);
   }
 
   updateGraph() {
