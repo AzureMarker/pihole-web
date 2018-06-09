@@ -63,7 +63,7 @@ class SummaryStats extends Component {
     return (
       <div className="row">
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-success">
+          <div className="card card-inverse card-success" style={{"height": "100px"}}>
             <div className="card-block">
               <h3>{this.state.totalQueries}</h3>
               <p style={{marginBottom: "0px"}}>
