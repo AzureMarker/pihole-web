@@ -11,6 +11,7 @@
 import React, { Fragment } from 'react';
 import SummaryStats from '../components/SummaryStats';
 import QueriesGraph from '../components/QueriesGraph';
+import ClientsGraph from '../components/ClientsGraph';
 import TopDomains from '../components/TopDomains';
 import TopBlocked from '../components/TopBlocked';
 import TopClients from '../components/TopClients';
@@ -23,9 +24,7 @@ export default () => (
     {
       api.loggedIn ?
         <Fragment>
-          <div className="row">
-            {/* TODO: Add clients over time */}
-          </div>
+          <ClientsGraph/>
           <div className="row">
             <TopDomains/>
             <TopBlocked/>
