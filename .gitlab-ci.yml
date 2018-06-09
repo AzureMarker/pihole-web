@@ -36,7 +36,7 @@ deploy:
   - echo "web.pi-hole.io" > build/CNAME
 
   # Deploy to GitHub Pages
-  - git clone --depth 1 -b gh-pages https://pralor:$GITHUB_ACCESS_TOKEN@github.com/pi-hole/web.git deploy
+  - git clone --depth 1 -b gh-pages https://pralor:$GITHUB_TOKEN@github.com/pi-hole/web.git deploy
   - shopt -s extglob # Enable extra globs, like !()
   - rm -rf deploy/!(.|..|.git)
   - cp -r build/* deploy/
