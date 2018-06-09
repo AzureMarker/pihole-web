@@ -72,8 +72,8 @@ export const api = {
   getHistoryGraph() {
     return api.get("stats/overTime/history");
   },
-  getQueryTypesOverTime() {
-    return api.get("stats/overTime/query_types");
+  getClientsGraph() {
+    return api.get("stats/overTime/clients")
   },
   getTopDomains() {
     return api.get("stats/top_domains");
