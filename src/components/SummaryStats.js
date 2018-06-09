@@ -63,7 +63,7 @@ class SummaryStats extends Component {
     return (
       <div className="row">
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-success">
+          <div className="card card-inverse card-success stat-height-lock">
             <div className="card-block">
               <h3>{this.state.totalQueries}</h3>
               <p style={{marginBottom: "0px"}}>
@@ -73,7 +73,7 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-primary">
+          <div className="card card-inverse card-primary stat-height-lock">
             <div className="card-block">
               <h3>{this.state.blockedQueries}</h3>
               <p style={{marginBottom: "0px"}}>
@@ -83,7 +83,7 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-warning">
+          <div className="card card-inverse card-warning stat-height-lock">
             <div className="card-block">
               <h3>{this.state.percentBlocked}</h3>
               <p style={{marginBottom: "0px"}}>
@@ -93,7 +93,7 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-danger">
+          <div className="card card-inverse card-danger stat-height-lock">
             <div className="card-block">
               <h3>{this.state.gravityDomains}</h3>
               <p style={{marginBottom: "0px"}}>
