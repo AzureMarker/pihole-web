@@ -39,7 +39,7 @@ deploy:
   - git clone --depth 1 -b fake-deploy https://Mcat12:$GITHUB_ACCESS_TOKEN@github.com/pi-hole/web.git deploy
   - shopt -s extglob # Enable extra globs, like !()
   - rm -rf deploy/!(.|..|.git)
-  - cp build/* deploy/
+  - cp -r build/* deploy/
   - cd deploy
   - git config user.email "4417660+Mcat12@users.noreply.github.com"
   - git config user.name "Mcat12"
