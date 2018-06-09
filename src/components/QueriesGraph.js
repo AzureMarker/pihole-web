@@ -27,7 +27,7 @@ class QueriesGraph extends Component {
   }
 
   updateGraph() {
-    this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000});
+    this.updateHandler = makeCancelable(api.getHistoryGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000 });
     this.updateHandler.promise.then(res => {
       // Remove last data point as it's not yet finished
       res.blocked_over_time.splice(-1, 1);
@@ -102,12 +102,12 @@ class QueriesGraph extends Component {
             return t("Queries from {{from}} to {{to}}", { from, to });
           },
           label: (tooltipItems, data) => {
-            if (tooltipItems.datasetIndex === 1) {
+            if(tooltipItems.datasetIndex === 1) {
               let percentage = 0.0;
               const total = parseInt(data.datasets[0].data[tooltipItems.index], 10);
               const blocked = parseInt(data.datasets[1].data[tooltipItems.index], 10);
 
-              if (total > 0)
+              if(total > 0)
                 percentage = 100.0 * blocked / total;
 
               return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel
@@ -128,7 +128,7 @@ class QueriesGraph extends Component {
             tooltipFormat: "HH:mm"
           }
         }],
-          yAxes: [{
+        yAxes: [{
           ticks: { beginAtZero: true }
         }]
       },
@@ -147,11 +147,12 @@ class QueriesGraph extends Component {
             </div>
             {
               this.state.loading
-              ?
-                <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
-                  <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>
+                ?
+                <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
+                  <i className="fa fa-refresh fa-spin"
+                     style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
                 </div>
-              :
+                :
                 null
             }
           </div>
@@ -161,4 +162,4 @@ class QueriesGraph extends Component {
   }
 }
 
-export default translate(["common", "dashboard"])(QueriesGraph);
+export default translate("dashboard")(QueriesGraph);

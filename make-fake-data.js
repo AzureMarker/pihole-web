@@ -9,16 +9,27 @@
 *  Please see LICENSE file for your rights under this license. */
 
 const faker = require('faker');
-const fs = require('fs');
-const path = require('path');
-const mkdirp = require('mkdirp');
+const fs = require('fs-extra');
+
+function unique(generator, size) {
+  const data = [];
+
+  while(data.length !== size) {
+    const item = generator();
+
+    if(!data.includes(item))
+      data.push(item);
+  }
+
+  return data;
+}
 
 function list() {
-  return (new Array(10)).fill(null).map(() => faker.internet.domainName());
+  return unique(faker.internet.domainName, 10);
 }
 
 function status() {
-  return {status: "enabled"};
+  return { status: "enabled" };
 }
 
 function pastDate() {
@@ -64,6 +75,7 @@ function summary() {
 function topList(length, max, fakeData) {
   const result = [];
   const numbers = [];
+  const domains = unique(fakeData, length);
 
   for(let i = 0; i < length; i++)
     numbers.push(faker.random.number({ max: max }));
@@ -71,12 +83,8 @@ function topList(length, max, fakeData) {
   numbers.sort((a, b) => parseInt(a, 10) > parseInt(b, 10) ? -1 : 1);
 
   for(let i = 0; i < length; i++) {
-    let domain;
-
-    while((domain = fakeData()) in result.map(item => item.domain)) {}
-
     result.push({
-      domain: domain,
+      domain: domains[i],
       count: numbers[i]
     });
   }
@@ -104,9 +112,9 @@ function topDomains(length) {
 
 function topClients(length) {
   const totalQueries = faker.random.number();
-
   const top_clients = [];
   const numbers = [];
+  const clients = unique(faker.internet.ip, length);
 
   for(let i = 0; i < length; i++)
     numbers.push(faker.random.number({ max: totalQueries }));
@@ -114,13 +122,9 @@ function topClients(length) {
   numbers.sort((a, b) => parseInt(a, 10) > parseInt(b, 10) ? -1 : 1);
 
   for(let i = 0; i < length; i++) {
-    let ip;
-
-    while((ip = faker.internet.ip()) in top_clients.map(item => item.ip)) {}
-
     top_clients.push({
       name: "",
-      ip: ip,
+      ip: clients[i],
       count: numbers[i]
     });
   }
@@ -131,36 +135,23 @@ function topClients(length) {
   };
 }
 
-function forwardDestOverTime(range, totalDest) {
+function clientsOverTime(range, size) {
   const startDate = pastDate();
-  const forwardDest = (new Array(totalDest)).fill(null).map(() => faker.internet.ip());
+  const clients = unique(faker.internet.ip, size)
+    .map(ip => ({ name: faker.internet.domainWord(), ip }));
   const graph = [];
 
   for(let i = 0; i < range; i++) {
     graph.push({
       timestamp: startDate + 600 * i,
-      data: (new Array(totalDest)).fill(null).map(() => faker.random.number())
+      data: (new Array(size)).fill(null).map(() => faker.random.number())
     });
   }
 
   return {
     "over_time": graph,
-    "forward_destinations": forwardDest
+    "clients": clients
   };
-}
-
-function queryTypesOverTime(range) {
-  const startDate = pastDate();
-  const queryTypes = [];
-
-  for(let i = 0; i < range; i++) {
-    queryTypes.push({
-      timestamp: startDate + 600 * i,
-      data: [faker.random.number(), faker.random.number()]
-    });
-  }
-
-  return queryTypes;
 }
 
 function historyOverTime(range) {
@@ -189,48 +180,21 @@ function historyOverTime(range) {
   };
 }
 
-function remove(path) {
-  try {
-    fs.unlinkSync(path);
-  }
-  catch(e) {
-    // Ignore missing file
-  }
-}
-
 function write(filePath, data) {
-  const dir = path.dirname(filePath);
-
-  if(!fs.existsSync(dir))
-    mkdirp.sync(dir);
-
-  fs.writeFileSync(filePath, JSON.stringify(data));
+  fs.outputFileSync(filePath, JSON.stringify(data));
 }
 
 console.log("Deleting old fake API data...");
-
-remove("public/fakeAPI/dns/whitelist");
-remove("public/fakeAPI/dns/blacklist");
-remove("public/fakeAPI/dns/wildlist");
-remove("public/fakeAPI/dns/status");
-remove("public/fakeAPI/stats/overTime/history");
-remove("public/fakeAPI/stats/overTime/forward_destinations");
-remove("public/fakeAPI/stats/overTime/query_types");
-remove("public/fakeAPI/stats/summary");
-remove("public/fakeAPI/stats/history");
-remove("public/fakeAPI/stats/top_blocked");
-remove("public/fakeAPI/stats/top_domains");
-remove("public/fakeAPI/stats/top_clients");
+fs.emptyDirSync("public/fakeAPI/dns");
+fs.emptyDirSync("public/fakeAPI/stats");
 
 console.log("Generating new fake API data...");
-
 write("public/fakeAPI/dns/whitelist", list("white"));
 write("public/fakeAPI/dns/blacklist", list("black"));
 write("public/fakeAPI/dns/wildlist", list("wild"));
 write("public/fakeAPI/dns/status", status());
 write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
-write("public/fakeAPI/stats/overTime/forward_destinations", forwardDestOverTime(144, 3));
-write("public/fakeAPI/stats/overTime/query_types", queryTypesOverTime(144));
+write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/summary", summary());
 write("public/fakeAPI/stats/history", history(5000));
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
