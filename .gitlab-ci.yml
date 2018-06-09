@@ -36,18 +36,18 @@ deploy:
   - echo "web.pi-hole.io" > build/CNAME
 
   # Deploy to GitHub Pages
-  - git clone --depth 1 -b gh-pages https://pralor:$GITHUB_ACCESS_TOKEN@github.com/pi-hole/web.git deploy
+  - git clone --depth 1 -b fake-deploy https://Mcat12:$GITHUB_ACCESS_TOKEN@github.com/pi-hole/web.git deploy
   - rm -rf deploy/!(.|..|.git)
   - cp build/* deploy/
   - cd deploy
-  - git config user.email "36384445+pralor@users.noreply.github.com"
-  - git config user.name "pralor"
-  - git commit -am "Deploy pi-hole/web to web.pi-hole.io"
+  - git config user.email "4417660+Mcat12@users.noreply.github.com"
+  - git config user.name "Mcat12"
+  - git commit -am "(Fake) Deploy pi-hole/web to web.pi-hole.io"
   - git push
   cache:
     key: deploy
     paths:
     - node_modules/
   only:
-  - master
+  - gitlab-ci-deploy-test
   when: manual
