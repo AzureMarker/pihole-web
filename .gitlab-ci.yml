@@ -37,6 +37,7 @@ deploy:
 
   # Deploy to GitHub Pages
   - git clone --depth 1 -b fake-deploy https://Mcat12:$GITHUB_ACCESS_TOKEN@github.com/pi-hole/web.git deploy
+  - shopt -s extglob # Enable extra globs, like !()
   - rm -rf deploy/!(.|..|.git)
   - cp build/* deploy/
   - cd deploy
