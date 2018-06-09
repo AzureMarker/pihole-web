@@ -94,10 +94,10 @@ class QueriesGraph extends Component {
         callbacks: {
           title: tooltipItem => {
             const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-            const h = parseInt(time[1], 10);
-            const m = parseInt(time[2], 10) || 0;
-            const from = padNumber(h) + ":" + padNumber(m) + ":00";
-            const to = padNumber(h) + ":" + padNumber(m + 9) + ":59";
+            const hour = parseInt(time[1], 10);
+            const minute = parseInt(time[2], 10) || 0;
+            const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
+            const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
 
             return t("Queries from {{from}} to {{to}}", { from, to });
           },
