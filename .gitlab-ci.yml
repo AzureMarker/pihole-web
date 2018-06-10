@@ -9,6 +9,11 @@ build:
   - rm -r public/fakeAPI
   - npm run build
 
+  # Store version
+  - BRANCH=$([ "$CI_COMMIT_TAG" = "$CI_COMMIT_REF_NAME" ] && echo "master" || echo "$CI_COMMIT_REF_NAME")
+  - echo "$CI_COMMIT_TAG $BRANCH ${CI_COMMIT_SHA::7}" > build/VERSION
+  - cat build/VERSION
+
   # Upload
   - tar -czvf pihole-web.tar.gz -C build .
   - wget https://ftl.pi-hole.net:8080/FTL-client
