@@ -78,7 +78,7 @@ const status = t => ({
   "1": t("Blocked"),
   "2": t("Allowed (forwarded)"),
   "3": t("Allowed (cached)"),
-  "4": t("Blocked (wildcard)"),
+  "4": t("Blocked (regex)"),
   "5": t("Blocked (blacklist)")
 });
 

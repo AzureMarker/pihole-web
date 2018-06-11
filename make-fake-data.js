@@ -189,9 +189,9 @@ fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
 
 console.log("Generating new fake API data...");
-write("public/fakeAPI/dns/whitelist", list("white"));
-write("public/fakeAPI/dns/blacklist", list("black"));
-write("public/fakeAPI/dns/wildlist", list("wild"));
+write("public/fakeAPI/dns/whitelist", list());
+write("public/fakeAPI/dns/blacklist", list());
+write("public/fakeAPI/dns/regexlist", list());
 write("public/fakeAPI/dns/status", status());
 write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));

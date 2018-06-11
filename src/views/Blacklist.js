@@ -19,6 +19,7 @@ const Blacklist = props => {
   return (
     <ListPage
       title={`${t("Blacklist")} (${t("Exact")})`}
+      placeholder={t("Add a domain (example.com or sub.example.com)")}
       add={api.addBlacklist}
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
