@@ -1,20 +1,60 @@
 image: node:8
 
-pages:
-  stage: deploy
-  variables:
-    REACT_APP_FAKE_API: 1
+build:
+  stage: build
   script:
+  # Build
   - npm install
   - npm run gulp sass
-  - npm run build-fake
-  - rm -rf public
-  - mv build public
+  - rm -r public/fakeAPI
+  - npm run build
+
+  # Store version
+  - BRANCH=$([ "$CI_COMMIT_TAG" = "$CI_COMMIT_REF_NAME" ] && echo "master" || echo "$CI_COMMIT_REF_NAME")
+  - echo "$CI_COMMIT_TAG $BRANCH ${CI_COMMIT_SHA::7}" > build/VERSION
+  - cat build/VERSION
+
+  # Upload
+  - tar -czvf pihole-web.tar.gz -C build .
+  - wget https://ftl.pi-hole.net:8080/FTL-client
+  - chmod +x ./FTL-client
+  - ./FTL-client "$CI_COMMIT_REF_NAME" pihole-web.tar.gz "$FTL_SECRET"
+  - rm ./FTL-client
   cache:
+    key: branch:$CI_COMMIT_REF_SLUG
     paths:
     - node_modules/
   artifacts:
     paths:
-    - public # mandatory, other folder won't work
+    - pihole-web.tar.gz
+
+deploy:
+  stage: deploy
+  variables:
+    PUBLIC_URL: "/"
+  script:
+  # Build with fake data
+  - npm install
+  - npm run gulp sass
+  - rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
+  - npm run build-fake
+  - echo "web.pi-hole.io" > build/CNAME
+
+  # Deploy to GitHub Pages
+  - git clone --depth 1 -b gh-pages https://pralor:$GITHUB_TOKEN@github.com/pi-hole/web.git deploy
+  - shopt -s extglob # Enable extra globs, like !()
+  - rm -rf deploy/!(.|..|.git)
+  - cp -r build/* deploy/
+  - cd deploy
+  - git config user.email "36384445+pralor@users.noreply.github.com"
+  - git config user.name "pralor"
+  - git add -A
+  - git commit -m "Deploy pi-hole/web to web.pi-hole.io"
+  - git push
+  cache:
+    key: deploy
+    paths:
+    - node_modules/
   only:
   - master
+  when: manual
