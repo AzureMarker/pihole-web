@@ -2,9 +2,6 @@ version: 2
 
 jobs:
   build:
-    filters:
-      tags:
-        only: /^v.*/
     docker:
     - image: node:8
     steps:
