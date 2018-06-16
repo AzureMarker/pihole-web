@@ -49,7 +49,7 @@ class ForwardDestinationsChart extends Component {
       let i = 0;
       for(let destination of forwardDestinations) {
         data.push(destination.percent);
-        labels.push(destination.name);
+        labels.push(destination.name.length !== 0 ? destination.name : destination.ip);
         usedColors.push(
           // If we ran out of colors, make a random one
           i < colors.length
