@@ -25,7 +25,10 @@ class TopBlocked extends Component {
   }
 
   updateChart() {
-    this.updateHandler = makeCancelable(api.getTopBlocked(), { repeat: this.updateChart, interval: 10 * 1000 });
+    this.updateHandler = makeCancelable(
+      api.getTopBlocked(),
+      { repeat: this.updateChart, interval: 10 * 60 * 1000 }
+    );
     this.updateHandler.promise.then(res => {
       this.setState({
         loading: false,
