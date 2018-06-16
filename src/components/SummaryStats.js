@@ -8,7 +8,7 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { translate } from 'react-i18next';
 import { api, makeCancelable } from '../utils';
 
@@ -61,7 +61,7 @@ class SummaryStats extends Component {
     const { t } = this.props;
 
     return (
-      <div className="row">
+      <Fragment>
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-success stat-height-lock">
             <div className="card-block">
@@ -102,7 +102,7 @@ class SummaryStats extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
