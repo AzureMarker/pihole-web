@@ -243,7 +243,7 @@ write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/summary", summary());
 write("public/fakeAPI/stats/history", history(5000));
 write("public/fakeAPI/stats/query_types", queryTypes());
-write("public/fakeAPI/stats/forward_destinations", forwardDestinations(30));
+write("public/fakeAPI/stats/forward_destinations", forwardDestinations(3));
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
