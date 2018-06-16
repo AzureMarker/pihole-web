@@ -72,6 +72,30 @@ function summary() {
   };
 }
 
+function queryTypes() {
+  const data = [];
+  const total = faker.random.number();
+  const names = [
+    "A (IPv4)",
+    "AAAA (IPv6)",
+    "ANY",
+    "SRV",
+    "SOA",
+    "PTR",
+    "TXT"
+  ];
+  const step = total / names.length;
+
+  for(const name of names) {
+    data.push({
+      name,
+      percent: step / total
+    });
+  }
+
+  return data;
+}
+
 function topList(length, max, fakeData) {
   const result = [];
   const numbers = [];
@@ -197,6 +221,7 @@ write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/summary", summary());
 write("public/fakeAPI/stats/history", history(5000));
+write("public/fakeAPI/stats/query_types", queryTypes());
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));

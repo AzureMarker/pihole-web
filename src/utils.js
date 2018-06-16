@@ -75,6 +75,9 @@ export const api = {
   getClientsGraph() {
     return api.get("stats/overTime/clients")
   },
+  getQueryTypes() {
+    return api.get("stats/query_types")
+  },
   getTopDomains() {
     return api.get("stats/top_domains");
   },

@@ -12,6 +12,7 @@ import React, { Fragment } from 'react';
 import SummaryStats from '../components/SummaryStats';
 import QueriesGraph from '../components/QueriesGraph';
 import ClientsGraph from '../components/ClientsGraph';
+import QueryTypesChart from "../components/QueryTypesChart";
 import TopDomains from '../components/TopDomains';
 import TopBlocked from '../components/TopBlocked';
 import TopClients from '../components/TopClients';
@@ -25,6 +26,11 @@ export default () => (
       api.loggedIn ?
         <Fragment>
           <ClientsGraph/>
+          <div className="row">
+            <div className="col-md-6">
+              <QueryTypesChart/>
+            </div>
+          </div>
           <div className="row">
             <TopDomains/>
             <TopBlocked/>
