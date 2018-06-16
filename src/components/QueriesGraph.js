@@ -143,7 +143,7 @@ class QueriesGraph extends Component {
               {t("Queries Over Last 24 Hours")}
             </div>
             <div className="card-block">
-              <Line width={970} height={250} data={data} options={options}/>
+              <Line width={970} height={170} data={data} options={options}/>
             </div>
             {
               this.state.loading
