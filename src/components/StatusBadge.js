@@ -23,6 +23,10 @@ class StatusBadge extends Component {
     this.updateStatus();
   }
 
+  componentWillUnmount() {
+    this.updateHandler.cancel();
+  }
+
   render() {
     const { t } = this.props;
 
