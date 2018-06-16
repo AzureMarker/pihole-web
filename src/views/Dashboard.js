@@ -13,6 +13,7 @@ import SummaryStats from '../components/SummaryStats';
 import QueriesGraph from '../components/QueriesGraph';
 import ClientsGraph from '../components/ClientsGraph';
 import QueryTypesChart from "../components/QueryTypesChart";
+import ForwardDestinationsChart from "../components/ForwardDestinationsChart";
 import TopDomains from '../components/TopDomains';
 import TopBlocked from '../components/TopBlocked';
 import TopClients from '../components/TopClients';
@@ -29,6 +30,9 @@ export default () => (
           <div className="row">
             <div className="col-md-6">
               <QueryTypesChart/>
+            </div>
+            <div className="col-md-6">
+              <ForwardDestinationsChart/>
             </div>
           </div>
           <div className="row">
