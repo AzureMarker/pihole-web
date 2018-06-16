@@ -1,0 +1,12 @@
+{
+    "Adding {{domain}}...": "Se adauga {{domain}}",
+    "Successfully added {{domain}}": "{{domain}} adaugat cu succes",
+    "Failed to add {{domain}}": "Adaugare esuata pentru {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nota: Nu este posibil sa definesti un subdomeniu al unui domeniu blocat cu metacaractere, in lista alba.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nota: Blocajul se aplica doar domeniului si subdomenilor apartinand domeniului blocat.",
+    "Add a domain (example.com or sub.example.com)": "Adauga un domeniu (exemple.com sau sub.exemple.com)",
+    "{{domain}} is already added": "{{domain}} este adaugat deja",
+    "Failed to remove {{domain}}": "Esec in stergerea {{domain}}",
+    "There are no domains in this list": "Nu exista domenii in lista",
+    "Input a regular expression": "Introduce o expresie obisnuita"
+}

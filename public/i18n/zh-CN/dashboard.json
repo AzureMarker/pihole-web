@@ -1,0 +1,19 @@
+{
+    "Domains On Blocklist": "域名在阻止列表中",
+    "Query Types": "查询类型",
+    "Forward Destinations": "转发目标地址",
+    "Top Permitted Domains": "域名排行",
+    "Top Blocked Domains": "阻止域名排行",
+    "Top Clients": "用户排行",
+    "Total Queries ({{count}} clients)_5": "总查询 ({{count}} 用户)",
+    "Queries Blocked": "阻止查询",
+    "Percent Blocked": "阻止百分比",
+    "Queries Over Last 24 Hours": "过去24小时查询",
+    "Clients Over Last 24 Hours": "过去24小时用户",
+    "Queries Answered By": "响应者查询",
+    "Queries from {{from}} to {{to}}": "从 {{from}} 到 {{to}} 的查询",
+    "Total Queries": "总查询",
+    "Blocked Queries": "被阻止的查询",
+    "Client activity from {{from}} to {{to}}": "从 {{from}} 到 {{to}} 用户活动",
+    "{{percent}}% of {{total}}": " {{percent}}% 的 {{total}}"
+}

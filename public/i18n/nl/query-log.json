@@ -1,0 +1,6 @@
+{
+    "Blocked": "Geblokkeerd",
+    "Allowed (forwarded)": "Toegestaan (doorgestuurd)",
+    "Blocked (regex)": "Geblokkeerd (reguliere expressie)",
+    "Blocked (blacklist)": "Geblokkeerd (blacklist)"
+}
