@@ -87,7 +87,8 @@ class QueryTypesChart extends Component {
             return label + ": " + dataset.data[tooltipItems.index].toFixed(1) + "%";
           }
         }
-      }
+      },
+      maintainAspectRatio: false
     };
 
     return (
@@ -96,7 +97,7 @@ class QueryTypesChart extends Component {
           {t("Query Types")}
         </div>
         <div className="card-block">
-          <Doughnut width={100} height={60} options={options}
+          <Doughnut width={100} height={250} options={options}
                     data={{
                       datasets: [{
                         data: this.state.data,
