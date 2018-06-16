@@ -1,0 +1,17 @@
+{
+    "Domains On Blocklist": "Domeinen op blacklist",
+    "Query Types": "Query Types",
+    "Forward Destinations": "forward bestemmingen",
+    "Top Permitted Domains": "Top Domeinen",
+    "Top Blocked Domains": "Top Adverteerders",
+    "Top Clients": "Top Cliënten",
+    "Total Queries ({{count}} clients)": "",
+    "Total Queries ({{count}} clients)_plural": "",
+    "Queries Blocked": "Geblokkeerde querys",
+    "Percent Blocked": "Procent geblokkeerd",
+    "Queries Over Last 24 Hours": "Queries over de laatste 24 uur",
+    "Queries Answered By": "Querys beantword door",
+    "Queries from {{from}} to {{to}}": "Querys van naar",
+    "Total Queries": "Totaal aantal querys",
+    "Blocked Queries": "Geblokkeerde querys"
+}

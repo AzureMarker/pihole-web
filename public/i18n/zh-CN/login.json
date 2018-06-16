@@ -1,0 +1,10 @@
+{
+    "Password": "密码",
+    "Sign in to start your session": "登录即可开始会话",
+    "Log in": "登录",
+    "Forgot Password": "忘记密码",
+    "forgot_password_description": "首次安装Pi-hole后，会生成密码并显示给用户。以后无法查询密码，但可以设置新密码(或明确禁用密码通过设置一个空的密码)",
+    "Wrong Password!": "密码错误！",
+    "You will be transferred to the {{page}}": "你将被转移到 {{page}}",
+    "Verify that cookies are allowed for {{host}}": "验证是否允许 {{host}} 使用cookies"
+}

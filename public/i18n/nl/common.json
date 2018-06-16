@@ -1,0 +1,15 @@
+{
+    "Status": "toestand",
+    "Donate": "schenken",
+    "Domain": "Domein",
+    "Hits": "Hits",
+    "Frequency": "Frequentie",
+    "Client": "Cliënt",
+    "Requests": "verzoeken",
+    "Add": "Toevoegen",
+    "Time": "Tijd",
+    "Type": "Type",
+    "Action": "Actie",
+    "Enabled": "Activeren",
+    "Disabled": "Deactiveren"
+}
