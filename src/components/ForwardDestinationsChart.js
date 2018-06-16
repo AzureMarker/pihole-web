@@ -70,8 +70,11 @@ class ForwardDestinationsChart extends Component {
   };
 
   handleClick = (e, index) => {
+    // Hide the destination by clicking on the internal legend item
     const chart = this.chartRef.current.chartInstance;
     chart.legend.options.onClick.call(chart, e, chart.legend.legendItems[index]);
+
+    // Cause an update so the external legend gets updated
     this.forceUpdate();
   };
 
@@ -102,6 +105,8 @@ class ForwardDestinationsChart extends Component {
       maintainAspectRatio: false
     };
 
+    // Get the metadata for the items, so we know if they are hidden or not.
+    // If the chart has not been created yet, make some fake metadata.
     const meta = this.chartRef.current !== null
       ? this.chartRef.current.chartInstance.getDatasetMeta(0).data
       : this.state.data.map(() => ({ hidden: false }));
@@ -126,7 +131,9 @@ class ForwardDestinationsChart extends Component {
             <ul className="chart-legend" style={{ height: "250px" }}>
               {
                 this.state.labels
+                  // Zip label and color together
                   .map((label, i) => [label, this.state.colors[i]])
+                  // Create the list items
                   .map(([label, color], i) => (
                     <li key={i}
                         className={meta[i] && meta[i].hidden ? "strike" : ""}
