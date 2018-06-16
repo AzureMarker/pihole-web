@@ -9,5 +9,7 @@
     "Add": "Añadir",
     "Time": "Fecha/hora",
     "Type": "Tipo",
-    "Action": "Acción"
+    "Action": "Acción",
+    "Enabled": "Habilitado",
+    "Disabled": "Deshabilitado"
 }

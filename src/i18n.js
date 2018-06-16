@@ -11,8 +11,6 @@ export function setupI18n() {
     .use(reactI18nextModule)
     .init({
       fallbackLng: "en",
-      // Only attempt to load the base language, for example only attempt en and not en-US
-      load: "languageOnly",
       ns: ['common'],
       defaultNS: "common",
       fallbackNS: ['dashboard', 'footer', 'lists', 'location', 'login', 'query-log'],
