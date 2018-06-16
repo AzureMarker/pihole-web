@@ -78,6 +78,9 @@ export const api = {
   getQueryTypes() {
     return api.get("stats/query_types")
   },
+  getForwardDestinations() {
+    return api.get("stats/forward_destinations")
+  },
   getTopDomains() {
     return api.get("stats/top_domains");
   },
