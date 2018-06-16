@@ -76,3 +76,72 @@
     height: 10px;
     margin-right: 10px;
 }
+
+.background-image {
+  background: url("../img/backgroundLight.png") repeat fixed; 
+}
+
+.container-toggler {
+  position: absolute;
+  right: 0;
+  top: 10;
+  padding: 0.25rem 0.75rem;
+}
+
+.container-toggler-button {
+  font-size: 1.25rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.container-toggler-button:focus, .container-toggler-button:hover {
+  text-decoration: none;
+}
+
+.boxcontainer {
+  margin-right: none;
+  margin-left: none;
+}
+
+@media (min-width: 1280px) {
+  .boxcontainer {
+    transition: inherit;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1150px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .boxcontainer .app-header {
+    transition: inherit;
+    position: fixed;
+    top: 0;
+    z-index: 1020;
+    width: 1120px; 
+  }
+  .boxcontainer .app-body {
+    margin-top: 55px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .boxcontainer {
+    transition: inherit;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1280px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .boxcontainer .app-header {
+    transition: inherit;
+    position: fixed;
+    top: 0;
+    z-index: 1020;
+    width: 1250px;
+  }
+  .boxcontainer .app-body {
+    margin-top: 55px;
+  }
+}
