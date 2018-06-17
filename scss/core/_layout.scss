@@ -239,7 +239,7 @@ app-root {
 //
 // Animations
 //
-.app-header,
+//.app-header, Disabled to prevent tearing exiting boxed-layout.
 .app-footer,
 .sidebar,
 .main,

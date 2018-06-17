@@ -25,7 +25,10 @@ class TopDomains extends Component {
   }
 
   updateChart() {
-    this.updateHandler = makeCancelable(api.getTopDomains(), { repeat: this.updateChart, interval: 10 * 1000 });
+    this.updateHandler = makeCancelable(
+      api.getTopDomains(),
+      { repeat: this.updateChart, interval: 10 * 60 * 1000 }
+    );
     this.updateHandler.promise.then(res => {
       this.setState({
         loading: false,
@@ -95,26 +98,24 @@ class TopDomains extends Component {
     const { t } = this.props;
 
     return (
-      <div className="col-md-6 col-xl-4">
-        <div className="card">
-          <div className="card-header">
-            {t("Top Permitted Domains")}
-          </div>
-          <div className="card-block">
-            <div style={{overflowX: "auto"}}>
-              {this.generateTable(t)}
-            </div>
-          </div>
-          {
-            this.state.loading
-              ?
-              <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
-                <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>
-              </div>
-              :
-              null
-          }
+      <div className="card">
+        <div className="card-header">
+          {t("Top Permitted Domains")}
         </div>
+        <div className="card-block">
+          <div style={{overflowX: "auto"}}>
+            {this.generateTable(t)}
+          </div>
+        </div>
+        {
+          this.state.loading
+            ?
+            <div className="card-img-overlay" style={{background: "rgba(255,255,255,0.7)"}}>
+              <i className="fa fa-refresh fa-spin" style={{position: "absolute", top: "50%", left: "50%", fontSize: "30px"}}/>
+            </div>
+            :
+            null
+        }
       </div>
     );
   }

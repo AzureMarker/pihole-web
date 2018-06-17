@@ -29,6 +29,7 @@ jobs:
     - run:
         name: "Upload"
         command: |
+          [ -z "$FTL_SECRET" ] && exit 0
           tar -czvf pihole-web.tar.gz -C build .
           wget https://ftl.pi-hole.net:8080/FTL-client
           chmod +x ./FTL-client

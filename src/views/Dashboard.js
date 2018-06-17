@@ -21,12 +21,22 @@ import { api } from "../utils";
 
 export default () => (
   <div className="animated fadeIn">
-    <SummaryStats/>
-    <QueriesGraph/>
+    <div className="row">
+      <SummaryStats/>
+    </div>
+    <div className="row">
+      <div className="col-md-12">
+        <QueriesGraph/>
+      </div>
+    </div>
     {
       api.loggedIn ?
         <Fragment>
-          <ClientsGraph/>
+          <div className="row">
+            <div className="col-md-12">
+              <ClientsGraph/>
+            </div>
+          </div>
           <div className="row">
             <div className="col-md-6">
               <QueryTypesChart/>
@@ -36,9 +46,15 @@ export default () => (
             </div>
           </div>
           <div className="row">
-            <TopDomains/>
-            <TopBlocked/>
-            <TopClients/>
+            <div className="col-md-6 col-xl-4">
+              <TopDomains/>
+            </div>
+            <div className="col-md-6 col-xl-4">
+              <TopBlocked/>
+            </div>
+            <div className="col-md-6 col-xl-4">
+              <TopClients/>
+            </div>
           </div>
         </Fragment>
         : null

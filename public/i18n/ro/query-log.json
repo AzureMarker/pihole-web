@@ -1,0 +1,7 @@
+{
+    "Blocked": "Blocat",
+    "Allowed (forwarded)": "Permis (redirectionat)",
+    "Allowed (cached)": "Permis (cached)",
+    "Blocked (regex)": "Blocat (regex)",
+    "Blocked (blacklist)": "Blocat (lista neagra)"
+}
