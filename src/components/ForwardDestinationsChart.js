@@ -94,7 +94,7 @@ class ForwardDestinationsChart extends Component {
       tooltips: {
         enabled: true,
         callbacks: {
-          title: () => t("Queries Answered By"),
+          title: () => t("Queries Answered By Destination"),
           label: (tooltipItems, data) => {
             const dataset = data.datasets[tooltipItems.datasetIndex];
             const label = data.labels[tooltipItems.index];

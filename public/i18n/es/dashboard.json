@@ -16,5 +16,7 @@
     "Total Queries": "Peticiones totales",
     "Blocked Queries": "Bloqueadas",
     "Client activity from {{from}} to {{to}}": "Actividad del cliente {{from}} a {{to}}",
-    "{{percent}}% of {{total}}": "{{percent}}% de {{total}}"
+    "{{percent}}% of {{total}}": "{{percent}}% de {{total}}",
+    "No Clients Found": "No se han encontrado clientes",
+    "No Domains Found": "No se han encontrado Dominios"
 }
