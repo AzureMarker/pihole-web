@@ -7,5 +7,6 @@
     "Add a domain (example.com or sub.example.com)": "Füge eine Domain hinzu (beispiel.de oder sub.beispiel.de)",
     "{{domain}} is already added": "{{domain}} wurde bereits hinzugefügt",
     "Failed to remove {{domain}}": "Fehler beim entfernen von {{domain}}",
-    "There are no domains in this list": "Es sind keine Domains auf dieser Liste vorhanden"
+    "There are no domains in this list": "Es sind keine Domains auf dieser Liste vorhanden",
+    "Input a regular expression": "Eingabe eines reguläres Ausdrucks\n"
 }

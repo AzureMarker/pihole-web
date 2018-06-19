@@ -136,27 +136,23 @@ class QueriesGraph extends Component {
     };
 
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <div className="card">
-            <div className="card-header">
-              {t("Queries Over Last 24 Hours")}
-            </div>
-            <div className="card-block">
-              <Line width={970} height={250} data={data} options={options}/>
-            </div>
-            {
-              this.state.loading
-                ?
-                <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
-                  <i className="fa fa-refresh fa-spin"
-                     style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
-                </div>
-                :
-                null
-            }
-          </div>
+      <div className="card">
+        <div className="card-header">
+          {t("Queries Over Last 24 Hours")}
         </div>
+        <div className="card-block">
+          <Line width={970} height={170} data={data} options={options}/>
+        </div>
+        {
+          this.state.loading
+            ?
+            <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
+              <i className="fa fa-refresh fa-spin"
+                 style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
+            </div>
+            :
+            null
+        }
       </div>
     );
   }

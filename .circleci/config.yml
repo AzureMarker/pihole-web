@@ -1,0 +1,75 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+    - image: node:8
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-build-{{ checksum "package-lock.json" }}
+        - v1-build-
+    - run:
+        name: "Install Packages"
+        command: npm install
+    - run:
+        name: "Build"
+        command: |
+          npm run gulp sass
+          rm -r public/fakeAPI
+          npm run build
+    - run:
+        name: "Store Version"
+        command: |
+          BRANCH=$([ -z "$CI_COMMIT_TAG" ] && echo "$CIRCLE_BRANCH" || echo "master")
+          echo "$CIRCLE_TAG $BRANCH ${CIRCLE_SHA1::7}" > build/VERSION
+          cat build/VERSION
+          echo "export BRANCH=$BRANCH" >> $BASH_ENV
+    - run:
+        name: "Upload"
+        command: |
+          [ -z "$FTL_SECRET" ] && exit 0
+          tar -czvf pihole-web.tar.gz -C build .
+          wget https://ftl.pi-hole.net:8080/FTL-client
+          chmod +x ./FTL-client
+          ./FTL-client "$BRANCH" pihole-web.tar.gz "$FTL_SECRET"
+          rm ./FTL-client
+    - save_cache:
+        key: v1-build-{{ checksum "package-lock.json" }}
+        paths:
+        - node_modules
+
+  deploy:
+    branches:
+      only:
+      - master
+    environment:
+      PUBLIC_URL: /
+    docker:
+    - image: node:8
+    steps:
+    - checkout
+    - run:
+        name: "Install Packages"
+        command: npm install
+    - run:
+        name: "Build"
+        command: |
+          npm run gulp sass
+          rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
+          npm run build-fake
+          echo "web.pi-hole.io" > build/CNAME
+    - run:
+        name: "Deploy"
+        command: |
+          git clone --quiet --depth 1 -b gh-pages https://pralor:$GITHUB_TOKEN@github.com/pi-hole/web.git deploy
+          shopt -s extglob # Enable extra globs, like !()
+          rm -rf deploy/!(.|..|.git)
+          cp -r build/* deploy/
+          cd deploy
+          git config user.email "36384445+pralor@users.noreply.github.com"
+          git config user.name "pralor"
+          git add -A
+          git commit -m "Deploy pi-hole/web to web.pi-hole.io"
+          git push --quiet

@@ -100,6 +100,7 @@ class ListPage extends Component {
         <h2 className="text-center">{this.props.title}</h2>
         <br/>
         <DomainInput
+          placeholder={this.props.placeholder}
           domains={this.state.domains}
           apiCall={this.props.add}
           onAdding={this.onAdding}
@@ -136,6 +137,7 @@ class ListPage extends Component {
 ListPage.propTypes = {
   title: PropTypes.string.isRequired,
   note: PropTypes.object,
+  placeholder: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired

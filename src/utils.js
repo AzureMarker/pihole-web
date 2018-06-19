@@ -75,6 +75,12 @@ export const api = {
   getClientsGraph() {
     return api.get("stats/overTime/clients")
   },
+  getQueryTypes() {
+    return api.get("stats/query_types")
+  },
+  getForwardDestinations() {
+    return api.get("stats/forward_destinations")
+  },
   getTopDomains() {
     return api.get("stats/top_domains");
   },
@@ -93,8 +99,8 @@ export const api = {
   getBlacklist() {
     return api.get("dns/blacklist");
   },
-  getWildlist() {
-    return api.get("dns/wildlist");
+  getRegexlist() {
+    return api.get("dns/regexlist");
   },
   addWhitelist(domain) {
     return api.post("dns/whitelist", { "domain": domain });
@@ -102,8 +108,8 @@ export const api = {
   addBlacklist(domain) {
     return api.post("dns/blacklist", { "domain": domain });
   },
-  addWildlist(domain) {
-    return api.post("dns/wildlist", { "domain": domain });
+  addRegexlist(domain) {
+    return api.post("dns/regexlist", { "domain": domain });
   },
   removeWhitelist(domain) {
     return api.delete("dns/whitelist/" + domain);
@@ -111,8 +117,8 @@ export const api = {
   removeBlacklist(domain) {
     return api.delete("dns/blacklist/" + domain);
   },
-  removeWildlist(domain) {
-    return api.delete("dns/wildlist/" + domain);
+  removeRegexlist(domain) {
+    return api.delete("dns/regexlist/" + encodeURIComponent(domain));
   },
   getStatus() {
     return api.get("dns/status")

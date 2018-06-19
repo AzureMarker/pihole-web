@@ -13,7 +13,7 @@ export const routes = t => ({
   '/query-log': t('Query Log'),
   '/whitelist': t('Whitelist'),
   '/blacklist': `${t('Blacklist')} (${t('Exact')})`,
-  '/wildlist': `${t('Blacklist')} (${t('Wildcard')})`,
+  '/regexlist': `${t('Blacklist')} (${t('Regex')})`,
   '/login': t('Login'),
   '/logout': t('Logout')
 });
@@ -49,8 +49,8 @@ export const nav = [
         auth: false
       },
       {
-        name: 'Wildcard',
-        url: '/wildlist',
+        name: 'Regex',
+        url: '/regexlist',
         icon: 'fa fa-ban',
         auth: false
       }

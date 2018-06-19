@@ -56,7 +56,7 @@ class ClientsGraph extends Component {
           // If we ran out of colors, make a random one
           backgroundColor: i < colors.length
             ? colors[i]
-            : '#' + parseInt("" + Math.random() * 0xffffff, 10).toString(16),
+            : '#' + parseInt("" + Math.random() * 0xffffff, 10).toString(16).padStart(6, "0"),
           pointRadius: 0,
           pointHitRadius: 5,
           pointHoverRadius: 5,
@@ -134,27 +134,23 @@ class ClientsGraph extends Component {
     };
 
     return (
-      <div className="row">
-        <div className="col-md-12">
-          <div className="card">
-            <div className="card-header">
-              {t("Clients Over Last 24 Hours")}
-            </div>
-            <div className="card-block">
-              <Line width={970} height={250} data={this.state.data} options={options} ref={this.graphRef}/>
-            </div>
-            {
-              this.state.loading
-                ?
-                <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
-                  <i className="fa fa-refresh fa-spin"
-                     style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
-                </div>
-                :
-                null
-            }
-          </div>
+      <div className="card">
+        <div className="card-header">
+          {t("Clients Over Last 24 Hours")}
         </div>
+        <div className="card-block">
+          <Line width={970} height={170} data={this.state.data} options={options} ref={this.graphRef}/>
+        </div>
+        {
+          this.state.loading
+            ?
+            <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
+              <i className="fa fa-refresh fa-spin"
+                 style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
+            </div>
+            :
+            null
+        }
         {
           // Now you're thinking with portals!
           ReactDOM.createPortal(

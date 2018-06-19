@@ -1,0 +1,7 @@
+{
+    "Blocked": "阻止",
+    "Allowed (forwarded)": "允许（转发）",
+    "Allowed (cached)": "允许（缓存）",
+    "Blocked (regex)": "被阻止（正则）",
+    "Blocked (blacklist)": "被阻止（黑名单）"
+}
