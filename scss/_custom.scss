@@ -110,6 +110,14 @@
   right: 0;
   top: 10;
   padding: 0.25rem 0.75rem;
+  visibility: hidden;
+}
+
+@media (min-width: 1200px) {
+  .container-toggler {
+    position: absolute; 
+    visibility: visible;
+  }
 }
 
 .container-toggler-button {
