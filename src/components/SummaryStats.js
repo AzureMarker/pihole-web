@@ -65,6 +65,10 @@ class SummaryStats extends Component {
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-success stat-height-lock">
             <div className="card-block">
+              <div className="card-icon">
+                <i className="fa fa-globe fa-2x">
+                </i>
+              </div>
               <h3>{this.state.totalQueries}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Total Queries ({{count}} clients)", { count: this.state.uniqueClients })}
@@ -75,6 +79,10 @@ class SummaryStats extends Component {
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-primary stat-height-lock">
             <div className="card-block">
+              <div className="card-icon">
+                <i className="fa fa-hand-stop-o fa-2x">
+                </i>
+              </div>
               <h3>{this.state.blockedQueries}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Queries Blocked")}
@@ -85,6 +93,10 @@ class SummaryStats extends Component {
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-warning stat-height-lock">
             <div className="card-block">
+              <div className="card-icon" style={{"z-index": "100"}}>
+                <i className="fa fa-pie-chart fa-2x">
+                </i>
+              </div>
               <h3>{this.state.percentBlocked}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Percent Blocked")}
@@ -95,6 +107,10 @@ class SummaryStats extends Component {
         <div className="col-lg-3 col-xs-12">
           <div className="card card-inverse card-danger stat-height-lock">
             <div className="card-block">
+              <div className="card-icon">
+                 <i className="fa fa-list-alt fa-2x">
+                 </i>
+              </div>
               <h3>{this.state.gravityDomains}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Domains On Blocklist")}
