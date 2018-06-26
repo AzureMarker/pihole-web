@@ -113,7 +113,7 @@
   visibility: hidden;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1250px) {
   .container-toggler {
     visibility: visible;
   }
@@ -131,50 +131,13 @@
 }
 
 .boxcontainer {
-  margin-right: none;
-  margin-left: none;
+  max-width: 1250px;
+  margin: auto;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
-@media (min-width: 1280px) {
-  .boxcontainer {
-    transition: inherit;
-    margin-right: auto;
-    margin-left: auto;
-    width: 1150px;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .boxcontainer .app-header {
-    transition: inherit;
-    position: fixed;
-    top: 0;
-    z-index: 1020;
-    width: 1120px;
-  }
-  .boxcontainer .app-body {
-    margin-top: 55px;
-  }
-}
-
-@media (min-width: 1800px) {
-  .boxcontainer {
-    transition: inherit;
-    margin-right: auto;
-    margin-left: auto;
-    width: 1280px;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .boxcontainer .app-header {
-    transition: inherit;
-    position: fixed;
-    top: 0;
-    z-index: 1020;
-    width: 1250px;
-  }
-  .boxcontainer .app-body {
-    margin-top: 55px;
-  }
+.boxcontainer .app-header {
+  max-width: 1250px;
 }
 
 .card-icon {
