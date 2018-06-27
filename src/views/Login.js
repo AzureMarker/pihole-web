@@ -140,8 +140,7 @@ class Login extends Component {
                        value={this.state.password} onChange={this.handlePasswordChange}
                        placeholder={t("Password")} autoFocus/>
                 <div className="input-group-append">
-                  <button type="submit" className="btn btn-primary float-right"
-                          style={{'cursor': 'pointer'}} onClick={this.authenticate}>
+                  <button type="submit" className="btn btn-primary" onClick={this.authenticate}>
                     {t("Log in")}
                   </button>
                 </div>
