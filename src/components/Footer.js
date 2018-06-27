@@ -16,12 +16,6 @@ const Footer = props => {
 
   return (
     <footer className="app-footer">
-      <div className="pull-right">
-        <b className="hidden-xs-down">{t("Core Version")}: </b>
-        <b className="hidden-sm-up">C: </b> <span id="piholeVersion">vDev</span>
-        <b className="hidden-xs-down">, {t("Web Version")}: </b>
-        <b className="hidden-sm-up">, W: </b> <span id="webVersion">vDev</span>
-      </div>
       <div>
         <i className="fa fa-paypal"/>
         <strong>
@@ -29,6 +23,12 @@ const Footer = props => {
             &nbsp;{t("Donate")}
           </a>
         </strong> {t("if you found this useful")}
+      </div>
+      <div className="ml-auto">
+        <b className="hidden-xs-down">{t("Core Version")}: </b>
+        <b className="hidden-sm-up">C: </b> <span id="piholeVersion">vDev</span>
+        <b className="hidden-xs-down">, {t("Web Version")}: </b>
+        <b className="hidden-sm-up">, W: </b> <span id="webVersion">vDev</span>
       </div>
     </footer>
   );
