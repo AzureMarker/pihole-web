@@ -135,15 +135,13 @@ class Login extends Component {
 
           <div className="card-body">
             <form id="loginform">
-              <div className={'form-group' + (this.state.error ? ' has-error' : '')}>
+              <div className={'input-group' + (this.state.error ? ' has-error' : '')}>
                 <input type="password" className="form-control"
                        value={this.state.password} onChange={this.handlePasswordChange}
                        placeholder={t("Password")} autoFocus/>
-              </div>
-              <div className="row">
-                <div className="col-12">
-                  <button type="submit" className="btn btn-primary float-right" style={{'cursor': 'pointer'}}
-                          onClick={this.authenticate}>
+                <div className="input-group-append">
+                  <button type="submit" className="btn btn-primary float-right"
+                          style={{'cursor': 'pointer'}} onClick={this.authenticate}>
                     {t("Log in")}
                   </button>
                 </div>
