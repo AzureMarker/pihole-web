@@ -39,7 +39,8 @@ class DomainList extends Component {
               <li key={item} className="list-group-item">
                 {
                   api.loggedIn ?
-                    <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
+                    <button className="btn btn-danger btn-sm pull-right" type="button"
+                            style={{ marginTop: "2px" }} onClick={() => this.onRemove(item)}>
                       <span className="fa fa-trash-o"/>
                     </button>
                     : null
