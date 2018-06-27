@@ -5,8 +5,9 @@
 # Dependencies
 node_modules
 
-# Production
+# Compiled Files
 build
+src/scss/style.css
 
 # Misc
 .DS_Store
