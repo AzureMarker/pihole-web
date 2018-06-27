@@ -102,7 +102,7 @@ class TopDomains extends Component {
         <div className="card-header">
           {t("Top Permitted Domains")}
         </div>
-        <div className="card-block">
+        <div className="card-body">
           <div style={{overflowX: "auto"}}>
             {this.generateTable(t)}
           </div>

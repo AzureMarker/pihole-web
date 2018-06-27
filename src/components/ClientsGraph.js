@@ -138,7 +138,7 @@ class ClientsGraph extends Component {
         <div className="card-header">
           {t("Clients Over Last 24 Hours")}
         </div>
-        <div className="card-block">
+        <div className="card-body">
           <Line width={970} height={170} data={this.state.data} options={options} ref={this.graphRef}/>
         </div>
         {

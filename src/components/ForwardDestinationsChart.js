@@ -116,7 +116,7 @@ class ForwardDestinationsChart extends Component {
         <div className="card-header">
           {t("Queries Answered By")}
         </div>
-        <div className="card-block">
+        <div className="card-body">
           <div className="float-left" style={{ width: "67%" }}>
             <Doughnut width={100} height={250} options={options} ref={this.chartRef}
                       data={{
@@ -128,7 +128,7 @@ class ForwardDestinationsChart extends Component {
                       }}/>
           </div>
           <div className="float-right" style={{ width: "33%" }}>
-            <ul className="chart-legend" style={{ height: "250px" }}>
+            <ul className="chart-legend">
               {
                 this.state.labels
                   // Zip label and color together
