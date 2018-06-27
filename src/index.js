@@ -11,8 +11,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import 'ionicons/dist/css/ionicons.min.css';
-import Full from './containers/Full'
+import './scss/style.css';
+import "ionicons/dist/css/ionicons.min.css";
+import "font-awesome/css/font-awesome.min.css";
+import "simple-line-icons/css/simple-line-icons.css";
+import Full from './containers/Full';
 import { api } from "./utils";
 import { setupI18n } from './i18n';
 
