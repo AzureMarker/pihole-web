@@ -7768,10 +7768,10 @@ canvas {
     min-width: 50px;
     padding: 0.25rem 0; }
     .app-header .navbar-toggler:hover .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%232f353a' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.6)' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
   .app-header .navbar-toggler-icon {
     height: 23px;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%2373818f' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.3)' stroke-width='2.25' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); }
   .app-header .navbar-nav {
     flex-direction: row;
     align-items: center; }
@@ -7803,9 +7803,9 @@ canvas {
     min-width: 180px; }
 
 .navbar-nav .nav-link {
-  color: #73818f; }
+  color: rgba(0, 0, 0, 0.3); }
   .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
-    color: #2f353a; }
+    color: rgba(0, 0, 0, 0.6); }
 
 .navbar-nav .open > .nav-link, .navbar-nav .open > .nav-link:hover, .navbar-nav .open > .nav-link:focus,
 .navbar-nav .active > .nav-link,
@@ -7817,7 +7817,7 @@ canvas {
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.active:hover,
 .navbar-nav .nav-link.active:focus {
-  color: #2f353a; }
+  color: rgba(0, 0, 0, 0.8); }
 
 .navbar-divider {
   background-color: rgba(0, 0, 0, 0.075); }
@@ -8026,7 +8026,7 @@ canvas {
   flex-direction: column;
   padding: 0;
   color: #fff;
-  background: #2f353a; }
+  background: #263238; }
   .sidebar .sidebar-close {
     position: absolute;
     right: 0;
@@ -8048,7 +8048,7 @@ canvas {
     background: rgba(0, 0, 0, 0.2); }
   .sidebar .sidebar-form .form-control {
     color: #fff;
-    background: #181b1e;
+    background: #11171a;
     border: 0; }
     .sidebar .sidebar-form .form-control::placeholder {
       color: rgba(255, 255, 255, 0.7); }
@@ -8095,14 +8095,14 @@ canvas {
       width: 1.09375rem;
       margin: 0 0.5rem 0 0;
       font-size: 0.875rem;
-      color: #73818f;
+      color: #b0bec5;
       text-align: center; }
     .sidebar .nav-link .badge {
       float: right;
       margin-top: 2px; }
     .sidebar .nav-link.active {
       color: #fff;
-      background: #3a4248; }
+      background: #304047; }
       .sidebar .nav-link.active .nav-icon {
         color: #20a8d8; }
     .sidebar .nav-link:hover {
@@ -8214,11 +8214,11 @@ canvas {
       width: 20px;
       margin: -3px 0.5rem 0 0;
       font-size: 10px;
-      color: #73818f;
+      color: #b0bec5;
       text-align: center;
       vertical-align: middle; }
   .sidebar .progress {
-    background-color: #515c64 !important; }
+    background-color: #455b66 !important; }
   .sidebar .sidebar-footer {
     flex: 0 0 auto;
     padding: 0.75rem 1rem;
@@ -8329,7 +8329,7 @@ canvas {
     .sidebar-minimized .sidebar .nav > .nav-dropdown > .nav-dropdown-items {
       display: none;
       max-height: 1000px;
-      background: #2f353a; }
+      background: #263238; }
     .sidebar-minimized .sidebar .nav > .nav-dropdown:hover {
       background: #20a8d8; }
       .sidebar-minimized .sidebar .nav > .nav-dropdown:hover > .nav-dropdown-items {
@@ -9284,7 +9284,7 @@ html[dir="rtl"] .aside-menu-show .aside-menu {
     text-align: center;
     background-color: #367fa9; }
     .app-header .navbar-toggler {
-      color: #73818f; }
+      color: rgba(0, 0, 0, 0.3); }
     .app-header .navbar-brand {
       position: absolute;
       left: 50%;
