@@ -45,7 +45,7 @@
     "build-fake": "node make-fake-data.js && REACT_APP_FAKE_API=1 npm run build",
     "build-js": "react-scripts build",
     "build-css": "node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./node_modules ./node_modules/simple-line-icons/scss ./node_modules/font-awesome/scss ./src/scss -o ./src/scss --watch --recursive",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./node_modules ./src/scss -o ./src/scss --watch --recursive",
     "update-translations": "node update-translations.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
