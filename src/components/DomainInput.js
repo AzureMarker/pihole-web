@@ -54,7 +54,7 @@ class DomainInput extends Component {
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
-        <span className="btn-group">
+        <span className="btn-group input-group-append">
           {
             api.loggedIn ?
               <button onClick={this.onAdd} className="btn border-secondary" type="button">
