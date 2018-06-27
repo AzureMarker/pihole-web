@@ -54,15 +54,15 @@ class DomainInput extends Component {
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
-        <span className="input-group-btn">
+        <span className="btn-group">
           {
             api.loggedIn ?
-              <button onClick={this.onAdd} className="btn btn-secondary" type="button">
+              <button onClick={this.onAdd} className="btn border-secondary" type="button">
                 {t("Add")}
               </button>
               : null
           }
-          <button onClick={this.props.onRefresh} className="btn btn-secondary" type="button">
+          <button onClick={this.props.onRefresh} className="btn border-secondary" type="button">
             <i className="fa fa-refresh"/>
           </button>
         </span>
