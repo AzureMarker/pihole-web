@@ -10,6 +10,13 @@
   }
 }
 
+@media (max-width: 992px) and (min-width: 576px) {
+  .sidebar-show.sidebar-fixed.sidebar-minimized .main,
+  .sidebar-show.sidebar-fixed.sidebar-minimized .app-footer {
+    margin-left: $sidebar-width !important;
+  }
+}
+
 .app-body {
   background: #ecf0f5;
 }
