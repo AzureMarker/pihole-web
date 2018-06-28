@@ -35,7 +35,8 @@ class ForgotPassword extends Component {
     return (
       <div style={{'width': '100%'}}>
         <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary')}>
-          <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}>
+          <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
+               style={{ paddingRight: "10px" }}>
             <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
               {t("Forgot Password")}
             </h3>
