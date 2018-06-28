@@ -14,6 +14,8 @@ export const routes = t => ({
   '/whitelist': t('Whitelist'),
   '/blacklist': `${t('Blacklist')} (${t('Exact')})`,
   '/regexlist': `${t('Blacklist')} (${t('Regex')})`,
+  '/information': t('Information'),
+  '/information2': t('DNS & DHCP'),
   '/login': t('Login'),
   '/logout': t('Logout')
 });
@@ -53,6 +55,25 @@ export const nav = [
         url: '/regexlist',
         icon: 'fa fa-ban',
         auth: false
+      }
+    ]
+  },
+  {
+    name: 'Settings',
+    icon: 'fa fa-wrench',
+    auth: true,
+    children: [
+      { 
+        name: 'Information',
+        url: '/information',
+        icon: 'fa fa-info',
+        auth: true
+      },
+      {
+        name: 'DNS & DNCP',
+        url: '/information2',
+        icon: 'fa fa-binoculars',
+        auth: true,
       }
     ]
   },

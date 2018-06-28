@@ -151,6 +151,21 @@ export const api = {
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
+  getNetworkInfo() {
+    return api.get("settings/network")
+  },
+  getVersion() {
+    return api.get("version")
+  },
+  getFTLdb() {
+    return api.get("settings/ftldb")
+  },
+  getDNSInfo() {
+    return api.get("settings/dns")
+  },
+  getDHCPInfo() {
+    return api.get("settings/dhcp")
+  }, 
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
