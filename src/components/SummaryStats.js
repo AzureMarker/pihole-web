@@ -63,11 +63,13 @@ class SummaryStats extends Component {
     return (
       <Fragment>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-success stat-height-lock">
-            <div className="card-block">
+          <div className="card border-0 bg-success stat-height-lock">
+            <div className="card-body">
               <div className="card-icon">
                 <i className="fa fa-globe fa-2x" />
               </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.totalQueries}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Total Queries ({{count}} clients)", { count: this.state.uniqueClients })}
@@ -76,11 +78,13 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-primary stat-height-lock">
-            <div className="card-block">
+          <div className="card border-0 bg-primary stat-height-lock">
+            <div className="card-body">
               <div className="card-icon">
                 <i className="fa fa-hand-stop-o fa-2x" />
               </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.blockedQueries}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Queries Blocked")}
@@ -89,11 +93,13 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-warning stat-height-lock">
-            <div className="card-block">
+          <div className="card border-0 bg-warning stat-height-lock">
+            <div className="card-body">
               <div className="card-icon">
                 <i className="fa fa-pie-chart fa-2x" />
               </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.percentBlocked}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Percent Blocked")}
@@ -102,11 +108,13 @@ class SummaryStats extends Component {
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-danger stat-height-lock">
-            <div className="card-block">
+          <div className="card border-0 bg-danger stat-height-lock">
+            <div className="card-body">
               <div className="card-icon">
                  <i className="fa fa-list-alt fa-2x" />
               </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.gravityDomains}</h3>
               <p style={{marginBottom: "0px"}}>
                 {t("Domains On Blocklist")}

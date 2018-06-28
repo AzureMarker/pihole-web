@@ -36,14 +36,13 @@ class ForgotPassword extends Component {
       <div style={{'width': '100%'}}>
         <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary')}>
           <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
-               style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
+               style={{ paddingRight: "10px" }}>
             <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
               {t("Forgot Password")}
             </h3>
 
             <span className="pull-right">
-              <button type="button" className="btn btn-card-tool"
-                      style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={this.onClick}>
+              <button type="button" className="btn btn-card-tool" onClick={this.onClick}>
                 <i className={'fa ' + (this.isExpanded() ? 'fa-minus' : 'fa-plus')}/>
               </button>
             </span>

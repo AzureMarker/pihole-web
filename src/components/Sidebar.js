@@ -29,7 +29,7 @@ const activeRoute = (routeName, props) =>
 const navItem = (item, key, props) => (
   <NavItem key={key}>
     <NavLink to={item.url} onClick={mobileSidebarHide} className="nav-link" activeClassName="active">
-      <i className={item.icon}/>{props.t(item.name)}
+      <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
     </NavLink>
   </NavItem>
 );
@@ -37,7 +37,7 @@ const navItem = (item, key, props) => (
 const navDropdown = (item, key, props) => (
   <li key={key} className={activeRoute(item.url, props)}>
     <a className="nav-link nav-dropdown-toggle" style={{ "cursor": "pointer" }} onClick={handleClick}>
-      <i className={item.icon}/>{props.t(item.name)}
+      <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
     </a>
     <ul className="nav-dropdown-items">
       {navList(item.children, props)}

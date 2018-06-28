@@ -16,7 +16,6 @@ jobs:
     - run:
         name: "Build"
         command: |
-          npm run gulp sass
           rm -r public/fakeAPI
           npm run build
     - run:
@@ -56,7 +55,6 @@ jobs:
     - run:
         name: "Build"
         command: |
-          npm run gulp sass
           rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
           npm run build-fake
           echo "web.pi-hole.io" > build/CNAME

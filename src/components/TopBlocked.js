@@ -100,7 +100,7 @@ class TopBlocked extends Component {
         <div className="card-header">
           {t("Top Blocked Domains")}
         </div>
-        <div className="card-block">
+        <div className="card-body">
           <div style={{overflowX: "auto"}}>
             {this.generateTable(t)}
           </div>

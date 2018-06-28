@@ -21,6 +21,11 @@ class QueryTypesChart extends Component {
     labels: []
   };
 
+  constructor(props) {
+    super(props);
+    this.chartRef = React.createRef();
+  }
+
   updateChart = () => {
     this.updateHandler = makeCancelable(api.getQueryTypes(), { repeat: this.updateChart, interval: 10 * 60 * 1000 });
     this.updateHandler.promise.then(queryTypes => {
@@ -61,6 +66,15 @@ class QueryTypesChart extends Component {
     }).catch(ignoreCancel);
   };
 
+  handleClick = (e, index) => {
+    // Hide the destination by clicking on the internal legend item
+    const chart = this.chartRef.current.chartInstance;
+    chart.legend.options.onClick.call(chart, e, chart.legend.legendItems[index]);
+
+    // Cause an update so the external legend gets updated
+    this.forceUpdate();
+  };
+
   componentDidMount() {
     this.updateChart();
   }
@@ -73,10 +87,7 @@ class QueryTypesChart extends Component {
     const { t } = this.props;
 
     const options = {
-      legend: {
-        display: true,
-        position: "right"
-      },
+      legend: { display: false },
       tooltips: {
         enabled: true,
         callbacks: {
@@ -91,20 +102,46 @@ class QueryTypesChart extends Component {
       maintainAspectRatio: false
     };
 
+    // Get the metadata for the items, so we know if they are hidden or not.
+    // If the chart has not been created yet, make some fake metadata.
+    const meta = this.chartRef.current !== null
+      ? this.chartRef.current.chartInstance.getDatasetMeta(0).data
+      : this.state.data.map(() => ({ hidden: false }));
+
     return (
       <div className="card">
         <div className="card-header">
           {t("Query Types")}
         </div>
-        <div className="card-block">
-          <Doughnut width={100} height={250} options={options}
-                    data={{
-                      datasets: [{
-                        data: this.state.data,
-                        backgroundColor: this.state.colors
-                      }],
-                      labels: this.state.labels
-                    }}/>
+        <div className="card-body">
+          <div className="float-left" style={{ width: "67%" }}>
+            <Doughnut width={100} height={250} options={options} ref={this.chartRef}
+                      data={{
+                        datasets: [{
+                          data: this.state.data,
+                          backgroundColor: this.state.colors
+                        }],
+                        labels: this.state.labels
+                      }}/>
+          </div>
+          <div className="float-right" style={{ width: "33%" }}>
+            <ul className="chart-legend">
+              {
+                this.state.labels
+                  // Zip label and color together
+                  .map((label, i) => [label, this.state.colors[i]])
+                  // Create the list items
+                  .map(([label, color], i) => (
+                    <li key={i}
+                        className={meta[i] && meta[i].hidden ? "strike" : ""}
+                        onClick={e => this.handleClick(e, i)}>
+                      <span style={{backgroundColor: color}}/>
+                      {label}
+                    </li>
+                  ))
+              }
+            </ul>
+          </div>
         </div>
         {
           this.state.loading

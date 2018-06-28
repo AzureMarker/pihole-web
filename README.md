@@ -27,8 +27,6 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 - Open the folder in the terminal
 - Run `npm install`
     - This will install all the packages listed in `package.json` and will let you build/run the web interface
-- Run `npm run gulp sass`
-    - This will install the necessary css files for the web interface
 - Run `npm start` to make sure that it is working
     - This will launch the web interface on port 3000 in debug mode
     - If it crashes/has a compile error it will show you the code and the error

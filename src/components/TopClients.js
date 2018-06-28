@@ -101,7 +101,7 @@ class TopClients extends Component {
         <div className="card-header">
           {t("Top Clients")}
         </div>
-        <div className="card-block">
+        <div className="card-body">
           <div style={{overflowX: "auto"}}>
             {this.generateTable(t)}
           </div>
