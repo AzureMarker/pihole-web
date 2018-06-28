@@ -38,7 +38,10 @@ export const mobileSidebarHide = () => {
 
 export default () => (
   <header className="app-header navbar">
-    <button className="navbar-toggler mobile-sidebar-toggler d-lg-none" onClick={mobileSidebarToggle} type="button">&#9776;</button>
+    <button className="navbar-toggler d-lg-none" style={{ marginLeft: "16px" }}
+            onClick={mobileSidebarToggle} type="button">
+      &#9776;
+    </button>
     <Link to="/dashboard" className="navbar-brand" style={{ "textAlign": "center" }}>
       <span style={{color: "white", lineHeight: "40px"}}>
         <span className="navbar-brand-full">Pi-<b>hole</b></span>
@@ -47,7 +50,10 @@ export default () => (
     </Link>
     <ul className="nav navbar-nav d-md-down-none mr-auto">
       <li className="nav-item">
-        <button className="nav-link navbar-toggler sidebar-toggler" type="button" onClick={sidebarMinimize}>&#9776;</button>
+        <button className="nav-link navbar-toggler sidebar-toggler"
+                type="button" onClick={sidebarMinimize}>
+          &#9776;
+        </button>
       </li>
     </ul>
     <BoxedLayoutButton />
