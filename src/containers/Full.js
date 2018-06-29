@@ -12,7 +12,6 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Header, { mobileSidebarHide } from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import Aside from '../components/Aside';
 import Footer from '../components/Footer';
 import Dashboard from '../views/Dashboard';
 import QueryLog from '../components/QueryLog';
@@ -42,7 +41,6 @@ export default props => (
           </Switch>
         </div>
       </main>
-      <Aside/>
     </div>
     <Footer/>
   </div>
