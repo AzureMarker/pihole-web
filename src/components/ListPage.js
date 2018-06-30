@@ -120,7 +120,8 @@ class ListPage extends Component {
         <br/>
         <DomainInput
           placeholder={this.props.placeholder}
-          onEnter={this.onEnter}/>
+          onEnter={this.onEnter}
+          onRefresh={this.onRefresh}/>
         { this.props.note }
         {
           this.state.infoMsg

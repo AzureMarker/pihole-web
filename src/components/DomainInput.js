@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { api, ignoreCancel, makeCancelable } from "../utils";
+import { api } from "../utils";
 
 class DomainInput extends Component {
   state = {
@@ -36,7 +36,8 @@ class DomainInput extends Component {
       <div className="form-group input-group">
         <input
           type="text" className="form-control" placeholder={this.props.placeholder}
-          value={this.state.domain} onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
+          value={this.state.domain}
+          onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
@@ -60,6 +61,7 @@ class DomainInput extends Component {
 DomainInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   onEnter: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired
 };
 
 export default translate(["common", "lists"])(DomainInput);
