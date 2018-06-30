@@ -37,10 +37,18 @@ it('shows an alert if there are no domains', () => {
   expect(wrapper).toIncludeText('There are no domains in this list');
 });
 
-it('does not have a delete button when not signed in', () => {
+it('does not have a delete button when not logged in', () => {
   const wrapper = shallow(<DomainList domains={domains}/>);
 
   expect(wrapper.find("ul").childAt(0).find("button")).not.toExist();
+});
+
+it('has a delete button when logged in', () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainList domains={domains}/>);
+
+  expect(wrapper.find("ul").childAt(0).find("button")).toExist();
 });
 
 it('calls onRemoved and API callback when a domain is removed', () => {
