@@ -3,7 +3,7 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Domain list component test
+*  DomainList component test
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
@@ -20,22 +20,16 @@ const domains = [
 ];
 
 it('shows a list of domains', () => {
-  const onRemoved = jest.fn();
-  const onFailed = jest.fn();
-  const apiCall = jest.fn();
   const wrapper = shallow(
-    <DomainList t={key => key} domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList t={key => key} domains={domains}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(domains.length);
 });
 
 it('shows an alert if there are no domains', () => {
-  const onRemoved = jest.fn();
-  const onFailed = jest.fn();
-  const apiCall = jest.fn();
   const wrapper = shallow(
-    <DomainList t={key => key} domains={[]} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList t={key => key} domains={[]}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(0);
