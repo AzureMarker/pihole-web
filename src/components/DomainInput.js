@@ -23,21 +23,7 @@ class DomainInput extends Component {
 
   onAdd = () => {
     if(this.state.domain.length > 0) {
-      if(this.props.domains.includes(this.state.domain))
-        this.props.onAlreadyAdded(this.state.domain);
-      else {
-        const prevDomains = this.props.domains.slice();
-        const domain = this.state.domain;
-
-        this.addHandler = makeCancelable(this.props.apiCall(this.state.domain));
-        this.addHandler.promise.then(() => {
-          this.props.onAdded(domain)
-        }).catch(ignoreCancel).catch(() => {
-          this.props.onFailed(domain, prevDomains)
-        });
-
-        this.props.onAdding(this.state.domain)
-      }
+      this.props.onEnter(domain);
 
       this.setState({ domain: "" });
     }
@@ -73,13 +59,7 @@ class DomainInput extends Component {
 
 DomainInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
-  domains: PropTypes.array.isRequired,
-  onAdding: PropTypes.func.isRequired,
-  onAlreadyAdded: PropTypes.func.isRequired,
-  onAdded: PropTypes.func.isRequired,
-  onFailed: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired,
-  apiCall: PropTypes.func.isRequired
+  onEnter: PropTypes.func.isRequired,
 };
 
 export default translate(["common", "lists"])(DomainInput);
