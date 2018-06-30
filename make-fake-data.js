@@ -238,7 +238,7 @@ function getNetworkInfo() {
     "interface": faker.random.arrayElement(["eth0", "eth1", "wlan0", "wlan1"]),
     "ipv4_address": faker.internet.ip(),
     "ipv6_address": faker.internet.ipv6(),
-    "hostname": faker.random.word().toLowerCase()
+    "hostname": faker.random.word().toLowerCase().split(" ",2)[0]
   };
 }
 
@@ -255,22 +255,22 @@ function getVersionInfo() {
     "api": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
       "hash": faker.internet.color().substring(1),
-      "tag": faker.random.alphaNumeric(3)
+      "tag": "vDev"
     },
     "core": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
       "hash": faker.internet.color().substring(1),
-      "tag": faker.random.alphaNumeric(3)
+      "tag": "vDev"
     },
     "ftl": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
       "hash": faker.internet.color().substring(1),
-      "tag": faker.random.alphaNumeric(3)
+      "tag": "vDev"
     },
     "web": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
       "hash": faker.internet.color().substring(1),
-      "tag": faker.random.alphaNumeric(3)
+      "tag": "vDev"
     }
   };
 }
@@ -282,7 +282,7 @@ function getDHCPInfo() {
     "ip_end": faker.internet.ip(),
     "router_ip": faker.internet.ip(),
     "lease_time": faker.random.number({min:1, max:99}),
-    "domain": faker.random.word().toLowerCase(),
+    "domain": faker.random.word().toLowerCase().split(" ",2)[0],
     "ipv6_support": faker.random.boolean()
   };
 }
@@ -299,7 +299,7 @@ function getDNSInfo() {
     "conditional_forwarding": {
       "enabled": faker.random.boolean(),
       "router_ip": faker.internet.ip(),
-      "domain": faker.random.word().toLowerCase()
+      "domain": faker.random.word().toLowerCase().split(" ",2)[0]
     }
   };
 }

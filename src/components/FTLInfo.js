@@ -54,14 +54,15 @@ class FTLInfo extends Component {
 
   render() {
     return (
-      <div className="card card-inverse card-success">
+      <div className="card border-0 bg-success stat-dbl-height-lock">
         <div className="card-block">
           <div className="card-icon">
             <i className="fa fa-database fa-2x"/>
           </div>
+        </div>
+        <div className="card-img-overlay">
           <h3>FTL Database Information</h3>
           <pre>
-            <br/>
             Queries:        {this.state.queries}<br/>
             Filesize:       {this.state.filesize} B<br/>
             SQLite version: {this.state.sqlite_version}<br/>

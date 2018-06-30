@@ -16,13 +16,16 @@ class VersionCard extends Component {
 
   render() {
     return (
-      <div className="card card-inverse card-primary">
+      <div className="card border-0 bg-primary stat-mid-height-lock">
         <div className="card-block">
           <div className="card-icon">
             <i className={this.props.icon}/>
           </div>
+        </div>
+        <div className="card-img-overlay">
           <h3>{this.props.name}</h3>
           <pre>
+            <br/>
             Branch: {this.props.branch}<br/>
             Hash:   {this.props.hash}<br/>
             Tag:    {this.props.tag}<br/>

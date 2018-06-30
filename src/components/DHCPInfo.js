@@ -66,11 +66,13 @@ class DHCPInfo extends Component {
 
   render() {
     return (
-      <div className="card card-inverse card-success">
-        <div className="card-block">
+      <div className="card border-0 bg-success stat-dbl-height-lock">
+        <div className="card-body">
           <div className="card-icon">
             <i className="fa fa-cogs fa-2x"/>
           </div>
+        </div>
+        <div className="card-img-overlay">
           <h3>DHCP Information</h3>
           <pre>
             DHCP Active:    {this.state.active.toString()}<br/>
