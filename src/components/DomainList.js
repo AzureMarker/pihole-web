@@ -46,8 +46,8 @@ class DomainList extends Component {
                     : null
                 }
                 <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
-                {item}
-              </span>
+                  {item}
+                </span>
               </li>
             ))
             :
