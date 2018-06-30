@@ -21,7 +21,7 @@ const domains = [
 
 it('shows a list of domains', () => {
   const wrapper = shallow(
-    <DomainList t={key => key} domains={domains}/>
+    <DomainList domains={domains}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(domains.length);
@@ -29,7 +29,7 @@ it('shows a list of domains', () => {
 
 it('shows an alert if there are no domains', () => {
   const wrapper = shallow(
-    <DomainList t={key => key} domains={[]}/>
+    <DomainList domains={[]}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(0);
@@ -44,7 +44,7 @@ it('calls onRemoved and API callback when a domain is removed', () => {
   const onFailed = jest.fn();
   const apiCall = jest.fn();
   const wrapper = shallow(
-    <DomainList t={key => key} domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
   );
 
   wrapper.find("ul").childAt(0).find("button").simulate("click");
@@ -61,7 +61,7 @@ it('calls all callbacks when a domain is removed and the API call fails', done =
   const onFailed = jest.fn();
   const apiCall = jest.fn(() => Promise.reject(new Error()));
   const wrapper = shallow(
-    <DomainList t={key => key} domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
   );
 
   wrapper.find("ul").childAt(0).find("button").simulate("click");
