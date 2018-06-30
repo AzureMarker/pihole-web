@@ -23,7 +23,7 @@ class DomainInput extends Component {
 
   onAdd = () => {
     if(this.state.domain.length > 0) {
-      this.props.onEnter(domain);
+      this.props.onEnter(this.state.domain);
 
       this.setState({ domain: "" });
     }
