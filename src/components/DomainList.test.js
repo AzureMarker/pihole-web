@@ -21,7 +21,7 @@ const domains = [
 
 it('shows a list of domains', () => {
   const wrapper = shallow(
-    <DomainList domains={domains}/>
+    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(domains.length);
@@ -29,7 +29,7 @@ it('shows a list of domains', () => {
 
 it('shows an alert if there are no domains', () => {
   const wrapper = shallow(
-    <DomainList domains={[]}/>
+    <DomainList domains={[]} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
   );
 
   expect(wrapper.find('li')).toHaveLength(0);
@@ -38,7 +38,9 @@ it('shows an alert if there are no domains', () => {
 });
 
 it('does not have a delete button when not logged in', () => {
-  const wrapper = shallow(<DomainList domains={domains}/>);
+  const wrapper = shallow(
+    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+  );
 
   expect(wrapper.find("ul").childAt(0).find("button")).not.toExist();
 });
@@ -46,7 +48,9 @@ it('does not have a delete button when not logged in', () => {
 it('has a delete button when logged in', () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(<DomainList domains={domains}/>);
+  const wrapper = shallow(
+    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+  );
 
   expect(wrapper.find("ul").childAt(0).find("button")).toExist();
 });

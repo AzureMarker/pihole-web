@@ -61,10 +61,14 @@ class DomainList extends Component {
 }
 
 DomainList.propTypes = {
-  domains: PropTypes.arrayOf(PropTypes.string).isRequired,
+  domains: PropTypes.arrayOf(PropTypes.string),
   onRemoved: PropTypes.func.isRequired,
   onFailed: PropTypes.func.isRequired,
   apiCall: PropTypes.func.isRequired
+};
+
+DomainList.defaultProps = {
+  domains: []
 };
 
 export default translate(["common", "lists"])(DomainList);

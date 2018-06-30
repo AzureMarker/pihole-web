@@ -59,9 +59,13 @@ class DomainInput extends Component {
 }
 
 DomainInput.propTypes = {
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired
+};
+
+DomainInput.defaultProps = {
+  placeholder: ''
 };
 
 export default translate(["common", "lists"])(DomainInput);
