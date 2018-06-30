@@ -36,7 +36,7 @@ class DomainInput extends Component {
       <div className="form-group input-group">
         <input
           type="text" className="form-control" placeholder={this.props.placeholder}
-          value={this.state.domain} onKeyPress={(e) => e.charCode === 13 ? this.onAdd() : null}
+          value={this.state.domain} onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
