@@ -8,25 +8,24 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import { NavLink } from 'react-router-dom'
-import { Nav, NavItem } from 'reactstrap';
-import logo from '../img/logo.svg';
+import React from "react";
+import { translate } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import { Nav, NavItem } from "reactstrap";
+import logo from "../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
 import { api } from "../utils";
 import StatusBadge from "./StatusBadge";
-import { nav } from '../routes';
 
 const handleClick = (e) => {
   e.preventDefault();
-  e.target.parentElement.classList.toggle('open');
+  e.target.parentElement.classList.toggle("open");
 };
 
-const activeRoute = (routeName, props) =>
-  props.location.pathname.indexOf(routeName) > -1 ? 'nav-item nav-dropdown open' : 'nav-item nav-dropdown';
+export const dropDownClassList = (routeName, props) =>
+  props.location.pathname.indexOf(routeName) > -1 ? "nav-item nav-dropdown open" : "nav-item nav-dropdown";
 
-const navItem = (item, key, props) => (
+export const navItem = (item, key, props) => (
   <NavItem key={key}>
     <NavLink to={item.url} onClick={mobileSidebarHide} className="nav-link" activeClassName="active">
       <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
@@ -34,8 +33,8 @@ const navItem = (item, key, props) => (
   </NavItem>
 );
 
-const navDropdown = (item, key, props) => (
-  <li key={key} className={activeRoute(item.url, props)}>
+export const navDropdown = (item, key, props) => (
+  <li key={key} className={dropDownClassList(item.url, props)}>
     <a className="nav-link nav-dropdown-toggle" style={{ "cursor": "pointer" }} onClick={handleClick}>
       <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
     </a>
@@ -45,7 +44,7 @@ const navDropdown = (item, key, props) => (
   </li>
 );
 
-const navList = (items, props) =>
+export const navList = (items, props) =>
   items.map((item, index) => {
     // Don't show an item if it requires auth and we're not logged in
     if(item.auth && !api.loggedIn)
@@ -59,13 +58,13 @@ const navList = (items, props) =>
     return item.children ? navDropdown(item, index, props) : navItem(item, index, props);
   });
 
-const Sidebar = props => {
+const Sidebar = ({ items, ...props }) => {
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">
         <Nav>
           <li className="nav-title">
-            <img src={logo} className="img-responsive pull-left" style={{height: "67px"}} alt=""/>
+            <img src={logo} className="img-responsive pull-left" style={{ height: "67px" }} alt=""/>
             <p className="pull-left"
                style={{
                  paddingLeft: "15px", textTransform: "initial", fontSize: "14px", marginBottom: "initial",
@@ -74,15 +73,15 @@ const Sidebar = props => {
               Pi-hole
             </p>
             <br/>
-            <span style={{textTransform: "initial", paddingLeft: "15px"}}>
+            <span style={{ textTransform: "initial", paddingLeft: "15px" }}>
               <StatusBadge/>
             </span>
           </li>
-          {navList(nav, props)}
+          {navList(items, props)}
         </Nav>
       </nav>
     </div>
-  )
+  );
 };
 
 export default translate("location")(Sidebar);

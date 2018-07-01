@@ -21,12 +21,13 @@ import Regexlist from "../views/Regexlist";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import { api } from "../utils";
+import { nav } from "../routes";
 
 export default props => (
   <div className="app">
     <Header/>
     <div className="app-body">
-      <Sidebar {...props}/>
+      <Sidebar nav={nav} {...props}/>
       <main className="main" onClick={mobileSidebarHide}>
         <div className="container-fluid" style={{"marginTop": "1.5rem"}}>
           <Switch>
