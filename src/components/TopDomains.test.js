@@ -11,51 +11,29 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import fetchMock from 'fetch-mock';
-import TopDomains from "./TopDomains";
+import TopDomains from './TopDomains';
 
 const endpoint = '/admin/api/stats/top_domains';
 const fakeData = {
   top_domains: [
-    { domain: "willow.com", count: 13739 },
-    { domain: "maurine.info", count: 13397 },
-    { domain: "quincy.name", count: 13325 },
-    { domain: "rachelle.info", count: 10772 },
-    { domain: "ernestina.info", count: 10449 },
-    { domain: "sabina.com", count: 8328 },
-    { domain: "oceane.info", count: 7130 },
-    { domain: "jeramie.org", count: 6421 },
-    { domain: "olin.com", count: 4587 },
-    { domain: "kattie.biz", count: 1748 }
+    { domain: 'willow.com', count: 13739 },
+    { domain: 'maurine.info', count: 13397 },
+    { domain: 'quincy.name', count: 13325 },
+    { domain: 'rachelle.info', count: 10772 },
+    { domain: 'ernestina.info', count: 10449 },
+    { domain: 'sabina.com', count: 8328 },
+    { domain: 'oceane.info', count: 7130 },
+    { domain: 'jeramie.org', count: 6421 },
+    { domain: 'olin.com', count: 4587 },
+    { domain: 'kattie.biz', count: 1748 }
   ],
   total_queries: 16549
 };
 
-it('shows loading indicator before first load', () => {
-  fetchMock.mock(endpoint, Promise.reject({ isCanceled: true }));
-
-  const wrapper = shallow(<TopDomains/>);
-
-  expect(wrapper.state().loading).toBeTruthy();
-  expect(wrapper.children().last()).toHaveClassName('card-img-overlay');
-
-});
-
-it('hides loading indicator after first load', async () => {
-  fetchMock.mock(endpoint, fakeData);
-
-  const wrapper = shallow(<TopDomains/>);
-
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().loading).toBeFalsy();
-  expect(wrapper.children().last()).toHaveClassName('card-body');
-});
-
 it('loads the API data into state correctly', async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<TopDomains/>);
+  const wrapper = shallow(<TopDomains/>).dive();
 
   await tick();
   wrapper.update();
@@ -67,7 +45,7 @@ it('loads the API data into state correctly', async () => {
 it('creates an appropriately sized table', async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<TopDomains/>);
+  const wrapper = shallow(<TopDomains/>).dive();
 
   await tick();
   wrapper.update();
