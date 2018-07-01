@@ -19,12 +19,7 @@ class TopDomains extends Component {
     top_domains: []
   };
 
-  constructor(props) {
-    super(props);
-    this.updateChart = this.updateChart.bind(this);
-  }
-
-  updateChart() {
+  updateChart = () => {
     this.updateHandler = makeCancelable(
       api.getTopDomains(),
       { repeat: this.updateChart, interval: 10 * 60 * 1000 }
@@ -36,7 +31,7 @@ class TopDomains extends Component {
         top_domains: res.top_domains
       });
     }).catch(ignoreCancel);
-  }
+  };
 
   generateTable = t => {
     if(this.state.top_domains.length === 0) {
