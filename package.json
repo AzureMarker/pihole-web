@@ -7,6 +7,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "faker": "^4.1.0",
+    "fetch-mock": "^6.5.0",
     "fs-extra": "^6.0.0",
     "jest-enzyme": "^6.0.2",
     "multi-progress": "^2.0.0",
