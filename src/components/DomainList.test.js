@@ -72,7 +72,7 @@ it('calls onRemoved and API callback when a domain is removed', () => {
   expect(onFailed).not.toHaveBeenCalled();
 });
 
-it('calls all callbacks when a domain is removed and the API call fails', done => {
+it('calls all callbacks when a domain is removed and the API call fails', async () => {
   api.loggedIn = true;
 
   const onRemoved = jest.fn();
@@ -84,12 +84,9 @@ it('calls all callbacks when a domain is removed and the API call fails', done =
 
   wrapper.find("ul").childAt(0).find("button").simulate("click");
 
+  await tick();
+
   expect(onRemoved).toHaveBeenCalled();
   expect(apiCall).toHaveBeenCalled();
-
-  // Wait until all promises have been resolved before checking if the API promise ran
-  setImmediate(() => {
-    expect(onFailed).toHaveBeenCalledWith(domains[0], domains);
-    done();
-  });
+  expect(onFailed).toHaveBeenCalledWith(domains[0], domains);
 });

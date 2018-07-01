@@ -12,6 +12,7 @@ import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import 'jest-enzyme';
 import { api } from "./utils";
+import fetchMock from "fetch-mock";
 
 // Setup enzyme
 configure({ adapter: new Adapter() });
@@ -31,3 +32,13 @@ jest.mock('react-i18next', () => ({
 beforeEach(() => {
   api.loggedIn = false;
 });
+
+// Clear fetch mocks after each test
+afterEach(() => {
+  fetchMock.restore();
+});
+
+// If you await on this function, when you get back control all
+// of the promises put in place before it will have executed.
+// Use this when waiting for components to handle API responses.
+global.tick = () => new Promise(resolve => setImmediate(resolve));
