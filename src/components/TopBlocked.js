@@ -8,25 +8,25 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import { api } from '../utils';
-import TopTable from './TopTable';
+import React from "react";
+import { translate } from "react-i18next";
+import { api } from "../utils";
+import TopTable from "./TopTable";
 
 const TopBlocked = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t('Top Blocked Domains')}
+    title={t("Top Blocked Domains")}
     initialState={{
       total_blocked: 0,
       top_blocked: []
     }}
     headers={[
-      t('Domain'),
-      t('Hits'),
-      t('Frequency')
+      t("Domain"),
+      t("Hits"),
+      t("Frequency")
     ]}
-    emptyMessage={t('No Domains Found')}
+    emptyMessage={t("No Domains Found")}
     isEmpty={state => state.top_blocked.length === 0}
     apiCall={api.getTopBlocked}
     apiHandler={(self, res) => {
@@ -48,15 +48,15 @@ const TopBlocked = ({ t, ...props }) => (
             <td>
               {item.count.toLocaleString()}
             </td>
-            <td style={{ 'verticalAlign': 'middle' }}>
-              <div className='progress'
+            <td style={{ "verticalAlign": "middle" }}>
+              <div className="progress"
                    title={
-                     t('{{percent}}% of {{total}}', {
+                     t("{{percent}}% of {{total}}", {
                        percent: percentage.toFixed(1),
                        total: state.total_blocked.toLocaleString()
                      })
                    }>
-                <div className='progress-bar bg-warning' style={{ width: percentage + '%' }}/>
+                <div className="progress-bar bg-warning" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopBlocked = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(['common', 'dashboard'])(TopBlocked);
+export default translate(["common", "dashboard"])(TopBlocked);

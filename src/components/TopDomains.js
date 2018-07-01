@@ -8,25 +8,25 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import { api } from '../utils';
-import TopTable from './TopTable';
+import React from "react";
+import { translate } from "react-i18next";
+import { api } from "../utils";
+import TopTable from "./TopTable";
 
 const TopDomains = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t('Top Permitted Domains')}
+    title={t("Top Permitted Domains")}
     initialState={{
       total_queries: 0,
       top_domains: []
     }}
     headers={[
-      t('Domain'),
-      t('Hits'),
-      t('Frequency')
+      t("Domain"),
+      t("Hits"),
+      t("Frequency")
     ]}
-    emptyMessage={t('No Domains Found')}
+    emptyMessage={t("No Domains Found")}
     isEmpty={state => state.top_domains.length === 0}
     apiCall={api.getTopDomains}
     apiHandler={(self, res) => {
@@ -48,15 +48,15 @@ const TopDomains = ({ t, ...props }) => (
             <td>
               {item.count.toLocaleString()}
             </td>
-            <td style={{ 'verticalAlign': 'middle' }}>
-              <div className='progress'
+            <td style={{ "verticalAlign": "middle" }}>
+              <div className="progress"
                    title={
-                     t('{{percent}}% of {{total}}', {
+                     t("{{percent}}% of {{total}}", {
                        percent: percentage.toFixed(1),
                        total: state.total_queries.toLocaleString()
                      })
                    }>
-                <div className='progress-bar bg-success' style={{ width: percentage + '%' }}/>
+                <div className="progress-bar bg-success" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopDomains = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(['common', 'dashboard'])(TopDomains);
+export default translate(["common", "dashboard"])(TopDomains);

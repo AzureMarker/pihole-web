@@ -8,25 +8,25 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import { api } from '../utils';
-import TopTable from './TopTable';
+import React from "react";
+import { translate } from "react-i18next";
+import { api } from "../utils";
+import TopTable from "./TopTable";
 
 const TopClients = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t('Top Clients')}
+    title={t("Top Clients")}
     initialState={{
       total_queries: 0,
       top_clients: []
     }}
     headers={[
-      t('Client'),
-      t('Requests'),
-      t('Frequency')
+      t("Client"),
+      t("Requests"),
+      t("Frequency")
     ]}
-    emptyMessage={t('No Clients Found')}
+    emptyMessage={t("No Clients Found")}
     isEmpty={state => state.top_clients.length === 0}
     apiCall={api.getTopClients}
     apiHandler={(self, res) => {
@@ -41,22 +41,22 @@ const TopClients = ({ t, ...props }) => (
         const percentage = item.count / state.total_queries * 100;
 
         return (
-          <tr key={item.name + '|' + item.ip}>
+          <tr key={item.name + "|" + item.ip}>
             <td>
-              {item.name !== '' ? item.name : item.ip}
+              {item.name !== "" ? item.name : item.ip}
             </td>
             <td>
               {item.count.toLocaleString()}
             </td>
-            <td style={{ 'verticalAlign': 'middle' }}>
-              <div className='progress'
+            <td style={{ "verticalAlign": "middle" }}>
+              <div className="progress"
                    title={
-                     t('{{percent}}% of {{total}}', {
+                     t("{{percent}}% of {{total}}", {
                        percent: percentage.toFixed(1),
                        total: state.total_queries.toLocaleString()
                      })
                    }>
-                <div className='progress-bar bg-primary' style={{ width: percentage + '%' }}/>
+                <div className="progress-bar bg-primary" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopClients = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(['common', 'dashboard'])(TopClients);
+export default translate(["common", "dashboard"])(TopClients);

@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { ignoreCancel, makeCancelable } from '../utils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { ignoreCancel, makeCancelable } from "../utils";
 
 class TopTable extends Component {
   state = {
@@ -34,7 +34,7 @@ class TopTable extends Component {
     }
 
     return (
-      <table className='table table-bordered'>
+      <table className="table table-bordered">
         <tbody>
         <tr>
           {this.props.headers.map((header, i) => <th key={i}>{header}</th>)}
@@ -55,21 +55,21 @@ class TopTable extends Component {
 
   render() {
     return (
-      <div className='card'>
-        <div className='card-header'>
+      <div className="card">
+        <div className="card-header">
           {this.props.title}
         </div>
-        <div className='card-body'>
-          <div style={{ overflowX: 'auto' }}>
+        <div className="card-body">
+          <div style={{ overflowX: "auto" }}>
             {this.generateTable()}
           </div>
         </div>
         {
           this.state.loading
             ?
-            <div className='card-img-overlay' style={{ background: 'rgba(255,255,255,0.7)' }}>
-              <i className='fa fa-refresh fa-spin'
-                 style={{ position: 'absolute', top: '50%', left: '50%', fontSize: '30px' }}/>
+            <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
+              <i className="fa fa-refresh fa-spin"
+                 style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
             </div>
             :
             null
