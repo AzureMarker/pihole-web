@@ -39,8 +39,8 @@ export default props => (
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
             <Route path="/regexlist" name="Regexlist" component={Regexlist}/>
-            <Route path="/versions" name="Versions" component={Versions}/>
-            <Route path="/networking" name="networking" component={Networking}/>
+            <Route path="/settings/versions" name="Versions" component={Versions}/>
+            <Route path="/settings/networking" name="Networking" component={Networking}/>
             <Route path="/login" name="Login" component={Login}/>
             <AuthRoute path="/logout" name="Logout" component={Logout}/>
           </Switch>
