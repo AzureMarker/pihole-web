@@ -254,22 +254,22 @@ function getVersionInfo() {
   return {
     "api": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
-      "hash": faker.internet.color().substring(1),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
       "tag": "vDev"
     },
     "core": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
-      "hash": faker.internet.color().substring(1),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
       "tag": "vDev"
     },
     "ftl": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
-      "hash": faker.internet.color().substring(1),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
       "tag": "vDev"
     },
     "web": {
       "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
-      "hash": faker.internet.color().substring(1),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
       "tag": "vDev"
     }
   };
