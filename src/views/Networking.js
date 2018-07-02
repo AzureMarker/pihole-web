@@ -3,7 +3,7 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Settings Information Page - DNS & DHCP
+*  Settings Page - Networking DNS & DHCP
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
@@ -35,4 +35,3 @@ export default () => (
     </div>
   </div>
 );
-
