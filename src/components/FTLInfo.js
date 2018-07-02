@@ -14,10 +14,10 @@ import { api, makeCancelable } from '../utils';
 
 class FTLInfo extends Component {
   state = {
-        filesize: "---",
-        queries: "---",
-        sqlite_version: "---"
-  }
+    filesize: "---",
+    queries: "---",
+    sqlite_version: "---"
+  };
 
   constructor(props) {
     super(props);
@@ -33,15 +33,16 @@ class FTLInfo extends Component {
         sqlite_version: res.sqlite_version
       });
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
-        this.setState({
-        queries: "-!-",
-        filesize: "-!-",
-        sqlite_version: "-!-"
-        });
+      .catch((err) => {
+        if(!err.isCanceled) {
+          this.setState({
+            queries: "-!-",
+            filesize: "-!-",
+            sqlite_version: "-!-"
+          });
+        }
       }
-    });
+    );
   }
 
   componentDidMount() {
@@ -53,6 +54,8 @@ class FTLInfo extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="card border-0 bg-success stat-dbl-height-lock">
         <div className="card-block">
@@ -61,11 +64,13 @@ class FTLInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>FTL Database Information</h3>
+          <h3>
+            {t("FTL Database Information")}
+         </h3>
           <pre>
-            Queries:        {this.state.queries}<br/>
-            Filesize:       {this.state.filesize} B<br/>
-            SQLite version: {this.state.sqlite_version}<br/>
+            {t("Queries")}:        {this.state.queries}<br/>
+            {t("Filesize")}:       {this.state.filesize} B<br/>
+            {t("SQLite version")}: {this.state.sqlite_version}<br/>
           </pre>
         </div>
       </div>

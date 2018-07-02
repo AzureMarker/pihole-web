@@ -47,32 +47,33 @@ class Versions extends Component {
     this.updateHandler.promise.then(res => {
       this.setState(res);
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
-        this.setState({
-          api: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-          core: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-          ftl: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-        web: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-            }
-        });
+      .catch((err) => {
+        if(!err.isCanceled) {
+          this.setState({
+            api: {
+              branch: "-!-",
+              hash: "-!-",
+              tag: "-!-"
+            },
+            core: {
+              branch: "-!-",
+              hash: "-!-",
+              tag: "-!-"
+            },
+            ftl: {
+              branch: "-!-",
+              hash: "-!-",
+              tag: "-!-"
+            },
+          web: {
+              branch: "-!-",
+              hash: "-!-",
+              tag: "-!-"
+              }
+          });
+        }
       }
-    });
+    );
   }
 
   componentDidMount() {
@@ -84,23 +85,25 @@ class Versions extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="row">
         <div className="col-lg-3 col-xs-12">
-          <VersionCard name="Core" icon="fa fa-dot-circle-o fa-2x"
-                       branch={this.state.core.branch} hash={this.state.core.hash} tag={this.state.core.tag}/>
+          <VersionCard name={t("Core")} icon="fa fa-dot-circle-o fa-2x"
+                       branch={this.state.core.branch} hash={this.state.core.hash} tag={this.state.core.tag} t={t}/>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <VersionCard name="FTL" icon="fa fa-industry fa-2x"
-                       branch={this.state.ftl.branch} hash={this.state.ftl.hash} tag={this.state.ftl.tag}/>
+          <VersionCard name={t("FTL")} icon="fa fa-industry fa-2x"
+                       branch={this.state.ftl.branch} hash={this.state.ftl.hash} tag={this.state.ftl.tag} t={t}/>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <VersionCard name="API" icon="fa fa-bullseye fa-2x"
-                       branch={this.state.api.branch} hash={this.state.api.hash} tag={this.state.api.tag}/>
+          <VersionCard name={t("API")} icon="fa fa-bullseye fa-2x"
+                       branch={this.state.api.branch} hash={this.state.api.hash} tag={this.state.api.tag} t={t}/>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <VersionCard name="Web" icon="fa fa-list-alt fa-2x"
-                       branch={this.state.web.branch} hash={this.state.web.hash} tag={this.state.web.tag}/>
+          <VersionCard name={t("Web")} icon="fa fa-list-alt fa-2x"
+                       branch={this.state.web.branch} hash={this.state.web.hash} tag={this.state.web.tag} t={t}/>
         </div>
       </div>
     );

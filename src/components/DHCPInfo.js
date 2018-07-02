@@ -3,7 +3,7 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Settings :: DHCP Information 
+*  Settings :: DHCP 
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
@@ -14,13 +14,13 @@ import { api, makeCancelable } from '../utils';
 
 class DHCPInfo extends Component {
   state = {
-        active: "---",
-        ip_start: "---",
-        ip_end: "---",
-        router_ip: "---",
-        lease_time: "---",
-        domain: "---",
-        ipv6_support: "---"
+    active: "---",
+    ip_start: "---",
+    ip_end: "---",
+    router_ip: "---",
+    lease_time: "---",
+    domain: "---",
+    ipv6_support: "---"
   }
 
   constructor(props) {
@@ -41,19 +41,20 @@ class DHCPInfo extends Component {
         ipv6_support: res.ipv6_support
       }) 
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
-        this.setState({
-          active: "-!-",
-          ip_start: "-!-",
-          ip_end: "-!-",
-          router_ip: "-!-",
-          lease_time: "-!-",
-          domain: "-!-",
-          ipv6_support: "-!-"
-        });
+      .catch((err) => {
+        if(!err.isCanceled) {
+          this.setState({
+            active: "-!-",
+            ip_start: "-!-",
+            ip_end: "-!-",
+            router_ip: "-!-",
+            lease_time: "-!-",
+            domain: "-!-",
+            ipv6_support: "-!-"
+          });
+        }
       }
-    });
+    );
   }
 
   componentDidMount() {
@@ -65,6 +66,8 @@ class DHCPInfo extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="card border-0 bg-success stat-dbl-height-lock">
         <div className="card-body">
@@ -73,15 +76,15 @@ class DHCPInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>DHCP Information</h3>
+          <h3>{t("DHCP Information")}</h3>
           <pre>
-            DHCP Active:    {this.state.active.toString()}<br/>
-            Start IP:       {this.state.ip_start}<br/>
-            End IP:         {this.state.ip_end}<br/>
-            Router IP:      {this.state.router_ip}<br/>
-            Lease Time:     {this.state.lease_time} h<br/>
-            Domain:         {this.state.domain}<br/>
-            IPv6 Supported: {this.state.ipv6_support.toString()}<br/>
+            {t("DHCP Active")}:    {this.state.active.toString()}<br/>
+            {t("Start IP")}:       {this.state.ip_start}<br/>
+            {t("End IP")}:         {this.state.ip_end}<br/>
+            {t("Router IP")}:      {this.state.router_ip}<br/>
+            {t("Lease Time")}:     {this.state.lease_time} h<br/>
+            {t("Domain")}:         {this.state.domain}<br/>
+            {t("IPv6 Supported")}: {this.state.ipv6_support.toString()}<br/>
           </pre>
         </div>
       </div>

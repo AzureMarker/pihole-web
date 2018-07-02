@@ -3,7 +3,7 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Settings :: Network Information component
+*  Settings :: Network component
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
@@ -14,11 +14,11 @@ import { api, makeCancelable } from '../utils';
 
 class NetworkInfo extends Component {
   state = {
-        interface: "---",
-        ipv4_address: "---",
-        ipv6_address: "---",
-        hostname: "---"
-  }
+    interface: "---",
+    ipv4_address: "---",
+    ipv6_address: "---",
+    hostname: "---"
+  };
 
   constructor(props) {
     super(props);
@@ -35,16 +35,17 @@ class NetworkInfo extends Component {
         hostname: res.hostname
       }) 
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
-        this.setState({
-        interface: "-!-",
-        ipv4_address: "-!-",
-        ipv6_address: "-!-",
-        hostname: "-!-"
-        });
+      .catch((err) => {
+        if(!err.isCanceled) {
+          this.setState({
+            interface: "-!-",
+            ipv4_address: "-!-",
+            ipv6_address: "-!-",
+            hostname: "-!-"
+          });
+        }
       }
-    });
+    );
   }
 
   componentDidMount() {
@@ -56,6 +57,8 @@ class NetworkInfo extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="card border-0 bg-success stat-dbl-height-lock">
         <div className="card-block">
@@ -64,12 +67,12 @@ class NetworkInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>Network Information</h3>
+          <h3>{t("Network Information")}</h3>
           <pre>
-            Interface:    {this.state.interface}<br/>
-            IPv4 address: {this.state.ipv4_address}<br/>
-            IPv6 address: {this.state.ipv6_address}<br/>
-            Hostname:     {this.state.hostname}
+            {t("Interface")}:    {this.state.interface}<br/>
+            {t("IPv4 address")}: {this.state.ipv4_address}<br/>
+            {t("IPv6 address")}: {this.state.ipv6_address}<br/>
+            {t("Hostname")}:     {this.state.hostname}
           </pre>
         </div>
       </div>
