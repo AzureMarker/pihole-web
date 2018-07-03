@@ -32,6 +32,10 @@ function status() {
   return { status: "enabled" };
 }
 
+function auth() {
+  return { status: "success" };
+}
+
 function pastDate() {
   return Math.floor(faker.date.past().getTime() / 1000);
 }
@@ -232,6 +236,7 @@ function write(filePath, data) {
 console.log("Deleting old fake API data...");
 fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
+fs.removeSync("public/fakeAPI/auth");
 
 console.log("Generating new fake API data...");
 write("public/fakeAPI/dns/whitelist", list());
@@ -247,5 +252,6 @@ write("public/fakeAPI/stats/forward_destinations", forwardDestinations(3));
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
+write("public/fakeAPI/auth", auth());
 
 console.log("Done!");
