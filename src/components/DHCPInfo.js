@@ -39,7 +39,7 @@ class DHCPInfo extends Component {
         lease_time: res.lease_time,
         domain: res.domain,
         ipv6_support: res.ipv6_support
-      }) 
+      });
     })
       .catch((err) => {
         if(!err.isCanceled) {
@@ -83,7 +83,7 @@ class DHCPInfo extends Component {
             {t("Router IP")}:      {this.state.router_ip}<br/>
             {t("Lease Time")}:     {this.state.lease_time} h<br/>
             {t("Domain")}:         {this.state.domain}<br/>
-            {t("IPv6 Support")}: {this.state.ipv6_support.toString()}<br/>
+            {t("IPv6 Support")}:   {this.state.ipv6_support.toString()}<br/>
           </pre>
         </div>
       </div>

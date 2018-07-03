@@ -32,10 +32,10 @@ const VersionCard = props => (
 );
 
 VersionCard.propTypes = {
-  branch: PropTypes.string,
-  hash: PropTypes.string,
-  name: PropTypes.string,
-  tag: PropTypes.string
+  branch: PropTypes.string.isRequired,
+  hash: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired
 };
 
 export default translate(['settings'])(VersionCard);

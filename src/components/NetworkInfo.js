@@ -33,7 +33,7 @@ class NetworkInfo extends Component {
         ipv4_address: res.ipv4_address,
         ipv6_address: res.ipv6_address,
         hostname: res.hostname
-      }) 
+      });
     })
       .catch((err) => {
         if(!err.isCanceled) {

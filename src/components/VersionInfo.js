@@ -13,7 +13,7 @@ import { translate } from 'react-i18next';
 import { api, makeCancelable } from '../utils';
 import VersionCard from '../components/VersionCard';
 
-class Versions extends Component {
+class VersionInfo extends Component {
   state = {
     api: {
         branch: "---",
@@ -39,11 +39,11 @@ class Versions extends Component {
 
   constructor(props) {
     super(props);
-    this.updateVersions = this.updateVersions.bind(this);
+    this.updateVersionInfo = this.updateVersionInfo.bind(this);
   }
 
-  updateVersions() {
-    this.updateHandler = makeCancelable(api.getVersion(), { repeat: this.updateVersions, interval: 600000 });
+  updateVersionInfo() {
+    this.updateHandler = makeCancelable(api.getVersion(), { repeat: this.updateVersionInfo, interval: 600000 });
     this.updateHandler.promise.then(res => {
       this.setState(res);
     })
@@ -76,7 +76,7 @@ class Versions extends Component {
   }
 
   componentDidMount() {
-    this.updateVersions();
+    this.updateVersionInfo();
   }
 
   componentWillUnmount() {
@@ -109,4 +109,4 @@ class Versions extends Component {
   }
 }
 
-export default translate(['common'])(Versions);
+export default translate(['common'])(VersionInfo);
