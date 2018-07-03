@@ -21,12 +21,12 @@ class DHCPInfo extends Component {
     lease_time: "---",
     domain: "---",
     ipv6_support: "---"
-  }
+  };
 
   constructor(props) {
     super(props);
     this.updateDHCPInfo = this.updateDHCPInfo.bind(this);
-  }
+  };
 
   updateDHCPInfo() {
     this.updateHandler = makeCancelable(api.getDHCPInfo(), { repeat: this.updateDHCPInfo, interval: 600000 });
@@ -53,8 +53,7 @@ class DHCPInfo extends Component {
             ipv6_support: "-!-"
           });
         }
-      }
-    );
+      });
   }
 
   componentDidMount() {
@@ -76,7 +75,7 @@ class DHCPInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>{t("DHCP Information")}</h3>
+          <h3>{t("DHCP")}</h3>
           <pre>
             {t("DHCP Active")}:    {this.state.active.toString()}<br/>
             {t("Start IP")}:       {this.state.ip_start}<br/>
@@ -84,7 +83,7 @@ class DHCPInfo extends Component {
             {t("Router IP")}:      {this.state.router_ip}<br/>
             {t("Lease Time")}:     {this.state.lease_time} h<br/>
             {t("Domain")}:         {this.state.domain}<br/>
-            {t("IPv6 Supported")}: {this.state.ipv6_support.toString()}<br/>
+            {t("IPv6 Support")}: {this.state.ipv6_support.toString()}<br/>
           </pre>
         </div>
       </div>
@@ -92,4 +91,4 @@ class DHCPInfo extends Component {
   }
 }
 
-export default translate(['settings'])(DHCPInfo);
+export default translate(['common', 'settings'])(DHCPInfo);

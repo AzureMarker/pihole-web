@@ -65,15 +65,14 @@ class Versions extends Component {
               hash: "-!-",
               tag: "-!-"
             },
-          web: {
+            web: {
               branch: "-!-",
               hash: "-!-",
               tag: "-!-"
               }
           });
         }
-      }
-    );
+      });
   }
 
   componentDidMount() {
@@ -110,4 +109,4 @@ class Versions extends Component {
   }
 }
 
-export default translate(['settings'])(Versions);
+export default translate(['common'])(Versions);

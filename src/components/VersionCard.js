@@ -13,29 +13,29 @@ import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 const VersionCard = props => (
-    <div className="card border-0 bg-primary stat-mid-height-lock">
-        <div className="card-block">
-          <div className="card-icon">
-            <i className={props.icon}/>
-          </div>
-        </div>
-        <div className="card-img-overlay">
-          <h3>{props.name}</h3>
-          <pre>
-            <br/>
-            {props.t("Branch")}: {props.branch}<br/>
-            {props.t("Hash")}:   {props.hash}<br/>
-            {props.t("Tag")}:    {props.tag}<br/>
-          </pre>
-        </div>
+  <div className="card border-0 bg-primary stat-mid-height-lock">
+    <div className="card-block">
+      <div className="card-icon">
+         <i className={props.icon}/>
       </div>
-    )
+    </div>
+    <div className="card-img-overlay">
+      <h3>{props.name}</h3>
+      <pre>
+        <br/>
+        {props.t("Branch")}: {props.branch}<br/>
+        {props.t("Hash")}:   {props.hash}<br/>
+        {props.t("Tag")}:    {props.tag}<br/>
+      </pre>
+    </div>
+  </div>
+);
 
 VersionCard.propTypes = {
-  branch : PropTypes.string,
-  hash : PropTypes.string,
-  name : PropTypes.string,
-  tag : PropTypes.string
+  branch: PropTypes.string,
+  hash: PropTypes.string,
+  name: PropTypes.string,
+  tag: PropTypes.string
 };
 
 export default translate(['settings'])(VersionCard);

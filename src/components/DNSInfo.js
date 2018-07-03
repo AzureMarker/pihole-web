@@ -36,7 +36,7 @@ class DNSInfo extends Component {
   updateDNSInfo() {
     this.updateHandler = makeCancelable(api.getDNSInfo(), { repeat: this.updateDNSInfo, interval: 600000 });
     this.updateHandler.promise.then(res => {
-      this.setState(res) 
+      this.setState(res);
     })
       .catch((err) => {
         if(!err.isCanceled) {
@@ -55,8 +55,7 @@ class DNSInfo extends Component {
             }
           });
         }
-      }
-    );
+      });
   }
 
   componentDidMount() {
@@ -78,7 +77,7 @@ class DNSInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>{t("DNS Information")}</h3>
+          <h3>{t("DNS")}</h3>
           <div className="row">
             <div className="col-lg-4 col-sm-4 col-xs-4">
               <pre>
@@ -90,10 +89,10 @@ class DNSInfo extends Component {
             <div className="col-lg-4 col-sm-4 col-xs-4">
               <pre>
                 <br/>
-                {t("Interfaces listening on")}: {this.state.options.listening_type}<br/>
-                {t("Forward FQDNs only")}:      {this.state.options.fqdn_required.toString()}<br/>
-                {t("Private range privacy")}:   {this.state.options.bogus_priv.toString()}<br/>
-                {t("Use DNSSEC")}:              {this.state.options.dnssec.toString()}
+                {t("Interface listening behaviour")}:      {this.state.options.listening_type}<br/>
+                {t("Forward FQDNs only")}:                 {this.state.options.fqdn_required.toString()}<br/>
+                {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
+                {t("Use DNSSEC")}:                         {this.state.options.dnssec.toString()}
               </pre>
             </div>
             <div className="col-lg-4 col-sm-4 col-xs-4">
@@ -112,4 +111,4 @@ class DNSInfo extends Component {
   }
 }
 
-export default translate(['settings'])(DNSInfo);
+export default translate(['common', 'settings'])(DNSInfo);

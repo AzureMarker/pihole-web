@@ -67,7 +67,7 @@ class NetworkInfo extends Component {
           </div>
         </div>
         <div className="card-img-overlay">
-          <h3>{t("Network Information")}</h3>
+          <h3>{t("Network")}</h3>
           <pre>
             {t("Interface")}:    {this.state.interface}<br/>
             {t("IPv4 address")}: {this.state.ipv4_address}<br/>
@@ -80,4 +80,4 @@ class NetworkInfo extends Component {
   }
 }
 
-export default translate(['settings'])(NetworkInfo);
+export default translate(['common', 'settings'])(NetworkInfo);

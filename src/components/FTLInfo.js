@@ -65,7 +65,7 @@ class FTLInfo extends Component {
         </div>
         <div className="card-img-overlay">
           <h3>
-            {t("FTL Database Information")}
+            {t("FTL Database")}
          </h3>
           <pre>
             {t("Queries")}:        {this.state.queries}<br/>
