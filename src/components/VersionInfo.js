@@ -69,7 +69,7 @@ class Versions extends Component {
               branch: "-!-",
               hash: "-!-",
               tag: "-!-"
-              }
+            }
           });
         }
       });
