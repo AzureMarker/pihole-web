@@ -1,7 +1,0 @@
-{
-    "Blocked": "Geblockt",
-    "Allowed (forwarded)": "Gestattet (weitergeleitet)",
-    "Allowed (cached)": "Gestattet (Cache)",
-    "Blocked (regex)": "Geblockt (Wildcard)",
-    "Blocked (blacklist)": "Geblockt (Schwarzliste)"
-}

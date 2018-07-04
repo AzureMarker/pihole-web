@@ -1,5 +1,6 @@
 {
     "Status": "Status",
+    "DNS": "DNS",
     "Donate": "Donate",
     "Domain": "Domain",
     "Hits": "Hits",
@@ -9,7 +10,13 @@
     "Add": "Add",
     "Time": "Time",
     "Type": "Type",
+    "Network": "Network\n",
     "Action": "Action",
     "Enabled": "Enabled",
-    "Disabled": "Disabled"
+    "Disabled": "Disabled",
+    "DHCP": "DHCP",
+    "Core": "Core",
+    "FTL": "FTL",
+    "API": "API",
+    "Web": "Web"
 }
