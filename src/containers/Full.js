@@ -19,6 +19,8 @@ import QueryLog from '../components/QueryLog';
 import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
 import Regexlist from "../views/Regexlist";
+import Versions from "../views/Versions";
+import Networking from "../views/Networking";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import { api } from "../utils";
@@ -37,6 +39,8 @@ export default props => (
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
             <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
             <Route path="/regexlist" name="Regexlist" component={Regexlist}/>
+            <Route path="/settings/versions" name="Versions" component={Versions}/>
+            <Route path="/settings/networking" name="Networking" component={Networking}/>
             <Route path="/login" name="Login" component={Login}/>
             <AuthRoute path="/logout" name="Logout" component={Logout}/>
           </Switch>

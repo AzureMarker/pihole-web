@@ -142,7 +142,8 @@ function fetchAllTags(lang) {
     "query-log",
     "lists",
     "login",
-    "footer"
+    "footer",
+    "settings"
   ];
 
   const bar = multi.newBar(`${lang}\t:percent\t[:bar]`, {

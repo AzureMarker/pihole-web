@@ -1,7 +1,0 @@
-{
-    "Blocked": "Blokkoltak",
-    "Allowed (forwarded)": "Engedélyezett (továbbítás)",
-    "Allowed (cached)": "Engedélyezett (tároltak)",
-    "Blocked (regex)": "Blokkolt (névjegy)",
-    "Blocked (blacklist)": "Blokkolt (tíltólista)"
-}
