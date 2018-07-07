@@ -23,7 +23,7 @@ const handleClick = (e) => {
 };
 
 export const dropDownClassList = (routeName, props) =>
-  props.location.pathname.indexOf(routeName) > -1 ? "nav-item nav-dropdown open" : "nav-item nav-dropdown";
+  props.location.pathname.startsWith(routeName) ? "nav-item nav-dropdown open" : "nav-item nav-dropdown";
 
 export const navItem = (item, key, props) => (
   <NavItem key={key}>

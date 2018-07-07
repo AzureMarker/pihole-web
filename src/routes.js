@@ -12,8 +12,8 @@ export const routes = t => ({
   '/dashboard': t('Dashboard'),
   '/query-log': t('Query Log'),
   '/whitelist': t('Whitelist'),
-  '/blacklist': `${t('Blacklist')} (${t('Exact')})`,
-  '/regexlist': `${t('Blacklist')} (${t('Regex')})`,
+  '/blacklist/exact': `${t('Blacklist')} (${t('Exact')})`,
+  '/blacklist/regex': `${t('Blacklist')} (${t('Regex')})`,
   '/settings/versions': t('Versions'),
   '/settings/networking': t('Networking'),
   '/login': t('Login'),
@@ -41,18 +41,19 @@ export const nav = [
   },
   {
     name: 'Blacklist',
+    url: "/blacklist",
     icon: 'fa fa-ban',
     auth: false,
     children: [
       {
         name: 'Exact',
-        url: '/blacklist',
+        url: '/blacklist/exact',
         icon: 'fa fa-ban',
         auth: false
       },
       {
         name: 'Regex',
-        url: '/regexlist',
+        url: '/blacklist/regex',
         icon: 'fa fa-ban',
         auth: false
       }
@@ -60,6 +61,7 @@ export const nav = [
   },
   {
     name: 'Settings',
+    url: "/settings",
     icon: 'fa fa-wrench',
     auth: true,
     children: [

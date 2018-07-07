@@ -37,8 +37,8 @@ export default props => (
             <Redirect exact from="/" to="/dashboard"/>
             <AuthRoute path="/query-log" name="Query Log" component={QueryLog}/>
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
-            <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
-            <Route path="/regexlist" name="Regexlist" component={Regexlist}/>
+            <Route path="/blacklist/exact" name="Blacklist" component={Blacklist}/>
+            <Route path="/blacklist/regex" name="Regexlist" component={Regexlist}/>
             <Route path="/settings/versions" name="Versions" component={Versions}/>
             <Route path="/settings/networking" name="Networking" component={Networking}/>
             <Route path="/login" name="Login" component={Login}/>
