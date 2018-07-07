@@ -29,7 +29,7 @@ export default props => (
   <div className="app">
     <Header/>
     <div className="app-body">
-      <Sidebar nav={nav} {...props}/>
+      <Sidebar items={nav} {...props}/>
       <main className="main" onClick={mobileSidebarHide}>
         <div className="container-fluid" style={{"marginTop": "1.5rem"}}>
           <Switch>
