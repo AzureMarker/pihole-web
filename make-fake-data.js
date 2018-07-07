@@ -32,6 +32,10 @@ function status() {
   return { status: "enabled" };
 }
 
+function auth() {
+  return { status: "success" };
+}
+
 function pastDate() {
   return Math.floor(faker.date.past().getTime() / 1000);
 }
@@ -229,15 +233,93 @@ function write(filePath, data) {
   fs.outputFileSync(filePath, JSON.stringify(data));
 }
 
+function getNetworkInfo() {
+  return {
+    "interface": faker.random.arrayElement(["eth0", "eth1", "wlan0", "wlan1"]),
+    "ipv4_address": faker.internet.ip(),
+    "ipv6_address": faker.internet.ipv6(),
+    "hostname": faker.random.word().toLowerCase().split(" ",2)[0]
+  };
+}
+
+function getFTLdb() {
+  return {
+    "queries": faker.random.number({min:50000, max:1000000}),
+    "filesize": faker.random.number({min:1000, max:100000}),
+    "sqlite_version": "3.0.1"
+  };
+}
+
+function getVersionInfo() {
+  return {
+    "api": {
+      "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
+      "tag": "vDev"
+    },
+    "core": {
+      "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
+      "tag": "vDev"
+    },
+    "ftl": {
+      "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
+      "tag": "vDev"
+    },
+    "web": {
+      "branch": faker.random.arrayElement(["master", "development", "FTL", "beta", "test"]),
+      "hash": faker.internet.color().substring(1) + faker.random.number(9),
+      "tag": "vDev"
+    }
+  };
+}
+
+function getDHCPInfo() {
+  return {
+    "active": faker.random.boolean(),
+    "ip_start": faker.internet.ip(),
+    "ip_end": faker.internet.ip(),
+    "router_ip": faker.internet.ip(),
+    "lease_time": faker.random.number({min:1, max:99}),
+    "domain": faker.random.word().toLowerCase().split(" ",2)[0],
+    "ipv6_support": faker.random.boolean()
+  };
+}
+
+function getDNSInfo() {
+  return {
+    "upstream_dns": [ faker.internet.ip(), faker.internet.ip(), faker.internet.ip() ],
+    "options": {
+      "fqdn_required": faker.random.boolean(),
+      "bogus_priv": faker.random.boolean(),
+      "dnssec": faker.random.boolean(),
+      "listening_type": faker.random.arrayElement(["single", "lan", "all"]),
+    },
+    "conditional_forwarding": {
+      "enabled": faker.random.boolean(),
+      "router_ip": faker.internet.ip(),
+      "domain": faker.random.word().toLowerCase().split(" ",2)[0]
+    }
+  };
+}
+
 console.log("Deleting old fake API data...");
 fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
+fs.emptyDirSync("public/fakeAPI/settings");
+fs.removeSync("public/fakeAPI/auth");
+fs.removeSync("public/fakeAPI/version");
 
 console.log("Generating new fake API data...");
 write("public/fakeAPI/dns/whitelist", list());
 write("public/fakeAPI/dns/blacklist", list());
 write("public/fakeAPI/dns/regexlist", list());
 write("public/fakeAPI/dns/status", status());
+write("public/fakeAPI/settings/dhcp", getDHCPInfo());
+write("public/fakeAPI/settings/dns", getDNSInfo());
+write("public/fakeAPI/settings/network", getNetworkInfo());
+write("public/fakeAPI/settings/ftldb", getFTLdb());
 write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/summary", summary());
@@ -247,5 +329,7 @@ write("public/fakeAPI/stats/forward_destinations", forwardDestinations(3));
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
+write("public/fakeAPI/auth", auth());
+write("public/fakeAPI/version", getVersionInfo());
 
 console.log("Done!");
