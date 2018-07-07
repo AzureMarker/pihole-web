@@ -35,7 +35,7 @@ export const navItem = (item, key, props) => (
 
 export const navDropdown = (item, key, props) => (
   <li key={key} className={dropDownClassList(item.url, props)}>
-    <a className="nav-link nav-dropdown-toggle" style={{ "cursor": "pointer" }} onClick={handleClick}>
+    <a className="nav-link nav-dropdown-toggle" onClick={handleClick}>
       <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
     </a>
     <ul className="nav-dropdown-items">
