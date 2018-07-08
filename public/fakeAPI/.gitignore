@@ -1,5 +1,6 @@
 *
 !.gitignore
-!dns
-!stats
-!stats/overTime
+!dns/
+!stats/
+!settings/
+!stats/overTime/
