@@ -3,17 +3,15 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  ForwardDestinationsChart component test
+*  GenericDoughnutChart component test
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import { shallow } from "enzyme";
-import ForwardDestinationsChart from "./ForwardDestinationsChart";
-import fetchMock from "fetch-mock";
+import GenericDoughnutChart from "./GenericDoughnutChart";
 
-const endpoint = "/admin/api/stats/forward_destinations";
 const fakeData = [
   { name: "roberta.net", ip: "8.239.48.32", percent: 0.38411761010240625 },
   { name: "", ip: "89.60.252.186", percent: 0.2830935477791041 },
@@ -21,18 +19,22 @@ const fakeData = [
 ];
 
 it("shows loading indicator before first load", () => {
-  fetchMock.mock(endpoint, Promise.reject({ isCanceled: true }));
-
-  const wrapper = shallow(<ForwardDestinationsChart/>);
+  const wrapper = shallow(
+    <GenericDoughnutChart
+      title={""}
+      apiCall={() => Promise.reject({ isCanceled: true })}/>
+  );
 
   expect(wrapper.state().loading).toBeTruthy();
   expect(wrapper.children(".card-img-overlay")).toExist();
 });
 
 it("hides loading indicator after first load", async () => {
-  fetchMock.mock(endpoint, fakeData);
-
-  const wrapper = shallow(<ForwardDestinationsChart/>);
+  const wrapper = shallow(
+    <GenericDoughnutChart
+      title={""}
+      apiCall={() => Promise.resolve(fakeData)}/>
+  );
 
   await tick();
   wrapper.update();
@@ -42,9 +44,11 @@ it("hides loading indicator after first load", async () => {
 });
 
 it("loads API data correctly", async () => {
-  fetchMock.mock(endpoint, fakeData);
-
-  const wrapper = shallow(<ForwardDestinationsChart/>);
+  const wrapper = shallow(
+    <GenericDoughnutChart
+      title={"title"}
+      apiCall={() => Promise.resolve(fakeData)}/>
+  );
 
   await tick();
   wrapper.update();
