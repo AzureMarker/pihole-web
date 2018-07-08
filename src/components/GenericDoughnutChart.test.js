@@ -20,9 +20,7 @@ const fakeData = [
 
 it("shows loading indicator before first load", () => {
   const wrapper = shallow(
-    <GenericDoughnutChart
-      title={""}
-      apiCall={() => Promise.reject({ isCanceled: true })}/>
+    <GenericDoughnutChart title={""} apiCall={() => Promise.reject({ isCanceled: true })}/>
   );
 
   expect(wrapper.state().loading).toBeTruthy();
@@ -31,9 +29,7 @@ it("shows loading indicator before first load", () => {
 
 it("hides loading indicator after first load", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart
-      title={""}
-      apiCall={() => Promise.resolve(fakeData)}/>
+    <GenericDoughnutChart title={""} apiCall={() => Promise.resolve(fakeData)}/>
   );
 
   await tick();
@@ -45,9 +41,7 @@ it("hides loading indicator after first load", async () => {
 
 it("loads API data correctly", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart
-      title={"title"}
-      apiCall={() => Promise.resolve(fakeData)}/>
+    <GenericDoughnutChart title={""} apiCall={() => Promise.resolve(fakeData)}/>
   );
 
   await tick();
@@ -57,4 +51,20 @@ it("loads API data correctly", async () => {
   expect(wrapper.state().labels[0]).toEqual(fakeData[0].name);
   expect(wrapper.state().labels[1]).toEqual(fakeData[1].ip);
   expect(wrapper.state().data).toEqual(fakeData.map(entry => entry.percent));
+});
+
+it("displays the title", () => {
+  const title = "title";
+  const wrapper = shallow(
+    <GenericDoughnutChart title={title} apiCall={() => Promise.reject({ isCanceled: true })}/>
+  );
+
+  expect(wrapper.find(".card-header")).toHaveText(title);
+});
+
+it("calls the API callback", () => {
+  const apiCall = jest.fn(() => Promise.reject({ isCanceled: true }));
+  shallow(<GenericDoughnutChart title={""} apiCall={apiCall}/>);
+
+  expect(apiCall).toHaveBeenCalled();
 });
