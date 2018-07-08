@@ -15,13 +15,13 @@ import TopTable from "./TopTable";
 it("shows loading indicator before first load", () => {
   const wrapper = shallow(
     <TopTable
-      apiCall={() => Promise.reject({ isCanceled: true })}
-      apiHandler={jest.fn()}
-      isEmpty={() => true}
-      generateRows={jest.fn()}
-      emptyMessage={""}
+      title={""}
       headers={[]}
-      title={""}/>
+      emptyMessage={""}
+      isEmpty={() => true}
+      apiCall={ignoreAPI}
+      apiHandler={jest.fn()}
+      generateRows={jest.fn()}/>
   );
 
   expect(wrapper.state().loading).toBeTruthy();
@@ -57,7 +57,7 @@ it("sets the initial state", () => {
       headers={[]}
       emptyMessage={""}
       isEmpty={() => true}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={jest.fn()}/>
   );
@@ -73,7 +73,7 @@ it("sets the title", () => {
       headers={[]}
       emptyMessage={""}
       isEmpty={() => true}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={jest.fn()}/>
   );
@@ -94,7 +94,7 @@ it("adds the headers", () => {
       headers={headers}
       emptyMessage={""}
       isEmpty={() => false}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={jest.fn()}/>
   );
@@ -117,7 +117,7 @@ it("shows the empty message when empty", () => {
       headers={[]}
       emptyMessage={emptyMessage}
       isEmpty={() => true}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={jest.fn()}/>
   );
@@ -155,7 +155,7 @@ it("does not call generateRows when empty", () => {
       headers={[]}
       emptyMessage={""}
       isEmpty={() => true}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={generateRows}/>
   );
@@ -173,7 +173,7 @@ it("calls generateRows with state when not empty", () => {
       headers={[]}
       emptyMessage={""}
       isEmpty={() => false}
-      apiCall={() => Promise.reject({ isCanceled: true })}
+      apiCall={ignoreAPI}
       apiHandler={jest.fn()}
       generateRows={generateRows}/>
   );

@@ -8,13 +8,13 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component} from 'react';
-import { translate } from 'react-i18next';
-import { api, makeCancelable } from '../utils';
+import React, { Component } from "react";
+import { translate } from "react-i18next";
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class DNSInfo extends Component {
   state = {
-    "upstream_dns": [ "---" ],
+    "upstream_dns": ["---"],
     "conditional_forwarding": {
       "enabled": "---",
       "router_ip": "---",
@@ -24,8 +24,8 @@ class DNSInfo extends Component {
       "fqdn_required": "---",
       "bogus_priv": "---",
       "dnssec": "---",
-      "listening_type": "---",
-    },
+      "listening_type": "---"
+    }
   };
 
   constructor(props) {
@@ -38,23 +38,22 @@ class DNSInfo extends Component {
     this.updateHandler.promise.then(res => {
       this.setState(res);
     })
-      .catch((err) => {
-        if(!err.isCanceled) {
-          this.setState({
-            "upstream_dns": [ "-!-" ],
-            "options": {
-              "fqdn_required": "-!-",
-              "bogus_priv": "-!-",
-              "dnssec": "-!-",
-              "listening_type": "-!-",
-            },
-            "conditional_forwarding": {
-              "enabled": "-!-",
-              "router_ip": "-!-",
-              "domain": "-!-",
-            }
-          });
-        }
+      .catch(ignoreCancel)
+      .catch(() => {
+        this.setState({
+          "upstream_dns": ["-!-"],
+          "options": {
+            "fqdn_required": "-!-",
+            "bogus_priv": "-!-",
+            "dnssec": "-!-",
+            "listening_type": "-!-"
+          },
+          "conditional_forwarding": {
+            "enabled": "-!-",
+            "router_ip": "-!-",
+            "domain": "-!-"
+          }
+        });
       });
   }
 
@@ -89,18 +88,18 @@ class DNSInfo extends Component {
             <div className="col-lg-4 col-sm-4 col-xs-4">
               <pre>
                 <br/>
-                {t("Interface listening behaviour")}:      {this.state.options.listening_type}<br/>
-                {t("Forward FQDNs only")}:                 {this.state.options.fqdn_required.toString()}<br/>
+                {t("Interface listening behaviour")}: {this.state.options.listening_type}<br/>
+                {t("Forward FQDNs only")}: {this.state.options.fqdn_required.toString()}<br/>
                 {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
-                {t("Use DNSSEC")}:                         {this.state.options.dnssec.toString()}
+                {t("Use DNSSEC")}: {this.state.options.dnssec.toString()}
               </pre>
             </div>
             <div className="col-lg-4 col-sm-4 col-xs-4">
               <pre>
                 <br/>
                 {t("Conditional Forwarding")}<br/>
-                {t("Enabled")}:           {this.state.conditional_forwarding.enabled.toString()}<br/>
-                {t("Router IP")}:         {this.state.conditional_forwarding.router_ip.toString()}<br/>
+                {t("Enabled")}: {this.state.conditional_forwarding.enabled.toString()}<br/>
+                {t("Router IP")}: {this.state.conditional_forwarding.router_ip.toString()}<br/>
                 {t("Local Domain Name")}: {this.state.conditional_forwarding.domain.toString()}<br/>
               </pre>
             </div>
@@ -111,4 +110,4 @@ class DNSInfo extends Component {
   }
 }
 
-export default translate(['common', 'settings'])(DNSInfo);
+export default translate(["common", "settings"])(DNSInfo);

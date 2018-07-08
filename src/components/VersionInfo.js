@@ -8,32 +8,32 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import { translate } from 'react-i18next';
-import { api, makeCancelable } from '../utils';
-import VersionCard from '../components/VersionCard';
+import React, { Component } from "react";
+import { translate } from "react-i18next";
+import { api, ignoreCancel, makeCancelable } from "../utils";
+import VersionCard from "../components/VersionCard";
 
 class VersionInfo extends Component {
   state = {
     api: {
-        branch: "---",
-        hash: "---",
-        tag: "---"
+      branch: "---",
+      hash: "---",
+      tag: "---"
     },
     core: {
-        branch: "---",
-        hash: "---",
-        tag: "---"
+      branch: "---",
+      hash: "---",
+      tag: "---"
     },
     ftl: {
-        branch: "---",
-        hash: "---",
-        tag: "---"
+      branch: "---",
+      hash: "---",
+      tag: "---"
     },
     web: {
-        branch: "---",
-        hash: "---",
-        tag: "---"
+      branch: "---",
+      hash: "---",
+      tag: "---"
     }
   };
 
@@ -47,31 +47,30 @@ class VersionInfo extends Component {
     this.updateHandler.promise.then(res => {
       this.setState(res);
     })
-      .catch((err) => {
-        if(!err.isCanceled) {
-          this.setState({
-            api: {
-              branch: "-!-",
-              hash: "-!-",
-              tag: "-!-"
-            },
-            core: {
-              branch: "-!-",
-              hash: "-!-",
-              tag: "-!-"
-            },
-            ftl: {
-              branch: "-!-",
-              hash: "-!-",
-              tag: "-!-"
-            },
-            web: {
-              branch: "-!-",
-              hash: "-!-",
-              tag: "-!-"
-            }
-          });
-        }
+      .catch(ignoreCancel)
+      .catch(() => {
+        this.setState({
+          api: {
+            branch: "-!-",
+            hash: "-!-",
+            tag: "-!-"
+          },
+          core: {
+            branch: "-!-",
+            hash: "-!-",
+            tag: "-!-"
+          },
+          ftl: {
+            branch: "-!-",
+            hash: "-!-",
+            tag: "-!-"
+          },
+          web: {
+            branch: "-!-",
+            hash: "-!-",
+            tag: "-!-"
+          }
+        });
       });
   }
 
@@ -109,4 +108,4 @@ class VersionInfo extends Component {
   }
 }
 
-export default translate(['common'])(VersionInfo);
+export default translate(["common"])(VersionInfo);

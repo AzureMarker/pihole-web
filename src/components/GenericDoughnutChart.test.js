@@ -20,7 +20,7 @@ const fakeData = [
 
 it("shows loading indicator before first load", () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} apiCall={() => Promise.reject({ isCanceled: true })}/>
+    <GenericDoughnutChart title={""} apiCall={ignoreAPI}/>
   );
 
   expect(wrapper.state().loading).toBeTruthy();
@@ -56,14 +56,14 @@ it("loads API data correctly", async () => {
 it("displays the title", () => {
   const title = "title";
   const wrapper = shallow(
-    <GenericDoughnutChart title={title} apiCall={() => Promise.reject({ isCanceled: true })}/>
+    <GenericDoughnutChart title={title} apiCall={ignoreAPI}/>
   );
 
   expect(wrapper.find(".card-header")).toHaveText(title);
 });
 
 it("calls the API callback", () => {
-  const apiCall = jest.fn(() => Promise.reject({ isCanceled: true }));
+  const apiCall = jest.fn(ignoreAPI);
   shallow(<GenericDoughnutChart title={""} apiCall={apiCall}/>);
 
   expect(apiCall).toHaveBeenCalled();

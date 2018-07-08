@@ -42,3 +42,8 @@ afterEach(() => {
 // of the promises put in place before it will have executed.
 // Use this when waiting for components to handle API responses.
 global.tick = () => new Promise(resolve => setImmediate(resolve));
+
+// Use this in place of an API call to have components ignore the call.
+// This is useful if you are not testing how it handles the API call, and
+// just want the component to act as if it hasn't gotten a response.
+global.ignoreAPI = () => Promise.reject({ isCanceled: true });
