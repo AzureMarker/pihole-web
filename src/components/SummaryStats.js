@@ -10,7 +10,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { translate } from 'react-i18next';
-import { api, makeCancelable } from '../utils';
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class SummaryStats extends Component {
   state = {
@@ -37,16 +37,15 @@ class SummaryStats extends Component {
         uniqueClients: res.unique_clients
       });
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
+      .catch(ignoreCancel)
+      .catch(() => {
         this.setState({
-          blockedQueries: "Lost",
-          totalQueries: "Connection",
+          totalQueries: "Lost",
+          blockedQueries: "Connection",
           percentBlocked: "To",
           gravityDomains: "API"
         });
-      }
-    });
+      });
   }
 
   componentDidMount() {
