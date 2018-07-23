@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component} from 'react';
-import { translate } from 'react-i18next';
-import { api, makeCancelable } from '../utils';
+import React, { Component } from "react";
+import { translate } from "react-i18next";
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class NetworkInfo extends Component {
   state = {
@@ -35,17 +35,15 @@ class NetworkInfo extends Component {
         hostname: res.hostname
       });
     })
-      .catch((err) => {
-        if(!err.isCanceled) {
-          this.setState({
-            interface: "-!-",
-            ipv4_address: "-!-",
-            ipv6_address: "-!-",
-            hostname: "-!-"
-          });
-        }
-      }
-    );
+      .catch(ignoreCancel)
+      .catch(() => {
+        this.setState({
+          interface: "-!-",
+          ipv4_address: "-!-",
+          ipv6_address: "-!-",
+          hostname: "-!-"
+        });
+      });
   }
 
   componentDidMount() {
@@ -69,10 +67,10 @@ class NetworkInfo extends Component {
         <div className="card-img-overlay">
           <h3>{t("Network")}</h3>
           <pre>
-            {t("Interface")}:    {this.state.interface}<br/>
+            {t("Interface")}: {this.state.interface}<br/>
             {t("IPv4 address")}: {this.state.ipv4_address}<br/>
             {t("IPv6 address")}: {this.state.ipv6_address}<br/>
-            {t("Hostname")}:     {this.state.hostname}
+            {t("Hostname")}: {this.state.hostname}
           </pre>
         </div>
       </div>
@@ -80,4 +78,4 @@ class NetworkInfo extends Component {
   }
 }
 
-export default translate(['common', 'settings'])(NetworkInfo);
+export default translate(["common", "settings"])(NetworkInfo);

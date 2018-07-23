@@ -3,15 +3,15 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Aside component
+*  Footer component test
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 import React from 'react';
+import { shallow } from 'enzyme';
+import Footer from "./Footer";
 
-export default () => (
-  <aside className="aside-menu">
-    Aside Menu
-  </aside>
-);
+it('renders without crashing', () => {
+  shallow(<Footer/>);
+});

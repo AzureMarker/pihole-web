@@ -12,7 +12,6 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Header, { mobileSidebarHide } from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import Aside from '../components/Aside';
 import Footer from '../components/Footer';
 import Dashboard from '../views/Dashboard';
 import QueryLog from '../components/QueryLog';
@@ -24,12 +23,13 @@ import Networking from "../views/Networking";
 import Login from "../views/Login";
 import Logout from "../views/Logout";
 import { api } from "../utils";
+import { nav } from "../routes";
 
 export default props => (
   <div className="app">
     <Header/>
     <div className="app-body">
-      <Sidebar {...props}/>
+      <Sidebar items={nav} {...props}/>
       <main className="main" onClick={mobileSidebarHide}>
         <div className="container-fluid" style={{"marginTop": "1.5rem"}}>
           <Switch>
@@ -37,8 +37,8 @@ export default props => (
             <Redirect exact from="/" to="/dashboard"/>
             <AuthRoute path="/query-log" name="Query Log" component={QueryLog}/>
             <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
-            <Route path="/blacklist" name="Blacklist" component={Blacklist}/>
-            <Route path="/regexlist" name="Regexlist" component={Regexlist}/>
+            <Route path="/blacklist/exact" name="Blacklist" component={Blacklist}/>
+            <Route path="/blacklist/regex" name="Regexlist" component={Regexlist}/>
             <Route path="/settings/versions" name="Versions" component={Versions}/>
             <Route path="/settings/networking" name="Networking" component={Networking}/>
             <Route path="/login" name="Login" component={Login}/>
@@ -46,7 +46,6 @@ export default props => (
           </Switch>
         </div>
       </main>
-      <Aside/>
     </div>
     <Footer/>
   </div>

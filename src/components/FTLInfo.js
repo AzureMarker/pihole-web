@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import { translate } from 'react-i18next';
-import { api, makeCancelable } from '../utils';
+import React, { Component } from "react";
+import { translate } from "react-i18next";
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
 class FTLInfo extends Component {
   state = {
@@ -33,16 +33,15 @@ class FTLInfo extends Component {
         sqlite_version: res.sqlite_version
       });
     })
-      .catch((err) => {
-        if(!err.isCanceled) {
+      .catch(ignoreCancel)
+      .catch(() => {
           this.setState({
             queries: "-!-",
             filesize: "-!-",
             sqlite_version: "-!-"
           });
         }
-      }
-    );
+      );
   }
 
   componentDidMount() {
@@ -66,10 +65,10 @@ class FTLInfo extends Component {
         <div className="card-img-overlay">
           <h3>
             {t("FTL Database")}
-         </h3>
+          </h3>
           <pre>
-            {t("Queries")}:        {this.state.queries}<br/>
-            {t("Filesize")}:       {this.state.filesize} B<br/>
+            {t("Queries")}: {this.state.queries}<br/>
+            {t("Filesize")}: {this.state.filesize} B<br/>
             {t("SQLite version")}: {this.state.sqlite_version}<br/>
           </pre>
         </div>
@@ -78,4 +77,4 @@ class FTLInfo extends Component {
   }
 }
 
-export default translate(['settings'])(FTLInfo);
+export default translate(["settings"])(FTLInfo);
