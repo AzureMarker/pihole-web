@@ -14,26 +14,13 @@ export const padNumber = (num) => {
   return ("00" + num).substr(-2,2);
 };
 
-export const parseObjectForGraph = (p) => {
-  const keys = Object.keys(p);
-  keys.sort((a, b) => a - b);
-
-  const arr = [], idx = [];
-  for(let i = 0; i < keys.length; i++) {
-    arr.push(p[keys[i]]);
-    idx.push(keys[i]);
-  }
-
-  return [idx,arr];
-};
-
 export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) => {
   let hasCanceled = false;
   let repeatId = null;
 
   const handle = (resolve, reject, val, isError) => {
     if(hasCanceled)
-      reject({isCanceled: true});
+      reject({ isCanceled: true });
     else {
       if(isError)
         reject(val);
@@ -67,17 +54,32 @@ export const ignoreCancel = err => {
 };
 
 export const api = {
+  loggedIn: false,
+  authenticate(key) {
+    return fetch(api.urlFor("auth"), {
+      headers: new Headers({ "X-Pi-hole-Authenticate": key }),
+      credentials: this.credentialType()
+    })
+      .then(api.convertJSON)
+      .then(api.checkForErrors);
+  },
+  logout() {
+    return api.delete("auth");
+  },
   getSummary() {
     return api.get("stats/summary");
   },
   getHistoryGraph() {
     return api.get("stats/overTime/history");
   },
-  getQueryTypesOverTime() {
-    return api.get("stats/overTime/query_types");
+  getClientsGraph() {
+    return api.get("stats/overTime/clients")
   },
-  getForwardDestOverTime() {
-    return api.get("stats/overTime/forward_destinations");
+  getQueryTypes() {
+    return api.get("stats/query_types")
+  },
+  getForwardDestinations() {
+    return api.get("stats/forward_destinations")
   },
   getTopDomains() {
     return api.get("stats/top_domains");
@@ -97,8 +99,8 @@ export const api = {
   getBlacklist() {
     return api.get("dns/blacklist");
   },
-  getWildlist() {
-    return api.get("dns/wildlist");
+  getRegexlist() {
+    return api.get("dns/regexlist");
   },
   addWhitelist(domain) {
     return api.post("dns/whitelist", { "domain": domain });
@@ -106,8 +108,8 @@ export const api = {
   addBlacklist(domain) {
     return api.post("dns/blacklist", { "domain": domain });
   },
-  addWildlist(domain) {
-    return api.post("dns/wildlist", { "domain": domain });
+  addRegexlist(domain) {
+    return api.post("dns/regexlist", { "domain": domain });
   },
   removeWhitelist(domain) {
     return api.delete("dns/whitelist/" + domain);
@@ -115,11 +117,17 @@ export const api = {
   removeBlacklist(domain) {
     return api.delete("dns/blacklist/" + domain);
   },
-  removeWildlist(domain) {
-    return api.delete("dns/wildlist/" + domain);
+  removeRegexlist(domain) {
+    return api.delete("dns/regexlist/" + encodeURIComponent(domain));
+  },
+  getStatus() {
+    return api.get("dns/status")
   },
   get(url) {
-    return fetch(api.urlFor(url))
+    return fetch(api.urlFor(url), {
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
@@ -127,15 +135,50 @@ export const api = {
     return fetch(api.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
-      headers: new Headers({ "Content-Type": "application/json" })
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: this.credentialType()
     })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
   },
   delete(url) {
-    return fetch(api.urlFor(url), { method: "DELETE" })
+    return fetch(api.urlFor(url), {
+      method: "DELETE",
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
       .then(api.checkForErrors);
+  },
+  getNetworkInfo() {
+    return api.get("settings/network")
+  },
+  getVersion() {
+    return api.get("version")
+  },
+  getFTLdb() {
+    return api.get("settings/ftldb")
+  },
+  getDNSInfo() {
+    return api.get("settings/dns")
+  },
+  getDHCPInfo() {
+    return api.get("settings/dhcp")
+  }, 
+  /**
+   * If the user is logged in, check if the user's session has lapsed.
+   * If so, log them out and refresh the page.
+   */
+  checkIfLoggedOut(response) {
+    if(api.loggedIn && response.status === 401) {
+      // Clear the user's old session and refresh the page
+      document.cookie = 'user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      window.location.reload();
+      return Promise.reject({ isCanceled: true })
+    }
+
+    return Promise.resolve(response);
   },
   async convertJSON(data) {
     if(!data.ok)
@@ -144,21 +187,24 @@ export const api = {
       return data.json();
   },
   checkForErrors(data) {
-    if(!data.errors || data.errors.length > 0) {
-      return Promise.reject(data.errors);
+    if(data.error) {
+      return Promise.reject(data.error);
     }
-    return Promise.resolve(data.data);
+    return Promise.resolve(data);
   },
   urlFor(endpoint) {
     let apiLocation;
 
     if(config.fakeAPI)
-      apiLocation = window.location.host + process.env.PUBLIC_URL + "/fakeAPI";
-    else if(config.developmentMode)
-      apiLocation = "pi.hole/admin/api";
+      apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
     else
-      apiLocation = window.location.hostname + "/admin/api";
+      apiLocation = "/admin/api";
 
-    return window.location.protocol + "//" + apiLocation + "/" + endpoint;
+    return apiLocation + "/" + endpoint;
+  },
+  credentialType() {
+    // Development API requests use a different origin (pi.hole) since it is running off of the developer's machine.
+    // Therefore, allow credentials to be used across origins when in development mode.
+    return config.developmentMode ? "include" : "same-origin";
   }
 };

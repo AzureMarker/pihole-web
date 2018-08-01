@@ -10,12 +10,13 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { translate } from 'react-i18next';
 import DomainInput from "./DomainInput";
 import Alert from "./Alert";
 import DomainList from "./DomainList";
 import { ignoreCancel, makeCancelable } from "../utils";
 
-export default class ListPage extends Component {
+class ListPage extends Component {
   state = {
     domains: [],
     infoMsg: "",
@@ -23,9 +24,32 @@ export default class ListPage extends Component {
     errorMsg: ""
   };
 
+  onEnter = domain => {
+    // Check if the domain was already added
+    if(this.state.domains.includes(domain)) {
+      this.onAlreadyAdded(domain);
+    } else {
+      // Store the domains before adding the new domain, for a possible rollback
+      const prevDomains = this.state.domains.slice();
+
+      // Try to add the domain
+      this.addHandler = makeCancelable(this.props.add(domain));
+      this.addHandler.promise.then(() => {
+        this.onAdded(domain);
+      })
+        .catch(ignoreCancel)
+        .catch(() => {
+          this.onAddFailed(domain, prevDomains);
+        });
+
+      // Show an in-progress message
+      this.onAdding(domain);
+    }
+  };
+
   onAdding = domain =>
     this.setState({
-      infoMsg: "Adding " + domain + " ...",
+      infoMsg: this.props.t("Adding {{domain}}...", { domain }),
       successMsg: "",
       errorMsg: ""
     });
@@ -34,14 +58,14 @@ export default class ListPage extends Component {
     this.setState({
       infoMsg: "",
       successMsg: "",
-      errorMsg: domain + " is already added"
+      errorMsg: this.props.t("{{domain}} is already added", { domain })
     });
 
   onAdded = domain =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
       infoMsg: "",
-      successMsg: "Successfully added " + domain,
+      successMsg: this.props.t("Successfully added {{domain}}", { domain }),
       errorMsg: ""
     }));
 
@@ -50,7 +74,7 @@ export default class ListPage extends Component {
       domains: prevDomains,
       infoMsg: "",
       successMsg: "",
-      errorMsg: "Failed to add " + domain
+      errorMsg: this.props.t("Failed to add {{domain}}", { domain })
     });
 
   onRemoved = domain =>
@@ -59,18 +83,19 @@ export default class ListPage extends Component {
     }));
 
   onRemoveFailed = (domain, prevDomains) =>
-    this.setState(prevState => ({
+    this.setState({
       domains: prevDomains,
       infoMsg: "",
       successMsg: "",
-      errorMsg: "Failed to remove " + domain
-    }));
+      errorMsg: this.props.t("Failed to remove {{domain}}", { domain })
+    });
 
   onRefresh = () => {
     this.refreshHandler = makeCancelable(this.props.refresh());
     this.refreshHandler.promise.then(data => {
       this.setState({ domains: data });
-    }).catch(ignoreCancel);
+    })
+      .catch(ignoreCancel);
   };
 
   componentDidMount() {
@@ -94,16 +119,10 @@ export default class ListPage extends Component {
         <h2 className="text-center">{this.props.title}</h2>
         <br/>
         <DomainInput
-          domains={this.state.domains}
-          apiCall={this.props.add}
-          onAdding={this.onAdding}
-          onAlreadyAdded={this.onAlreadyAdded}
-          onAdded={this.onAdded}
-          onFailed={this.onAddFailed}
+          placeholder={this.props.placeholder}
+          onEnter={this.onEnter}
           onRefresh={this.onRefresh}/>
-        {
-          this.props.note
-        }
+        { this.props.note }
         {
           this.state.infoMsg
             ? <Alert message={this.state.infoMsg} type="info" onClick={() => this.setState({ infoMsg: "" })}/>
@@ -132,7 +151,10 @@ export default class ListPage extends Component {
 ListPage.propTypes = {
   title: PropTypes.string.isRequired,
   note: PropTypes.object,
+  placeholder: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired
 };
+
+export default translate(["common", "lists"])(ListPage);

@@ -1,0 +1,85 @@
+version: 2
+
+.install_packages: &install_packages
+  run:
+    name: "Install Packages"
+    command: npm install
+
+.test: &test
+  run:
+    name: "Test"
+    command: npm test
+
+.store_version: &store_version
+  run:
+    name: "Store Version"
+    command: |
+      BRANCH=$([ -z "$CI_COMMIT_TAG" ] && echo "$CIRCLE_BRANCH" || echo "master")
+      echo "$CIRCLE_TAG $BRANCH ${CIRCLE_SHA1::7}" > build/VERSION
+      cat build/VERSION
+      echo "export BRANCH=$BRANCH" >> $BASH_ENV
+
+jobs:
+  build:
+    docker:
+    - image: node:8
+    steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-build-{{ checksum "package-lock.json" }}
+        - v1-build-
+    - *install_packages
+    - *test
+    - run:
+        name: "Build"
+        command: |
+          rm -r public/fakeAPI
+          npm run build
+    - *store_version
+    - run:
+        name: "Upload"
+        command: |
+          [ -z "$FTL_SECRET" ] && exit 0
+          tar -czvf pihole-web.tar.gz -C build .
+          wget https://ftl.pi-hole.net:8080/FTL-client
+          chmod +x ./FTL-client
+          ./FTL-client "$BRANCH" pihole-web.tar.gz "$FTL_SECRET"
+          rm ./FTL-client
+    - save_cache:
+        key: v1-build-{{ checksum "package-lock.json" }}
+        paths:
+        - node_modules
+
+  deploy:
+    branches:
+      only:
+      - master
+    environment:
+      PUBLIC_URL: /
+    docker:
+    - image: node:8
+    steps:
+    - checkout
+    - *install_packages
+    - *test
+    - run:
+        name: "Build"
+        command: |
+          rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
+          npm run build-fake
+          echo "web.pi-hole.io" > build/CNAME
+    - *store_version
+    - run:
+        name: "Deploy"
+        command: |
+          git clone --quiet --depth 1 -b gh-pages https://pralor:$GITHUB_TOKEN@github.com/pi-hole/web.git deploy
+          shopt -s extglob # Enable extra globs, like !()
+          rm -rf deploy/!(.|..|.git)
+          cp -r build/* deploy/
+          cd deploy
+          git config user.email "36384445+pralor@users.noreply.github.com"
+          git config user.name "pralor"
+          git add -A
+          git commit -m "Deploy pi-hole/web to web.pi-hole.io"
+          git push --quiet

@@ -10,10 +10,11 @@
 
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
+import { translate } from 'react-i18next';
 import { api, ignoreCancel, makeCancelable, padNumber } from '../utils';
 import 'react-table/react-table.css';
 
-export default class QueryLog extends Component {
+class QueryLog extends Component {
   updateHandler = null;
   state = {
     history: [],
@@ -44,11 +45,13 @@ export default class QueryLog extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <ReactTable
         className="-striped"
         style={{ background: "white", marginBottom: "24px" }}
-        columns={columns}
+        columns={columns(t)}
         showPaginationTop={true}
         filterable={true}
         data={this.state.history}
@@ -71,9 +74,17 @@ export default class QueryLog extends Component {
   }
 }
 
-const columns = [
+const status = t => ({
+  "1": t("Blocked"),
+  "2": t("Allowed (forwarded)"),
+  "3": t("Allowed (cached)"),
+  "4": t("Blocked (regex)"),
+  "5": t("Blocked (blacklist)")
+});
+
+const columns = t => [
   {
-    Header: "Time",
+    Header: t("Time"),
     id: "time",
     accessor: r => r[0],
     width: 70,
@@ -84,64 +95,57 @@ const columns = [
     }
   },
   {
-    Header: "Type",
+    Header: t("Type"),
     id: "type",
     accessor: r => r[1],
     width: 45
   },
   {
-    Header: "Domain",
+    Header: t("Domain"),
     id: "domain",
     accessor: r => r[2],
     minWidth: 200,
     className: "horizontal-scroll"
   },
   {
-    Header: "Client",
+    Header: t("Client"),
     id: "client",
     accessor: r => r[3],
     minWidth: 120,
     className: "horizontal-scroll"
   },
   {
-    Header: "Status",
+    Header: t("Status"),
     id: "status",
     accessor: r => r[4],
     width: 140,
-    Cell: row => {
-      switch(row.value) {
-        case 1:
-          return "Blocked";
-        case 2:
-          return "Allowed (forwarded)";
-        case 3:
-          return "Allowed (cached)";
-        case 4:
-          return "Blocked (wildcard)";
-        case 5:
-          return "Blocked (blacklist)";
-        default:
-          return "Unknown";
-      }
-    }
+    Cell: row => status(t)[row.value],
+    filterMethod: (filter, row) =>
+      status(t)[row[filter.id]]
+        .toLowerCase()
+        .includes(
+          filter.value.toLowerCase()
+        )
   },
   {
-    Header: "Action",
+    Header: t("Action"),
     width: 100,
     filterable: false,
     Cell: data => {
       if([1, 4, 5].includes(data.row.status))
         return (
           <button type="button" className="btn btn-success full-width" onClick={() => api.addWhitelist(data.row.domain)}>
-            Whitelist
+            {t("Whitelist")}
           </button>
         );
       if([2, 3].includes(data.row.status))
         return (
           <button type="button" className="btn btn-danger full-width" onClick={() => api.addBlacklist(data.row.domain)}>
-            Blacklist
+            {t("Blacklist")}
           </button>
         );
     }
   }
 ];
+
+export default translate(["common", "query-log"])(QueryLog);

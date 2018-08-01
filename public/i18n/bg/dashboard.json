@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Домейни в блокирнят списък",
+    "Query Types": "типове на заявки",
+    "Forward Destinations": "Препратени дестинации",
+    "Top Permitted Domains": "Най-разрешени домейни",
+    "Top Blocked Domains": "Най-блокирани домейни",
+    "Top Clients": "Топ клиенти",
+    "Total Queries ({{count}} clients)": "Общо заявки ({{count}} клиенти)",
+    "Total Queries ({{count}} clients)_plural": "Общо заявки ({{count}} клиенти)",
+    "Queries Blocked": "Блокирани заявки",
+    "Percent Blocked": "Процент блокирани",
+    "Queries Over Last 24 Hours": "Заявки за последните 24 часа",
+    "Clients Over Last 24 Hours": "Клиенти през последните 24 часа",
+    "Queries Answered By": "Заявки отговори от",
+    "Queries from {{from}} to {{to}}": "Заявки от {{from}} до {{to}}",
+    "Total Queries": "Общи заявки",
+    "Blocked Queries": "Блокирани заявки",
+    "Client activity from {{from}} to {{to}}": "Дейност на клиента от {{from}} до {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% от {{total}}",
+    "No Clients Found": "Няма намерени клиенти",
+    "No Domains Found": "Няма намерени домейни",
+    "Queries Answered By Destination": "Отговорите на заявките по дестинации"
+}

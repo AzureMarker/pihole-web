@@ -8,10 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import { api, makeCancelable } from '../utils';
+import React, { Component, Fragment } from 'react';
+import { translate } from 'react-i18next';
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
-export default class SummaryStats extends Component {
+class SummaryStats extends Component {
   state = {
     blockedQueries: "---",
     totalQueries: "---",
@@ -33,19 +34,18 @@ export default class SummaryStats extends Component {
         totalQueries: res.total_queries.toLocaleString(),
         percentBlocked: res.percent_blocked.toFixed(2).toLocaleString() + "%",
         gravityDomains: res.domains_blocked.toLocaleString(),
-        uniqueClients: res.unique_clients.toLocaleString()
+        uniqueClients: res.unique_clients
       });
     })
-    .catch((err) => {
-      if(!err.isCanceled) {
+      .catch(ignoreCancel)
+      .catch(() => {
         this.setState({
-          blockedQueries: "Lost",
-          totalQueries: "Connection",
+          totalQueries: "Lost",
+          blockedQueries: "Connection",
           percentBlocked: "To",
           gravityDomains: "API"
         });
-      }
-    });
+      });
   }
 
   componentDidMount() {
@@ -57,41 +57,73 @@ export default class SummaryStats extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
-      <div className="row">
+      <Fragment>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-success">
-            <div className="card-block">
+          <div className="card border-0 bg-success stat-height-lock">
+            <div className="card-body">
+              <div className="card-icon">
+                <i className="fa fa-globe fa-2x" />
+              </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.totalQueries}</h3>
-              <p style={{marginBottom: "0px"}}>{"Total Queries (" + this.state.uniqueClients + " clients)"}</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Total Queries ({{count}} clients)", { count: this.state.uniqueClients })}
+              </p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-primary">
-            <div className="card-block">
+          <div className="card border-0 bg-primary stat-height-lock">
+            <div className="card-body">
+              <div className="card-icon">
+                <i className="fa fa-hand-stop-o fa-2x" />
+              </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.blockedQueries}</h3>
-              <p style={{marginBottom: "0px"}}>Queries Blocked</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Queries Blocked")}
+              </p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-warning">
-            <div className="card-block">
+          <div className="card border-0 bg-warning stat-height-lock">
+            <div className="card-body">
+              <div className="card-icon">
+                <i className="fa fa-pie-chart fa-2x" />
+              </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.percentBlocked}</h3>
-              <p style={{marginBottom: "0px"}}>Percent Blocked</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Percent Blocked")}
+              </p>
             </div>
           </div>
         </div>
         <div className="col-lg-3 col-xs-12">
-          <div className="card card-inverse card-danger">
-            <div className="card-block">
+          <div className="card border-0 bg-danger stat-height-lock">
+            <div className="card-body">
+              <div className="card-icon">
+                 <i className="fa fa-list-alt fa-2x" />
+              </div>
+            </div>
+            <div className="card-img-overlay">
               <h3>{this.state.gravityDomains}</h3>
-              <p style={{marginBottom: "0px"}}>Domains On Blocklist</p>
+              <p style={{marginBottom: "0px"}}>
+                {t("Domains On Blocklist")}
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
+
+export default translate(['common', 'dashboard'])(SummaryStats);

@@ -1,0 +1,10 @@
+{
+    "Password": "Парола",
+    "Sign in to start your session": "Влезте, за да започнете сесията си",
+    "Log in": "Влез",
+    "Forgot Password": "Забравена парола",
+    "forgot_password_description": "забравена парола описание",
+    "Wrong Password!": "Грешна парола!",
+    "You will be transferred to the {{page}}": "Ще бъдете прехвърлени на {{страницата}}",
+    "Verify that cookies are allowed for {{host}}": "Уверете се, че бисквитките са разрешени за {{хост}}"
+}

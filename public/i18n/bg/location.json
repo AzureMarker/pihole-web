@@ -1,0 +1,11 @@
+{
+    "Query Log": "Заявките логове",
+    "Whitelist": "Белия списък",
+    "Blacklist": "Черен списък",
+    "Dashboard": "Начало",
+    "Exact": "Точен {{текст / TEXT}}",
+    "Wildcard": "Заместващ {{домейн / DOMAIN}}",
+    "Login": "Вход",
+    "Logout": "Изход",
+    "Regex": "Регекс"
+}

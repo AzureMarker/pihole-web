@@ -10,9 +10,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ignoreCancel, makeCancelable } from "../utils";
+import { translate } from 'react-i18next';
+import { api, ignoreCancel, makeCancelable } from "../utils";
 
-export default class DomainList extends Component {
+class DomainList extends Component {
   onRemove(domain) {
     if(this.props.domains.includes(domain)) {
       const prevDomains = this.props.domains.slice();
@@ -27,6 +28,8 @@ export default class DomainList extends Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <ul className="list-group">
         {
@@ -34,27 +37,38 @@ export default class DomainList extends Component {
             ?
             this.props.domains.map(item => (
               <li key={item} className="list-group-item">
-                <button className="btn btn-danger btn-sm pull-right" type="button" onClick={() => this.onRemove(item)}>
-                  <span className="fa fa-trash-o"/>
-                </button>
+                {
+                  api.loggedIn ?
+                    <button className="btn btn-danger btn-sm pull-right" type="button"
+                            style={{ marginTop: "2px" }} onClick={() => this.onRemove(item)}>
+                      <span className="fa fa-trash-o"/>
+                    </button>
+                    : null
+                }
                 <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
-                {item}
-              </span>
+                  {item}
+                </span>
               </li>
             ))
             :
             <div className="alert alert-info" role="alert">
-              There are no domains in this list
+              {t("There are no domains in this list")}
             </div>
         }
       </ul>
     );
   }
-};
+}
 
 DomainList.propTypes = {
-  domains: PropTypes.arrayOf(PropTypes.string).isRequired,
+  domains: PropTypes.arrayOf(PropTypes.string),
   onRemoved: PropTypes.func.isRequired,
   onFailed: PropTypes.func.isRequired,
   apiCall: PropTypes.func.isRequired
 };
+
+DomainList.defaultProps = {
+  domains: []
+};
+
+export default translate(["common", "lists"])(DomainList);

@@ -8,39 +8,80 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
+import sha from 'sha.js';
+import { api } from "../utils";
 import logo from '../img/logo.svg';
+import { routes } from "../routes";
+import ForgotPassword from "../components/ForgotPassword";
+import { translate } from 'react-i18next';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     password: '',
     error: false,
-    forgotPasswordCollapsed: true
+    cookiesEnabled: false
   };
 
+  componentWillMount() {
+    // Check if cookies are enabled
+    if(navigator.cookieEnabled)
+      this.setState({ cookiesEnabled: true });
+  }
+
+  /**
+   * Called when the user types into the password box.
+   * If they clicked Enter, try to authenticate them.
+   * Otherwise update the password in the state.
+   *
+   * @param e the event
+   */
   handlePasswordChange = e => {
-    if(e.keyCode === 13) {
-      this.onAuth();
-    }
+    if(e.keyCode === 13)
+      this.authenticate();
     else
       this.setState({ password: e.target.value })
   };
 
-  onAuth = () => {
-    this.setState({ password: '' });
+  /**
+   * Try to authenticate the user
+   */
+  authenticate = () => {
+    // Hash the password twice before sending to the API
+    let hashedPassword = sha("sha256").update(this.state.password).digest("hex");
+    hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
-    // TODO: Authenticate against server
-    let auth = false;
+    // Clear the state
+    this.setState({ password: '', error: false });
 
-    if(auth) {
+    // Send the password to the API to authenticate the user
+    api.authenticate(hashedPassword)
+      .then(data => {
+        // Verify status
+        if(data.status !== "success") {
+          console.log("Failed to log in:");
+          console.log(data);
+          return;
+        }
 
-    }
-    else {
-      this.setState({ error: true });
-    }
+        api.loggedIn = true;
+
+        // Redirect to the page the user was originally going to, or if that doesn't exist, go to home
+        const redirect = this.props.location.state.from || '/';
+        this.props.history.push(redirect);
+      })
+      // If there was an error, tell the user they used the wrong password
+      .catch(() => this.setState({ error: true }));
   };
 
   render() {
+    // If the user is already logged in, then go to the home page
+    if(api.loggedIn)
+      return <Redirect to="/"/>;
+
+    const { t } = this.props;
+
     return (
       <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3" style={{'float': 'none'}}>
         <div className="card">
@@ -55,78 +96,57 @@ export default class Login extends Component {
                 Pi-<b>hole</b>
               </span>
             </div>
-            <p className="login-box-msg">
-              Sign in to start your session
-            </p>
-            <div id="cookieInfo" className="card-title text-center" style={{'color': '#F00', 'fontSize': '150%'}} hidden>
-              Verify that cookies are allowed for <code>{window.location.host}</code>
+            <div className="login-box-msg">
+              {t("Sign in to start your session")}
+              {
+                // If the user tried to go to a protected page and is not logged in,
+                // tell them they will be redirected once login is successful
+                this.props.location.state && this.props.location.state.from.pathname in routes(t) ?
+                  (
+                    <Fragment>
+                      <br/>
+                      {t(
+                        "You will be transferred to the {{page}}",
+                        { page: routes(t)[this.props.location.state.from.pathname] }
+                      )}
+                    </Fragment>
+                  ) : null
+              }
+              {
+                // If cookies are not enabled (or detected), show a warning
+                !this.state.cookiesEnabled ?
+                  <div className="text-center" style={{'color': '#F00'}}>
+                    {t("Verify that cookies are allowed for {{host}}", { host: window.location.host })}
+                  </div>
+                  : null
+              }
             </div>
             {
               this.state.error
                 ?
                 <div className="form-group has-error login-box-msg">
                   <label className="control-label">
-                    <i className="fa fa-times-circle-o"/> Wrong password!
+                    <i className="fa fa-times-circle-o"/> {t("Wrong Password!")}
                   </label>
                 </div>
-                :
-                null
+                : null
             }
           </div>
 
           <div className="card-body">
             <form id="loginform">
-              <div className={'form-group' + (this.state.error ? ' has-error' : '')}>
+              <div className={'input-group' + (this.state.error ? ' has-error' : '')}>
                 <input type="password" className="form-control"
                        value={this.state.password} onChange={this.handlePasswordChange}
-                       placeholder="Password" autoFocus/>
-              </div>
-              <div className="row">
-                <div className="col-8">
-                  <ul style={{'paddingLeft': '10px'}}>
-                    <li><samp>Return</samp> &rarr; Log in</li>
-                    <li><samp>Ctrl+Return</samp> &rarr; Log in and go to Settings page</li>
-                  </ul>
-                </div>
-                <div className="col-4">
-                  <button type="submit" href="#" className="btn btn-primary pull-right" onClick={this.onAuth}>
-                    Log in
+                       placeholder={t("Password")} autoFocus/>
+                <div className="input-group-append">
+                  <button type="submit" className="btn btn-primary" onClick={this.authenticate}>
+                    {t("Log in")}
                   </button>
                 </div>
               </div>
               <br/>
-                <div className="row">
-                  <div style={{'width': '100%'}}>
-                    <div className={'card ' + (this.state.error ? 'border-danger': 'border-primary collapsed-card')}>
-                      <div className={'card-header ' + (this.state.error ? 'bg-danger' : 'bg-primary')}
-                           style={{'paddingRight': '10px', 'paddingBottom': "0px"}}>
-                        <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
-                          Forgot password
-                        </h3>
-
-                        <span className="pull-right">
-                          <button type="button" className="btn btn-card-tool"
-                                  style={{ 'cursor': 'pointer', 'padding': '10px' }} onClick={() => {
-                                    console.log("click");
-                                    this.setState({
-                                      forgotPasswordCollapsed: !this.state.forgotPasswordCollapsed
-                                    })
-                                  }}>
-                            <i className={'fa ' + (!this.state.forgotPasswordCollapsed !== this.state.error ? 'fa-minus' : 'fa-plus')}/>
-                          </button>
-                        </span>
-                      </div>
-                      <div id="forgotPassword"
-                           className={'card-body bg-light' + (this.state.forgotPasswordCollapsed !== this.state.error ? ' collapse' : '')}
-                           style={{'padding': '10px'}}>
-                        After installing Pi-hole for the first time, a password is generated and displayed to the user.
-                        The password cannot be retrieved later on, but it is possible to set a new password (or
-                        explicitly disable the password by setting an empty password) using the command:
-                        <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <ForgotPassword error={this.state.error}/>
             </form>
           </div>
         </div>
@@ -134,3 +154,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default translate(["login", "location"])(Login);

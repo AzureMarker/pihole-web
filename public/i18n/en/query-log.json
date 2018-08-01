@@ -1,0 +1,7 @@
+{
+    "Blocked": "Blocked",
+    "Allowed (forwarded)": "Allowed (forwarded)",
+    "Allowed (cached)": "Allowed (cached)",
+    "Blocked (regex)": "Blocked (regex)",
+    "Blocked (blacklist)": "Blocked (blacklist)"
+}

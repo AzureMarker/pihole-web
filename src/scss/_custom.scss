@@ -1,0 +1,170 @@
+@include media-breakpoint-down(xs) {
+  .hidden-xs-down {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .hidden-sm-up {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 576px) {
+  .sidebar-show.sidebar-fixed.sidebar-minimized .main,
+  .sidebar-show.sidebar-fixed.sidebar-minimized .app-footer {
+    margin-left: $sidebar-width !important;
+  }
+}
+
+.app-body {
+  background: #ecf0f5;
+}
+
+.ReactTable .rt-td.horizontal-scroll {
+  overflow: auto;
+  text-overflow: clip;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.btn-card-tool {
+  background: transparent;
+  color: white;
+  border: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.has-error {
+  color: rgb(248, 108, 107);
+}
+
+#loginform {
+  padding: 15px;
+}
+
+#loginform div.row {
+  margin: 0;
+}
+
+.login-box-msg {
+  margin: 0;
+  text-align: center;
+  padding: 0 20px 20px 20px;
+}
+
+.stat-height-lock {
+  height: 100px;
+}
+
+.stat-mid-height-lock {
+  height: 150px;
+}
+
+.stat-dbl-height-lock {
+  height: 200px;
+}
+
+.chartjs-tooltip {
+  opacity: 1;
+  position: absolute;
+  background: rgba(0, 0, 0, .7);
+  color: white;
+  border-radius: 3px;
+  -webkit-transition: all .1s ease;
+  transition: all .1s ease;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+.chartjs-tooltip-key {
+  display: inline-block;
+  width: 20px;
+  height: 10px;
+  margin-right: 10px;
+}
+
+.chart-legend {
+  height: 250px;
+  overflow: auto;
+  margin: auto;
+  list-style-type: none;
+}
+
+.chart-legend li {
+  display: inherit;
+  cursor: pointer;
+  text-align: left;
+  font-size: small;
+}
+
+.chart-legend li span {
+  width: 20px;
+  height: 12px;
+  margin-right: 5px;
+  top: 5px;
+}
+
+.strike {
+  text-decoration: line-through !important;
+}
+
+.background-image {
+  background: url("../img/backgroundLight.png") repeat fixed;
+}
+
+.container-toggler {
+  position: absolute;
+  right: 0;
+  top: 10;
+  padding: 0.25rem 0.75rem;
+  visibility: hidden;
+}
+
+@media (min-width: 1250px) {
+  .container-toggler {
+    visibility: visible;
+  }
+}
+
+.container-toggler-button {
+  font-size: 1.25rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.container-toggler-button:focus, .container-toggler-button:hover {
+  text-decoration: none;
+}
+
+.boxcontainer {
+  max-width: 1250px;
+  margin: auto;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.boxcontainer .app-header {
+  max-width: 1250px;
+}
+
+.card-icon {
+  position: absolute;
+  right: 5%;
+  top: 10%;
+  color: black;
+  opacity: 0.15;
+  font-size: 3em;
+}
+
+.app-header .navbar-toggler {
+  min-width: initial;
+}
+
+.sidebar .nav-item {
+  cursor: pointer;
+}

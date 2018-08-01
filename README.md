@@ -1,8 +1,47 @@
 # Pi-hole Web Interface
 
-View stats and control your Pi-hole via this web interface. For the previous PHP-based web interface, see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
+View stats and control your Pi-hole via this web interface. For the previous PHP-based web interface,
+see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 
-Preview:
-![Dashboard](https://user-images.githubusercontent.com/4417660/30337048-1f3b0a06-97b5-11e7-9af3-03c2e763e36a.png)
-![Query Log](https://user-images.githubusercontent.com/4417660/30356528-882f7cfc-9807-11e7-99eb-19ff1a5f521f.png)
-![Blacklist (Exact)](https://user-images.githubusercontent.com/4417660/30337510-7eba111a-97b6-11e7-8574-6c7355efaa57.png)
+### Web [Preview](https://web.pi-hole.io)
+
+## Changes compared to the AdminLTE interface
+- Eliminates the reliance on server-side rendering scripts
+- Eliminates spaghetti code resulted from heavily modifying the base AdminLTE template
+- Reduces attack vectors by forcing interactions to go through an API instead of directly calling server functions.
+- Makes it easier for new developers to figure out the code, which speeds up development
+- Makes the split between client and server code much more explicit
+- Allows us to easily generate fake data for testing
+- Includes all the benefits that come from React (ES6 JavaScript), including automatic DOM manipulations and reusable components
+
+## Getting Started (Development)
+
+- Install Node + NPM (usually installed together): https://nodejs.org/
+    - Install at least 8.x.x
+    - You should either install it via your package manager or one of the curl | bash scripts they provide:
+      https://nodejs.org/en/download/package-manager/
+- You should also install your distro's build tools just in case
+    - `build-essential` for Debian distros, `gcc-c++` and `make` for RHEL distros
+- Fork the repository and clone to your computer (not the Pi-hole). In production the Pi-hole only needs the compiled
+  output of the project, not its source
+- Open the folder in the terminal
+- Run `npm install`
+    - This will install all the packages listed in `package.json` and will let you build/run the web interface
+- Run `npm start` to make sure that it is working
+    - This will launch the web interface on port 3000 in debug mode
+    - If it crashes/has a compile error it will show you the code and the error
+    - Changes will be automatically applied and the web interface will reload
+- If you've never used React, you should read the [React Quick Start](https://reactjs.org/docs/hello-world.html) and/or
+the [Tutorial](https://reactjs.org/tutorial/tutorial.html) before diving too deep into the code.
+- When you are ready to make changes, make a branch off of `development` in your fork to work in. When you're ready to
+make a pull request, base the PR against `development`.
+
+## Testing With Fake Data
+
+- Follow the "Getting Started" guide above
+- Checkout the branch you want to test using `git checkout`
+- Run `npm install` just to make sure you have the correct dependencies for the branch
+- Run `npm run start-fake` to start the web interface with fake data
+    - See the `npm start` section of the getting started guide above for more details,
+    like the port number
+- Note: interactive API features, like adding to the whitelist, will not work with fake data
