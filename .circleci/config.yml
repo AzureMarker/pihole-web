@@ -52,9 +52,6 @@ jobs:
         - node_modules
 
   deploy:
-    branches:
-      only:
-      - master
     environment:
       PUBLIC_URL: /
     docker:
