@@ -1,0 +1,22 @@
+{
+    "Status": "Status",
+    "DNS": "DNS",
+    "Donate": "Donate",
+    "Domain": "Domain",
+    "Hits": "Hits",
+    "Frequency": "Frequency",
+    "Client": "Client",
+    "Requests": "Requests",
+    "Add": "Add",
+    "Time": "Time",
+    "Type": "Type",
+    "Network": "Network\n",
+    "Action": "Action",
+    "Enabled": "Enabled",
+    "Disabled": "Disabled",
+    "DHCP": "DHCP",
+    "Core": "Core",
+    "FTL": "FTL",
+    "API": "API",
+    "Web": "Web"
+}

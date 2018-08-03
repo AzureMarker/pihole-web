@@ -1,0 +1,12 @@
+{
+    "Adding {{domain}}...": "Добавяне на {{домейн}}",
+    "Successfully added {{domain}}": "Успешно добавен {{домейн}}",
+    "Failed to add {{domain}}": "грешка при добавяне на домейн",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Забележка: Позволяването на поддомейн на заместващ блокирана домейн не е възможно.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Забележка: Само домейнът и поддомейните на блокирания домейн ще бъдат блокирани.",
+    "Add a domain (example.com or sub.example.com)": "добавете домейн (example.com или sub.example.com)",
+    "{{domain}} is already added": "{{домейнът}} вече е добавено в списък",
+    "Failed to remove {{domain}}": "Неуспех при премахването на {{домейна}}",
+    "There are no domains in this list": "Няма домейни в този списък",
+    "Input a regular expression": "Въведете регулярен израз"
+}

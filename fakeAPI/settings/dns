@@ -1,0 +1,1 @@
+{"upstream_dns":["174.141.221.13","89.254.76.218","156.71.103.27"],"options":{"fqdn_required":true,"bogus_priv":false,"dnssec":true,"listening_type":"single"},"conditional_forwarding":{"enabled":true,"router_ip":"0.216.112.30","domain":"microchip"}}

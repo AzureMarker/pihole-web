@@ -1,0 +1,22 @@
+{
+    "Status": "Estado",
+    "DNS": "DNS",
+    "Donate": "Donar",
+    "Domain": "Dominio",
+    "Hits": "Peticiones",
+    "Frequency": "Frecuencia",
+    "Client": "Cliente",
+    "Requests": "Peticiones",
+    "Add": "Añadir",
+    "Time": "Fecha/hora",
+    "Type": "Tipo",
+    "Network": "Red",
+    "Action": "Acción",
+    "Enabled": "Habilitado",
+    "Disabled": "Deshabilitado",
+    "DHCP": "DHCP",
+    "Core": "Nucleo",
+    "FTL": "FTL",
+    "API": "API",
+    "Web": "Web"
+}

@@ -1,1 +1,1 @@
-{"data":{"domains_blocked":89166,"total_queries":48184,"blocked_queries":38720,"percent_blocked":80.3586252697991,"unique_domains":17084,"forwarded_queries":34799,"cached_queries":13385,"total_clients":14772,"unique_clients":482,"data":{"status":1},"errors":[]},"errors":[]}
+{"domains_blocked":28982,"total_queries":53604,"blocked_queries":33495,"percent_blocked":62.48600850682785,"unique_domains":25689,"forwarded_queries":41553,"cached_queries":12051,"total_clients":63168,"unique_clients":27359,"status":"enabled"}
