@@ -17,7 +17,6 @@ version: 2
       BRANCH=$([ -z "$CIRCLE_TAG" ] && echo "$CIRCLE_BRANCH" || echo "master")
       echo "$CIRCLE_TAG $BRANCH ${CIRCLE_SHA1::7}" > build/VERSION
       cat build/VERSION
-      echo "export BRANCH=$BRANCH" >> $BASH_ENV
 
 jobs:
   build:
@@ -41,10 +40,11 @@ jobs:
         name: "Upload"
         command: |
           [ -z "$FTL_SECRET" ] && exit 0
+          FOLDER=$([ -z "$CIRCLE_TAG" ] && echo "$CIRCLE_BRANCH" || echo "$CIRCLE_TAG")
           tar -czvf pihole-web.tar.gz -C build .
           wget https://ftl.pi-hole.net:8080/FTL-client
           chmod +x ./FTL-client
-          ./FTL-client "$BRANCH" pihole-web.tar.gz "$FTL_SECRET"
+          ./FTL-client "$FOLDER" pihole-web.tar.gz "$FTL_SECRET"
           rm ./FTL-client
     - save_cache:
         key: v1-build-{{ checksum "package-lock.json" }}
