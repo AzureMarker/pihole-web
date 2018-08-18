@@ -62,25 +62,25 @@ class NetworkInfo extends Component {
       <Fragment>
         <Form>
           <FormGroup row>
-            <Label for="interface" sm={4}>{t("Interface")}</Label>
+            <Label className="bold" for="interface" sm={4}>{t("Interface")}</Label>
             <Col sm={8}>
               <Input plaintext id="interface">{this.state.interface}</Input>
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="ipv4_address" sm={4}>{t("IPv4 address")}</Label>
+            <Label className="bold" for="ipv4_address" sm={4}>{t("IPv4 address")}</Label>
             <Col sm={8}>
               <Input plaintext id="ipv4_address">{this.state.ipv4_address}</Input>
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="ipv6_address" sm={4}>{t("IPv6 address")}</Label>
+            <Label className="bold" for="ipv6_address" sm={4}>{t("IPv6 address")}</Label>
             <Col sm={8}>
               <Input plaintext id="ipv6_address">{this.state.ipv6_address}</Input>
             </Col>
           </FormGroup>
           <FormGroup row>
-            <Label for="hostname" sm={4}>{t("Hostname")}</Label>
+            <Label className="bold" for="hostname" sm={4}>{t("Hostname")}</Label>
             <Col sm={8}>
               <Input plaintext id="hostname">{this.state.hostname}</Input>
             </Col>
