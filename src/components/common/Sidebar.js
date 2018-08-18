@@ -70,7 +70,7 @@ const Sidebar = ({ items, ...props }) => {
                  paddingLeft: "15px", textTransform: "initial", fontSize: "14px", marginBottom: "initial",
                  lineHeight: "14px", color: "white"
                }}>
-              Pi-hole
+              {props.t("Status")}
             </p>
             <br/>
             <span style={{ textTransform: "initial", paddingLeft: "15px" }}>
@@ -84,4 +84,4 @@ const Sidebar = ({ items, ...props }) => {
   );
 };
 
-export default translate("location")(Sidebar);
+export default translate(["common", "location"])(Sidebar);
