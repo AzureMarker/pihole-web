@@ -5,6 +5,6 @@
     "Forgot Password": "Esqueceu a palavra passe",
     "forgot_password_description": "Esqueceu a palavra passe descrição",
     "Wrong Password!": "Palavra passe incorreta!",
-    "You will be transferred to the {{page}}": "Você será transferido para a {{página}}",
+    "You will be transferred to the \"{{page}}\" page": "Você será transferido para a {{página}}",
     "Verify that cookies are allowed for {{host}}": "Verifique se os cookies são permitidos para {{host}}"
 }
