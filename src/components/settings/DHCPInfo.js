@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../utils";
+import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class DHCPInfo extends Component {
   state = {

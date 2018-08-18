@@ -14,7 +14,7 @@ import sha from 'sha.js';
 import { api } from "../utils";
 import logo from '../img/logo.svg';
 import { routes } from "../routes";
-import ForgotPassword from "../components/ForgotPassword";
+import ForgotPassword from "../components/login/ForgotPassword";
 import { translate } from 'react-i18next';
 
 class Login extends Component {

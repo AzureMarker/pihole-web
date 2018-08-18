@@ -12,9 +12,9 @@ import React from "react";
 import { translate } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
-import logo from "../img/logo.svg";
+import logo from "../../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
-import { api } from "../utils";
+import { api } from "../../utils";
 import StatusBadge from "./StatusBadge";
 
 const handleClick = (e) => {

@@ -10,8 +10,8 @@
 
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../utils";
-import VersionCard from "../components/VersionCard";
+import { api, ignoreCancel, makeCancelable } from "../../utils";
+import VersionCard from "./VersionCard";
 
 class VersionInfo extends Component {
   state = {

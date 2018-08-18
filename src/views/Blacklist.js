@@ -11,7 +11,7 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import { api } from "../utils";
-import ListPage from "../components/ListPage";
+import ListPage from "../components/list/ListPage";
 
 const Blacklist = props => {
   const { t } = props;

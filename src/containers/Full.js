@@ -10,11 +10,11 @@
 
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Header, { mobileSidebarHide } from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import Footer from '../components/Footer';
+import Header, { mobileSidebarHide } from '../components/common/Header';
+import Sidebar from '../components/common/Sidebar';
+import Footer from '../components/common/Footer';
 import Dashboard from '../views/Dashboard';
-import QueryLog from '../components/QueryLog';
+import QueryLog from '../components/log/QueryLog';
 import Whitelist from "../views/Whitelist";
 import Blacklist from "../views/Blacklist";
 import Regexlist from "../views/Regexlist";

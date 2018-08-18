@@ -12,9 +12,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import DomainInput from "./DomainInput";
-import Alert from "./Alert";
+import Alert from "../common/Alert";
 import DomainList from "./DomainList";
-import { ignoreCancel, makeCancelable } from "../utils";
+import { ignoreCancel, makeCancelable } from "../../utils";
 
 class ListPage extends Component {
   state = {
@@ -150,7 +150,7 @@ class ListPage extends Component {
 
 ListPage.propTypes = {
   title: PropTypes.string.isRequired,
-  note: PropTypes.object,
+  note: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   placeholder: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,

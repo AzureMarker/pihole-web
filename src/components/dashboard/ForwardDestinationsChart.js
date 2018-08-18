@@ -10,7 +10,7 @@
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../utils";
+import { api } from "../../utils";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 
 const ForwardDestinationsChart = ({ t }) => (

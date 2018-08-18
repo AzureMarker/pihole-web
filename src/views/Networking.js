@@ -10,10 +10,10 @@
 
 import React from 'react';
 
-import DHCPInfo from '../components/DHCPInfo';
-import DNSInfo from '../components/DNSInfo';
-import NetworkInfo from '../components/NetworkInfo';
-import FTLInfo from '../components/FTLInfo';
+import DHCPInfo from '../components/settings/DHCPInfo';
+import DNSInfo from '../components/settings/DNSInfo';
+import NetworkInfo from '../components/settings/NetworkInfo';
+import FTLInfo from '../components/settings/FTLInfo';
 
 export default () => (
   <div className="animated fadeIn">
