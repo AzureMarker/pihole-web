@@ -88,7 +88,7 @@ class DNSInfo extends Component {
             <div className="col-lg-4 col-sm-4 col-xs-4">
               <pre>
                 <br/>
-                {t("Interface listening behaviour")}: {this.state.options.listening_type}<br/>
+                {t("Interface listening behavior")}: {this.state.options.listening_type}<br/>
                 {t("Forward FQDNs only")}: {this.state.options.fqdn_required.toString()}<br/>
                 {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
                 {t("Use DNSSEC")}: {this.state.options.dnssec.toString()}

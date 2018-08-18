@@ -41,18 +41,20 @@ class VersionCard extends Component {
           <Collapse isOpen={!this.state.collapsed}>
             <table className="table table-borderless table-sm table-condensed"
                    style={{ marginTop: "1rem", marginBottom: "0" }}>
-              <tr>
-                <td>{t("Branch")}</td>
-                <td>{this.props.branch}</td>
-              </tr>
-              <tr>
-                <td>{t("Tag")}</td>
-                <td>{this.props.tag}</td>
-              </tr>
-              <tr>
-                <td>{t("Hash")}</td>
-                <td>{this.props.hash}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>{t("Branch")}</td>
+                  <td>{this.props.branch}</td>
+                </tr>
+                <tr>
+                  <td>{t("Tag")}</td>
+                  <td>{this.props.tag}</td>
+                </tr>
+                <tr>
+                  <td>{t("Hash")}</td>
+                  <td>{this.props.hash}</td>
+                </tr>
+              </tbody>
             </table>
           </Collapse>
         </div>
