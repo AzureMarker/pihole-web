@@ -69,41 +69,31 @@ class DNSInfo extends Component {
     const { t } = this.props;
 
     return (
-      <div className="card border-0 bg-success stat-dbl-height-lock">
-        <div className="card-body">
-          <div className="card-icon">
-            <i className="fa fa-binoculars fa-2x"/>
-          </div>
+      <div className="row">
+        <div className="col-lg-4 col-sm-4 col-xs-4">
+          <pre>
+            <br/>
+            {t("Upstream DNS Servers")}:<br/>
+            {this.state.upstream_dns.map(item => item + "\n")}<br/>
+          </pre>
         </div>
-        <div className="card-img-overlay">
-          <h3>{t("DNS")}</h3>
-          <div className="row">
-            <div className="col-lg-4 col-sm-4 col-xs-4">
-              <pre>
-                <br/>
-                {t("Upstream DNS Servers")}:<br/>
-                {this.state.upstream_dns.map(item => item + "\n")}<br/>
-              </pre>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-4">
-              <pre>
-                <br/>
-                {t("Interface listening behavior")}: {this.state.options.listening_type}<br/>
-                {t("Forward FQDNs only")}: {this.state.options.fqdn_required.toString()}<br/>
-                {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
-                {t("Use DNSSEC")}: {this.state.options.dnssec.toString()}
-              </pre>
-            </div>
-            <div className="col-lg-4 col-sm-4 col-xs-4">
-              <pre>
-                <br/>
-                {t("Conditional Forwarding")}<br/>
-                {t("Enabled")}: {this.state.conditional_forwarding.enabled.toString()}<br/>
-                {t("Router IP")}: {this.state.conditional_forwarding.router_ip.toString()}<br/>
-                {t("Local Domain Name")}: {this.state.conditional_forwarding.domain.toString()}<br/>
-              </pre>
-            </div>
-          </div>
+        <div className="col-lg-4 col-sm-4 col-xs-4">
+          <pre>
+            <br/>
+            {t("Interface listening behavior")}: {this.state.options.listening_type}<br/>
+            {t("Forward FQDNs only")}: {this.state.options.fqdn_required.toString()}<br/>
+            {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
+            {t("Use DNSSEC")}: {this.state.options.dnssec.toString()}
+          </pre>
+        </div>
+        <div className="col-lg-4 col-sm-4 col-xs-4">
+          <pre>
+            <br/>
+            {t("Conditional Forwarding")}<br/>
+            {t("Enabled")}: {this.state.conditional_forwarding.enabled.toString()}<br/>
+            {t("Router IP")}: {this.state.conditional_forwarding.router_ip.toString()}<br/>
+            {t("Local Domain Name")}: {this.state.conditional_forwarding.domain.toString()}<br/>
+          </pre>
         </div>
       </div>
     );

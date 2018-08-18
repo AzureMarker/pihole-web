@@ -56,23 +56,11 @@ class FTLInfo extends Component {
     const { t } = this.props;
 
     return (
-      <div className="card border-0 bg-success stat-dbl-height-lock">
-        <div className="card-block">
-          <div className="card-icon">
-            <i className="fa fa-database fa-2x"/>
-          </div>
-        </div>
-        <div className="card-img-overlay">
-          <h3>
-            {t("FTL Database")}
-          </h3>
-          <pre>
-            {t("Queries")}: {this.state.queries}<br/>
-            {t("Filesize")}: {this.state.filesize} B<br/>
-            {t("SQLite version")}: {this.state.sqlite_version}<br/>
-          </pre>
-        </div>
-      </div>
+      <pre>
+        {t("Queries")}: {this.state.queries}<br/>
+        {t("Filesize")}: {this.state.filesize} B<br/>
+        {t("SQLite version")}: {this.state.sqlite_version}<br/>
+      </pre>
     );
   }
 }
