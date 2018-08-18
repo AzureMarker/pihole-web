@@ -106,7 +106,7 @@ class Login extends Component {
                     <Fragment>
                       <br/>
                       {t(
-                        "You will be transferred to the {{page}}",
+                        "You will be transferred to the \"{{page}}\" page",
                         { page: routes(t)[this.props.location.state.from.pathname] }
                       )}
                     </Fragment>
