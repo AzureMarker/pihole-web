@@ -11,7 +11,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DomainList from './DomainList';
-import { api } from "../utils";
+import { api } from "../../utils";
 
 const domains = [
   'domain1.com',

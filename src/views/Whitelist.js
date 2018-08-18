@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { translate } from 'react-i18next';
-import ListPage from "../components/ListPage";
+import ListPage from "../components/list/ListPage";
 import { api } from "../utils";
 
 const Whitelist = props => {

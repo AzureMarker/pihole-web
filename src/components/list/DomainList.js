@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { api, ignoreCancel, makeCancelable } from "../utils";
+import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class DomainList extends Component {
   onRemove(domain) {

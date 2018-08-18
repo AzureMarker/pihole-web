@@ -3,23 +3,23 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Top Blocked component
+*  Top Domains component
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../utils";
+import { api } from "../../utils";
 import TopTable from "./TopTable";
 
-const TopBlocked = ({ t, ...props }) => (
+const TopDomains = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t("Top Blocked Domains")}
+    title={t("Top Permitted Domains")}
     initialState={{
-      total_blocked: 0,
-      top_blocked: []
+      total_queries: 0,
+      top_domains: []
     }}
     headers={[
       t("Domain"),
@@ -27,18 +27,18 @@ const TopBlocked = ({ t, ...props }) => (
       t("Frequency")
     ]}
     emptyMessage={t("No Domains Found")}
-    isEmpty={state => state.top_blocked.length === 0}
-    apiCall={api.getTopBlocked}
+    isEmpty={state => state.top_domains.length === 0}
+    apiCall={api.getTopDomains}
     apiHandler={(self, res) => {
       self.setState({
         loading: false,
-        total_blocked: res.blocked_queries,
-        top_blocked: res.top_blocked
+        total_queries: res.total_queries,
+        top_domains: res.top_domains
       });
     }}
     generateRows={state => {
-      return state.top_blocked.map(item => {
-        const percentage = item.count / state.total_blocked * 100;
+      return state.top_domains.map(item => {
+        const percentage = item.count / state.total_queries * 100;
 
         return (
           <tr key={item.domain}>
@@ -53,10 +53,10 @@ const TopBlocked = ({ t, ...props }) => (
                    title={
                      t("{{percent}}% of {{total}}", {
                        percent: percentage.toFixed(1),
-                       total: state.total_blocked.toLocaleString()
+                       total: state.total_queries.toLocaleString()
                      })
                    }>
-                <div className="progress-bar bg-warning" style={{ width: percentage + "%" }}/>
+                <div className="progress-bar bg-success" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopBlocked = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(["common", "dashboard"])(TopBlocked);
+export default translate(["common", "dashboard"])(TopDomains);

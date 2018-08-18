@@ -3,47 +3,47 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Top Clients component
+*  Top Blocked component
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../utils";
+import { api } from "../../utils";
 import TopTable from "./TopTable";
 
-const TopClients = ({ t, ...props }) => (
+const TopBlocked = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t("Top Clients")}
+    title={t("Top Blocked Domains")}
     initialState={{
-      total_queries: 0,
-      top_clients: []
+      total_blocked: 0,
+      top_blocked: []
     }}
     headers={[
-      t("Client"),
-      t("Requests"),
+      t("Domain"),
+      t("Hits"),
       t("Frequency")
     ]}
-    emptyMessage={t("No Clients Found")}
-    isEmpty={state => state.top_clients.length === 0}
-    apiCall={api.getTopClients}
+    emptyMessage={t("No Domains Found")}
+    isEmpty={state => state.top_blocked.length === 0}
+    apiCall={api.getTopBlocked}
     apiHandler={(self, res) => {
       self.setState({
         loading: false,
-        total_queries: res.total_queries,
-        top_clients: res.top_clients
+        total_blocked: res.blocked_queries,
+        top_blocked: res.top_blocked
       });
     }}
     generateRows={state => {
-      return state.top_clients.map(item => {
-        const percentage = item.count / state.total_queries * 100;
+      return state.top_blocked.map(item => {
+        const percentage = item.count / state.total_blocked * 100;
 
         return (
-          <tr key={item.name + "|" + item.ip}>
+          <tr key={item.domain}>
             <td>
-              {item.name !== "" ? item.name : item.ip}
+              {item.domain}
             </td>
             <td>
               {item.count.toLocaleString()}
@@ -53,10 +53,10 @@ const TopClients = ({ t, ...props }) => (
                    title={
                      t("{{percent}}% of {{total}}", {
                        percent: percentage.toFixed(1),
-                       total: state.total_queries.toLocaleString()
+                       total: state.total_blocked.toLocaleString()
                      })
                    }>
-                <div className="progress-bar bg-primary" style={{ width: percentage + "%" }}/>
+                <div className="progress-bar bg-warning" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopClients = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(["common", "dashboard"])(TopClients);
+export default translate(["common", "dashboard"])(TopBlocked);

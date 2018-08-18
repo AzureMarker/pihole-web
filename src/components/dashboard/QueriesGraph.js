@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import { translate } from 'react-i18next';
-import { padNumber, api, makeCancelable, ignoreCancel } from '../utils';
+import { padNumber, api, makeCancelable, ignoreCancel } from '../../utils';
 
 class QueriesGraph extends Component {
   state = {
