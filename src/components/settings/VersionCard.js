@@ -8,28 +8,58 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { translate } from "react-i18next";
+import PropTypes from "prop-types";
+import { Collapse } from "reactstrap";
 
-const VersionCard = props => (
-  <div className="card border-0 bg-primary stat-mid-height-lock">
-    <div className="card-block">
-      <div className="card-icon">
-         <i className={props.icon}/>
+class VersionCard extends Component {
+  state = {
+    collapsed: true
+  };
+
+  render() {
+    const { t } = this.props;
+
+    return (
+      <div className="card border-0 bg-primary">
+        <div className="card-block">
+          <div className="card-icon">
+            <i className={this.props.icon}/>
+          </div>
+        </div>
+        <div className="card-body">
+          <h3>{this.props.name}</h3>
+          <p>
+            {t("Version")}: {this.props.branch === "master" ? this.props.tag : "vDev"}
+          </p>
+          <button className="btn btn-secondary"
+                  type="button"
+                  onClick={() => this.setState({ collapsed: !this.state.collapsed })}>
+            {t("Details")}
+          </button>
+          <Collapse isOpen={!this.state.collapsed}>
+            <table className="table table-borderless table-sm table-condensed"
+                   style={{ marginTop: "1rem", marginBottom: "0" }}>
+              <tr>
+                <td>{t("Branch")}</td>
+                <td>{this.props.branch}</td>
+              </tr>
+              <tr>
+                <td>{t("Tag")}</td>
+                <td>{this.props.tag}</td>
+              </tr>
+              <tr>
+                <td>{t("Hash")}</td>
+                <td>{this.props.hash}</td>
+              </tr>
+            </table>
+          </Collapse>
+        </div>
       </div>
-    </div>
-    <div className="card-img-overlay">
-      <h3>{props.name}</h3>
-      <pre>
-        <br/>
-        {props.t("Branch")}: {props.branch}<br/>
-        {props.t("Hash")}:   {props.hash}<br/>
-        {props.t("Tag")}:    {props.tag}<br/>
-      </pre>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 VersionCard.propTypes = {
   branch: PropTypes.string.isRequired,
@@ -38,4 +68,4 @@ VersionCard.propTypes = {
   tag: PropTypes.string.isRequired
 };
 
-export default translate(['settings'])(VersionCard);
+export default translate(["common", "settings"])(VersionCard);
