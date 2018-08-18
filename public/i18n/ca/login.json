@@ -1,0 +1,10 @@
+{
+    "Password": "Clau",
+    "Sign in to start your session": "Identificat per iniciar sessió",
+    "Log in": "Entrar",
+    "Forgot Password": "He oblidat la clau",
+    "forgot_password_description": "Després de Instal·lar Pi-hole per primer cop, es genera una clau i es mostra al usuari.\nLa clau no pot eser recuperada mes tard, però es pot canviar (o esborrar-la explícitament establint una clau buida) utilitzant la comanda:",
+    "Wrong Password!": "Clau incorrecta",
+    "You will be transferred to the {{page}}": "Serás redirigit a {{page}}",
+    "Verify that cookies are allowed for {{host}}": "Verifica que s'han permés les cookies per {{host}}"
+}
