@@ -67,25 +67,15 @@ class DHCPInfo extends Component {
     const { t } = this.props;
 
     return (
-      <div className="card border-0 bg-success stat-dbl-height-lock">
-        <div className="card-body">
-          <div className="card-icon">
-            <i className="fa fa-cogs fa-2x"/>
-          </div>
-        </div>
-        <div className="card-img-overlay">
-          <h3>{t("DHCP")}</h3>
-          <pre>
-            {t("DHCP Active")}: {this.state.active.toString()}<br/>
-            {t("Start IP")}: {this.state.ip_start}<br/>
-            {t("End IP")}: {this.state.ip_end}<br/>
-            {t("Router IP")}: {this.state.router_ip}<br/>
-            {t("Lease Time")}: {this.state.lease_time} h<br/>
-            {t("Domain")}: {this.state.domain}<br/>
-            {t("IPv6 Support")}: {this.state.ipv6_support.toString()}<br/>
-          </pre>
-        </div>
-      </div>
+      <pre>
+        {t("DHCP Active")}: {this.state.active.toString()}<br/>
+        {t("Start IP")}: {this.state.ip_start}<br/>
+        {t("End IP")}: {this.state.ip_end}<br/>
+        {t("Router IP")}: {this.state.router_ip}<br/>
+        {t("Lease Time")}: {this.state.lease_time} h<br/>
+        {t("Domain")}: {this.state.domain}<br/>
+        {t("IPv6 Support")}: {this.state.ipv6_support.toString()}<br/>
+      </pre>
     );
   }
 }
