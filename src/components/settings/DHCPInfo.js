@@ -11,6 +11,7 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
+import { Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
 
 class DHCPInfo extends Component {
   state = {
@@ -67,25 +68,56 @@ class DHCPInfo extends Component {
     this.updateHandler.cancel();
   }
 
+  onChange = (key, attr) => {
+    return e => this.setState({
+      [key]: e.target[attr]
+    });
+  };
+
   render() {
     const { t } = this.props;
 
     return (
-      <pre>
-        {t("DHCP Active")}: {this.state.active.toString()}
-        <br />
-        {t("Start IP")}: {this.state.ip_start}
-        <br />
-        {t("End IP")}: {this.state.ip_end}
-        <br />
-        {t("Router IP")}: {this.state.router_ip}
-        <br />
-        {t("Lease Time")}: {this.state.lease_time} h<br />
-        {t("Domain")}: {this.state.domain}
-        <br />
-        {t("IPv6 Support")}: {this.state.ipv6_support.toString()}
-        <br />
-      </pre>
+      <Form>
+        <FormGroup check style={{ paddingBottom: "10px" }}>
+          <Label check>
+            <Input type="checkbox" checked={this.state.active} onChange={this.onChange("active", "checked")}/>
+            Enabled
+          </Label>
+        </FormGroup>
+        <FormGroup>
+          <Label for="startIP">{t("Start IP")}</Label>
+          <Input id="startIP" value={this.state.ip_start} onChange={this.onChange("ip_start", "value")}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="endIP">{t("End IP")}</Label>
+          <Input id="endIP" value={this.state.ip_end} onChange={this.onChange("ip_end", "value")}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="routerIP">{t("Router IP")}</Label>
+          <Input id="routerIP" value={this.state.router_ip} onChange={this.onChange("router_ip", "value")}/>
+        </FormGroup>
+        <FormGroup>
+          <Label for="leaseTime">{t("Lease Time")}</Label>
+          <InputGroup>
+            <Input id="leaseTime" value={this.state.lease_time} onChange={this.onChange("lease_time", "value")}/>
+            <InputGroupAddon addonType={"append"}>
+              Hours
+            </InputGroupAddon>
+          </InputGroup>
+        </FormGroup>
+        <FormGroup>
+          <Label for="domain">{t("Domain")}</Label>
+          <Input id="domain" value={this.state.domain} onChange={this.onChange("domain", "value")}/>
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input type="checkbox" checked={this.state.ipv6_support}
+                   onChange={this.onChange("ipv6_support", "checked")}/>
+            {t("IPv6 Support")}
+          </Label>
+        </FormGroup>
+      </Form>
     );
   }
 }
