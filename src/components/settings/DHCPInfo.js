@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
-import { Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
+import { Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
 
 class DHCPInfo extends Component {
   state = {
@@ -87,20 +87,20 @@ class DHCPInfo extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="startIP">{t("Start IP")}</Label>
-          <Input id="startIP" value={this.state.ip_start} onChange={this.onChange("ip_start", "value")}/>
+          <Input id="startIP" disabled={!this.state.active} value={this.state.ip_start} onChange={this.onChange("ip_start", "value")}/>
         </FormGroup>
         <FormGroup>
           <Label for="endIP">{t("End IP")}</Label>
-          <Input id="endIP" value={this.state.ip_end} onChange={this.onChange("ip_end", "value")}/>
+          <Input id="endIP" disabled={!this.state.active} value={this.state.ip_end} onChange={this.onChange("ip_end", "value")}/>
         </FormGroup>
         <FormGroup>
           <Label for="routerIP">{t("Router IP")}</Label>
-          <Input id="routerIP" value={this.state.router_ip} onChange={this.onChange("router_ip", "value")}/>
+          <Input id="routerIP" disabled={!this.state.active} value={this.state.router_ip} onChange={this.onChange("router_ip", "value")}/>
         </FormGroup>
         <FormGroup>
           <Label for="leaseTime">{t("Lease Time")}</Label>
           <InputGroup>
-            <Input id="leaseTime" value={this.state.lease_time} onChange={this.onChange("lease_time", "value")}/>
+            <Input id="leaseTime" disabled={!this.state.active} value={this.state.lease_time} onChange={this.onChange("lease_time", "value")}/>
             <InputGroupAddon addonType={"append"}>
               Hours
             </InputGroupAddon>
@@ -108,11 +108,11 @@ class DHCPInfo extends Component {
         </FormGroup>
         <FormGroup>
           <Label for="domain">{t("Domain")}</Label>
-          <Input id="domain" value={this.state.domain} onChange={this.onChange("domain", "value")}/>
+          <Input id="domain" disabled={!this.state.active} value={this.state.domain} onChange={this.onChange("domain", "value")}/>
         </FormGroup>
         <FormGroup check>
           <Label check>
-            <Input type="checkbox" checked={this.state.ipv6_support}
+            <Input type="checkbox" disabled={!this.state.active} checked={this.state.ipv6_support}
                    onChange={this.onChange("ipv6_support", "checked")}/>
             {t("IPv6 Support")}
           </Label>
