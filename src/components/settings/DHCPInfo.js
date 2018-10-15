@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
-import { Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
+import { Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
 
 class DHCPInfo extends Component {
   state = {
@@ -85,30 +85,45 @@ class DHCPInfo extends Component {
             Enabled
           </Label>
         </FormGroup>
-        <FormGroup>
-          <Label for="startIP">{t("Start IP")}</Label>
-          <Input id="startIP" disabled={!this.state.active} value={this.state.ip_start} onChange={this.onChange("ip_start", "value")}/>
+        <FormGroup row>
+          <Label for="startIP" sm={2}>{t("Start IP")}</Label>
+          <Col sm={10}>
+            <Input id="startIP" disabled={!this.state.active} value={this.state.ip_start}
+                   onChange={this.onChange("ip_start", "value")}/>
+          </Col>
         </FormGroup>
-        <FormGroup>
-          <Label for="endIP">{t("End IP")}</Label>
-          <Input id="endIP" disabled={!this.state.active} value={this.state.ip_end} onChange={this.onChange("ip_end", "value")}/>
+        <FormGroup row>
+          <Label for="endIP" sm={2}>{t("End IP")}</Label>
+          <Col sm={10}>
+            <Input id="endIP" disabled={!this.state.active} value={this.state.ip_end}
+                   onChange={this.onChange("ip_end", "value")}/>
+          </Col>
         </FormGroup>
-        <FormGroup>
-          <Label for="routerIP">{t("Router IP")}</Label>
-          <Input id="routerIP" disabled={!this.state.active} value={this.state.router_ip} onChange={this.onChange("router_ip", "value")}/>
+        <FormGroup row>
+          <Label for="routerIP" sm={2}>{t("Router IP")}</Label>
+          <Col sm={10}>
+            <Input id="routerIP" disabled={!this.state.active} value={this.state.router_ip}
+                   onChange={this.onChange("router_ip", "value")}/>
+          </Col>
         </FormGroup>
-        <FormGroup>
-          <Label for="leaseTime">{t("Lease Time")}</Label>
-          <InputGroup>
-            <Input id="leaseTime" disabled={!this.state.active} value={this.state.lease_time} onChange={this.onChange("lease_time", "value")}/>
-            <InputGroupAddon addonType={"append"}>
-              Hours
-            </InputGroupAddon>
-          </InputGroup>
+        <FormGroup row>
+          <Label for="leaseTime" sm={2}>{t("Lease Time")}</Label>
+          <Col sm={10}>
+            <InputGroup>
+              <Input id="leaseTime" disabled={!this.state.active} value={this.state.lease_time}
+                     onChange={this.onChange("lease_time", "value")}/>
+              <InputGroupAddon addonType={"append"}>
+                Hours
+              </InputGroupAddon>
+            </InputGroup>
+          </Col>
         </FormGroup>
-        <FormGroup>
-          <Label for="domain">{t("Domain")}</Label>
-          <Input id="domain" disabled={!this.state.active} value={this.state.domain} onChange={this.onChange("domain", "value")}/>
+        <FormGroup row>
+          <Label for="domain" sm={2}>{t("Domain")}</Label>
+          <Col sm={10}>
+            <Input id="domain" disabled={!this.state.active} value={this.state.domain}
+                   onChange={this.onChange("domain", "value")}/>
+          </Col>
         </FormGroup>
         <FormGroup check>
           <Label check>

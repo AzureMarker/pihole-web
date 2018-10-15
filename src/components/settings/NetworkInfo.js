@@ -8,7 +8,7 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
