@@ -98,6 +98,12 @@ class ListPage extends Component {
       .catch(ignoreCancel);
   };
 
+  handleInput = err => {
+    this.setState({
+      errorMsg: err
+    });
+  };
+
   componentDidMount() {
     this.onRefresh();
   }
@@ -121,7 +127,8 @@ class ListPage extends Component {
         <DomainInput
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
-          onRefresh={this.onRefresh}/>
+          onRefresh={this.onRefresh}
+          onInputValidate={this.handleInput}/>
         { this.props.note }
         {
           this.state.infoMsg

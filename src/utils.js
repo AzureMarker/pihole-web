@@ -165,7 +165,7 @@ export const api = {
   },
   getDHCPInfo() {
     return api.get("settings/dhcp")
-  }, 
+  },
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
@@ -206,5 +206,15 @@ export const api = {
     // Development API requests use a different origin (pi.hole) since it is running off of the developer's machine.
     // Therefore, allow credentials to be used across origins when in development mode.
     return config.developmentMode ? "include" : "same-origin";
+  }
+};
+
+export const validate = {
+  domain(domain) {
+    try {
+      return !!domain.match(/([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+(\.([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*))*$/);
+    } catch (err) {
+      return false;
+    }
   }
 };
