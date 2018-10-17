@@ -11,7 +11,7 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import { translate } from 'react-i18next';
-import { api, ignoreCancel, makeCancelable, padNumber } from '../utils';
+import { api, ignoreCancel, makeCancelable, padNumber } from '../../utils';
 import 'react-table/react-table.css';
 
 class QueryLog extends Component {

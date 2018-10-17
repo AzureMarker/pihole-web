@@ -12,9 +12,9 @@ import React from "react";
 import { translate } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
-import logo from "../img/logo.svg";
+import logo from "../../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
-import { api } from "../utils";
+import { api } from "../../utils";
 import StatusBadge from "./StatusBadge";
 
 const handleClick = (e) => {
@@ -70,7 +70,7 @@ const Sidebar = ({ items, ...props }) => {
                  paddingLeft: "15px", textTransform: "initial", fontSize: "14px", marginBottom: "initial",
                  lineHeight: "14px", color: "white"
                }}>
-              Pi-hole
+              {props.t("Status")}
             </p>
             <br/>
             <span style={{ textTransform: "initial", paddingLeft: "15px" }}>
@@ -84,4 +84,4 @@ const Sidebar = ({ items, ...props }) => {
   );
 };
 
-export default translate("location")(Sidebar);
+export default translate(["common", "location"])(Sidebar);

@@ -9,7 +9,7 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from 'react';
-import VersionInfo from '../components/VersionInfo';
+import VersionInfo from '../components/settings/VersionInfo';
 
 export default () => (
   <div className="animated fadeIn">

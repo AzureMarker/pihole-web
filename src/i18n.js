@@ -13,7 +13,7 @@ export function setupI18n() {
       fallbackLng: "en",
       ns: ['common'],
       defaultNS: "common",
-      fallbackNS: ['dashboard', 'footer', 'lists', 'location', 'login', 'query-log'],
+      fallbackNS: ["dashboard", "footer", "lists", "location", "login", "query-log", "settings"],
       nsSeparator: false,
       keySeparator: false,
       debug: config.developmentMode,

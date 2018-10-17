@@ -8,9 +8,10 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../utils";
+import { api, ignoreCancel, makeCancelable } from "../../utils";
+import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 class NetworkInfo extends Component {
   state = {
@@ -58,22 +59,34 @@ class NetworkInfo extends Component {
     const { t } = this.props;
 
     return (
-      <div className="card border-0 bg-success stat-dbl-height-lock">
-        <div className="card-block">
-          <div className="card-icon">
-            <i className="fa fa-sitemap fa-2x"/>
-          </div>
-        </div>
-        <div className="card-img-overlay">
-          <h3>{t("Network")}</h3>
-          <pre>
-            {t("Interface")}: {this.state.interface}<br/>
-            {t("IPv4 address")}: {this.state.ipv4_address}<br/>
-            {t("IPv6 address")}: {this.state.ipv6_address}<br/>
-            {t("Hostname")}: {this.state.hostname}
-          </pre>
-        </div>
-      </div>
+      <Fragment>
+        <Form>
+          <FormGroup row>
+            <Label className="bold" for="interface" sm={4}>{t("Interface")}</Label>
+            <Col sm={8}>
+              <Input plaintext id="interface">{this.state.interface}</Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label className="bold" for="ipv4_address" sm={4}>{t("IPv4 address")}</Label>
+            <Col sm={8}>
+              <Input plaintext id="ipv4_address">{this.state.ipv4_address}</Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label className="bold" for="ipv6_address" sm={4}>{t("IPv6 address")}</Label>
+            <Col sm={8}>
+              <Input plaintext id="ipv6_address">{this.state.ipv6_address}</Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label className="bold" for="hostname" sm={4}>{t("Hostname")}</Label>
+            <Col sm={8}>
+              <Input plaintext id="hostname">{this.state.hostname}</Input>
+            </Col>
+          </FormGroup>
+        </Form>
+      </Fragment>
     );
   }
 }

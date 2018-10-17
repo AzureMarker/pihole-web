@@ -10,18 +10,9 @@
 
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Header, { mobileSidebarHide } from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import Footer from '../components/Footer';
-import Dashboard from '../views/Dashboard';
-import QueryLog from '../components/QueryLog';
-import Whitelist from "../views/Whitelist";
-import Blacklist from "../views/Blacklist";
-import Regexlist from "../views/Regexlist";
-import Versions from "../views/Versions";
-import Networking from "../views/Networking";
-import Login from "../views/Login";
-import Logout from "../views/Logout";
+import Header, { mobileSidebarHide } from '../components/common/Header';
+import Sidebar from '../components/common/Sidebar';
+import Footer from '../components/common/Footer';
 import { api } from "../utils";
 import { nav } from "../routes";
 
@@ -33,16 +24,8 @@ export default props => (
       <main className="main" onClick={mobileSidebarHide}>
         <div className="container-fluid" style={{"marginTop": "1.5rem"}}>
           <Switch>
-            <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
             <Redirect exact from="/" to="/dashboard"/>
-            <AuthRoute path="/query-log" name="Query Log" component={QueryLog}/>
-            <Route path="/whitelist" name="Whitelist" component={Whitelist}/>
-            <Route path="/blacklist/exact" name="Blacklist" component={Blacklist}/>
-            <Route path="/blacklist/regex" name="Regexlist" component={Regexlist}/>
-            <Route path="/settings/versions" name="Versions" component={Versions}/>
-            <Route path="/settings/networking" name="Networking" component={Networking}/>
-            <Route path="/login" name="Login" component={Login}/>
-            <AuthRoute path="/logout" name="Logout" component={Logout}/>
+            {nav.map(createRoute)}
           </Switch>
         </div>
       </main>
@@ -50,6 +33,22 @@ export default props => (
     <Footer/>
   </div>
 );
+
+/**
+ * Create a route from the route data.
+ * If the route has children, an array of routes will be returned.
+ *
+ * @param routeData the route data (see routes.js)
+ */
+const createRoute = routeData => {
+  if(routeData.children) {
+    return routeData.children.map(createRoute);
+  }
+
+  return routeData.auth
+    ? <AuthRoute key={routeData.url} path={routeData.url} component={routeData.component}/>
+    : <Route key={routeData.url} path={routeData.url} component={routeData.component}/>;
+};
 
 /**
  * Create a route which requires authentication.

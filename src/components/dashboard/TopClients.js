@@ -3,47 +3,47 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Top Domains component
+*  Top Clients component
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../utils";
+import { api } from "../../utils";
 import TopTable from "./TopTable";
 
-const TopDomains = ({ t, ...props }) => (
+const TopClients = ({ t, ...props }) => (
   <TopTable
     {...props}
-    title={t("Top Permitted Domains")}
+    title={t("Top Clients")}
     initialState={{
       total_queries: 0,
-      top_domains: []
+      top_clients: []
     }}
     headers={[
-      t("Domain"),
-      t("Hits"),
+      t("Client"),
+      t("Requests"),
       t("Frequency")
     ]}
-    emptyMessage={t("No Domains Found")}
-    isEmpty={state => state.top_domains.length === 0}
-    apiCall={api.getTopDomains}
+    emptyMessage={t("No Clients Found")}
+    isEmpty={state => state.top_clients.length === 0}
+    apiCall={api.getTopClients}
     apiHandler={(self, res) => {
       self.setState({
         loading: false,
         total_queries: res.total_queries,
-        top_domains: res.top_domains
+        top_clients: res.top_clients
       });
     }}
     generateRows={state => {
-      return state.top_domains.map(item => {
+      return state.top_clients.map(item => {
         const percentage = item.count / state.total_queries * 100;
 
         return (
-          <tr key={item.domain}>
+          <tr key={item.name + "|" + item.ip}>
             <td>
-              {item.domain}
+              {item.name !== "" ? item.name : item.ip}
             </td>
             <td>
               {item.count.toLocaleString()}
@@ -56,7 +56,7 @@ const TopDomains = ({ t, ...props }) => (
                        total: state.total_queries.toLocaleString()
                      })
                    }>
-                <div className="progress-bar bg-success" style={{ width: percentage + "%" }}/>
+                <div className="progress-bar bg-primary" style={{ width: percentage + "%" }}/>
               </div>
             </td>
           </tr>
@@ -65,4 +65,4 @@ const TopDomains = ({ t, ...props }) => (
     }}/>
 );
 
-export default translate(["common", "dashboard"])(TopDomains);
+export default translate(["common", "dashboard"])(TopClients);

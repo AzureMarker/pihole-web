@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 import PropTypes from "prop-types";
-import { makeCancelable, ignoreCancel } from "../utils";
+import { makeCancelable, ignoreCancel } from "../../utils";
 
 class GenericDoughnutChart extends Component {
   state = {

@@ -9,14 +9,14 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Fragment } from 'react';
-import SummaryStats from '../components/SummaryStats';
-import QueriesGraph from '../components/QueriesGraph';
-import ClientsGraph from '../components/ClientsGraph';
-import QueryTypesChart from "../components/QueryTypesChart";
-import ForwardDestinationsChart from "../components/ForwardDestinationsChart";
-import TopDomains from '../components/TopDomains';
-import TopBlocked from '../components/TopBlocked';
-import TopClients from '../components/TopClients';
+import SummaryStats from '../components/dashboard/SummaryStats';
+import QueriesGraph from '../components/dashboard/QueriesGraph';
+import ClientsGraph from '../components/dashboard/ClientsGraph';
+import QueryTypesChart from "../components/dashboard/QueryTypesChart";
+import ForwardDestinationsChart from "../components/dashboard/ForwardDestinationsChart";
+import TopDomains from '../components/dashboard/TopDomains';
+import TopBlocked from '../components/dashboard/TopBlocked';
+import TopClients from '../components/dashboard/TopClients';
 import { api } from "../utils";
 
 export default () => (

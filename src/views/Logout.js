@@ -11,11 +11,19 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { api } from "../utils";
+import config from "../config";
 
 export default class Logout extends Component {
   componentWillMount() {
     api.loggedIn = false;
-    api.logout();
+
+    if(config.fakeAPI) {
+      // When using the fake API, don't try deleting the resource
+      // (it results in an error). Instead, delete the cookie.
+      document.cookie = 'user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    } else {
+      api.logout();
+    }
   }
 
   render() {
