@@ -48,7 +48,7 @@ class DomainInput extends Component {
     return (
       <div className="form-group input-group">
         <input
-          type="text" className={`form-control ${(this.state.isValid) ? "" : "is-invalid"}`} placeholder={this.props.placeholder}
+          type="text" className={`form-control ${(this.state.isValid) ? "is-valid" : "is-invalid"}`} placeholder={this.props.placeholder}
           value={this.state.domain}
           onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
           onChange={this.handleChange}
