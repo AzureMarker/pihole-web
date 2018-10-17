@@ -15,14 +15,14 @@ import { api } from "../../utils";
 
 it('has a placeholder', () => {
   const placeholder = 'placeholder';
-  const wrapper = shallow(<DomainInput placeholder={placeholder} onEnter={jest.fn()} onRefresh={jest.fn()}/>);
+  const wrapper = shallow(<DomainInput placeholder={placeholder} onEnter={jest.fn()} onRefresh={jest.fn()} />);
 
   expect(wrapper.find('input')).toHaveProp('placeholder', placeholder);
 });
 
 it('sets state to input', () => {
   const domain = "domain";
-  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()}/>);
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()} onInputValidate={jest.fn()}/>);
 
   wrapper.find('input').simulate('change', { target: { value: domain } });
 
@@ -82,7 +82,7 @@ it('calls onEnter when input is not empty', () => {
 
   const domain = 'domain';
   const onEnter = jest.fn();
-  const wrapper = shallow(<DomainInput onEnter={onEnter} onRefresh={jest.fn()}/>);
+  const wrapper = shallow(<DomainInput onEnter={onEnter} onRefresh={jest.fn()} onInputValidate={jest.fn()}/>);
 
   wrapper.find('input').simulate('change', { target: { value: domain } });
   wrapper.find('button').first().simulate('click');
@@ -93,10 +93,63 @@ it('calls onEnter when input is not empty', () => {
 it('clears input after clicking add button', () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()}/>);
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()} onInputValidate={jest.fn()}/>);
 
   wrapper.find('input').simulate('change', { target: { value: 'domain' } });
   wrapper.find('button').first().simulate('click');
 
   expect(wrapper.state().domain).toEqual('');
+});
+
+// Tests to check the validation functionality
+it("sets state.isValid to true when domain is properly formatted", () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn} onInputValidate={jest.fn()}/>);
+
+  wrapper.find('input').simulate('change', { target: { value: "valid.domain" }});
+  expect(wrapper.state().domain).toEqual("valid.domain");
+  expect(wrapper.state().isValid).toEqual(true);
+});
+
+it("sets state.isValid to false when domain is not properly formatted", () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn} onInputValidate={jest.fn()}/>);
+
+  wrapper.find('input').simulate('change', { target: { value: "invalid.domain." }});
+  expect(wrapper.state().domain).toEqual("invalid.domain.");
+  expect(wrapper.state().isValid).toEqual(false);
+});
+
+it("disables the add button when domain is invalid", () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn} onInputValidate={jest.fn()}/>);
+
+  wrapper.find('input').simulate('change', { target: { value: "invalid.domain." }});
+  // Verify we have 2 buttons, to give reasonable assurance the first button is the add button
+  const buttons = wrapper.find("button");
+  expect(buttons).toHaveLength(2);
+  expect(buttons.first().prop("disabled")).toBe(true);
+});
+
+it("sets is-valid class to the input when domain is properly formatted", () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn} onInputValidate={jest.fn()}/>);
+
+  wrapper.find('input').simulate('change', { target: { value: "valid.domain" }});
+  expect(wrapper.find('input').hasClass('is-valid')).toBe(true);
+  expect(wrapper.find('input').hasClass('is-invalid')).toBe(false);
+});
+
+it("sets is-invalid class to the input when domain is not properly formatted", () => {
+  api.loggedIn = true;
+
+  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn} onInputValidate={jest.fn()}/>);
+
+  wrapper.find('input').simulate('change', { target: { value: "invalid.domain." }});
+  expect(wrapper.find('input').hasClass('is-valid')).toBe(false);
+  expect(wrapper.find('input').hasClass('is-invalid')).toBe(true);
 });

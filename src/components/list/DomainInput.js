@@ -80,7 +80,7 @@ DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
-  onInputValidate: PropTypes.func.isRequired
+  onInputValidate: PropTypes.func
 };
 
 DomainInput.defaultProps = {
