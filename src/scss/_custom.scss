@@ -172,3 +172,9 @@
 .sidebar .nav-item {
   cursor: pointer;
 }
+
+.sidebar button.nav-dropdown-toggle {
+  border: none;
+  width: 100%;
+  text-align: left;
+}
