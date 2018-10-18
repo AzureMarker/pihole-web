@@ -21,7 +21,6 @@ class DomainInput extends Component {
 
   handleChange = (e) => {
     const domain = e.target.value;
-    this.setState({ domain });
     const isValid = validate.domain(domain);
     this.setState({ domain, isValid });
     if (isValid){
@@ -30,7 +29,6 @@ class DomainInput extends Component {
       this.props.onInputValidate("Not valid domain format (use example.com or sub.example.com")
     }
   };
-
 
   onAdd = () => {
     if(this.state.domain.length > 0) {
@@ -80,7 +78,7 @@ DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
-  onInputValidate: PropTypes.func
+  onInputValidate: PropTypes.func.isRequired
 };
 
 DomainInput.defaultProps = {
