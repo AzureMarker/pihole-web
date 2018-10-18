@@ -96,4 +96,21 @@ describe("Testing the validation functions", () => {
       });
     });
   });
+
+  describe("validate.isStrictNumeric", () => {
+    it("passes 1234567890", () => {
+      const result = validate.isStrictNumeric("1234567890");
+      expect(result).toBe(true);
+    });
+
+    it("fails 1234a567890", () => {
+      const result = validate.isStrictNumeric("1234a567890");
+      expect(result).toBe(false);
+    });
+
+    it("fails 1100101O1", () => {
+      const result = validate.isStrictNumeric("1100101O1");
+      expect(result).toBe(false);
+    });
+  });
 });

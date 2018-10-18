@@ -41,6 +41,6 @@ export const validate = {
   isStrictNumeric(input) {
     // Because parseInt has limitations, e.g. parseInt("15ex") is parsed to 15
     // Caution, does not work with negative numbers, replace with /^(\-|\+)?([0-9])$/ if needed
-    return /^(d+)$/.test(input);
+    return /^[0-9]*$/.test(input);
   }
 };
