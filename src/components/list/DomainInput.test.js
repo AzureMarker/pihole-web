@@ -80,7 +80,7 @@ it('does not call onEnter when input is empty', () => {
 it('calls onEnter when input is not empty', () => {
   api.loggedIn = true;
 
-  const domain = 'domain';
+  const domain = 'domain.com';
   const onEnter = jest.fn();
   const wrapper = shallow(<DomainInput onEnter={onEnter} onRefresh={jest.fn()} onInputValidate={jest.fn()}/>);
 
@@ -95,7 +95,7 @@ it('clears input after clicking add button', () => {
 
   const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()} onInputValidate={jest.fn()}/>);
 
-  wrapper.find('input').simulate('change', { target: { value: 'domain' } });
+  wrapper.find('input').simulate('change', { target: { value: 'domain.com' } });
   wrapper.find('button').first().simulate('click');
 
   expect(wrapper.state().domain).toEqual('');

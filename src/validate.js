@@ -14,9 +14,9 @@ export const validate = {
     const split = domain.split(".");
     // Has to have at least 2 segments, of at least 1 character each
     if (split.length < 2) return false;
-    split.forEach(segment => {
-      if (segment.length < 1) return false;
-    });
+    // If at least one segment is empty - sets to true, if none - false
+    const hasEmptySegments = split.some(segment => segment.length < 1);
+    if (hasEmptySegments) return false;
     return validate.hostname(domain);
   },
   hostname(hostname) {
@@ -24,14 +24,15 @@ export const validate = {
     if (hostname.length > 253) return false;
     // Each segment must not exceed 63 characters
     const segments = hostname.split(".");
-    segments.forEach(segment => {
-      // Also check it's not empty
-      if (!segment || segment.length > 63) return false;
-    });
+    // If at least one segment is empty or longer than 63 chars - sets to true, if none - false
+    const hasLongSegments = segments.some(
+      segment => !segment || segment.length > 63
+    );
+    if (hasLongSegments) return false;
     // Must not be all numbers and periods
     const joined = segments.join("");
     // If the hostname without periods make a number, deny
-    if (!validate.isStrictNumeric(joined)) return false;
+    if (validate.isStrictNumeric(joined)) return false;
 
     return /([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+(\.([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*))*$/.test(
       hostname
@@ -40,6 +41,6 @@ export const validate = {
   isStrictNumeric(input) {
     // Because parseInt has limitations, e.g. parseInt("15ex") is parsed to 15
     // Caution, does not work with negative numbers, replace with /^(\-|\+)?([0-9])$/ if needed
-    return /^([0-9])$/.test(input);
+    return /^(d+)$/.test(input);
   }
 };
