@@ -98,10 +98,17 @@ class ListPage extends Component {
       .catch(ignoreCancel);
   };
 
-  handleInput = err => {
-    this.setState({
-      errorMsg: err
-    });
+  handleValidationError = err => {
+    // false - validation error
+    if (err.error){
+      this.setState({
+        errorMsg: err.message
+      });
+    } else {
+      this.setState({
+        errorMsg: ""
+      });
+    }
   };
 
   componentDidMount() {
@@ -128,7 +135,7 @@ class ListPage extends Component {
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}
-          onInputValidate={this.handleInput}/>
+          onValidationError={this.handleValidationError}/>
         { this.props.note }
         {
           this.state.infoMsg

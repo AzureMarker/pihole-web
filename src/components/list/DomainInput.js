@@ -27,12 +27,19 @@ class DomainInput extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.domain.length > 0) {
-      if (this.state.isValid) {
-        this.props.onEnter(this.state.domain);
 
-        this.setState({ domain: "" });
-      }
+    const domain = this.state.domain;
+    const isValid = validate.domain(domain);
+    if (isValid) {
+      this.props.onEnter(domain);
+      this.setState({ domain: "" });
+      this.setState({ isValid: true });
+    } else {
+      this.props.onValidationError({
+        error: true,
+        message: "Not valid domain format (use example.com or sub.example.com"
+      });
+      this.setState({ isValid: false });
     }
   };
 
@@ -43,7 +50,7 @@ class DomainInput extends Component {
       <form className="form-group input-group" onSubmit={this.handleSubmit}>
         <input
           type="text"
-          className={`form-control ${(this.state.isValid) ? "is-valid" : "is-invalid"}`}
+          className={`form-control ${this.state.isValid ? "is-valid" : "is-invalid"}`}
           placeholder={this.props.placeholder}
           value={this.state.domain}
           onChange={this.handleChange}
@@ -55,7 +62,6 @@ class DomainInput extends Component {
               <button
                 className="btn border-secondary"
                 type="submit"
-                disabled={!this.state.isValid}
               >
                 {t("Add")}
               </button>
@@ -74,7 +80,7 @@ DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
-  onInputValidate: PropTypes.func.isRequired
+  onValidationError: PropTypes.func.isRequired
 };
 
 DomainInput.defaultProps = {
