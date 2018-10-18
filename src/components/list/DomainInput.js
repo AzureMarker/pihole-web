@@ -22,16 +22,11 @@ class DomainInput extends Component {
 
   handleChange = (e) => {
     const domain = e.target.value;
-    const isValid = validate.domain(domain);
-    this.setState({ domain, isValid });
-    if (isValid){
-      this.props.onInputValidate(null);
-    } else {
-      this.props.onInputValidate("Not valid domain format (use example.com or sub.example.com")
-    }
+    this.setState({ domain });
   };
 
-  onAdd = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     if(this.state.domain.length > 0) {
       if (this.state.isValid) {
         this.props.onEnter(this.state.domain);
@@ -45,11 +40,12 @@ class DomainInput extends Component {
     const { t } = this.props;
 
     return (
-      <div className="form-group input-group">
+      <form className="form-group input-group" onSubmit={this.handleSubmit}>
         <input
-          type="text" className={`form-control ${(this.state.isValid) ? "is-valid" : "is-invalid"}`} placeholder={this.props.placeholder}
+          type="text"
+          className={`form-control ${(this.state.isValid) ? "is-valid" : "is-invalid"}`}
+          placeholder={this.props.placeholder}
           value={this.state.domain}
-          onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
@@ -57,9 +53,8 @@ class DomainInput extends Component {
           {
             api.loggedIn ?
               <button
-                onClick={this.onAdd}
                 className="btn border-secondary"
-                type="button"
+                type="submit"
                 disabled={!this.state.isValid}
               >
                 {t("Add")}
@@ -70,7 +65,7 @@ class DomainInput extends Component {
             <i className="fa fa-refresh"/>
           </button>
         </span>
-      </div>
+      </form>
     );
   }
 }
