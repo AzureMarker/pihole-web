@@ -15,7 +15,7 @@ export function isValidHostname(hostname) {
   const segments = hostname.split(".");
   // If at least one segment is empty or longer than 63 chars - sets to true, if none - false
   const hasLongOrEmptySegments = segments.some(
-    segment => !segment || segment.length > 63
+    segment => segment.length < 1 || segment.length > 63
   );
   if (hasLongOrEmptySegments) return false;
   // Must not be all numbers and periods
@@ -33,9 +33,6 @@ export function isValidDomain(domain) {
   const split = domain.split(".");
   // Has to have at least 2 segments, of at least 1 character each
   if (split.length < 2) return false;
-  // If at least one segment is empty - sets to true, if none - false
-  const hasEmptySegments = split.some(segment => segment.length < 1);
-  if (hasEmptySegments) return false;
   return isValidHostname(domain);
 }
 
