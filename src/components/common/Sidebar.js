@@ -35,9 +35,9 @@ export const navItem = (item, key, props) => (
 
 export const navDropdown = (item, key, props) => (
   <li key={key} className={dropDownClassList(item.url, props)}>
-    <a className="nav-link nav-dropdown-toggle" onClick={handleClick}>
+    <button className="nav-link nav-dropdown-toggle" onClick={handleClick}>
       <i className={"nav-icon " + item.icon}/>{props.t(item.name)}
-    </a>
+    </button>
     <ul className="nav-dropdown-items">
       {navList(item.children, props)}
     </ul>
