@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { api } from "../../utils";
-import { validate } from "../../validate"
+import { isValidDomain } from "../../validate"
 
 class DomainInput extends Component {
   state = {
@@ -21,25 +21,21 @@ class DomainInput extends Component {
   };
 
   handleChange = (e) => {
-    const domain = e.target.value;
-    this.setState({ domain });
+    this.setState({ domain: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
 
     const domain = this.state.domain;
-    const isValid = validate.domain(domain);
+    const isValid = isValidDomain(domain);
+    this.setState({ domain, isValid });
     if (isValid) {
       this.props.onEnter(domain);
+      // Clear the input on successful submit
       this.setState({ domain: "" });
-      this.setState({ isValid: true });
     } else {
-      this.props.onValidationError({
-        error: true,
-        message: "Not valid domain format (use example.com or sub.example.com"
-      });
-      this.setState({ isValid: false });
+      this.props.onValidationError(true);
     }
   };
 
@@ -50,7 +46,7 @@ class DomainInput extends Component {
       <form className="form-group input-group" onSubmit={this.handleSubmit}>
         <input
           type="text"
-          className={`form-control ${this.state.isValid ? "is-valid" : "is-invalid"}`}
+          className={`form-control ${this.state.isValid ? "" : "is-invalid"}`}
           placeholder={this.props.placeholder}
           value={this.state.domain}
           onChange={this.handleChange}
@@ -59,10 +55,7 @@ class DomainInput extends Component {
         <span className="btn-group input-group-append">
           {
             api.loggedIn ?
-              <button
-                className="btn border-secondary"
-                type="submit"
-              >
+              <button className="btn border-secondary" type="submit" >
                 {t("Add")}
               </button>
               : null

@@ -123,16 +123,6 @@ it("sets state.isValid to false when domain is not properly formatted", () => {
   expect(wrapper.state().isValid).toEqual(false);
 });
 
-it("sets is-valid class to the input when domain is properly formatted", () => {
-  api.loggedIn = true;
-
-  const wrapper = shallow(<DomainInput onEnter={jest.fn()} onRefresh={jest.fn()} onValidationError={jest.fn()}/>);
-
-  wrapper.find('input').simulate('change', { target: { value: "valid.domain" }});
-  expect(wrapper.find('input').hasClass('is-valid')).toBe(true);
-  expect(wrapper.find('input').hasClass('is-invalid')).toBe(false);
-});
-
 it("sets is-invalid class to the input when domain is not properly formatted", () => {
   api.loggedIn = true;
 

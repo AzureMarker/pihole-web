@@ -99,14 +99,9 @@ class ListPage extends Component {
   };
 
   handleValidationError = err => {
-    // false - validation error
-    if (err.error){
+    if (err){
       this.setState({
-        errorMsg: err.message
-      });
-    } else {
-      this.setState({
-        errorMsg: ""
+        errorMsg: this.props.t("Invalid domain error")
       });
     }
   };
