@@ -20,9 +20,8 @@ class DomainInput extends Component {
     isValid: true
   };
 
-  handleChange = (e) => {
+  handleChange = (e) =>
     this.setState({ domain: e.target.value });
-  };
 
   handleSubmit = (e) => {
     e.preventDefault();
