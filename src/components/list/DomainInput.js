@@ -38,14 +38,14 @@ class DomainInput extends Component {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, placeholder, onRefresh } = this.props;
 
     return (
       <form className="form-group input-group" onSubmit={this.handleSubmit}>
         <input
           type="text"
           className={`form-control ${this.state.isValid ? "" : "is-invalid"}`}
-          placeholder={this.props.placeholder}
+          placeholder={placeholder}
           value={this.state.domain}
           onChange={this.handleChange}
           disabled={!api.loggedIn}
@@ -58,7 +58,7 @@ class DomainInput extends Component {
               </button>
               : null
           }
-          <button onClick={this.props.onRefresh} className="btn border-secondary" type="button">
+          <button onClick={onRefresh} className="btn border-secondary" type="button">
             <i className="fa fa-refresh"/>
           </button>
         </span>
