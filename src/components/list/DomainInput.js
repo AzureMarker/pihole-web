@@ -33,7 +33,7 @@ class DomainInput extends Component {
       // Clear the input on successful submit
       this.setState({ domain: "" });
     } else {
-      this.props.onValidationError(true);
+      this.props.onValidationError();
     }
   };
 
