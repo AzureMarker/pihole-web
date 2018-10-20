@@ -101,7 +101,7 @@ class ListPage extends Component {
 
   handleValidationError = () => {
     this.setState({
-      errorMsg: this.props.t("Invalid domain error")
+      errorMsg: this.props.t("Not a valid domain")
     });
   };
 
