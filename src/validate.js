@@ -23,7 +23,7 @@ export function isValidHostname(hostname) {
   // If the hostname without periods make a number, deny
   if (isStrictNumeric(joined)) return false;
 
-  return /([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+(\.([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*))*$/.test(
+  return /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+(\.([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*))*$/.test(
     hostname
   );
 }

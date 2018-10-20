@@ -15,6 +15,7 @@ import DomainInput from "./DomainInput";
 import Alert from "../common/Alert";
 import DomainList from "./DomainList";
 import { ignoreCancel, makeCancelable } from "../../utils";
+import { isValidDomain } from "../../validate";
 
 class ListPage extends Component {
   state = {
@@ -98,12 +99,10 @@ class ListPage extends Component {
       .catch(ignoreCancel);
   };
 
-  handleValidationError = err => {
-    if (err){
-      this.setState({
-        errorMsg: this.props.t("Invalid domain error")
-      });
-    }
+  handleValidationError = () => {
+    this.setState({
+      errorMsg: this.props.t("Invalid domain error")
+    });
   };
 
   componentDidMount() {
@@ -130,6 +129,7 @@ class ListPage extends Component {
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}
+          validationFunction={isValidDomain}
           onValidationError={this.handleValidationError}/>
         { this.props.note }
         {

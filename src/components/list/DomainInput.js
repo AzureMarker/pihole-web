@@ -12,7 +12,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import { api } from "../../utils";
-import { isValidDomain } from "../../validate"
 
 class DomainInput extends Component {
   state = {
@@ -27,8 +26,8 @@ class DomainInput extends Component {
     e.preventDefault();
 
     const domain = this.state.domain;
-    const isValid = isValidDomain(domain);
-    this.setState({ domain, isValid });
+    const isValid = this.props.validationFunction(domain);
+    this.setState({ isValid });
     if (isValid) {
       this.props.onEnter(domain);
       // Clear the input on successful submit
@@ -72,6 +71,7 @@ DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
+  validationFunction: PropTypes.func.isRequired,
   onValidationError: PropTypes.func.isRequired
 };
 

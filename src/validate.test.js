@@ -43,6 +43,11 @@ describe("Testing the validation functions", () => {
     });
 
     describe("should fail", () => {
+      it("rejects '&.domain.com'", () => {
+        const result = isValidDomain("&.domain.com");
+        expect(result).toBe(false);
+      });
+
       it("rejects a single segment domain 'domain'", () => {
         const result = isValidDomain("domain");
         expect(result).toBe(false);
