@@ -98,6 +98,12 @@ class ListPage extends Component {
       .catch(ignoreCancel);
   };
 
+  handleValidationError = () => {
+    this.setState({
+      errorMsg: this.props.validationErrorMsg
+    });
+  };
+
   componentDidMount() {
     this.onRefresh();
   }
@@ -121,7 +127,9 @@ class ListPage extends Component {
         <DomainInput
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
-          onRefresh={this.onRefresh}/>
+          onRefresh={this.onRefresh}
+          isValid={this.props.isValid}
+          onValidationError={this.handleValidationError}/>
         { this.props.note }
         {
           this.state.infoMsg
@@ -154,7 +162,9 @@ ListPage.propTypes = {
   placeholder: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired
+  remove: PropTypes.func.isRequired,
+  isValid: PropTypes.func.isRequired,
+  validationErrorMsg: PropTypes.string.isRequired
 };
 
 export default translate(["common", "lists"])(ListPage);

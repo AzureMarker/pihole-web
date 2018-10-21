@@ -23,6 +23,8 @@ const Regexlist = props => {
       add={api.addRegexlist}
       remove={api.removeRegexlist}
       refresh={api.getRegexlist}
+      isValid={() => true}
+      validationErrorMsg={t("Not a valid regular expression")}
       {...props}
     />
   );

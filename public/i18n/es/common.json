@@ -19,5 +19,6 @@
     "Core": "Nucleo",
     "FTL": "FTL",
     "API": "API",
-    "Web": "Web"
+    "Web": "Web",
+    "Version": "Versión"
 }

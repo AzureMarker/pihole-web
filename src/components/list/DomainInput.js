@@ -15,45 +15,54 @@ import { api } from "../../utils";
 
 class DomainInput extends Component {
   state = {
-    domain: ""
+    domain: "",
+    isValid: true
   };
 
   handleChange = (e) =>
     this.setState({ domain: e.target.value });
 
-  onAdd = () => {
-    if(this.state.domain.length > 0) {
-      this.props.onEnter(this.state.domain);
+  handleSubmit = (e) => {
+    e.preventDefault();
 
+    const domain = this.state.domain;
+    const isValid = this.props.isValid(domain);
+    this.setState({ isValid });
+    if (isValid) {
+      this.props.onEnter(domain);
+      // Clear the input on successful submit
       this.setState({ domain: "" });
+    } else {
+      this.props.onValidationError();
     }
   };
 
   render() {
-    const { t } = this.props;
+    const { t, placeholder, onRefresh } = this.props;
 
     return (
-      <div className="form-group input-group">
+      <form className="form-group input-group" onSubmit={this.handleSubmit}>
         <input
-          type="text" className="form-control" placeholder={this.props.placeholder}
+          type="text"
+          className={`form-control ${this.state.isValid ? "" : "is-invalid"}`}
+          placeholder={placeholder}
           value={this.state.domain}
-          onKeyPress={e => e.key === 'Enter' ? this.onAdd() : null}
           onChange={this.handleChange}
           disabled={!api.loggedIn}
         />
         <span className="btn-group input-group-append">
           {
             api.loggedIn ?
-              <button onClick={this.onAdd} className="btn border-secondary" type="button">
+              <button className="btn border-secondary" type="submit" >
                 {t("Add")}
               </button>
               : null
           }
-          <button onClick={this.props.onRefresh} className="btn border-secondary" type="button">
+          <button onClick={onRefresh} className="btn border-secondary" type="button">
             <i className="fa fa-refresh"/>
           </button>
         </span>
-      </div>
+      </form>
     );
   }
 }
@@ -61,7 +70,9 @@ class DomainInput extends Component {
 DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired
+  onRefresh: PropTypes.func.isRequired,
+  isValid: PropTypes.func.isRequired,
+  onValidationError: PropTypes.func.isRequired
 };
 
 DomainInput.defaultProps = {

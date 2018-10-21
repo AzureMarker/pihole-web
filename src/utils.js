@@ -165,7 +165,7 @@ export const api = {
   },
   getDHCPInfo() {
     return api.get("settings/dhcp")
-  }, 
+  },
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
