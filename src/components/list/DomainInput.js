@@ -26,7 +26,7 @@ class DomainInput extends Component {
     e.preventDefault();
 
     const domain = this.state.domain;
-    const isValid = this.props.validationFunction(domain);
+    const isValid = this.props.isValid(domain);
     this.setState({ isValid });
     if (isValid) {
       this.props.onEnter(domain);
@@ -71,7 +71,7 @@ DomainInput.propTypes = {
   placeholder: PropTypes.string,
   onEnter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
-  validationFunction: PropTypes.func.isRequired,
+  isValid: PropTypes.func.isRequired,
   onValidationError: PropTypes.func.isRequired
 };
 

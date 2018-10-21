@@ -129,7 +129,7 @@ class ListPage extends Component {
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}
-          validationFunction={isValidDomain}
+          isValid={isValidDomain}
           onValidationError={this.handleValidationError}/>
         { this.props.note }
         {
