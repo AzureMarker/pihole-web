@@ -1,0 +1,14 @@
+{
+    "Query Log": "Anfragen-Log",
+    "Whitelist": "Weißliste",
+    "Blacklist": "Schwarzliste",
+    "Dashboard": "Dashboard",
+    "Exact": "Exakt",
+    "Wildcard": "Wildcard",
+    "Login": "Anmelden",
+    "Logout": "Abmelden",
+    "Regex": "Regulärer Ausdruck",
+    "Settings": "Einstellungen",
+    "Networking": "Networking",
+    "Versions": "Versionen"
+}
