@@ -8,14 +8,14 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class DomainList extends Component {
   onRemove(domain) {
-    if(this.props.domains.includes(domain)) {
+    if (this.props.domains.includes(domain)) {
       const prevDomains = this.props.domains.slice();
 
       this.removeHandler = makeCancelable(this.props.apiCall(domain));
@@ -32,29 +32,35 @@ class DomainList extends Component {
 
     return (
       <ul className="list-group">
-        {
-          this.props.domains.length > 0
-            ?
-            this.props.domains.map(item => (
-              <li key={item} className="list-group-item">
-                {
-                  api.loggedIn ?
-                    <button className="btn btn-danger btn-sm pull-right" type="button"
-                            style={{ marginTop: "2px" }} onClick={() => this.onRemove(item)}>
-                      <span className="fa fa-trash-o"/>
-                    </button>
-                    : null
-                }
-                <span style={{ display: "table-cell", verticalAlign: "middle", height: "32px" }}>
-                  {item}
-                </span>
-              </li>
-            ))
-            :
-            <div className="alert alert-info" role="alert">
-              {t("There are no domains in this list")}
-            </div>
-        }
+        {this.props.domains.length > 0 ? (
+          this.props.domains.map(item => (
+            <li key={item} className="list-group-item">
+              {api.loggedIn ? (
+                <button
+                  className="btn btn-danger btn-sm pull-right"
+                  type="button"
+                  style={{ marginTop: "2px" }}
+                  onClick={() => this.onRemove(item)}
+                >
+                  <span className="fa fa-trash-o" />
+                </button>
+              ) : null}
+              <span
+                style={{
+                  display: "table-cell",
+                  verticalAlign: "middle",
+                  height: "32px"
+                }}
+              >
+                {item}
+              </span>
+            </li>
+          ))
+        ) : (
+          <div className="alert alert-info" role="alert">
+            {t("There are no domains in this list")}
+          </div>
+        )}
       </ul>
     );
   }

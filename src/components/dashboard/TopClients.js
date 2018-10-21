@@ -21,11 +21,7 @@ const TopClients = ({ t, ...props }) => (
       total_queries: 0,
       top_clients: []
     }}
-    headers={[
-      t("Client"),
-      t("Requests"),
-      t("Frequency")
-    ]}
+    headers={[t("Client"), t("Requests"), t("Frequency")]}
     emptyMessage={t("No Clients Found")}
     isEmpty={state => state.top_clients.length === 0}
     apiCall={api.getTopClients}
@@ -38,31 +34,31 @@ const TopClients = ({ t, ...props }) => (
     }}
     generateRows={state => {
       return state.top_clients.map(item => {
-        const percentage = item.count / state.total_queries * 100;
+        const percentage = (item.count / state.total_queries) * 100;
 
         return (
           <tr key={item.name + "|" + item.ip}>
-            <td>
-              {item.name !== "" ? item.name : item.ip}
-            </td>
-            <td>
-              {item.count.toLocaleString()}
-            </td>
-            <td style={{ "verticalAlign": "middle" }}>
-              <div className="progress"
-                   title={
-                     t("{{percent}}% of {{total}}", {
-                       percent: percentage.toFixed(1),
-                       total: state.total_queries.toLocaleString()
-                     })
-                   }>
-                <div className="progress-bar bg-primary" style={{ width: percentage + "%" }}/>
+            <td>{item.name !== "" ? item.name : item.ip}</td>
+            <td>{item.count.toLocaleString()}</td>
+            <td style={{ verticalAlign: "middle" }}>
+              <div
+                className="progress"
+                title={t("{{percent}}% of {{total}}", {
+                  percent: percentage.toFixed(1),
+                  total: state.total_queries.toLocaleString()
+                })}
+              >
+                <div
+                  className="progress-bar bg-primary"
+                  style={{ width: percentage + "%" }}
+                />
               </div>
             </td>
           </tr>
         );
       });
-    }}/>
+    }}
+  />
 );
 
 export default translate(["common", "dashboard"])(TopClients);

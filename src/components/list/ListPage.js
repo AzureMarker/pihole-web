@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert from "../common/Alert";
 import DomainList from "./DomainList";
@@ -26,7 +26,7 @@ class ListPage extends Component {
 
   onEnter = domain => {
     // Check if the domain was already added
-    if(this.state.domains.includes(domain)) {
+    if (this.state.domains.includes(domain)) {
       this.onAlreadyAdded(domain);
     } else {
       // Store the domains before adding the new domain, for a possible rollback
@@ -34,9 +34,10 @@ class ListPage extends Component {
 
       // Try to add the domain
       this.addHandler = makeCancelable(this.props.add(domain));
-      this.addHandler.promise.then(() => {
-        this.onAdded(domain);
-      })
+      this.addHandler.promise
+        .then(() => {
+          this.onAdded(domain);
+        })
         .catch(ignoreCancel)
         .catch(() => {
           this.onAddFailed(domain, prevDomains);
@@ -92,9 +93,10 @@ class ListPage extends Component {
 
   onRefresh = () => {
     this.refreshHandler = makeCancelable(this.props.refresh());
-    this.refreshHandler.promise.then(data => {
-      this.setState({ domains: data });
-    })
+    this.refreshHandler.promise
+      .then(data => {
+        this.setState({ domains: data });
+      })
       .catch(ignoreCancel);
   };
 
@@ -109,48 +111,53 @@ class ListPage extends Component {
   }
 
   componentWillUnmount() {
-    if(this.addHandler)
-      this.addHandler.cancel();
+    if (this.addHandler) this.addHandler.cancel();
 
-    if(this.removeHandler)
-      this.removeHandler.cancel();
+    if (this.removeHandler) this.removeHandler.cancel();
 
-    if(this.refreshHandler)
-      this.refreshHandler.cancel();
+    if (this.refreshHandler) this.refreshHandler.cancel();
   }
 
   render() {
     return (
       <div style={{ marginBottom: "24px" }}>
         <h2 className="text-center">{this.props.title}</h2>
-        <br/>
+        <br />
         <DomainInput
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}
           isValid={this.props.isValid}
-          onValidationError={this.handleValidationError}/>
-        { this.props.note }
-        {
-          this.state.infoMsg
-            ? <Alert message={this.state.infoMsg} type="info" onClick={() => this.setState({ infoMsg: "" })}/>
-            : null
-        }
-        {
-          this.state.successMsg
-            ? <Alert message={this.state.successMsg} type="success" onClick={() => this.setState({ successMsg: "" })}/>
-            : null
-        }
-        {
-          this.state.errorMsg
-            ? <Alert message={this.state.errorMsg} type="danger" onClick={() => this.setState({ errorMsg: "" })}/>
-            : null
-        }
+          onValidationError={this.handleValidationError}
+        />
+        {this.props.note}
+        {this.state.infoMsg ? (
+          <Alert
+            message={this.state.infoMsg}
+            type="info"
+            onClick={() => this.setState({ infoMsg: "" })}
+          />
+        ) : null}
+        {this.state.successMsg ? (
+          <Alert
+            message={this.state.successMsg}
+            type="success"
+            onClick={() => this.setState({ successMsg: "" })}
+          />
+        ) : null}
+        {this.state.errorMsg ? (
+          <Alert
+            message={this.state.errorMsg}
+            type="danger"
+            onClick={() => this.setState({ errorMsg: "" })}
+          />
+        ) : null}
         <DomainList
           domains={this.state.domains}
           apiCall={this.props.remove}
           onRemoved={this.onRemoved}
-          onFailed={this.onRemoveFailed}/>
+          onFailed={this.onRemoveFailed}
+        />
       </div>
     );
   }

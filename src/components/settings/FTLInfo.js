@@ -25,23 +25,26 @@ class FTLInfo extends Component {
   }
 
   updateFTLInfo() {
-    this.updateHandler = makeCancelable(api.getFTLdb(), { repeat: this.updateFTLInfo, interval: 600000 });
-    this.updateHandler.promise.then(res => {
-      this.setState({
-        queries: res.queries.toLocaleString(),
-        filesize: res.filesize.toLocaleString(),
-        sqlite_version: res.sqlite_version
-      });
-    })
+    this.updateHandler = makeCancelable(api.getFTLdb(), {
+      repeat: this.updateFTLInfo,
+      interval: 600000
+    });
+    this.updateHandler.promise
+      .then(res => {
+        this.setState({
+          queries: res.queries.toLocaleString(),
+          filesize: res.filesize.toLocaleString(),
+          sqlite_version: res.sqlite_version
+        });
+      })
       .catch(ignoreCancel)
       .catch(() => {
-          this.setState({
-            queries: "-!-",
-            filesize: "-!-",
-            sqlite_version: "-!-"
-          });
-        }
-      );
+        this.setState({
+          queries: "-!-",
+          filesize: "-!-",
+          sqlite_version: "-!-"
+        });
+      });
   }
 
   componentDidMount() {
@@ -57,9 +60,11 @@ class FTLInfo extends Component {
 
     return (
       <pre>
-        {t("Queries")}: {this.state.queries}<br/>
-        {t("Filesize")}: {this.state.filesize} B<br/>
-        {t("SQLite version")}: {this.state.sqlite_version}<br/>
+        {t("Queries")}: {this.state.queries}
+        <br />
+        {t("Filesize")}: {this.state.filesize} B<br />
+        {t("SQLite version")}: {this.state.sqlite_version}
+        <br />
       </pre>
     );
   }

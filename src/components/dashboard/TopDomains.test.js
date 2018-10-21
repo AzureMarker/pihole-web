@@ -33,7 +33,7 @@ const fakeData = {
 it("loads the API data into state correctly", async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<TopDomains/>).dive();
+  const wrapper = shallow(<TopDomains />).dive();
 
   await tick();
   wrapper.update();
@@ -45,11 +45,13 @@ it("loads the API data into state correctly", async () => {
 it("creates an appropriately sized table", async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<TopDomains/>).dive();
+  const wrapper = shallow(<TopDomains />).dive();
 
   await tick();
   wrapper.update();
 
   // Add one to the expected length to account for the table header
-  expect(wrapper.find("tbody").children("tr")).toHaveLength(fakeData.top_domains.length + 1);
+  expect(wrapper.find("tbody").children("tr")).toHaveLength(
+    fakeData.top_domains.length + 1
+  );
 });

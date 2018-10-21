@@ -14,13 +14,17 @@ import { dropDownClassList, navDropdown, navItem, navList } from "./Sidebar";
 import { api } from "../../utils";
 
 it("expands active drop down items", () => {
-  const classList = dropDownClassList("/testRoute", { location: { pathname: "/testRoute/page" } });
+  const classList = dropDownClassList("/testRoute", {
+    location: { pathname: "/testRoute/page" }
+  });
 
   expect(classList).toContain("open");
 });
 
 it("does not expand inactive drop down items", () => {
-  const classList = dropDownClassList("/testRoute", { location: { pathname: "/page" } });
+  const classList = dropDownClassList("/testRoute", {
+    location: { pathname: "/page" }
+  });
 
   expect(classList).not.toContain("open");
 });
@@ -28,7 +32,9 @@ it("does not expand inactive drop down items", () => {
 it("creates nav items with correct data", () => {
   const item = { url: "/testUrl", icon: "test-icon", name: "testName" };
   const key = "testKey";
-  const wrapper = shallow(React.createElement(() => navItem(item, key, { t: key => key })));
+  const wrapper = shallow(
+    React.createElement(() => navItem(item, key, { t: key => key }))
+  );
 
   expect(wrapper.key()).toEqual(key);
   expect(wrapper.childAt(0)).toHaveProp("to", item.url);
@@ -51,7 +57,9 @@ it("creates a nav dropdown with correct data", () => {
       pathname: "/blacklist/exact"
     }
   };
-  const wrapper = shallow(React.createElement(() => navDropdown(item, key, props)));
+  const wrapper = shallow(
+    React.createElement(() => navDropdown(item, key, props))
+  );
 
   expect(wrapper.key()).toEqual(key);
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName(item.icon);
@@ -68,7 +76,9 @@ it("shows auth routes when logged in", () => {
     icon: "fa fa-database",
     auth: true
   };
-  const wrapper = shallow(React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>));
+  const wrapper = shallow(
+    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+  );
 
   expect(wrapper.children()).toHaveLength(1);
 });
@@ -82,7 +92,9 @@ it("hides auth routes when not logged in", () => {
     icon: "fa fa-database",
     auth: true
   };
-  const wrapper = shallow(React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>));
+  const wrapper = shallow(
+    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+  );
 
   expect(wrapper.children()).toHaveLength(0);
 });
@@ -97,7 +109,9 @@ it("hides strict non-auth routes when logged in", () => {
     auth: false,
     authStrict: true
   };
-  const wrapper = shallow(React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>));
+  const wrapper = shallow(
+    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+  );
 
   expect(wrapper.children()).toHaveLength(0);
 });
@@ -112,7 +126,9 @@ it("hides strict auth routes when not logged in", () => {
     auth: true,
     authStrict: true
   };
-  const wrapper = shallow(React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>));
+  const wrapper = shallow(
+    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+  );
 
   expect(wrapper.children()).toHaveLength(0);
 });

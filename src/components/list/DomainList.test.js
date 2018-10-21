@@ -8,81 +8,125 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { shallow } from 'enzyme';
-import DomainList from './DomainList';
+import React from "react";
+import { shallow } from "enzyme";
+import DomainList from "./DomainList";
 import { api } from "../../utils";
 
-const domains = [
-  'domain1.com',
-  'domain2.com',
-  'domain3.com'
-];
+const domains = ["domain1.com", "domain2.com", "domain3.com"];
 
-it('shows a list of domains', () => {
+it("shows a list of domains", () => {
   const wrapper = shallow(
-    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+    <DomainList
+      domains={domains}
+      onRemoved={jest.fn()}
+      onFailed={jest.fn()}
+      apiCall={jest.fn()}
+    />
   );
 
-  expect(wrapper.find('li')).toHaveLength(domains.length);
+  expect(wrapper.find("li")).toHaveLength(domains.length);
 });
 
-it('shows an alert if there are no domains', () => {
+it("shows an alert if there are no domains", () => {
   const wrapper = shallow(
-    <DomainList domains={[]} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+    <DomainList
+      domains={[]}
+      onRemoved={jest.fn()}
+      onFailed={jest.fn()}
+      apiCall={jest.fn()}
+    />
   );
 
-  expect(wrapper.find('li')).toHaveLength(0);
-  expect(wrapper.find('ul').childAt(0)).toHaveClassName('alert-info');
-  expect(wrapper).toIncludeText('There are no domains in this list');
+  expect(wrapper.find("li")).toHaveLength(0);
+  expect(wrapper.find("ul").childAt(0)).toHaveClassName("alert-info");
+  expect(wrapper).toIncludeText("There are no domains in this list");
 });
 
-it('does not have a delete button when not logged in', () => {
+it("does not have a delete button when not logged in", () => {
   const wrapper = shallow(
-    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+    <DomainList
+      domains={domains}
+      onRemoved={jest.fn()}
+      onFailed={jest.fn()}
+      apiCall={jest.fn()}
+    />
   );
 
-  expect(wrapper.find("ul").childAt(0).find("button")).not.toExist();
+  expect(
+    wrapper
+      .find("ul")
+      .childAt(0)
+      .find("button")
+  ).not.toExist();
 });
 
-it('has a delete button when logged in', () => {
+it("has a delete button when logged in", () => {
   api.loggedIn = true;
 
   const wrapper = shallow(
-    <DomainList domains={domains} onRemoved={jest.fn()} onFailed={jest.fn()} apiCall={jest.fn()}/>
+    <DomainList
+      domains={domains}
+      onRemoved={jest.fn()}
+      onFailed={jest.fn()}
+      apiCall={jest.fn()}
+    />
   );
 
-  expect(wrapper.find("ul").childAt(0).find("button")).toExist();
+  expect(
+    wrapper
+      .find("ul")
+      .childAt(0)
+      .find("button")
+  ).toExist();
 });
 
-it('calls onRemoved and API callback when a domain is removed', () => {
+it("calls onRemoved and API callback when a domain is removed", () => {
   api.loggedIn = true;
 
   const onRemoved = jest.fn();
   const onFailed = jest.fn();
   const apiCall = jest.fn();
   const wrapper = shallow(
-    <DomainList domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList
+      domains={domains}
+      onRemoved={onRemoved}
+      onFailed={onFailed}
+      apiCall={apiCall}
+    />
   );
 
-  wrapper.find("ul").childAt(0).find("button").simulate("click");
+  wrapper
+    .find("ul")
+    .childAt(0)
+    .find("button")
+    .simulate("click");
 
   expect(onRemoved).toHaveBeenCalled();
   expect(apiCall).toHaveBeenCalled();
   expect(onFailed).not.toHaveBeenCalled();
 });
 
-it('calls all callbacks when a domain is removed and the API call fails', async () => {
+it("calls all callbacks when a domain is removed and the API call fails", async () => {
   api.loggedIn = true;
 
   const onRemoved = jest.fn();
   const onFailed = jest.fn();
   const apiCall = jest.fn(() => Promise.reject(new Error()));
   const wrapper = shallow(
-    <DomainList domains={domains} onRemoved={onRemoved} onFailed={onFailed} apiCall={apiCall}/>
+    <DomainList
+      domains={domains}
+      onRemoved={onRemoved}
+      onFailed={onFailed}
+      apiCall={apiCall}
+    />
   );
 
-  wrapper.find("ul").childAt(0).find("button").simulate("click");
+  wrapper
+    .find("ul")
+    .childAt(0)
+    .find("button")
+    .simulate("click");
 
   await tick();
 

@@ -8,11 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import ReactTable from 'react-table';
-import { translate } from 'react-i18next';
-import { api, ignoreCancel, makeCancelable, padNumber } from '../../utils';
-import 'react-table/react-table.css';
+import React, { Component } from "react";
+import ReactTable from "react-table";
+import { translate } from "react-i18next";
+import { api, ignoreCancel, makeCancelable, padNumber } from "../../utils";
+import "react-table/react-table.css";
 
 class QueryLog extends Component {
   updateHandler = null;
@@ -28,12 +28,14 @@ class QueryLog extends Component {
 
   updateTable() {
     this.updateHandler = makeCancelable(api.getHistory());
-    this.updateHandler.promise.then(data => {
-      this.setState({
-        history: data,
-        loading: false
-      });
-    }).catch(ignoreCancel);
+    this.updateHandler.promise
+      .then(data => {
+        this.setState({
+          history: data,
+          loading: false
+        });
+      })
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {
@@ -57,19 +59,21 @@ class QueryLog extends Component {
         data={this.state.history}
         loading={this.state.loading}
         getTrProps={(state, rowInfo) => {
-          if(rowInfo && rowInfo.row.status !== 0)
+          if (rowInfo && rowInfo.row.status !== 0)
             return {
               style: {
-                color: [1, 4, 5].includes(rowInfo.row.status) ? 'red' : 'green'
+                color: [1, 4, 5].includes(rowInfo.row.status) ? "red" : "green"
               }
             };
-          else
-            return {};
+          else return {};
         }}
-        defaultSorted={[{
-          id: "time",
-          desc: true
-        }]} />
+        defaultSorted={[
+          {
+            id: "time",
+            desc: true
+          }
+        ]}
+      />
     );
   }
 }
@@ -91,7 +95,9 @@ const columns = t => [
     Cell: row => {
       const date = new Date(row.value * 1000);
 
-      return `${padNumber(date.getHours())}-${padNumber(date.getMinutes())}-${padNumber(date.getSeconds())}`;
+      return `${padNumber(date.getHours())}-${padNumber(
+        date.getMinutes()
+      )}-${padNumber(date.getSeconds())}`;
     }
   },
   {
@@ -120,27 +126,33 @@ const columns = t => [
     accessor: r => r[4],
     width: 140,
     Cell: row => status(t)[row.value],
-    filterMethod: (filter, row) =>
-      status(t)[row[filter.id]]
-        .toLowerCase()
-        .includes(
-          filter.value.toLowerCase()
-        )
+    filterMethod: (filter, row) => {
+      const rowStatus = status(t)[row[filter.id]].toLowerCase();
+      return rowStatus.includes(filter.value.toLowerCase());
+    }
   },
   {
     Header: t("Action"),
     width: 100,
     filterable: false,
     Cell: data => {
-      if([1, 4, 5].includes(data.row.status))
+      if ([1, 4, 5].includes(data.row.status))
         return (
-          <button type="button" className="btn btn-success full-width" onClick={() => api.addWhitelist(data.row.domain)}>
+          <button
+            type="button"
+            className="btn btn-success full-width"
+            onClick={() => api.addWhitelist(data.row.domain)}
+          >
             {t("Whitelist")}
           </button>
         );
-      if([2, 3].includes(data.row.status))
+      if ([2, 3].includes(data.row.status))
         return (
-          <button type="button" className="btn btn-danger full-width" onClick={() => api.addBlacklist(data.row.domain)}>
+          <button
+            type="button"
+            className="btn btn-danger full-width"
+            onClick={() => api.addBlacklist(data.row.domain)}
+          >
             {t("Blacklist")}
           </button>
         );

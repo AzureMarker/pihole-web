@@ -8,12 +8,14 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const Alert = (props) => {
+const Alert = props => {
   return (
-    <div className={"alert alert-" + props.type + " alert-dismissible fade show"}>
+    <div
+      className={"alert alert-" + props.type + " alert-dismissible fade show"}
+    >
       <button type="button" className="close" onClick={props.onClick}>
         &times;
       </button>

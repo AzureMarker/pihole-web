@@ -8,13 +8,13 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import VersionInfo from '../components/settings/VersionInfo';
+import React from "react";
+import VersionInfo from "../components/settings/VersionInfo";
 
 export default () => (
   <div className="animated fadeIn">
     <div className="container-flex">
-      <VersionInfo/>
+      <VersionInfo />
     </div>
   </div>
 );

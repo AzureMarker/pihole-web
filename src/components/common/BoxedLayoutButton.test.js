@@ -8,16 +8,16 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { shallow } from 'enzyme';
-import BoxedLayoutButton from './BoxedLayoutButton';
+import React from "react";
+import { shallow } from "enzyme";
+import BoxedLayoutButton from "./BoxedLayoutButton";
 
 it("renders without crashing", () => {
-  shallow(<BoxedLayoutButton/>);
+  shallow(<BoxedLayoutButton />);
 });
 
 it("toggles boxed layout", () => {
-  const wrapper = shallow(<BoxedLayoutButton/>);
+  const wrapper = shallow(<BoxedLayoutButton />);
 
   expect(document.body.classList).not.toContain("boxcontainer");
   expect(document.body.classList).not.toContain("background-image");

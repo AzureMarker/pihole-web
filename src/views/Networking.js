@@ -27,7 +27,7 @@ class Networking extends Component {
    * @param tab the tab ID to switch to
    */
   setTab = tab => {
-    if(this.state.activeTab !== tab) {
+    if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
       });
@@ -43,7 +43,10 @@ class Networking extends Component {
    */
   tab = (id, name) => (
     <NavItem>
-      <NavLink active={this.state.activeTab === id} onClick={() => this.setTab(id)}>
+      <NavLink
+        active={this.state.activeTab === id}
+        onClick={() => this.setTab(id)}
+      >
         {name}
       </NavLink>
     </NavItem>
@@ -56,9 +59,7 @@ class Networking extends Component {
    * @param component the component to render in the tab
    * @returns {TabPane} the tab content component
    */
-  tabContent = (id, component) => (
-    <TabPane tabId={id}>{component}</TabPane>
-  );
+  tabContent = (id, component) => <TabPane tabId={id}>{component}</TabPane>;
 
   render() {
     const { t } = this.props;
@@ -72,10 +73,10 @@ class Networking extends Component {
           {this.tab("ftl", t("FTL"))}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
-          {this.tabContent("network", <NetworkInfo/>)}
-          {this.tabContent("dhcp", <DHCPInfo/>)}
-          {this.tabContent("dns", <DNSInfo/>)}
-          {this.tabContent("ftl", <FTLInfo/>)}
+          {this.tabContent("network", <NetworkInfo />)}
+          {this.tabContent("dhcp", <DHCPInfo />)}
+          {this.tabContent("dns", <DNSInfo />)}
+          {this.tabContent("ftl", <FTLInfo />)}
         </TabContent>
       </div>
     );

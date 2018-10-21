@@ -30,22 +30,30 @@ const fakeData = {
 it("displays summary stats correctly", async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<SummaryStats/>);
+  const wrapper = shallow(<SummaryStats />);
 
   await tick();
   wrapper.update();
 
-  expect(wrapper.childAt(0).find("h3")).toHaveText(fakeData.total_queries.toLocaleString());
+  expect(wrapper.childAt(0).find("h3")).toHaveText(
+    fakeData.total_queries.toLocaleString()
+  );
   expect(wrapper.state().uniqueClients).toEqual(fakeData.unique_clients);
-  expect(wrapper.childAt(1).find("h3")).toHaveText(fakeData.blocked_queries.toLocaleString());
-  expect(wrapper.childAt(2).find("h3")).toHaveText(fakeData.percent_blocked.toFixed(2).toLocaleString() + "%");
-  expect(wrapper.childAt(3).find("h3")).toHaveText(fakeData.domains_blocked.toLocaleString());
+  expect(wrapper.childAt(1).find("h3")).toHaveText(
+    fakeData.blocked_queries.toLocaleString()
+  );
+  expect(wrapper.childAt(2).find("h3")).toHaveText(
+    fakeData.percent_blocked.toFixed(2).toLocaleString() + "%"
+  );
+  expect(wrapper.childAt(3).find("h3")).toHaveText(
+    fakeData.domains_blocked.toLocaleString()
+  );
 });
 
 it("displays an error message on error", async () => {
   fetchMock.mock(endpoint, { error: {} });
 
-  const wrapper = shallow(<SummaryStats/>);
+  const wrapper = shallow(<SummaryStats />);
 
   await tick();
   wrapper.update();

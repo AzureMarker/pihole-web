@@ -8,15 +8,13 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
+import React from "react";
+import { translate } from "react-i18next";
 import { api } from "../../utils";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 
 const QueryTypesChart = ({ t }) => (
-  <GenericDoughnutChart
-    title={t("Query Types")}
-    apiCall={api.getQueryTypes}/>
+  <GenericDoughnutChart title={t("Query Types")} apiCall={api.getQueryTypes} />
 );
 
 export default translate("dashboard")(QueryTypesChart);

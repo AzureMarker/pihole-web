@@ -23,7 +23,8 @@ it("shows the title", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   expect(wrapper.find("h2")).toHaveText(title);
@@ -40,7 +41,8 @@ it("shows the placeholder", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   expect(wrapper.find("DomainInput")).toHaveProp("placeholder", placeholder);
@@ -57,7 +59,8 @@ it("shows the note", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   expect(wrapper).toIncludeText(note);
@@ -73,7 +76,8 @@ it("starts with no alerts shown", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   expect(wrapper.find("Alert")).toHaveLength(0);
@@ -90,7 +94,8 @@ it("loads domains after mounting", async () => {
       refresh={() => Promise.resolve(domains)}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   await tick();
@@ -111,7 +116,8 @@ it("checks if the domain was already added", async () => {
       refresh={() => Promise.resolve(domains)}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   // Setup with domains (wait for promise to resolve) and mock function
@@ -137,7 +143,8 @@ it("calls the add prop when adding a domain", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onEnter(domain);
@@ -157,7 +164,8 @@ it("calls onAdding when adding a domain", () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onAdding = onAdding;
@@ -179,7 +187,8 @@ it("calls onAdded after API request succeeds", async () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onAdded = onAdded;
@@ -202,7 +211,8 @@ it("calls onAddFailed after API request fails", async () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onAddFailed = onAddFailed;
@@ -224,7 +234,8 @@ it("adds the domain in onAdded", async () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onEnter(domain);
@@ -245,7 +256,8 @@ it("resets the domains when adding failed", async () => {
       refresh={ignoreAPI}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onEnter(domain);
@@ -267,7 +279,8 @@ it("removes the domain when onRemoved is called", async () => {
       refresh={() => Promise.resolve(domains)}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
 
   wrapper.instance().onRemoved(domain);
@@ -288,7 +301,8 @@ it("resets the domains when removal failed", () => {
       refresh={() => Promise.resolve(domains)}
       remove={ignoreAPI}
       isValid={jest.fn()}
-      validationErrorMsg=""/>
+      validationErrorMsg=""
+    />
   );
   wrapper.instance().onRemoveFailed(domain, domains);
   wrapper.update();

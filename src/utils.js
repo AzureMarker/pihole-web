@@ -8,27 +8,26 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import config from './config';
+import config from "./config";
 
-export const padNumber = (num) => {
-  return ("00" + num).substr(-2,2);
+export const padNumber = num => {
+  return ("00" + num).substr(-2, 2);
 };
 
-export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) => {
+export const makeCancelable = (
+  promise,
+  { repeat = null, interval = 0 } = {}
+) => {
   let hasCanceled = false;
   let repeatId = null;
 
   const handle = (resolve, reject, val, isError) => {
-    if(hasCanceled)
-      reject({ isCanceled: true });
+    if (hasCanceled) reject({ isCanceled: true });
     else {
-      if(isError)
-        reject(val);
-      else
-        resolve(val);
+      if (isError) reject(val);
+      else resolve(val);
 
-      if(repeat)
-        repeatId = setTimeout(repeat, interval);
+      if (repeat) repeatId = setTimeout(repeat, interval);
     }
   };
 
@@ -44,13 +43,12 @@ export const makeCancelable = (promise, { repeat = null, interval = 0 } = {}) =>
     cancel() {
       clearTimeout(repeatId);
       hasCanceled = true;
-    },
+    }
   };
 };
 
 export const ignoreCancel = err => {
-  if(!err.isCanceled)
-    throw err;
+  if (!err.isCanceled) throw err;
 };
 
 export const api = {
@@ -73,13 +71,13 @@ export const api = {
     return api.get("stats/overTime/history");
   },
   getClientsGraph() {
-    return api.get("stats/overTime/clients")
+    return api.get("stats/overTime/clients");
   },
   getQueryTypes() {
-    return api.get("stats/query_types")
+    return api.get("stats/query_types");
   },
   getForwardDestinations() {
-    return api.get("stats/forward_destinations")
+    return api.get("stats/forward_destinations");
   },
   getTopDomains() {
     return api.get("stats/top_domains");
@@ -103,13 +101,13 @@ export const api = {
     return api.get("dns/regexlist");
   },
   addWhitelist(domain) {
-    return api.post("dns/whitelist", { "domain": domain });
+    return api.post("dns/whitelist", { domain: domain });
   },
   addBlacklist(domain) {
-    return api.post("dns/blacklist", { "domain": domain });
+    return api.post("dns/blacklist", { domain: domain });
   },
   addRegexlist(domain) {
-    return api.post("dns/regexlist", { "domain": domain });
+    return api.post("dns/regexlist", { domain: domain });
   },
   removeWhitelist(domain) {
     return api.delete("dns/whitelist/" + domain);
@@ -121,7 +119,7 @@ export const api = {
     return api.delete("dns/regexlist/" + encodeURIComponent(domain));
   },
   getStatus() {
-    return api.get("dns/status")
+    return api.get("dns/status");
   },
   get(url) {
     return fetch(api.urlFor(url), {
@@ -152,42 +150,41 @@ export const api = {
       .then(api.checkForErrors);
   },
   getNetworkInfo() {
-    return api.get("settings/network")
+    return api.get("settings/network");
   },
   getVersion() {
-    return api.get("version")
+    return api.get("version");
   },
   getFTLdb() {
-    return api.get("settings/ftldb")
+    return api.get("settings/ftldb");
   },
   getDNSInfo() {
-    return api.get("settings/dns")
+    return api.get("settings/dns");
   },
   getDHCPInfo() {
-    return api.get("settings/dhcp")
+    return api.get("settings/dhcp");
   },
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
    */
   checkIfLoggedOut(response) {
-    if(api.loggedIn && response.status === 401) {
+    if (api.loggedIn && response.status === 401) {
       // Clear the user's old session and refresh the page
-      document.cookie = 'user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.cookie =
+        "user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       window.location.reload();
-      return Promise.reject({ isCanceled: true })
+      return Promise.reject({ isCanceled: true });
     }
 
     return Promise.resolve(response);
   },
   async convertJSON(data) {
-    if(!data.ok)
-      return Promise.reject({ data, json: await data.json() });
-    else
-      return data.json();
+    if (!data.ok) return Promise.reject({ data, json: await data.json() });
+    else return data.json();
   },
   checkForErrors(data) {
-    if(data.error) {
+    if (data.error) {
       return Promise.reject(data.error);
     }
     return Promise.resolve(data);
@@ -195,10 +192,8 @@ export const api = {
   urlFor(endpoint) {
     let apiLocation;
 
-    if(config.fakeAPI)
-      apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
-    else
-      apiLocation = "/admin/api";
+    if (config.fakeAPI) apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
+    else apiLocation = "/admin/api";
 
     return apiLocation + "/" + endpoint;
   },

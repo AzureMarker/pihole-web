@@ -19,27 +19,29 @@ class TopTable extends Component {
   };
 
   updateChart = () => {
-    this.updateHandler = makeCancelable(
-      this.props.apiCall(),
-      { repeat: this.updateChart, interval: 10 * 60 * 1000 }
-    );
+    this.updateHandler = makeCancelable(this.props.apiCall(), {
+      repeat: this.updateChart,
+      interval: 10 * 60 * 1000
+    });
     this.updateHandler.promise
       .then(res => this.props.apiHandler(this, res))
       .catch(ignoreCancel);
   };
 
   generateTable = () => {
-    if(this.props.isEmpty(this.state)) {
+    if (this.props.isEmpty(this.state)) {
       return this.props.emptyMessage;
     }
 
     return (
       <table className="table table-bordered">
         <tbody>
-        <tr>
-          {this.props.headers.map((header, i) => <th key={i}>{header}</th>)}
-        </tr>
-        {this.props.generateRows(this.state)}
+          <tr>
+            {this.props.headers.map((header, i) => (
+              <th key={i}>{header}</th>
+            ))}
+          </tr>
+          {this.props.generateRows(this.state)}
         </tbody>
       </table>
     );
@@ -56,24 +58,26 @@ class TopTable extends Component {
   render() {
     return (
       <div className="card">
-        <div className="card-header">
-          {this.props.title}
-        </div>
+        <div className="card-header">{this.props.title}</div>
         <div className="card-body">
-          <div style={{ overflowX: "auto" }}>
-            {this.generateTable()}
-          </div>
+          <div style={{ overflowX: "auto" }}>{this.generateTable()}</div>
         </div>
-        {
-          this.state.loading
-            ?
-            <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
-              <i className="fa fa-refresh fa-spin"
-                 style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
-            </div>
-            :
-            null
-        }
+        {this.state.loading ? (
+          <div
+            className="card-img-overlay"
+            style={{ background: "rgba(255,255,255,0.7)" }}
+          >
+            <i
+              className="fa fa-refresh fa-spin"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                fontSize: "30px"
+              }}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }

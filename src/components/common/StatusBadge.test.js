@@ -18,7 +18,7 @@ const endpoint = "/admin/api/dns/status";
 it("shows green enabled message if API returns enabled", async () => {
   fetchMock.mock(endpoint, { body: { status: "enabled" } });
 
-  const wrapper = shallow(<StatusBadge/>);
+  const wrapper = shallow(<StatusBadge />);
 
   await tick();
   wrapper.update();
@@ -30,7 +30,7 @@ it("shows green enabled message if API returns enabled", async () => {
 it("shows red disabled message if API doesn't return enabled", async () => {
   fetchMock.mock(endpoint, { body: { status: "disabled" } });
 
-  const wrapper = shallow(<StatusBadge/>);
+  const wrapper = shallow(<StatusBadge />);
 
   await tick();
   wrapper.update();
@@ -42,7 +42,7 @@ it("shows red disabled message if API doesn't return enabled", async () => {
 it("shows disabled message if API call failed", async () => {
   fetchMock.mock(endpoint, { error: {} });
 
-  const wrapper = shallow(<StatusBadge/>);
+  const wrapper = shallow(<StatusBadge />);
 
   await tick();
   wrapper.update();

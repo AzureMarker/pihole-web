@@ -12,13 +12,12 @@ import { api } from "./utils";
 
 // This is a dumb test used to set up the next test,
 // which checks that the logged in state is reset before each test
-it('sets logged in to true', () => {
+it("sets logged in to true", () => {
   api.loggedIn = true;
 
   expect(api.loggedIn).toBeTruthy();
 });
 
-it('resets the logged in state for each test', () => {
+it("resets the logged in state for each test", () => {
   expect(api.loggedIn).toBeFalsy();
 });
-

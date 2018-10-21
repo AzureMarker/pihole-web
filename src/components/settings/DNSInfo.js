@@ -14,17 +14,17 @@ import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class DNSInfo extends Component {
   state = {
-    "upstream_dns": ["---"],
-    "conditional_forwarding": {
-      "enabled": "---",
-      "router_ip": "---",
-      "domain": "---"
+    upstream_dns: ["---"],
+    conditional_forwarding: {
+      enabled: "---",
+      router_ip: "---",
+      domain: "---"
     },
-    "options": {
-      "fqdn_required": "---",
-      "bogus_priv": "---",
-      "dnssec": "---",
-      "listening_type": "---"
+    options: {
+      fqdn_required: "---",
+      bogus_priv: "---",
+      dnssec: "---",
+      listening_type: "---"
     }
   };
 
@@ -34,24 +34,28 @@ class DNSInfo extends Component {
   }
 
   updateDNSInfo() {
-    this.updateHandler = makeCancelable(api.getDNSInfo(), { repeat: this.updateDNSInfo, interval: 600000 });
-    this.updateHandler.promise.then(res => {
-      this.setState(res);
-    })
+    this.updateHandler = makeCancelable(api.getDNSInfo(), {
+      repeat: this.updateDNSInfo,
+      interval: 600000
+    });
+    this.updateHandler.promise
+      .then(res => {
+        this.setState(res);
+      })
       .catch(ignoreCancel)
       .catch(() => {
         this.setState({
-          "upstream_dns": ["-!-"],
-          "options": {
-            "fqdn_required": "-!-",
-            "bogus_priv": "-!-",
-            "dnssec": "-!-",
-            "listening_type": "-!-"
+          upstream_dns: ["-!-"],
+          options: {
+            fqdn_required: "-!-",
+            bogus_priv: "-!-",
+            dnssec: "-!-",
+            listening_type: "-!-"
           },
-          "conditional_forwarding": {
-            "enabled": "-!-",
-            "router_ip": "-!-",
-            "domain": "-!-"
+          conditional_forwarding: {
+            enabled: "-!-",
+            router_ip: "-!-",
+            domain: "-!-"
           }
         });
       });
@@ -72,27 +76,41 @@ class DNSInfo extends Component {
       <div className="row">
         <div className="col-lg-4 col-sm-4 col-xs-4">
           <pre>
-            <br/>
-            {t("Upstream DNS Servers")}:<br/>
-            {this.state.upstream_dns.map(item => item + "\n")}<br/>
+            <br />
+            {t("Upstream DNS Servers")}:<br />
+            {this.state.upstream_dns.map(item => item + "\n")}
+            <br />
           </pre>
         </div>
         <div className="col-lg-4 col-sm-4 col-xs-4">
           <pre>
-            <br/>
-            {t("Interface listening behavior")}: {this.state.options.listening_type}<br/>
-            {t("Forward FQDNs only")}: {this.state.options.fqdn_required.toString()}<br/>
-            {t("Only forward public reverse lookups")}:{this.state.options.bogus_priv.toString()}<br/>
+            <br />
+            {t("Interface listening behavior")}:{" "}
+            {this.state.options.listening_type}
+            <br />
+            {t("Forward FQDNs only")}:{" "}
+            {this.state.options.fqdn_required.toString()}
+            <br />
+            {t("Only forward public reverse lookups")}:
+            {this.state.options.bogus_priv.toString()}
+            <br />
             {t("Use DNSSEC")}: {this.state.options.dnssec.toString()}
           </pre>
         </div>
         <div className="col-lg-4 col-sm-4 col-xs-4">
           <pre>
-            <br/>
-            {t("Conditional Forwarding")}<br/>
-            {t("Enabled")}: {this.state.conditional_forwarding.enabled.toString()}<br/>
-            {t("Router IP")}: {this.state.conditional_forwarding.router_ip.toString()}<br/>
-            {t("Local Domain Name")}: {this.state.conditional_forwarding.domain.toString()}<br/>
+            <br />
+            {t("Conditional Forwarding")}
+            <br />
+            {t("Enabled")}:{" "}
+            {this.state.conditional_forwarding.enabled.toString()}
+            <br />
+            {t("Router IP")}:{" "}
+            {this.state.conditional_forwarding.router_ip.toString()}
+            <br />
+            {t("Local Domain Name")}:{" "}
+            {this.state.conditional_forwarding.domain.toString()}
+            <br />
           </pre>
         </div>
       </div>
