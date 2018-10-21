@@ -126,10 +126,10 @@ const columns = t => [
     accessor: r => r[4],
     width: 140,
     Cell: row => status(t)[row.value],
-    filterMethod: (filter, row) =>
-      status(t)
-        [row[filter.id]].toLowerCase()
-        .includes(filter.value.toLowerCase())
+    filterMethod: (filter, row) => {
+      const rowStatus = status(t)[row[filter.id]].toLowerCase();
+      return rowStatus.includes(filter.value.toLowerCase());
+    }
   },
   {
     Header: t("Action"),
