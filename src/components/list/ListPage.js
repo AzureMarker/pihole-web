@@ -100,7 +100,7 @@ class ListPage extends Component {
 
   handleValidationError = () => {
     this.setState({
-      errorMsg: this.props.t("Not a valid domain")
+      errorMsg: this.props.validationErrorMsg
     });
   };
 
@@ -163,7 +163,8 @@ ListPage.propTypes = {
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
-  isValid: PropTypes.func.isRequired
+  isValid: PropTypes.func.isRequired,
+  validationErrorMsg: PropTypes.string.isRequired
 };
 
 export default translate(["common", "lists"])(ListPage);

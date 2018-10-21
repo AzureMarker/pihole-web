@@ -25,6 +25,7 @@ const Whitelist = props => {
       remove={api.removeWhitelist}
       refresh={api.getWhitelist}
       isValid={isValidDomain}
+      validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
   )

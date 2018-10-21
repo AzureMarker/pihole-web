@@ -25,6 +25,7 @@ const Blacklist = props => {
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
       isValid={isValidDomain}
+      validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
   )
