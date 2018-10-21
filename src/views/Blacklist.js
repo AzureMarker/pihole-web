@@ -12,6 +12,7 @@ import React from 'react';
 import { translate } from 'react-i18next';
 import { api } from "../utils";
 import ListPage from "../components/list/ListPage";
+import { isValidDomain } from "../validate";
 
 const Blacklist = props => {
   const { t } = props;
@@ -23,6 +24,7 @@ const Blacklist = props => {
       add={api.addBlacklist}
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
+      isValid={isValidDomain}
       {...props}
     />
   )

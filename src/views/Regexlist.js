@@ -23,6 +23,7 @@ const Regexlist = props => {
       add={api.addRegexlist}
       remove={api.removeRegexlist}
       refresh={api.getRegexlist}
+      isValid={() => true}
       {...props}
     />
   );

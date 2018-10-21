@@ -15,7 +15,6 @@ import DomainInput from "./DomainInput";
 import Alert from "../common/Alert";
 import DomainList from "./DomainList";
 import { ignoreCancel, makeCancelable } from "../../utils";
-import { isValidDomain } from "../../validate";
 
 class ListPage extends Component {
   state = {
@@ -129,7 +128,7 @@ class ListPage extends Component {
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}
-          isValid={isValidDomain}
+          isValid={this.props.isValid}
           onValidationError={this.handleValidationError}/>
         { this.props.note }
         {
@@ -163,7 +162,8 @@ ListPage.propTypes = {
   placeholder: PropTypes.string.isRequired,
   add: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired
+  remove: PropTypes.func.isRequired,
+  isValid: PropTypes.func.isRequired
 };
 
 export default translate(["common", "lists"])(ListPage);
