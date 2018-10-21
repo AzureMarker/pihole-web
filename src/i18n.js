@@ -1,8 +1,8 @@
-import i18n from 'i18next';
-import XHR from 'i18next-xhr-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import { reactI18nextModule } from 'react-i18next';
-import config from './config';
+import i18n from "i18next";
+import XHR from "i18next-xhr-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { reactI18nextModule } from "react-i18next";
+import config from "./config";
 
 export function setupI18n() {
   i18n
@@ -11,9 +11,17 @@ export function setupI18n() {
     .use(reactI18nextModule)
     .init({
       fallbackLng: "en",
-      ns: ['common'],
+      ns: ["common"],
       defaultNS: "common",
-      fallbackNS: ["dashboard", "footer", "lists", "location", "login", "query-log", "settings"],
+      fallbackNS: [
+        "dashboard",
+        "footer",
+        "lists",
+        "location",
+        "login",
+        "query-log",
+        "settings"
+      ],
       nsSeparator: false,
       keySeparator: false,
       debug: config.developmentMode,

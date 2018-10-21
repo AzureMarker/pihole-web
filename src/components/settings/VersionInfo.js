@@ -43,10 +43,14 @@ class VersionInfo extends Component {
   }
 
   updateVersionInfo() {
-    this.updateHandler = makeCancelable(api.getVersion(), { repeat: this.updateVersionInfo, interval: 600000 });
-    this.updateHandler.promise.then(res => {
-      this.setState(res);
-    })
+    this.updateHandler = makeCancelable(api.getVersion(), {
+      repeat: this.updateVersionInfo,
+      interval: 600000
+    });
+    this.updateHandler.promise
+      .then(res => {
+        this.setState(res);
+      })
       .catch(ignoreCancel)
       .catch(() => {
         this.setState({
@@ -88,20 +92,44 @@ class VersionInfo extends Component {
     return (
       <div className="row">
         <div className="col-xl-3 col-md-6 col-xs-12">
-          <VersionCard name={t("Core")} icon="fa fa-dot-circle-o fa-2x"
-                       branch={this.state.core.branch} hash={this.state.core.hash} tag={this.state.core.tag} t={t}/>
+          <VersionCard
+            name={t("Core")}
+            icon="fa fa-dot-circle-o fa-2x"
+            branch={this.state.core.branch}
+            hash={this.state.core.hash}
+            tag={this.state.core.tag}
+            t={t}
+          />
         </div>
         <div className="col-xl-3 col-md-6 col-xs-12">
-          <VersionCard name={t("FTL")} icon="fa fa-industry fa-2x"
-                       branch={this.state.ftl.branch} hash={this.state.ftl.hash} tag={this.state.ftl.tag} t={t}/>
+          <VersionCard
+            name={t("FTL")}
+            icon="fa fa-industry fa-2x"
+            branch={this.state.ftl.branch}
+            hash={this.state.ftl.hash}
+            tag={this.state.ftl.tag}
+            t={t}
+          />
         </div>
         <div className="col-xl-3 col-md-6 col-xs-12">
-          <VersionCard name={t("API")} icon="fa fa-bullseye fa-2x"
-                       branch={this.state.api.branch} hash={this.state.api.hash} tag={this.state.api.tag} t={t}/>
+          <VersionCard
+            name={t("API")}
+            icon="fa fa-bullseye fa-2x"
+            branch={this.state.api.branch}
+            hash={this.state.api.hash}
+            tag={this.state.api.tag}
+            t={t}
+          />
         </div>
         <div className="col-xl-3 col-md-6 col-xs-12">
-          <VersionCard name={t("Web")} icon="fa fa-list-alt fa-2x"
-                       branch={this.state.web.branch} hash={this.state.web.hash} tag={this.state.web.tag} t={t}/>
+          <VersionCard
+            name={t("Web")}
+            icon="fa fa-list-alt fa-2x"
+            branch={this.state.web.branch}
+            hash={this.state.web.hash}
+            tag={this.state.web.tag}
+            t={t}
+          />
         </div>
       </div>
     );

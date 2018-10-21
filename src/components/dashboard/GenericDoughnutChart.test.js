@@ -20,7 +20,7 @@ const fakeData = [
 
 it("shows loading indicator before first load", () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} apiCall={ignoreAPI}/>
+    <GenericDoughnutChart title={""} apiCall={ignoreAPI} />
   );
 
   expect(wrapper.state().loading).toBeTruthy();
@@ -29,7 +29,10 @@ it("shows loading indicator before first load", () => {
 
 it("hides loading indicator after first load", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} apiCall={() => Promise.resolve(fakeData)}/>
+    <GenericDoughnutChart
+      title={""}
+      apiCall={() => Promise.resolve(fakeData)}
+    />
   );
 
   await tick();
@@ -41,7 +44,10 @@ it("hides loading indicator after first load", async () => {
 
 it("loads API data correctly", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} apiCall={() => Promise.resolve(fakeData)}/>
+    <GenericDoughnutChart
+      title={""}
+      apiCall={() => Promise.resolve(fakeData)}
+    />
   );
 
   await tick();
@@ -56,7 +62,7 @@ it("loads API data correctly", async () => {
 it("displays the title", () => {
   const title = "title";
   const wrapper = shallow(
-    <GenericDoughnutChart title={title} apiCall={ignoreAPI}/>
+    <GenericDoughnutChart title={title} apiCall={ignoreAPI} />
   );
 
   expect(wrapper.find(".card-header")).toHaveText(title);
@@ -64,7 +70,7 @@ it("displays the title", () => {
 
 it("calls the API callback", () => {
   const apiCall = jest.fn(ignoreAPI);
-  shallow(<GenericDoughnutChart title={""} apiCall={apiCall}/>);
+  shallow(<GenericDoughnutChart title={""} apiCall={apiCall} />);
 
   expect(apiCall).toHaveBeenCalled();
 });

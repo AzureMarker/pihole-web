@@ -21,11 +21,7 @@ const TopBlocked = ({ t, ...props }) => (
       total_blocked: 0,
       top_blocked: []
     }}
-    headers={[
-      t("Domain"),
-      t("Hits"),
-      t("Frequency")
-    ]}
+    headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
     isEmpty={state => state.top_blocked.length === 0}
     apiCall={api.getTopBlocked}
@@ -38,31 +34,31 @@ const TopBlocked = ({ t, ...props }) => (
     }}
     generateRows={state => {
       return state.top_blocked.map(item => {
-        const percentage = item.count / state.total_blocked * 100;
+        const percentage = (item.count / state.total_blocked) * 100;
 
         return (
           <tr key={item.domain}>
-            <td>
-              {item.domain}
-            </td>
-            <td>
-              {item.count.toLocaleString()}
-            </td>
-            <td style={{ "verticalAlign": "middle" }}>
-              <div className="progress"
-                   title={
-                     t("{{percent}}% of {{total}}", {
-                       percent: percentage.toFixed(1),
-                       total: state.total_blocked.toLocaleString()
-                     })
-                   }>
-                <div className="progress-bar bg-warning" style={{ width: percentage + "%" }}/>
+            <td>{item.domain}</td>
+            <td>{item.count.toLocaleString()}</td>
+            <td style={{ verticalAlign: "middle" }}>
+              <div
+                className="progress"
+                title={t("{{percent}}% of {{total}}", {
+                  percent: percentage.toFixed(1),
+                  total: state.total_blocked.toLocaleString()
+                })}
+              >
+                <div
+                  className="progress-bar bg-warning"
+                  style={{ width: percentage + "%" }}
+                />
               </div>
             </td>
           </tr>
         );
       });
-    }}/>
+    }}
+  />
 );
 
 export default translate(["common", "dashboard"])(TopBlocked);

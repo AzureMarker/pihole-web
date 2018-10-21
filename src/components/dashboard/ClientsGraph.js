@@ -8,11 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Line } from 'react-chartjs-2';
-import { translate } from 'react-i18next';
-import { padNumber, api, makeCancelable, ignoreCancel } from '../../utils';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { Line } from "react-chartjs-2";
+import { translate } from "react-i18next";
+import { padNumber, api, makeCancelable, ignoreCancel } from "../../utils";
 import ChartTooltip from "./ChartTooltip";
 
 class ClientsGraph extends Component {
@@ -31,54 +31,65 @@ class ClientsGraph extends Component {
   }
 
   updateGraph() {
-    this.updateHandler = makeCancelable(api.getClientsGraph(), { repeat: this.updateGraph, interval: 10 * 60 * 1000 });
-    this.updateHandler.promise.then(res => {
-      // Remove last data point as it's not yet finished
-      res.over_time.splice(-1, 1);
+    this.updateHandler = makeCancelable(api.getClientsGraph(), {
+      repeat: this.updateGraph,
+      interval: 10 * 60 * 1000
+    });
+    this.updateHandler.promise
+      .then(res => {
+        // Remove last data point as it's not yet finished
+        res.over_time.splice(-1, 1);
 
-      const colors = [
-        "#20a8d8",
-        "#f86c6b",
-        "#4dbd74",
-        "#f8cb00",
-        "#263238",
-        "#63c2de",
-        "#b0bec5"
-      ];
-      const labels = res.over_time.map(step => new Date(1000 * step.timestamp));
-      const datasets = [];
+        const colors = [
+          "#20a8d8",
+          "#f86c6b",
+          "#4dbd74",
+          "#f8cb00",
+          "#263238",
+          "#63c2de",
+          "#b0bec5"
+        ];
+        const labels = res.over_time.map(
+          step => new Date(1000 * step.timestamp)
+        );
+        const datasets = [];
 
-      // Fill in dataset metadata
-      let i = 0;
-      for(let client of res.clients) {
-        datasets.push({
-          label: client.name.length !== 0 ? client.name : client.ip,
-          // If we ran out of colors, make a random one
-          backgroundColor: i < colors.length
-            ? colors[i]
-            : '#' + parseInt("" + Math.random() * 0xffffff, 10).toString(16).padStart(6, "0"),
-          pointRadius: 0,
-          pointHitRadius: 5,
-          pointHoverRadius: 5,
-          cubicInterpolationMode: "monotone",
-          data: []
-        });
+        // Fill in dataset metadata
+        let i = 0;
+        for (let client of res.clients) {
+          datasets.push({
+            label: client.name.length !== 0 ? client.name : client.ip,
+            // If we ran out of colors, make a random one
+            backgroundColor:
+              i < colors.length
+                ? colors[i]
+                : "#" +
+                  parseInt("" + Math.random() * 0xffffff, 10)
+                    .toString(16)
+                    .padStart(6, "0"),
+            pointRadius: 0,
+            pointHitRadius: 5,
+            pointHoverRadius: 5,
+            cubicInterpolationMode: "monotone",
+            data: []
+          });
 
-        i++;
-      }
-
-      // Fill in data & labels
-      for(let step of res.over_time) {
-        for(let destination in datasets) {
-          if(datasets.hasOwnProperty(destination))
-            datasets[destination].data.push(step.data[destination]);
+          i++;
         }
-      }
 
-      datasets.sort((a, b) => a.label.localeCompare(b.label));
+        // Fill in data & labels
+        for (let step of res.over_time) {
+          for (let destination in datasets) {
+            if (datasets.hasOwnProperty(destination))
+              datasets[destination].data.push(step.data[destination]);
+          }
+        }
 
-      this.setState({ data: { labels, datasets }, loading: false });
-    }).catch(ignoreCancel)
+        datasets.sort((a, b) => a.label.localeCompare(b.label));
+
+        this.setState({ data: { labels, datasets }, loading: false });
+      })
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {
@@ -111,53 +122,69 @@ class ClientsGraph extends Component {
             return t("Client activity from {{from}} to {{to}}", { from, to });
           },
           label: (tooltipItems, data) => {
-            return data.datasets[tooltipItems.datasetIndex].label + ": " + tooltipItems.yLabel;
+            return (
+              data.datasets[tooltipItems.datasetIndex].label +
+              ": " +
+              tooltipItems.yLabel
+            );
           }
         }
       },
       legend: { display: false },
       scales: {
-        xAxes: [{
-          type: "time",
-          time: {
-            unit: "hour",
-            displayFormats: { hour: "HH:mm" },
-            tooltipFormat: "HH:mm"
+        xAxes: [
+          {
+            type: "time",
+            time: {
+              unit: "hour",
+              displayFormats: { hour: "HH:mm" },
+              tooltipFormat: "HH:mm"
+            }
           }
-        }],
-        yAxes: [{
-          ticks: { beginAtZero: true },
-          stacked: true
-        }]
+        ],
+        yAxes: [
+          {
+            ticks: { beginAtZero: true },
+            stacked: true
+          }
+        ]
       },
       maintainAspectRatio: false
     };
 
     return (
       <div className="card">
-        <div className="card-header">
-          {t("Clients Over Last 24 Hours")}
-        </div>
+        <div className="card-header">{t("Clients Over Last 24 Hours")}</div>
         <div className="card-body">
-          <Line width={970} height={170} data={this.state.data} options={options} ref={this.graphRef}/>
+          <Line
+            width={970}
+            height={170}
+            data={this.state.data}
+            options={options}
+            ref={this.graphRef}
+          />
         </div>
-        {
-          this.state.loading
-            ?
-            <div className="card-img-overlay" style={{ background: "rgba(255,255,255,0.7)" }}>
-              <i className="fa fa-refresh fa-spin"
-                 style={{ position: "absolute", top: "50%", left: "50%", fontSize: "30px" }}/>
-            </div>
-            :
-            null
-        }
-        {
-          // Now you're thinking with portals!
-          ReactDOM.createPortal(
-            <ChartTooltip chart={this.graphRef} handler={options.tooltips}/>,
-            document.body
-          )
-        }
+        {this.state.loading ? (
+          <div
+            className="card-img-overlay"
+            style={{ background: "rgba(255,255,255,0.7)" }}
+          >
+            <i
+              className="fa fa-refresh fa-spin"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                fontSize: "30px"
+              }}
+            />
+          </div>
+        ) : null}
+        {// Now you're thinking with portals!
+        ReactDOM.createPortal(
+          <ChartTooltip chart={this.graphRef} handler={options.tooltips} />,
+          document.body
+        )}
       </div>
     );
   }

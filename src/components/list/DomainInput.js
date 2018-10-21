@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
 import { api } from "../../utils";
 
 class DomainInput extends Component {
@@ -19,10 +19,9 @@ class DomainInput extends Component {
     isValid: true
   };
 
-  handleChange = (e) =>
-    this.setState({ domain: e.target.value });
+  handleChange = e => this.setState({ domain: e.target.value });
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
     const domain = this.state.domain;
@@ -51,15 +50,17 @@ class DomainInput extends Component {
           disabled={!api.loggedIn}
         />
         <span className="btn-group input-group-append">
-          {
-            api.loggedIn ?
-              <button className="btn border-secondary" type="submit" >
-                {t("Add")}
-              </button>
-              : null
-          }
-          <button onClick={onRefresh} className="btn border-secondary" type="button">
-            <i className="fa fa-refresh"/>
+          {api.loggedIn ? (
+            <button className="btn border-secondary" type="submit">
+              {t("Add")}
+            </button>
+          ) : null}
+          <button
+            onClick={onRefresh}
+            className="btn border-secondary"
+            type="button"
+          >
+            <i className="fa fa-refresh" />
           </button>
         </span>
       </form>
@@ -76,7 +77,7 @@ DomainInput.propTypes = {
 };
 
 DomainInput.defaultProps = {
-  placeholder: ''
+  placeholder: ""
 };
 
 export default translate(["common", "lists"])(DomainInput);

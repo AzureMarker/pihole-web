@@ -39,7 +39,7 @@ const fakeData = {
 it("shows loading indicator before first load", () => {
   fetchMock.mock(endpoint, ignoreAPI);
 
-  const wrapper = shallow(<ClientsGraph/>);
+  const wrapper = shallow(<ClientsGraph />);
 
   expect(wrapper.state().loading).toBeTruthy();
   expect(wrapper.children(".card-img-overlay")).toExist();
@@ -48,7 +48,7 @@ it("shows loading indicator before first load", () => {
 it("hides loading indicator after first load", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper = shallow(<ClientsGraph/>);
+  const wrapper = shallow(<ClientsGraph />);
 
   await tick();
   wrapper.update();
@@ -60,13 +60,21 @@ it("hides loading indicator after first load", async () => {
 it("loads API data correctly", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper = shallow(<ClientsGraph/>);
+  const wrapper = shallow(<ClientsGraph />);
 
   await tick();
   wrapper.update();
 
-  expect(wrapper.state().data.labels[0]).toEqual(new Date(1000 * fakeData.over_time[0].timestamp));
-  expect(wrapper.state().data.datasets[2].label).toEqual(fakeData.clients[2].name);
-  expect(wrapper.state().data.datasets[1].label).toEqual(fakeData.clients[1].ip);
-  expect(wrapper.state().data.datasets[0].data.length).toEqual(fakeData.over_time.length - 1);
+  expect(wrapper.state().data.labels[0]).toEqual(
+    new Date(1000 * fakeData.over_time[0].timestamp)
+  );
+  expect(wrapper.state().data.datasets[2].label).toEqual(
+    fakeData.clients[2].name
+  );
+  expect(wrapper.state().data.datasets[1].label).toEqual(
+    fakeData.clients[1].ip
+  );
+  expect(wrapper.state().data.datasets[0].data.length).toEqual(
+    fakeData.over_time.length - 1
+  );
 });

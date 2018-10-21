@@ -29,6 +29,10 @@ jobs:
         - v1-build-{{ checksum "package-lock.json" }}
         - v1-build-
     - *install_packages
+    - run:
+        name: "Check Formatting"
+        command: |
+          npm run check-format
     - *test
     - run:
         name: "Build"

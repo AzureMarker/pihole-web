@@ -16,7 +16,8 @@ import GenericDoughnutChart from "./GenericDoughnutChart";
 const ForwardDestinationsChart = ({ t }) => (
   <GenericDoughnutChart
     title={t("Queries Answered By Destination")}
-    apiCall={api.getForwardDestinations}/>
+    apiCall={api.getForwardDestinations}
+  />
 );
 
 export default translate("dashboard")(ForwardDestinationsChart);

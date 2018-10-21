@@ -8,9 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { translate } from 'react-i18next';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { translate } from "react-i18next";
 
 class ForgotPassword extends Component {
   state = {
@@ -33,23 +33,47 @@ class ForgotPassword extends Component {
     const { t } = this.props;
 
     return (
-      <div style={{'width': '100%'}}>
-        <div className={'card ' + (this.props.error ? 'border-danger': 'border-primary')}>
-          <div className={'card-header ' + (this.props.error ? 'bg-danger' : 'bg-primary')}
-               style={{ paddingRight: "10px" }}>
-            <h3 className="card-title" style={{'fontSize': '18px', 'display': 'inline-block', 'margin': 0}}>
+      <div style={{ width: "100%" }}>
+        <div
+          className={
+            "card " + (this.props.error ? "border-danger" : "border-primary")
+          }
+        >
+          <div
+            className={
+              "card-header " + (this.props.error ? "bg-danger" : "bg-primary")
+            }
+            style={{ paddingRight: "10px" }}
+          >
+            <h3
+              className="card-title"
+              style={{ fontSize: "18px", display: "inline-block", margin: 0 }}
+            >
               {t("Forgot Password")}
             </h3>
 
             <span className="pull-right">
-              <button type="button" className="btn btn-card-tool" onClick={this.onClick}>
-                <i className={'fa ' + (this.isExpanded() ? 'fa-minus' : 'fa-plus')}/>
+              <button
+                type="button"
+                className="btn btn-card-tool"
+                onClick={this.onClick}
+              >
+                <i
+                  className={
+                    "fa " + (this.isExpanded() ? "fa-minus" : "fa-plus")
+                  }
+                />
               </button>
             </span>
           </div>
-          <div className={'card-body bg-light' + (this.isExpanded() ? '' : ' collapse')} style={{'padding': '10px'}}>
+          <div
+            className={
+              "card-body bg-light" + (this.isExpanded() ? "" : " collapse")
+            }
+            style={{ padding: "10px" }}
+          >
             {t("forgot_password_description")}
-            <pre style={{'textAlign': 'center'}}>sudo pihole -a -p</pre>
+            <pre style={{ textAlign: "center" }}>sudo pihole -a -p</pre>
           </div>
         </div>
       </div>

@@ -8,24 +8,24 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
+import React from "react";
 
 const boxedLayoutToggle = () => {
-  document.body.classList.toggle('boxcontainer');
-  document.body.classList.toggle('background-image');
+  document.body.classList.toggle("boxcontainer");
+  document.body.classList.toggle("background-image");
 };
 
 export default () => {
   return (
     <div className="container-toggler">
-      <button className="container-toggler-button" 
-              title="BOXED_LAYOUT_TEST_BUTTON" type="button" 
-              onClick={boxedLayoutToggle}>
+      <button
+        className="container-toggler-button"
+        title="BOXED_LAYOUT_TEST_BUTTON"
+        type="button"
+        onClick={boxedLayoutToggle}
+      >
         <i className="fa fa-exchange" />
       </button>
     </div>
-  )
-}
-
-
-
+  );
+};

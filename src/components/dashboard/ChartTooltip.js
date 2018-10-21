@@ -8,8 +8,8 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ChartTooltip extends Component {
   state = {
@@ -24,20 +24,22 @@ class ChartTooltip extends Component {
     let lastTime = Date.now();
     this.props.handler.custom = tooltip => {
       // Always disable the tooltip
-      if(tooltip.opacity === 0)
-        this.setState({ tooltip });
+      if (tooltip.opacity === 0) this.setState({ tooltip });
 
       // Limit how quickly we set state (50ms)
       const now = Date.now();
-      if(now - lastTime < 50)
-        return;
+      if (now - lastTime < 50) return;
 
       lastTime = now;
       this.setState({ tooltip });
     };
 
     // Don't render anything if there is nothing to render
-    if(tooltip === null || tooltip.opacity === 0 || this.props.chart.current === null)
+    if (
+      tooltip === null ||
+      tooltip.opacity === 0 ||
+      this.props.chart.current === null
+    )
       return null;
 
     // Get the graph's position data so we can offset the tooltip
@@ -45,12 +47,11 @@ class ChartTooltip extends Component {
     let width = tooltip.caretX;
 
     // Prevent compression of the tooltip at the right edge of the screen
-    if(document.offsetWidth - tooltip.caretX < 400)
+    if (document.offsetWidth - tooltip.caretX < 400)
       width = document.offsetWidth - 400;
 
     // Prevent tooltip disappearing behind the sidebar
-    if(tooltip.caretX < 100)
-      width = 100;
+    if (tooltip.caretX < 100) width = 100;
 
     // Tooltip CSS styling
     const style = {
@@ -65,44 +66,42 @@ class ChartTooltip extends Component {
 
     // Transform and sort the tooltip data
     let data = [];
-    if(tooltip.body) {
-      data = tooltip.body
-        .map(body => body.lines)
-        .map((item, i) => ({
-          data: item[0],
-          colors: tooltip.labelColors[i]
-        }));
+    if (tooltip.body) {
+      data = tooltip.body.map(body => body.lines).map((item, i) => ({
+        data: item[0],
+        colors: tooltip.labelColors[i]
+      }));
     }
-    data.sort((a, b) => a.data.split(": ")[0].localeCompare(b.data.split(": ")[0]));
+    data.sort((a, b) =>
+      a.data.split(": ")[0].localeCompare(b.data.split(": ")[0])
+    );
 
     return (
       <div className="chartjs-tooltip" style={style}>
         <table>
           <thead>
-          {
-            tooltip.title.map((title, i) => (
+            {tooltip.title.map((title, i) => (
               <tr key={i}>
                 <th>{title}</th>
               </tr>
-            ))
-          }
+            ))}
           </thead>
           <tbody>
-          {
-            data.map((item, i) => (
+            {data.map((item, i) => (
               <tr key={i}>
                 <td>
-                  <span className="chartjs-tooltip-key"
-                        style={{
-                          background: item.colors.backgroundColor,
-                          borderColor: item.colors.borderColor,
-                          borderWidth: "2px"
-                        }}/>
+                  <span
+                    className="chartjs-tooltip-key"
+                    style={{
+                      background: item.colors.backgroundColor,
+                      borderColor: item.colors.borderColor,
+                      borderWidth: "2px"
+                    }}
+                  />
                   {item.data}
                 </td>
               </tr>
-            ))
-          }
+            ))}
           </tbody>
         </table>
       </div>

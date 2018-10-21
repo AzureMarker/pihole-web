@@ -21,7 +21,8 @@ it("shows loading indicator before first load", () => {
       isEmpty={() => true}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   expect(wrapper.state().loading).toBeTruthy();
@@ -37,7 +38,8 @@ it("hides loading indicator after first load", async () => {
       isEmpty={() => true}
       apiCall={() => Promise.resolve()}
       apiHandler={self => self.setState({ loading: false })}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   await tick();
@@ -59,7 +61,8 @@ it("sets the initial state", () => {
       isEmpty={() => true}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   expect(wrapper.state().testInitialState).toEqual(true);
@@ -75,18 +78,15 @@ it("sets the title", () => {
       isEmpty={() => true}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   expect(wrapper.find(".card-header")).toHaveText(title);
 });
 
 it("adds the headers", () => {
-  const headers = [
-    "header1",
-    "header2",
-    "header3"
-  ];
+  const headers = ["header1", "header2", "header3"];
   const wrapper = shallow(
     <TopTable
       title={""}
@@ -96,7 +96,8 @@ it("adds the headers", () => {
       isEmpty={() => false}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   expect(
@@ -119,7 +120,8 @@ it("shows the empty message when empty", () => {
       isEmpty={() => true}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   expect(wrapper.find(".card-body").childAt(0)).toHaveText(emptyMessage);
@@ -137,7 +139,8 @@ it("calls apiCall and apiHandler to retrieve data", async () => {
       isEmpty={() => true}
       apiCall={apiCall}
       apiHandler={apiHandler}
-      generateRows={jest.fn()}/>
+      generateRows={jest.fn()}
+    />
   );
 
   await tick();
@@ -157,7 +160,8 @@ it("does not call generateRows when empty", () => {
       isEmpty={() => true}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={generateRows}/>
+      generateRows={generateRows}
+    />
   );
 
   expect(generateRows).not.toHaveBeenCalled();
@@ -175,7 +179,8 @@ it("calls generateRows with state when not empty", () => {
       isEmpty={() => false}
       apiCall={ignoreAPI}
       apiHandler={jest.fn()}
-      generateRows={generateRows}/>
+      generateRows={generateRows}
+    />
   );
 
   expect(generateRows).toHaveBeenCalledWith(state);

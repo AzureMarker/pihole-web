@@ -8,8 +8,8 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
+import React from "react";
+import { translate } from "react-i18next";
 import { api } from "../utils";
 import ListPage from "../components/list/ListPage";
 import { isValidDomain } from "../validate";
@@ -28,7 +28,7 @@ const Blacklist = props => {
       validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
-  )
+  );
 };
 
 export default translate("location")(Blacklist);

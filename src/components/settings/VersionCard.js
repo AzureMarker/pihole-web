@@ -25,22 +25,27 @@ class VersionCard extends Component {
       <div className="card border-0 bg-primary">
         <div className="card-block">
           <div className="card-icon">
-            <i className={this.props.icon}/>
+            <i className={this.props.icon} />
           </div>
         </div>
         <div className="card-body">
           <h3>{this.props.name}</h3>
           <p>
-            {t("Version")}: {this.props.branch === "master" ? this.props.tag : "vDev"}
+            {t("Version")}:{" "}
+            {this.props.branch === "master" ? this.props.tag : "vDev"}
           </p>
-          <button className="btn btn-secondary"
-                  type="button"
-                  onClick={() => this.setState({ collapsed: !this.state.collapsed })}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={() => this.setState({ collapsed: !this.state.collapsed })}
+          >
             {t("Details")}
           </button>
           <Collapse isOpen={!this.state.collapsed}>
-            <table className="table table-borderless table-sm table-condensed"
-                   style={{ marginTop: "1rem", marginBottom: "0" }}>
+            <table
+              className="table table-borderless table-sm table-condensed"
+              style={{ marginTop: "1rem", marginBottom: "0" }}
+            >
               <tbody>
                 <tr>
                   <td>{t("Branch")}</td>

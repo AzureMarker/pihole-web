@@ -8,29 +8,29 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom'
-import Header, { mobileSidebarHide } from '../components/common/Header';
-import Sidebar from '../components/common/Sidebar';
-import Footer from '../components/common/Footer';
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Header, { mobileSidebarHide } from "../components/common/Header";
+import Sidebar from "../components/common/Sidebar";
+import Footer from "../components/common/Footer";
 import { api } from "../utils";
 import { nav } from "../routes";
 
 export default props => (
   <div className="app">
-    <Header/>
+    <Header />
     <div className="app-body">
-      <Sidebar items={nav} {...props}/>
+      <Sidebar items={nav} {...props} />
       <main className="main" onClick={mobileSidebarHide}>
-        <div className="container-fluid" style={{"marginTop": "1.5rem"}}>
+        <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
           <Switch>
-            <Redirect exact from="/" to="/dashboard"/>
+            <Redirect exact from="/" to="/dashboard" />
             {nav.map(createRoute)}
           </Switch>
         </div>
       </main>
     </div>
-    <Footer/>
+    <Footer />
   </div>
 );
 
@@ -41,13 +41,23 @@ export default props => (
  * @param routeData the route data (see routes.js)
  */
 const createRoute = routeData => {
-  if(routeData.children) {
+  if (routeData.children) {
     return routeData.children.map(createRoute);
   }
 
-  return routeData.auth
-    ? <AuthRoute key={routeData.url} path={routeData.url} component={routeData.component}/>
-    : <Route key={routeData.url} path={routeData.url} component={routeData.component}/>;
+  return routeData.auth ? (
+    <AuthRoute
+      key={routeData.url}
+      path={routeData.url}
+      component={routeData.component}
+    />
+  ) : (
+    <Route
+      key={routeData.url}
+      path={routeData.url}
+      component={routeData.component}
+    />
+  );
 };
 
 /**
@@ -76,4 +86,3 @@ const AuthRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
-
