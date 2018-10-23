@@ -12,6 +12,7 @@ import React from "react";
 import { translate } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import { api } from "../utils";
+import { isValidRegex } from "../validate";
 
 const Regexlist = props => {
   const { t } = props;
@@ -23,7 +24,7 @@ const Regexlist = props => {
       add={api.addRegexlist}
       remove={api.removeRegexlist}
       refresh={api.getRegexlist}
-      isValid={() => true}
+      isValid={isValidRegex}
       validationErrorMsg={t("Not a valid regular expression")}
       {...props}
     />

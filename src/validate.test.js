@@ -8,7 +8,7 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import { isStrictNumeric, isValidDomain } from "./validate";
+import { isStrictNumeric, isValidDomain, isValidRegex } from "./validate";
 
 describe("Testing the validation functions", () => {
   describe("isValidDomain", () => {
@@ -116,6 +116,28 @@ describe("Testing the validation functions", () => {
     it("fails 1100101O1", () => {
       const result = isStrictNumeric("1100101O1");
       expect(result).toBe(false);
+    });
+  });
+
+  describe("isValidRegex", () => {
+    it("should validate simple regex", () => {
+      expect(isValidRegex("[0-9]+")).toBe(true);
+    });
+
+    it("should validate complex regex", () => {
+      expect(
+        isValidRegex(
+          "^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$"
+        )
+      ).toBe(true);
+    });
+
+    it("should not pass regex validation when preceding token is not quantifiable", () => {
+      expect(isValidRegex("abc*{1}")).toBe(false);
+    });
+
+    it("should not pass regex validation when missing closing bracket", () => {
+      expect(isValidRegex("[0-")).toBe(false);
     });
   });
 });
