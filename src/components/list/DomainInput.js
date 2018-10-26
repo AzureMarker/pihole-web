@@ -25,6 +25,12 @@ class DomainInput extends Component {
     e.preventDefault();
 
     const domain = this.state.domain;
+
+    // Don't do anything for empty inputs
+    if(domain.length === 0) {
+      return;
+    }
+
     const isValid = this.props.isValid(domain);
     this.setState({ isValid });
     if (isValid) {
