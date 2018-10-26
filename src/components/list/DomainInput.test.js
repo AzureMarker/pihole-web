@@ -128,15 +128,15 @@ it("does not call onEnter when input is empty", () => {
     <DomainInput
       onEnter={onEnter}
       onRefresh={jest.fn()}
-      isValid={isValidDomain}
+      isValid={() => true}
       onValidationError={jest.fn()}
     />
   );
 
   wrapper
-    .find("button")
+    .find("form")
     .first()
-    .simulate("click");
+    .simulate("submit", { preventDefault: jest.fn() });
 
   expect(onEnter).not.toHaveBeenCalled();
 });
