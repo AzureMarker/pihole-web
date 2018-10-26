@@ -41,3 +41,12 @@ export function isStrictNumeric(input) {
   // Caution, does not work with negative numbers, replace with /^(\-|\+)?([0-9])$/ if needed
   return /^[0-9]*$/.test(input);
 }
+
+export function isValidRegex(regex) {
+  try {
+    new RegExp(regex);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
