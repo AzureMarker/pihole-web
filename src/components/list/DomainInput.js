@@ -27,7 +27,7 @@ class DomainInput extends Component {
     const domain = this.state.domain;
 
     // Don't do anything for empty inputs
-    if(domain.length === 0) {
+    if (domain.length === 0) {
       return;
     }
 
