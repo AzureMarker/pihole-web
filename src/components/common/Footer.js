@@ -10,6 +10,7 @@
 
 import React from "react";
 import { translate } from "react-i18next";
+import FooterUpdateStatus from "./FooterUpdateStatus";
 
 const Footer = props => {
   const { t } = props;
@@ -26,12 +27,7 @@ const Footer = props => {
         </strong>{" "}
         {t("if you found this useful")}
       </div>
-      <div className="ml-auto">
-        <b className="hidden-xs-down">{t("Core Version")}: </b>
-        <b className="hidden-sm-up">C: </b> <span id="piholeVersion">vDev</span>
-        <b className="hidden-xs-down">, {t("Web Version")}: </b>
-        <b className="hidden-sm-up">, W: </b> <span id="webVersion">vDev</span>
-      </div>
+      <FooterUpdateStatus {...props} />
     </footer>
   );
 };
