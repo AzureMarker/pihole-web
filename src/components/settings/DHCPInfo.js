@@ -12,6 +12,7 @@ import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
 import {
+  Button,
   Col,
   Form,
   FormGroup,
@@ -20,6 +21,11 @@ import {
   InputGroupAddon,
   Label
 } from "reactstrap";
+import {
+  isStrictPositiveNumber,
+  isValidHostname,
+  isValidIpv4
+} from "../../validate";
 
 class DHCPInfo extends Component {
   state = {
@@ -65,6 +71,14 @@ class DHCPInfo extends Component {
     this.updateHandler.cancel();
   }
 
+  /**
+   * Create a function which will update the key in the state with the value
+   * of the event attribute.
+   *
+   * @param key {string} the state to update
+   * @param attr {string} the event target attribute to use
+   * @returns {function(Event)}
+   */
   onChange = (key, attr) => {
     return e =>
       this.setState({
@@ -72,19 +86,36 @@ class DHCPInfo extends Component {
       });
   };
 
+  /**
+   * Save changes to DHCP settings
+   *
+   * @param e the submit event
+   */
+  saveSettings = e => {
+    e.preventDefault();
+
+    // TODO: send settings to API
+  };
+
   render() {
     const { t } = this.props;
 
+    const isIpStartValid = isValidIpv4(this.state.ip_start);
+    const isIpEndValid = isValidIpv4(this.state.ip_end);
+    const isRouterIpValid = isValidIpv4(this.state.router_ip);
+    const isLeaseTimeValid = isStrictPositiveNumber(this.state.lease_time);
+    const isDomainValid = isValidHostname(this.state.domain);
+
     return (
-      <Form>
-        <FormGroup check style={{ paddingBottom: "10px" }}>
+      <Form onSubmit={this.saveSettings}>
+        <FormGroup check>
           <Label check>
             <Input
               type="checkbox"
               checked={this.state.active}
               onChange={this.onChange("active", "checked")}
             />
-            Enabled
+            {t("Enabled")}
           </Label>
         </FormGroup>
         <FormGroup row>
@@ -97,6 +128,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.ip_start}
               onChange={this.onChange("ip_start", "value")}
+              invalid={this.state.active && !isIpStartValid}
             />
           </Col>
         </FormGroup>
@@ -110,6 +142,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.ip_end}
               onChange={this.onChange("ip_end", "value")}
+              invalid={this.state.active && !isIpEndValid}
             />
           </Col>
         </FormGroup>
@@ -123,6 +156,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.router_ip}
               onChange={this.onChange("router_ip", "value")}
+              invalid={this.state.active && !isRouterIpValid}
             />
           </Col>
         </FormGroup>
@@ -137,6 +171,7 @@ class DHCPInfo extends Component {
                 disabled={!this.state.active}
                 value={this.state.lease_time}
                 onChange={this.onChange("lease_time", "value")}
+                invalid={this.state.active && !isLeaseTimeValid}
               />
               <InputGroupAddon addonType={"append"}>Hours</InputGroupAddon>
             </InputGroup>
@@ -152,6 +187,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.domain}
               onChange={this.onChange("domain", "value")}
+              invalid={this.state.active && !isDomainValid}
             />
           </Col>
         </FormGroup>
@@ -166,6 +202,19 @@ class DHCPInfo extends Component {
             {t("IPv6 Support")}
           </Label>
         </FormGroup>
+        <Button
+          type="submit"
+          disabled={
+            this.state.active &&
+            (!isIpStartValid ||
+              !isIpEndValid ||
+              !isRouterIpValid ||
+              !isLeaseTimeValid ||
+              !isDomainValid)
+          }
+        >
+          {t("Apply")}
+        </Button>
       </Form>
     );
   }
