@@ -21,11 +21,7 @@ import {
   InputGroupAddon,
   Label
 } from "reactstrap";
-import {
-  isStrictPositiveNumber,
-  isValidHostname,
-  isValidIpv4
-} from "../../validate";
+import { isPositiveNumber, isValidHostname, isValidIpv4 } from "../../validate";
 
 class DHCPInfo extends Component {
   state = {
@@ -103,7 +99,7 @@ class DHCPInfo extends Component {
     const isIpStartValid = isValidIpv4(this.state.ip_start);
     const isIpEndValid = isValidIpv4(this.state.ip_end);
     const isRouterIpValid = isValidIpv4(this.state.router_ip);
-    const isLeaseTimeValid = isStrictPositiveNumber(this.state.lease_time);
+    const isLeaseTimeValid = isPositiveNumber(this.state.lease_time);
     const isDomainValid = isValidHostname(this.state.domain);
 
     return (
