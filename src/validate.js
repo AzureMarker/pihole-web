@@ -21,7 +21,7 @@ export function isValidHostname(hostname) {
   // Must not be all numbers and periods
   const joined = segments.join("");
   // If the hostname without periods make a number, deny
-  if (isStrictNumeric(joined)) return false;
+  if (isPositiveNumber(joined)) return false;
 
   return /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+(\.([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*))*$/.test(
     hostname
@@ -36,10 +36,10 @@ export function isValidDomain(domain) {
   return isValidHostname(domain);
 }
 
-export function isStrictNumeric(input) {
+export function isPositiveNumber(input) {
   // Because parseInt has limitations, e.g. parseInt("15ex") is parsed to 15
   // Caution, does not work with negative numbers, replace with /^(\-|\+)?([0-9])$/ if needed
-  return /^[0-9]*$/.test(input);
+  return /^[0-9]+$/.test(input);
 }
 
 export function isValidRegex(regex) {
@@ -49,4 +49,26 @@ export function isValidRegex(regex) {
     return false;
   }
   return true;
+}
+
+/**
+ * Check if the string is a valid IPv4 address
+ *
+ * @param address {string} the address to check
+ * @returns {boolean} if the address is a valid IPv4 address
+ */
+export function isValidIpv4(address) {
+  const segments = address.split(".");
+
+  // Must have 4 segments
+  if (segments.length !== 4) {
+    return false;
+  }
+
+  // No segment can be longer than 3 characters or be empty
+
+  // All segments must be numbers (positive)
+  return segments.every(
+    segment => isPositiveNumber(segment) && parseInt(segment) < 256
+  );
 }

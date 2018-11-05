@@ -16,24 +16,24 @@ import VersionCard from "./VersionCard";
 class VersionInfo extends Component {
   state = {
     api: {
-      branch: "---",
-      hash: "---",
-      tag: "---"
+      branch: "unknown",
+      hash: "unknown",
+      tag: "unknown"
     },
     core: {
-      branch: "---",
-      hash: "---",
-      tag: "---"
+      branch: "unknown",
+      hash: "unknown",
+      tag: "unknown"
     },
     ftl: {
-      branch: "---",
-      hash: "---",
-      tag: "---"
+      branch: "unknown",
+      hash: "unknown",
+      tag: "unknown"
     },
     web: {
-      branch: "---",
-      hash: "---",
-      tag: "---"
+      branch: "unknown",
+      hash: "unknown",
+      tag: "unknown"
     }
   };
 
@@ -51,31 +51,7 @@ class VersionInfo extends Component {
       .then(res => {
         this.setState(res);
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          api: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-          core: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-          ftl: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          },
-          web: {
-            branch: "-!-",
-            hash: "-!-",
-            tag: "-!-"
-          }
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {

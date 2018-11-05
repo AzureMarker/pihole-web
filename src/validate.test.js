@@ -8,7 +8,12 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import { isStrictNumeric, isValidDomain, isValidRegex } from "./validate";
+import {
+  isPositiveNumber,
+  isValidDomain,
+  isValidIpv4,
+  isValidRegex
+} from "./validate";
 
 describe("Testing the validation functions", () => {
   describe("isValidDomain", () => {
@@ -102,19 +107,24 @@ describe("Testing the validation functions", () => {
     });
   });
 
-  describe("isStrictNumeric", () => {
+  describe("isPositiveNumber", () => {
     it("passes 1234567890", () => {
-      const result = isStrictNumeric("1234567890");
+      const result = isPositiveNumber("1234567890");
       expect(result).toBe(true);
     });
 
     it("fails 1234a567890", () => {
-      const result = isStrictNumeric("1234a567890");
+      const result = isPositiveNumber("1234a567890");
       expect(result).toBe(false);
     });
 
     it("fails 1100101O1", () => {
-      const result = isStrictNumeric("1100101O1");
+      const result = isPositiveNumber("1100101O1");
+      expect(result).toBe(false);
+    });
+
+    it("fails empty string", () => {
+      const result = isPositiveNumber("");
       expect(result).toBe(false);
     });
   });
@@ -138,6 +148,44 @@ describe("Testing the validation functions", () => {
 
     it("should not pass regex validation when missing closing bracket", () => {
       expect(isValidRegex("[0-")).toBe(false);
+    });
+  });
+
+  describe("isValidIpv4", () => {
+    it("passes 127.0.0.1", () => {
+      expect(isValidIpv4("127.0.0.1")).toBe(true);
+    });
+
+    it("passes 1.1.1.1", () => {
+      expect(isValidIpv4("1.1.1.1")).toBe(true);
+    });
+
+    it("passes 111.111.111.111", () => {
+      expect(isValidIpv4("111.111.111.111")).toBe(true);
+    });
+
+    it("fails 1111.1.1.1", () => {
+      expect(isValidIpv4("1111.1.1.1")).toBe(false);
+    });
+
+    it("fails 1.1.1.", () => {
+      expect(isValidIpv4("1.1.1.")).toBe(false);
+    });
+
+    it("fails empty string", () => {
+      expect(isValidIpv4("")).toBe(false);
+    });
+
+    it("fails 8.8", () => {
+      expect(isValidIpv4("8.8")).toBe(false);
+    });
+
+    it("fails 10. 10.1.1", () => {
+      expect(isValidIpv4("10. 10.1.1")).toBe(false);
+    });
+
+    it("fails 555.666.777.888", () => {
+      expect(isValidIpv4("555.666.777.888")).toBe(false);
     });
   });
 });

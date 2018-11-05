@@ -14,9 +14,9 @@ import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class FTLInfo extends Component {
   state = {
-    filesize: "---",
-    queries: "---",
-    sqlite_version: "---"
+    filesize: 0,
+    queries: 0,
+    sqlite_version: ""
   };
 
   constructor(props) {
@@ -37,14 +37,7 @@ class FTLInfo extends Component {
           sqlite_version: res.sqlite_version
         });
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          queries: "-!-",
-          filesize: "-!-",
-          sqlite_version: "-!-"
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {
