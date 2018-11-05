@@ -66,10 +66,9 @@ export function isValidIpv4(address) {
   }
 
   // No segment can be longer than 3 characters or be empty
-  if (segments.some(segment => segment.length > 3 || segment.length === 0)) {
-    return false;
-  }
 
   // All segments must be numbers (positive)
-  return segments.every(segment => isPositiveNumber(segment));
+  return segments.every(
+    segment => isPositiveNumber(segment) && parseInt(segment) < 256
+  );
 }

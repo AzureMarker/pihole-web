@@ -183,5 +183,9 @@ describe("Testing the validation functions", () => {
     it("fails 10. 10.1.1", () => {
       expect(isValidIpv4("10. 10.1.1")).toBe(false);
     });
+
+    it("fails 555.666.777.888", () => {
+      expect(isValidIpv4("555.666.777.888")).toBe(false);
+    });
   });
 });
