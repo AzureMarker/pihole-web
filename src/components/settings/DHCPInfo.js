@@ -23,13 +23,13 @@ import {
 
 class DHCPInfo extends Component {
   state = {
-    active: "---",
-    ip_start: "---",
-    ip_end: "---",
-    router_ip: "---",
-    lease_time: "---",
-    domain: "---",
-    ipv6_support: "---"
+    active: false,
+    ip_start: "",
+    ip_end: "",
+    router_ip: "",
+    lease_time: 24,
+    domain: "",
+    ipv6_support: false
   };
 
   constructor(props) {
@@ -54,18 +54,7 @@ class DHCPInfo extends Component {
           ipv6_support: res.ipv6_support
         });
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          active: "-!-",
-          ip_start: "-!-",
-          ip_end: "-!-",
-          router_ip: "-!-",
-          lease_time: "-!-",
-          domain: "-!-",
-          ipv6_support: "-!-"
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {

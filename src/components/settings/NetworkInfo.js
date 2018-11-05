@@ -15,10 +15,10 @@ import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 class NetworkInfo extends Component {
   state = {
-    interface: "---",
-    ipv4_address: "---",
-    ipv6_address: "---",
-    hostname: "---"
+    interface: "",
+    ipv4_address: "",
+    ipv6_address: "",
+    hostname: ""
   };
 
   constructor(props) {
@@ -40,15 +40,7 @@ class NetworkInfo extends Component {
           hostname: res.hostname
         });
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          interface: "-!-",
-          ipv4_address: "-!-",
-          ipv6_address: "-!-",
-          hostname: "-!-"
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {

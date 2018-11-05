@@ -14,17 +14,17 @@ import { api, ignoreCancel, makeCancelable } from "../../utils";
 
 class DNSInfo extends Component {
   state = {
-    upstream_dns: ["---"],
+    upstream_dns: [],
     conditional_forwarding: {
-      enabled: "---",
-      router_ip: "---",
-      domain: "---"
+      enabled: false,
+      router_ip: "",
+      domain: ""
     },
     options: {
-      fqdn_required: "---",
-      bogus_priv: "---",
-      dnssec: "---",
-      listening_type: "---"
+      fqdn_required: false,
+      bogus_priv: false,
+      dnssec: false,
+      listening_type: "single"
     }
   };
 
@@ -42,23 +42,7 @@ class DNSInfo extends Component {
       .then(res => {
         this.setState(res);
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          upstream_dns: ["-!-"],
-          options: {
-            fqdn_required: "-!-",
-            bogus_priv: "-!-",
-            dnssec: "-!-",
-            listening_type: "-!-"
-          },
-          conditional_forwarding: {
-            enabled: "-!-",
-            router_ip: "-!-",
-            domain: "-!-"
-          }
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {
