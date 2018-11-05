@@ -8,17 +8,17 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { api, ignoreCancel, makeCancelable } from "../../utils";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
 class NetworkInfo extends Component {
   state = {
-    interface: "---",
-    ipv4_address: "---",
-    ipv6_address: "---",
-    hostname: "---"
+    interface: "",
+    ipv4_address: "",
+    ipv6_address: "",
+    hostname: ""
   };
 
   constructor(props) {
@@ -40,15 +40,7 @@ class NetworkInfo extends Component {
           hostname: res.hostname
         });
       })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          interface: "-!-",
-          ipv4_address: "-!-",
-          ipv6_address: "-!-",
-          hostname: "-!-"
-        });
-      });
+      .catch(ignoreCancel);
   }
 
   componentDidMount() {
@@ -63,50 +55,48 @@ class NetworkInfo extends Component {
     const { t } = this.props;
 
     return (
-      <Fragment>
-        <Form>
-          <FormGroup row>
-            <Label className="bold" for="interface" sm={4}>
-              {t("Interface")}
-            </Label>
-            <Col sm={8}>
-              <Input plaintext id="interface">
-                {this.state.interface}
-              </Input>
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label className="bold" for="ipv4_address" sm={4}>
-              {t("IPv4 address")}
-            </Label>
-            <Col sm={8}>
-              <Input plaintext id="ipv4_address">
-                {this.state.ipv4_address}
-              </Input>
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label className="bold" for="ipv6_address" sm={4}>
-              {t("IPv6 address")}
-            </Label>
-            <Col sm={8}>
-              <Input plaintext id="ipv6_address">
-                {this.state.ipv6_address}
-              </Input>
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label className="bold" for="hostname" sm={4}>
-              {t("Hostname")}
-            </Label>
-            <Col sm={8}>
-              <Input plaintext id="hostname">
-                {this.state.hostname}
-              </Input>
-            </Col>
-          </FormGroup>
-        </Form>
-      </Fragment>
+      <Form>
+        <FormGroup row>
+          <Label className="bold" for="interface" sm={4}>
+            {t("Interface")}
+          </Label>
+          <Col sm={8}>
+            <Input plaintext id="interface">
+              {this.state.interface}
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="bold" for="ipv4_address" sm={4}>
+            {t("IPv4 address")}
+          </Label>
+          <Col sm={8}>
+            <Input plaintext id="ipv4_address">
+              {this.state.ipv4_address}
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="bold" for="ipv6_address" sm={4}>
+            {t("IPv6 address")}
+          </Label>
+          <Col sm={8}>
+            <Input plaintext id="ipv6_address">
+              {this.state.ipv6_address}
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="bold" for="hostname" sm={4}>
+            {t("Hostname")}
+          </Label>
+          <Col sm={8}>
+            <Input plaintext id="hostname">
+              {this.state.hostname}
+            </Input>
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }
