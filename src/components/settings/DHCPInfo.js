@@ -29,7 +29,7 @@ class DHCPInfo extends Component {
     ip_start: "",
     ip_end: "",
     router_ip: "",
-    lease_time: 24,
+    lease_time: "",
     domain: "",
     ipv6_support: false
   };
@@ -93,14 +93,36 @@ class DHCPInfo extends Component {
     // TODO: send settings to API
   };
 
+  /**
+   * Settings are valid if the value is valid or if DHCP is disabled and the value is empty.
+   *
+   * @param value the value to check
+   * @param validator the validation function
+   */
+  isSettingValid = (value, validator) => {
+    return (!this.state.active && value.length === 0) || validator(value);
+  };
+
   render() {
     const { t } = this.props;
 
-    const isIpStartValid = isValidIpv4(this.state.ip_start);
-    const isIpEndValid = isValidIpv4(this.state.ip_end);
-    const isRouterIpValid = isValidIpv4(this.state.router_ip);
-    const isLeaseTimeValid = isPositiveNumber(this.state.lease_time);
-    const isDomainValid = isValidHostname(this.state.domain);
+    const isIpStartValid = this.isSettingValid(
+      this.state.ip_start,
+      isValidIpv4
+    );
+    const isIpEndValid = this.isSettingValid(this.state.ip_end, isValidIpv4);
+    const isRouterIpValid = this.isSettingValid(
+      this.state.router_ip,
+      isValidIpv4
+    );
+    const isLeaseTimeValid = this.isSettingValid(
+      this.state.lease_time,
+      isPositiveNumber
+    );
+    const isDomainValid = this.isSettingValid(
+      this.state.domain,
+      isValidHostname
+    );
 
     return (
       <Form onSubmit={this.saveSettings}>
@@ -124,7 +146,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.ip_start}
               onChange={this.onChange("ip_start", "value")}
-              invalid={this.state.active && !isIpStartValid}
+              invalid={!isIpStartValid}
             />
           </Col>
         </FormGroup>
@@ -138,7 +160,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.ip_end}
               onChange={this.onChange("ip_end", "value")}
-              invalid={this.state.active && !isIpEndValid}
+              invalid={!isIpEndValid}
             />
           </Col>
         </FormGroup>
@@ -152,7 +174,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.router_ip}
               onChange={this.onChange("router_ip", "value")}
-              invalid={this.state.active && !isRouterIpValid}
+              invalid={!isRouterIpValid}
             />
           </Col>
         </FormGroup>
@@ -167,7 +189,7 @@ class DHCPInfo extends Component {
                 disabled={!this.state.active}
                 value={this.state.lease_time}
                 onChange={this.onChange("lease_time", "value")}
-                invalid={this.state.active && !isLeaseTimeValid}
+                invalid={!isLeaseTimeValid}
               />
               <InputGroupAddon addonType={"append"}>Hours</InputGroupAddon>
             </InputGroup>
@@ -183,7 +205,7 @@ class DHCPInfo extends Component {
               disabled={!this.state.active}
               value={this.state.domain}
               onChange={this.onChange("domain", "value")}
-              invalid={this.state.active && !isDomainValid}
+              invalid={!isDomainValid}
             />
           </Col>
         </FormGroup>
@@ -201,12 +223,11 @@ class DHCPInfo extends Component {
         <Button
           type="submit"
           disabled={
-            this.state.active &&
-            (!isIpStartValid ||
-              !isIpEndValid ||
-              !isRouterIpValid ||
-              !isLeaseTimeValid ||
-              !isDomainValid)
+            !isIpStartValid ||
+            !isIpEndValid ||
+            !isRouterIpValid ||
+            !isLeaseTimeValid ||
+            !isDomainValid
           }
         >
           {t("Apply")}
