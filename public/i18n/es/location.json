@@ -1,14 +1,14 @@
 {
-    "Query Log": "Log de peticiónes",
+    "Query Log": "Registro de peticiones",
     "Whitelist": "Lista blanca",
     "Blacklist": "Lista negra",
-    "Dashboard": "Pizarra",
+    "Dashboard": "Panel de control",
     "Exact": "Exacto",
-    "Wildcard": "Wildcard",
-    "Login": "Login",
-    "Logout": "Logout",
+    "Wildcard": "Comodín",
+    "Login": "Iniciar sesión",
+    "Logout": "Cerrar sesión",
     "Regex": "Regex",
-    "Settings": "Opciones",
+    "Settings": "Configuración",
     "Networking": "Redes",
     "Versions": "Versiones"
 }

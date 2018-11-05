@@ -1,0 +1,14 @@
+{
+    "Adding {{domain}}...": "Ajout de {{domain}}...",
+    "Successfully added {{domain}}": "{{domain}} ajouté",
+    "Failed to add {{domain}}": "Échec lors de l'ajout de {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Notice: Il n' est pas possible d' autoriser un sous-domaine d' une wildcard précédemment bloquée.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Notice: Seulement le domaine et ses sous-domaines seront bloqués.",
+    "Add a domain (example.com or sub.example.com)": "Ajouter un domaine (par exemple example.com, ou sous.domaine.com)",
+    "{{domain}} is already added": "(domaine) est déja présent.",
+    "Failed to remove {{domain}}": "impossible d' enlever ce domaine",
+    "There are no domains in this list": "il n' y a pas de domaines dans cette liste",
+    "Input a regular expression": "Entrez une expression régulière",
+    "Not a valid domain": "Domaine non valide",
+    "Not a valid regular expression": "Expression régulière invalide"
+}

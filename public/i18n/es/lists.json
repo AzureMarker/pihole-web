@@ -1,12 +1,14 @@
 {
-    "Adding {{domain}}...": "Añadiendo a  {{domain}}...",
-    "Successfully added {{domain}}": "añadido correctamente  {{domain}}...",
-    "Failed to add {{domain}}": "Fallo al añadir  {{domain}}...",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nota: No es posible poner en lista blanca un dominio si ya existe como wildcard en la lista negra.",
-    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nota: Solo el dominio o los subdominios del dominio bloqueado serán bloqueados.",
-    "Add a domain (example.com or sub.example.com)": "Añadir un dominio: (example.com o sub.example.com)",
-    "{{domain}} is already added": "Ya existe el dominio {{domain}}",
-    "Failed to remove {{domain}}": "Error al borrar el dominio {{domain}}",
-    "There are no domains in this list": "No hay dominios en la lista",
-    "Input a regular expression": "Introduzca una expresión tipo"
+    "Adding {{domain}}...": "Añadiendo {{domain}}...",
+    "Successfully added {{domain}}": "{{domain}} añadido correctamente",
+    "Failed to add {{domain}}": "Error al añadir {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nota: No es posible incluir en la lista blanca un subdominio de un dominio bloqueado por comodín.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nota: Solo el dominio y los subdominios del dominio bloqueado serán bloqueados.",
+    "Add a domain (example.com or sub.example.com)": "Añadir un dominio (ejemplo.com o sub.ejemplo.com)",
+    "{{domain}} is already added": "{{domain}} ya está añadido",
+    "Failed to remove {{domain}}": "Error al borrar {{domain}}",
+    "There are no domains in this list": "No hay dominios en esta lista",
+    "Input a regular expression": "Introduzca una expresión regular",
+    "Not a valid domain": "No es un dominio válido",
+    "Not a valid regular expression": "No es una expresión regular válida"
 }
