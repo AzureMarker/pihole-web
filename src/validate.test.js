@@ -8,7 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import { isStrictNumeric, isValidDomain, isValidRegex } from "./validate";
+import {
+  isStrictPositiveNumber,
+  isValidDomain,
+  isValidRegex
+} from "./validate";
 
 describe("Testing the validation functions", () => {
   describe("isValidDomain", () => {
@@ -102,19 +106,24 @@ describe("Testing the validation functions", () => {
     });
   });
 
-  describe("isStrictNumeric", () => {
+  describe("isStrictPositiveNumber", () => {
     it("passes 1234567890", () => {
-      const result = isStrictNumeric("1234567890");
+      const result = isStrictPositiveNumber("1234567890");
       expect(result).toBe(true);
     });
 
     it("fails 1234a567890", () => {
-      const result = isStrictNumeric("1234a567890");
+      const result = isStrictPositiveNumber("1234a567890");
       expect(result).toBe(false);
     });
 
     it("fails 1100101O1", () => {
-      const result = isStrictNumeric("1100101O1");
+      const result = isStrictPositiveNumber("1100101O1");
+      expect(result).toBe(false);
+    });
+
+    it("fails empty string", () => {
+      const result = isStrictPositiveNumber("");
       expect(result).toBe(false);
     });
   });
