@@ -50,3 +50,26 @@ export function isValidRegex(regex) {
   }
   return true;
 }
+
+/**
+ * Check if the string is a valid IPv4 address
+ *
+ * @param address {string} the address to check
+ * @returns {boolean} if the address is a valid IPv4 address
+ */
+export function isValidIpv4(address) {
+  const segments = address.split(".");
+
+  // Must have 4 segments
+  if (segments.length !== 4) {
+    return false;
+  }
+
+  // No segment can be longer than 3 characters or be empty
+  if (segments.some(segment => segment.length > 3 || segment.length === 0)) {
+    return false;
+  }
+
+  // All segments must be numbers (positive)
+  return segments.every(segment => isStrictPositiveNumber(segment));
+}

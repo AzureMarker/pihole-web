@@ -11,6 +11,7 @@
 import {
   isStrictPositiveNumber,
   isValidDomain,
+  isValidIpv4,
   isValidRegex
 } from "./validate";
 
@@ -147,6 +148,40 @@ describe("Testing the validation functions", () => {
 
     it("should not pass regex validation when missing closing bracket", () => {
       expect(isValidRegex("[0-")).toBe(false);
+    });
+  });
+
+  describe("isValidIpv4", () => {
+    it("passes 127.0.0.1", () => {
+      expect(isValidIpv4("127.0.0.1")).toBe(true);
+    });
+
+    it("passes 1.1.1.1", () => {
+      expect(isValidIpv4("1.1.1.1")).toBe(true);
+    });
+
+    it("passes 111.111.111.111", () => {
+      expect(isValidIpv4("111.111.111.111")).toBe(true);
+    });
+
+    it("fails 1111.1.1.1", () => {
+      expect(isValidIpv4("1111.1.1.1")).toBe(false);
+    });
+
+    it("fails 1.1.1.", () => {
+      expect(isValidIpv4("1.1.1.")).toBe(false);
+    });
+
+    it("fails empty string", () => {
+      expect(isValidIpv4("")).toBe(false);
+    });
+
+    it("fails 8.8", () => {
+      expect(isValidIpv4("8.8")).toBe(false);
+    });
+
+    it("fails 10. 10.1.1", () => {
+      expect(isValidIpv4("10. 10.1.1")).toBe(false);
     });
   });
 });
