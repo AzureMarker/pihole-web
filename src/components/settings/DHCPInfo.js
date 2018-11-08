@@ -272,4 +272,4 @@ class DHCPInfo extends Component {
   }
 }
 
-export default translate(["common", "settings"])(DHCPInfo);
+export default translate(["common", "settings", "api-errors"])(DHCPInfo);
