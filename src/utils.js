@@ -127,6 +127,7 @@ export const api = {
     })
       .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
+      .catch(api.convertJSON)
       .then(api.checkForErrors);
   },
   post(url, data) {
@@ -138,6 +139,7 @@ export const api = {
     })
       .then(api.checkIfLoggedOut)
       .then(api.convertJSON)
+      .catch(api.convertJSON)
       .then(api.checkForErrors);
   },
   delete(url) {
@@ -167,6 +169,9 @@ export const api = {
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
+   *
+   * @param response the Response from fetch
+   * @return {Promise} if logged in, the response, otherwise a canceled promise
    */
   checkIfLoggedOut(response) {
     if (api.loggedIn && response.status === 401) {
@@ -179,14 +184,32 @@ export const api = {
 
     return Promise.resolve(response);
   },
-  async convertJSON(data) {
-    if (!data.ok) return Promise.reject({ data, json: await data.json() });
-    else return data.json();
+  /**
+   * If the input is a Response, return a promise for parsing the JSON.
+   * If the input is an Error, return a rejecting promise with error.
+   *
+   * @param data a Response or Error
+   * @returns {*} a promise with the parsed JSON, or the error
+   */
+  convertJSON(data) {
+    if (data instanceof Error) {
+      return Promise.reject(data);
+    }
+
+    return data.json();
   },
+  /**
+   * Check for an error returned by the API
+   *
+   * @param data the parsed JSON body of the response
+   * @returns {*} a resolving promise with the data if no error, otherwise a
+   * rejecting promise with the error
+   */
   checkForErrors(data) {
     if (data.error) {
       return Promise.reject(data.error);
     }
+
     return Promise.resolve(data);
   },
   urlFor(endpoint) {
