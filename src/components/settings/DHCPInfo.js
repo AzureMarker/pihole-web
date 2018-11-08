@@ -100,7 +100,16 @@ class DHCPInfo extends Component {
     e.preventDefault();
 
     api.updateDHCPInfo(this.state.settings).catch(error => {
-      this.setState({ errorMessage: error.message });
+      if (error instanceof Error) {
+        this.setState({ errorMessage: error.message });
+      } else {
+        // Translate the API's error message
+        this.setState({
+          errorMessage: this.props.t("API Error: {{error}}", {
+            error: this.props.t(error.key, error.data)
+          })
+        });
+      }
     });
   };
 
