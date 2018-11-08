@@ -22,16 +22,20 @@ import {
   Label
 } from "reactstrap";
 import { isPositiveNumber, isValidHostname, isValidIpv4 } from "../../validate";
+import Alert from "../common/Alert";
 
 class DHCPInfo extends Component {
   state = {
-    active: false,
-    ip_start: "",
-    ip_end: "",
-    router_ip: "",
-    lease_time: "",
-    domain: "",
-    ipv6_support: false
+    errorMessage: "",
+    settings: {
+      active: false,
+      ip_start: "",
+      ip_end: "",
+      router_ip: "",
+      lease_time: "",
+      domain: "",
+      ipv6_support: false
+    }
   };
 
   constructor(props) {
@@ -44,13 +48,15 @@ class DHCPInfo extends Component {
     this.updateHandler.promise
       .then(res => {
         this.setState({
-          active: res.active,
-          ip_start: res.ip_start,
-          ip_end: res.ip_end,
-          router_ip: res.router_ip,
-          lease_time: res.lease_time,
-          domain: res.domain,
-          ipv6_support: res.ipv6_support
+          settings: {
+            active: res.active,
+            ip_start: res.ip_start,
+            ip_end: res.ip_end,
+            router_ip: res.router_ip,
+            lease_time: res.lease_time,
+            domain: res.domain,
+            ipv6_support: res.ipv6_support
+          }
         });
       })
       .catch(ignoreCancel);
@@ -73,10 +79,16 @@ class DHCPInfo extends Component {
    * @returns {function(Event)}
    */
   onChange = (key, attr) => {
-    return e =>
-      this.setState({
-        [key]: e.target[attr]
-      });
+    return e => {
+      const value = e.target[attr];
+
+      this.setState(oldState => ({
+        settings: {
+          ...oldState.settings,
+          [key]: value
+        }
+      }));
+    };
   };
 
   /**
@@ -87,7 +99,9 @@ class DHCPInfo extends Component {
   saveSettings = e => {
     e.preventDefault();
 
-    // TODO: send settings to API
+    api.updateDHCPInfo(this.state.settings).catch(error => {
+      this.setState({ errorMessage: error.message });
+    });
   };
 
   /**
@@ -97,37 +111,52 @@ class DHCPInfo extends Component {
    * @param validator the validation function
    */
   isSettingValid = (value, validator) => {
-    return (!this.state.active && value.length === 0) || validator(value);
+    return (
+      (!this.state.settings.active && value.length === 0) || validator(value)
+    );
   };
 
   render() {
     const { t } = this.props;
 
     const isIpStartValid = this.isSettingValid(
-      this.state.ip_start,
+      this.state.settings.ip_start,
       isValidIpv4
     );
-    const isIpEndValid = this.isSettingValid(this.state.ip_end, isValidIpv4);
+    const isIpEndValid = this.isSettingValid(
+      this.state.settings.ip_end,
+      isValidIpv4
+    );
     const isRouterIpValid = this.isSettingValid(
-      this.state.router_ip,
+      this.state.settings.router_ip,
       isValidIpv4
     );
     const isLeaseTimeValid = this.isSettingValid(
-      this.state.lease_time,
+      this.state.settings.lease_time,
       isPositiveNumber
     );
     const isDomainValid = this.isSettingValid(
-      this.state.domain,
+      this.state.settings.domain,
       isValidHostname
     );
 
+    const errorAlert =
+      this.state.errorMessage.length > 0 ? (
+        <Alert
+          message={this.state.errorMessage}
+          type={"danger"}
+          onClick={() => this.setState({ errorMessage: "" })}
+        />
+      ) : null;
+
     return (
       <Form onSubmit={this.saveSettings}>
+        {errorAlert}
         <FormGroup check>
           <Label check>
             <Input
               type="checkbox"
-              checked={this.state.active}
+              checked={this.state.settings.active}
               onChange={this.onChange("active", "checked")}
             />
             {t("Enabled")}
@@ -140,8 +169,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="startIP"
-              disabled={!this.state.active}
-              value={this.state.ip_start}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.ip_start}
               onChange={this.onChange("ip_start", "value")}
               invalid={!isIpStartValid}
             />
@@ -154,8 +183,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="endIP"
-              disabled={!this.state.active}
-              value={this.state.ip_end}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.ip_end}
               onChange={this.onChange("ip_end", "value")}
               invalid={!isIpEndValid}
             />
@@ -168,8 +197,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="routerIP"
-              disabled={!this.state.active}
-              value={this.state.router_ip}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.router_ip}
               onChange={this.onChange("router_ip", "value")}
               invalid={!isRouterIpValid}
             />
@@ -183,8 +212,8 @@ class DHCPInfo extends Component {
             <InputGroup>
               <Input
                 id="leaseTime"
-                disabled={!this.state.active}
-                value={this.state.lease_time}
+                disabled={!this.state.settings.active}
+                value={this.state.settings.lease_time}
                 onChange={this.onChange("lease_time", "value")}
                 invalid={!isLeaseTimeValid}
               />
@@ -199,8 +228,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="domain"
-              disabled={!this.state.active}
-              value={this.state.domain}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.domain}
               onChange={this.onChange("domain", "value")}
               invalid={!isDomainValid}
             />
@@ -210,8 +239,8 @@ class DHCPInfo extends Component {
           <Label check>
             <Input
               type="checkbox"
-              disabled={!this.state.active}
-              checked={this.state.ipv6_support}
+              disabled={!this.state.settings.active}
+              checked={this.state.settings.ipv6_support}
               onChange={this.onChange("ipv6_support", "checked")}
             />
             {t("IPv6 Support")}
