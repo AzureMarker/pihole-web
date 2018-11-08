@@ -40,10 +40,7 @@ class DHCPInfo extends Component {
   }
 
   updateDHCPInfo() {
-    this.updateHandler = makeCancelable(api.getDHCPInfo(), {
-      repeat: this.updateDHCPInfo,
-      interval: 600000
-    });
+    this.updateHandler = makeCancelable(api.getDHCPInfo());
     this.updateHandler.promise
       .then(res => {
         this.setState({
