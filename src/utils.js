@@ -203,12 +203,13 @@ export const api = {
   /**
    * If the input is a Response, return a promise for parsing the JSON.
    * If the input is an Error, return a rejecting promise with error.
+   * If the request was canceled, return a rejecting promise with cancel object.
    *
    * @param data a Response or Error
    * @returns {*} a promise with the parsed JSON, or the error
    */
   convertJSON(data) {
-    if (data instanceof Error) {
+    if (data.isCanceled || data instanceof Error) {
       return Promise.reject(data);
     }
 
