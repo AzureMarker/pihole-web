@@ -26,7 +26,10 @@ import Alert from "../common/Alert";
 
 class DHCPInfo extends Component {
   state = {
-    errorMessage: "",
+    alertMessage: "",
+    alertType: "",
+    showAlert: false,
+    processing: false,
     settings: {
       active: false,
       ip_start: "",
@@ -99,18 +102,44 @@ class DHCPInfo extends Component {
   saveSettings = e => {
     e.preventDefault();
 
-    api.updateDHCPInfo(this.state.settings).catch(error => {
-      if (error instanceof Error) {
-        this.setState({ errorMessage: error.message });
-      } else {
-        // Translate the API's error message
-        this.setState({
-          errorMessage: this.props.t("API Error: {{error}}", {
-            error: this.props.t(error.key, error.data)
-          })
-        });
-      }
+    const { t } = this.props;
+
+    this.setState({
+      alertMessage: t("Processing..."),
+      alertType: "info",
+      showAlert: true,
+      processing: true
     });
+
+    api
+      .updateDHCPInfo(this.state.settings)
+      .then(() => {
+        this.setState({
+          alertMessage: t("Successfully saved settings"),
+          alertType: "success",
+          showAlert: true,
+          processing: false
+        });
+      })
+      .catch(error => {
+        let message = "";
+
+        if (error instanceof Error) {
+          message = error.message;
+        } else {
+          // Translate the API's error message
+          message = t("API Error: {{error}}", {
+            error: t(error.key, error.data)
+          });
+        }
+
+        this.setState({
+          alertMessage: message,
+          alertType: "danger",
+          showAlert: true,
+          processing: false
+        });
+      });
   };
 
   /**
@@ -123,6 +152,10 @@ class DHCPInfo extends Component {
     return (
       (!this.state.settings.active && value.length === 0) || validator(value)
     );
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
   };
 
   render() {
@@ -149,18 +182,17 @@ class DHCPInfo extends Component {
       isValidHostname
     );
 
-    const errorAlert =
-      this.state.errorMessage.length > 0 ? (
-        <Alert
-          message={this.state.errorMessage}
-          type={"danger"}
-          onClick={() => this.setState({ errorMessage: "" })}
-        />
-      ) : null;
+    const alert = this.state.showAlert ? (
+      <Alert
+        message={this.state.alertMessage}
+        type={this.state.alertType}
+        onClick={this.hideAlert}
+      />
+    ) : null;
 
     return (
       <Form onSubmit={this.saveSettings}>
-        {errorAlert}
+        {alert}
         <FormGroup check>
           <Label check>
             <Input
@@ -226,7 +258,7 @@ class DHCPInfo extends Component {
                 onChange={this.onChange("lease_time", "value")}
                 invalid={!isLeaseTimeValid}
               />
-              <InputGroupAddon addonType={"append"}>Hours</InputGroupAddon>
+              <InputGroupAddon addonType="append">Hours</InputGroupAddon>
             </InputGroup>
           </Col>
         </FormGroup>
@@ -258,6 +290,7 @@ class DHCPInfo extends Component {
         <Button
           type="submit"
           disabled={
+            this.state.processing ||
             !isIpStartValid ||
             !isIpEndValid ||
             !isRouterIpValid ||
