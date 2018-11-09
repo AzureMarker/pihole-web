@@ -41,12 +41,7 @@ class DHCPInfo extends Component {
     }
   };
 
-  constructor(props) {
-    super(props);
-    this.updateDHCPInfo = this.updateDHCPInfo.bind(this);
-  }
-
-  updateDHCPInfo() {
+  loadDHCPInfo = () => {
     this.updateHandler = makeCancelable(api.getDHCPInfo());
     this.updateHandler.promise
       .then(res => {
@@ -63,10 +58,10 @@ class DHCPInfo extends Component {
         });
       })
       .catch(ignoreCancel);
-  }
+  };
 
   componentDidMount() {
-    this.updateDHCPInfo();
+    this.loadDHCPInfo();
   }
 
   componentWillUnmount() {
