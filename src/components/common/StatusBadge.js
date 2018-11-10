@@ -1,40 +1,18 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import api from "../../util/api";
-import { makeCancelable, ignoreCancel } from "../../util";
+import { WithAPIData } from "./WithAPIData";
 
 class StatusBadge extends Component {
-  state = {
-    status: "enabled"
+  static propTypes = {
+    status: PropTypes.string.isRequired
   };
-
-  updateStatus = () => {
-    this.updateHandler = makeCancelable(api.getStatus(), {
-      repeat: this.updateStatus,
-      interval: 5000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        this.setState({ status: res.status });
-      })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({ status: "unknown" });
-      });
-  };
-
-  componentDidMount() {
-    this.updateStatus();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const { t } = this.props;
 
-    return this.state.status === "enabled" ? (
+    return this.props.status === "enabled" ? (
       <span>
         <i className="fa fa-circle text-success" />
         &nbsp;
@@ -50,4 +28,14 @@ class StatusBadge extends Component {
   }
 }
 
-export default translate("common")(StatusBadge);
+export const TranslatedStatusBadge = translate("common")(StatusBadge);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getStatus}
+    repeatOptions={{ interval: 5000 }}
+    renderInitial={() => <TranslatedStatusBadge status="loading" {...props} />}
+    renderOk={data => <TranslatedStatusBadge status={data.status} {...props} />}
+    renderErr={() => <TranslatedStatusBadge status="unknown" {...props} />}
+  />
+);
