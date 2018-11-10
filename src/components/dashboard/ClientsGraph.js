@@ -25,55 +25,6 @@ class ClientsGraph extends Component {
     datasets: PropTypes.array.isRequired
   };
 
-  static graphOptions = {
-    tooltips: {
-      enabled: false,
-      mode: "x-axis",
-      custom: () => "placeholder",
-      itemSort: function(a, b) {
-        return b.yLabel - a.yLabel;
-      },
-      callbacks: {
-        title: tooltipItem => {
-          const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-          const hour = parseInt(time[1], 10);
-          const minute = parseInt(time[2], 10) || 0;
-          const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
-          const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
-
-          return t("Client activity from {{from}} to {{to}}", { from, to });
-        },
-        label: (tooltipItems, data) => {
-          return (
-            data.datasets[tooltipItems.datasetIndex].label +
-            ": " +
-            tooltipItems.yLabel
-          );
-        }
-      }
-    },
-    legend: { display: false },
-    scales: {
-      xAxes: [
-        {
-          type: "time",
-          time: {
-            unit: "hour",
-            displayFormats: { hour: "HH:mm" },
-            tooltipFormat: "HH:mm"
-          }
-        }
-      ],
-      yAxes: [
-        {
-          ticks: { beginAtZero: true },
-          stacked: true
-        }
-      ]
-    },
-    maintainAspectRatio: false
-  };
-
   constructor(props) {
     super(props);
     this.graphRef = React.createRef();
@@ -81,6 +32,55 @@ class ClientsGraph extends Component {
 
   render() {
     const { t } = this.props;
+
+    const options = {
+      tooltips: {
+        enabled: false,
+        mode: "x-axis",
+        custom: () => "placeholder",
+        itemSort: function(a, b) {
+          return b.yLabel - a.yLabel;
+        },
+        callbacks: {
+          title: tooltipItem => {
+            const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
+            const hour = parseInt(time[1], 10);
+            const minute = parseInt(time[2], 10) || 0;
+            const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
+            const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
+
+            return t("Client activity from {{from}} to {{to}}", { from, to });
+          },
+          label: (tooltipItems, data) => {
+            return (
+              data.datasets[tooltipItems.datasetIndex].label +
+              ": " +
+              tooltipItems.yLabel
+            );
+          }
+        }
+      },
+      legend: { display: false },
+      scales: {
+        xAxes: [
+          {
+            type: "time",
+            time: {
+              unit: "hour",
+              displayFormats: { hour: "HH:mm" },
+              tooltipFormat: "HH:mm"
+            }
+          }
+        ],
+        yAxes: [
+          {
+            ticks: { beginAtZero: true },
+            stacked: true
+          }
+        ]
+      },
+      maintainAspectRatio: false
+    };
 
     return (
       <div className="card">
@@ -93,7 +93,7 @@ class ClientsGraph extends Component {
               labels: this.props.labels,
               datasets: this.props.datasets
             }}
-            options={ClientsGraph.graphOptions}
+            options={options}
             ref={this.graphRef}
           />
         </div>
@@ -117,10 +117,7 @@ class ClientsGraph extends Component {
 
         {// Now you're thinking with portals!
         ReactDOM.createPortal(
-          <ChartTooltip
-            chart={this.graphRef}
-            handler={ClientsGraph.graphOptions.tooltips}
-          />,
+          <ChartTooltip chart={this.graphRef} handler={options.tooltips} />,
           document.body
         )}
       </div>
