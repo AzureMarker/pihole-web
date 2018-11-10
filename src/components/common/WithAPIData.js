@@ -23,10 +23,12 @@ export class WithAPIData extends Component {
       ignoreCancel: PropTypes.bool,
       interval: PropTypes.number
     }),
+
     /**
      * Render the children before the first API request is done
      */
     renderInitial: PropTypes.func.isRequired,
+
     /**
      * Render the children if the API request succeeded
      *
@@ -34,6 +36,7 @@ export class WithAPIData extends Component {
      * @param refresh a function to trigger an asynchronous data refresh
      */
     renderOk: PropTypes.func.isRequired,
+
     /**
      * Render the children if the API request failed
      *
