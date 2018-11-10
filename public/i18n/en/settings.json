@@ -22,5 +22,8 @@
     "Branch": "Branch",
     "Hash": "Hash",
     "Tag": "Tag",
-    "Only forward public reverse lookups": "Only forward public reverse lookups"
+    "Only forward public reverse lookups": "Only forward public reverse lookups",
+    "Processing...": "Processing...",
+    "Successfully saved settings": "Successfully saved settings",
+    "Apply": "Apply"
 }

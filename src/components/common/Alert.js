@@ -27,7 +27,11 @@ const Alert = props => {
 Alert.propTypes = {
   message: PropTypes.node.isRequired,
   type: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func
+};
+
+Alert.defaultProps = {
+  onClick: () => {}
 };
 
 export default Alert;

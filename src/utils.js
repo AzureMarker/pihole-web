@@ -121,34 +121,6 @@ export const api = {
   getStatus() {
     return api.get("dns/status");
   },
-  get(url) {
-    return fetch(api.urlFor(url), {
-      credentials: this.credentialType()
-    })
-      .then(api.checkIfLoggedOut)
-      .then(api.convertJSON)
-      .then(api.checkForErrors);
-  },
-  post(url, data) {
-    return fetch(api.urlFor(url), {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: new Headers({ "Content-Type": "application/json" }),
-      credentials: this.credentialType()
-    })
-      .then(api.checkIfLoggedOut)
-      .then(api.convertJSON)
-      .then(api.checkForErrors);
-  },
-  delete(url) {
-    return fetch(api.urlFor(url), {
-      method: "DELETE",
-      credentials: this.credentialType()
-    })
-      .then(api.checkIfLoggedOut)
-      .then(api.convertJSON)
-      .then(api.checkForErrors);
-  },
   getNetworkInfo() {
     return api.get("settings/network");
   },
@@ -164,9 +136,58 @@ export const api = {
   getDHCPInfo() {
     return api.get("settings/dhcp");
   },
+  updateDHCPInfo(settings) {
+    return api.put("settings/dhcp", settings);
+  },
+  get(url) {
+    return fetch(api.urlFor(url), {
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
+      .then(api.convertJSON)
+      .catch(api.convertJSON)
+      .then(api.checkForErrors);
+  },
+  post(url, data) {
+    return fetch(api.urlFor(url), {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
+      .then(api.convertJSON)
+      .catch(api.convertJSON)
+      .then(api.checkForErrors);
+  },
+  put(url, data) {
+    return fetch(api.urlFor(url), {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: new Headers({ "Content-Type": "application/json" }),
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
+      .then(api.convertJSON)
+      .catch(api.convertJSON)
+      .then(api.checkForErrors);
+  },
+  delete(url) {
+    return fetch(api.urlFor(url), {
+      method: "DELETE",
+      credentials: this.credentialType()
+    })
+      .then(api.checkIfLoggedOut)
+      .then(api.convertJSON)
+      .catch(api.convertJSON)
+      .then(api.checkForErrors);
+  },
   /**
    * If the user is logged in, check if the user's session has lapsed.
    * If so, log them out and refresh the page.
+   *
+   * @param response the Response from fetch
+   * @return {Promise} if logged in, the response, otherwise a canceled promise
    */
   checkIfLoggedOut(response) {
     if (api.loggedIn && response.status === 401) {
@@ -179,14 +200,33 @@ export const api = {
 
     return Promise.resolve(response);
   },
-  async convertJSON(data) {
-    if (!data.ok) return Promise.reject({ data, json: await data.json() });
-    else return data.json();
+  /**
+   * If the input is a Response, return a promise for parsing the JSON.
+   * If the input is an Error, return a rejecting promise with error.
+   * If the request was canceled, return a rejecting promise with cancel object.
+   *
+   * @param data a Response or Error
+   * @returns {*} a promise with the parsed JSON, or the error
+   */
+  convertJSON(data) {
+    if (data.isCanceled || data instanceof Error) {
+      return Promise.reject(data);
+    }
+
+    return data.json();
   },
+  /**
+   * Check for an error returned by the API
+   *
+   * @param data the parsed JSON body of the response
+   * @returns {*} a resolving promise with the data if no error, otherwise a
+   * rejecting promise with the error
+   */
   checkForErrors(data) {
     if (data.error) {
       return Promise.reject(data.error);
     }
+
     return Promise.resolve(data);
   },
   urlFor(endpoint) {
