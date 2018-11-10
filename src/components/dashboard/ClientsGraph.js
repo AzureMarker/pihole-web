@@ -192,7 +192,7 @@ export const transformData = data => {
  *
  * @returns {*} the loading props
  */
-export const loadingState = () => ({
+export const loadingProps = () => ({
   loading: true,
   labels: [],
   datasets: []
@@ -207,11 +207,11 @@ export default props => (
       interval: 10 * 60 * 1000
     }}
     renderInitial={() => (
-      <TranslatedClientsGraph {...loadingState()} {...props} />
+      <TranslatedClientsGraph {...loadingProps()} {...props} />
     )}
     renderOk={data => (
       <TranslatedClientsGraph {...transformData(data)} {...props} />
     )}
-    renderErr={() => <TranslatedClientsGraph {...loadingState()} {...props} />}
+    renderErr={() => <TranslatedClientsGraph {...loadingProps()} {...props} />}
   />
 );
