@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ignoreCancel, makeCancelable } from "../../utils";
+import { ignoreCancel, makeCancelable } from "../../util";
 
 class TopTable extends Component {
   state = {

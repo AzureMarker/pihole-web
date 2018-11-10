@@ -11,7 +11,7 @@
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import "jest-enzyme";
-import { api } from "./utils";
+import api from "./util/api";
 import fetchMock from "fetch-mock";
 
 // Setup enzyme

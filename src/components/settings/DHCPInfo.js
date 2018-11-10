@@ -10,7 +10,8 @@
 
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../../utils";
+import { ignoreCancel, makeCancelable } from "../../util";
+import api from "../../util/api";
 import {
   Button,
   Col,

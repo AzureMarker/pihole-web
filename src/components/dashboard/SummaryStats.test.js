@@ -11,7 +11,11 @@
 import React from "react";
 import { shallow } from "enzyme";
 import fetchMock from "fetch-mock";
-import SummaryStats from "./SummaryStats";
+import {
+  TranslatedSummaryStats,
+  transformData,
+  errorState
+} from "./SummaryStats";
 
 const endpoint = "/admin/api/stats/summary";
 const fakeData = {
@@ -30,7 +34,9 @@ const fakeData = {
 it("displays summary stats correctly", async () => {
   fetchMock.mock(endpoint, fakeData);
 
-  const wrapper = shallow(<SummaryStats />);
+  const wrapper = shallow(
+    <TranslatedSummaryStats {...transformData(fakeData)} />
+  );
 
   await tick();
   wrapper.update();
@@ -38,7 +44,6 @@ it("displays summary stats correctly", async () => {
   expect(wrapper.childAt(0).find("h3")).toHaveText(
     fakeData.total_queries.toLocaleString()
   );
-  expect(wrapper.state().uniqueClients).toEqual(fakeData.unique_clients);
   expect(wrapper.childAt(1).find("h3")).toHaveText(
     fakeData.blocked_queries.toLocaleString()
   );
@@ -53,7 +58,7 @@ it("displays summary stats correctly", async () => {
 it("displays an error message on error", async () => {
   fetchMock.mock(endpoint, { error: {} });
 
-  const wrapper = shallow(<SummaryStats />);
+  const wrapper = shallow(<TranslatedSummaryStats {...errorState()} />);
 
   await tick();
   wrapper.update();

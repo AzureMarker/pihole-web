@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { api } from "../../utils";
+import api from "../../util/api";
 
 class DomainInput extends Component {
   state = {

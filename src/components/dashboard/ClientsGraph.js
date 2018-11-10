@@ -12,7 +12,8 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
 import { translate } from "react-i18next";
-import { padNumber, api, makeCancelable, ignoreCancel } from "../../utils";
+import { padNumber, makeCancelable, ignoreCancel } from "../../util";
+import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 
 class ClientsGraph extends Component {

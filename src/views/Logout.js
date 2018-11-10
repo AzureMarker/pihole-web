@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { api } from "../utils";
+import api from "../util/api";
 import config from "../config";
 
 export default class Logout extends Component {

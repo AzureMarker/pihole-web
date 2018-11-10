@@ -9,56 +9,20 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../../utils";
+import { WithAPIData } from "../common/WithAPIData";
+import api from "../../util/api";
 
 class SummaryStats extends Component {
-  state = {
-    blockedQueries: "---",
-    totalQueries: "---",
-    percentBlocked: "---",
-    gravityDomains: "---",
-    uniqueClients: "---"
+  static propTypes = {
+    totalQueries: PropTypes.string.isRequired,
+    blockedQueries: PropTypes.string.isRequired,
+    percentBlocked: PropTypes.string.isRequired,
+    gravityDomains: PropTypes.string.isRequired,
+    uniqueClients: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.updateStats = this.updateStats.bind(this);
-  }
-
-  updateStats() {
-    this.updateHandler = makeCancelable(api.getSummary(), {
-      repeat: this.updateStats,
-      interval: 5000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        this.setState({
-          blockedQueries: res.blocked_queries.toLocaleString(),
-          totalQueries: res.total_queries.toLocaleString(),
-          percentBlocked: res.percent_blocked.toFixed(2).toLocaleString() + "%",
-          gravityDomains: res.domains_blocked.toLocaleString(),
-          uniqueClients: res.unique_clients
-        });
-      })
-      .catch(ignoreCancel)
-      .catch(() => {
-        this.setState({
-          totalQueries: "Lost",
-          blockedQueries: "Connection",
-          percentBlocked: "To",
-          gravityDomains: "API"
-        });
-      });
-  }
-
-  componentDidMount() {
-    this.updateStats();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const { t } = this.props;
@@ -73,10 +37,10 @@ class SummaryStats extends Component {
               </div>
             </div>
             <div className="card-img-overlay">
-              <h3>{this.state.totalQueries}</h3>
+              <h3>{this.props.totalQueries}</h3>
               <p style={{ marginBottom: "0px" }}>
                 {t("Total Queries ({{count}} clients)", {
-                  count: this.state.uniqueClients
+                  count: this.props.uniqueClients
                 })}
               </p>
             </div>
@@ -90,7 +54,7 @@ class SummaryStats extends Component {
               </div>
             </div>
             <div className="card-img-overlay">
-              <h3>{this.state.blockedQueries}</h3>
+              <h3>{this.props.blockedQueries}</h3>
               <p style={{ marginBottom: "0px" }}>{t("Queries Blocked")}</p>
             </div>
           </div>
@@ -103,7 +67,7 @@ class SummaryStats extends Component {
               </div>
             </div>
             <div className="card-img-overlay">
-              <h3>{this.state.percentBlocked}</h3>
+              <h3>{this.props.percentBlocked}</h3>
               <p style={{ marginBottom: "0px" }}>{t("Percent Blocked")}</p>
             </div>
           </div>
@@ -116,7 +80,7 @@ class SummaryStats extends Component {
               </div>
             </div>
             <div className="card-img-overlay">
-              <h3>{this.state.gravityDomains}</h3>
+              <h3>{this.props.gravityDomains}</h3>
               <p style={{ marginBottom: "0px" }}>{t("Domains On Blocklist")}</p>
             </div>
           </div>
@@ -126,4 +90,55 @@ class SummaryStats extends Component {
   }
 }
 
-export default translate(["common", "dashboard"])(SummaryStats);
+/**
+ * Transform the API data into props for the component
+ *
+ * @param data the API data
+ * @returns {*} the transformed props
+ */
+export const transformData = data => ({
+  totalQueries: data.total_queries.toLocaleString(),
+  blockedQueries: data.blocked_queries.toLocaleString(),
+  percentBlocked: data.percent_blocked.toFixed(2).toLocaleString() + "%",
+  gravityDomains: data.domains_blocked.toLocaleString(),
+  uniqueClients: data.unique_clients
+});
+
+/**
+ * The props the summary stats should use when it fails to get the API data
+ * (it does not need the error object)
+ *
+ * @returns {*} the error props
+ */
+export const errorState = () => ({
+  totalQueries: "Lost",
+  blockedQueries: "Connection",
+  percentBlocked: "To",
+  gravityDomains: "API",
+  uniqueClients: ""
+});
+
+export const TranslatedSummaryStats = translate(["common", "dashboard"])(
+  SummaryStats
+);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getSummary}
+    repeatOptions={{ interval: 5000 }}
+    renderInitial={() => (
+      <TranslatedSummaryStats
+        blockedQueries="---"
+        totalQueries="---"
+        percentBlocked="---"
+        gravityDomains="---"
+        uniqueClients="---"
+        {...props}
+      />
+    )}
+    renderOk={data => (
+      <TranslatedSummaryStats {...transformData(data)} {...props} />
+    )}
+    renderErr={() => <TranslatedSummaryStats {...errorState()} {...props} />}
+  />
+);

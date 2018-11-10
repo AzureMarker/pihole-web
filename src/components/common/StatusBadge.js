@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { api, makeCancelable, ignoreCancel } from "../../utils";
+import api from "../../util/api";
+import { makeCancelable, ignoreCancel } from "../../util";
 
 class StatusBadge extends Component {
   state = {
