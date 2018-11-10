@@ -10,7 +10,11 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import GenericDoughnutChart from "./GenericDoughnutChart";
+import {
+  GenericDoughnutChart,
+  transformData,
+  loadingProps
+} from "./GenericDoughnutChart";
 
 const fakeData = [
   { name: "roberta.net", ip: "8.239.48.32", percent: 0.38411761010240625 },
@@ -18,59 +22,36 @@ const fakeData = [
   { name: "christop.net", ip: "181.219.42.222", percent: 0.6249293208519193 }
 ];
 
-it("shows loading indicator before first load", () => {
+it("shows loading indicator correctly", () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} apiCall={ignoreAPI} />
+    <GenericDoughnutChart title={""} {...loadingProps()} />
   );
 
-  expect(wrapper.state().loading).toBeTruthy();
   expect(wrapper.children(".card-img-overlay")).toExist();
 });
 
-it("hides loading indicator after first load", async () => {
+it("hides loading indicator correctly", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart
-      title={""}
-      apiCall={() => Promise.resolve(fakeData)}
-    />
+    <GenericDoughnutChart title={""} {...loadingProps()} loading={false} />
   );
 
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().loading).toBeFalsy();
   expect(wrapper.children(".card-img-overlay")).not.toExist();
 });
 
 it("loads API data correctly", async () => {
-  const wrapper = shallow(
-    <GenericDoughnutChart
-      title={""}
-      apiCall={() => Promise.resolve(fakeData)}
-    />
-  );
+  const data = transformData(fakeData);
 
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().colors).toEqual(["#20a8d8", "#f86c6b", "#4dbd74"]);
-  expect(wrapper.state().labels[0]).toEqual(fakeData[0].name);
-  expect(wrapper.state().labels[1]).toEqual(fakeData[1].ip);
-  expect(wrapper.state().data).toEqual(fakeData.map(entry => entry.percent));
+  expect(data.colors).toEqual(["#20a8d8", "#f86c6b", "#4dbd74"]);
+  expect(data.labels[0]).toEqual(fakeData[0].name);
+  expect(data.labels[1]).toEqual(fakeData[1].ip);
+  expect(data.data).toEqual(fakeData.map(entry => entry.percent));
 });
 
 it("displays the title", () => {
   const title = "title";
   const wrapper = shallow(
-    <GenericDoughnutChart title={title} apiCall={ignoreAPI} />
+    <GenericDoughnutChart title={title} {...loadingProps()} />
   );
 
   expect(wrapper.find(".card-header")).toHaveText(title);
-});
-
-it("calls the API callback", () => {
-  const apiCall = jest.fn(ignoreAPI);
-  shallow(<GenericDoughnutChart title={""} apiCall={apiCall} />);
-
-  expect(apiCall).toHaveBeenCalled();
 });
