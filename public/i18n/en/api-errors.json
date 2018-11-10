@@ -1,0 +1,22 @@
+{
+    "unknown": "Unknown error",
+    "gravity_error": "Failed to create the blocklist",
+    "ftl_connection_fail": "Failed to connect to FTL",
+    "ftl_read_error": "Error reading from FTL",
+    "ftl_eom_error": "Read unexpected EOM from FTL",
+    "not_found": "Not found",
+    "already_exists": "Item already exists",
+    "invalid_domain": "Invalid domain",
+    "bad_request": "Bad request",
+    "unauthorized": "Unauthorized",
+    "file_read": "Error reading from {{file}}",
+    "file_write": "Error writing to {{file}}",
+    "config_parsing_error": "Error parsing the config",
+    "invalid_setting_value": "Invalid setting value",
+    "restart_dns_error": "Failed to restart the DNS server",
+    "dnsmasq_config_write": "Error generating the dnsmasq config",
+    "shared_memory_open": "Failed to open shared memory",
+    "shared_memory_read": "Failed to read from shared memory",
+    "shared_memory_lock": "Failed to lock shared memory",
+    "API Error: {{error}}": "API Error: {{error}}"
+}

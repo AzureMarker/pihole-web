@@ -20,7 +20,8 @@ export function setupI18n() {
         "location",
         "login",
         "query-log",
-        "settings"
+        "settings",
+        "api-errors"
       ],
       nsSeparator: false,
       keySeparator: false,

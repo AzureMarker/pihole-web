@@ -54,7 +54,7 @@ function getTranslatedLanguages() {
     .then(response => response.json())
     .then(data => {
       return data.result.languages
-        .filter(lang => lang.percentage >= 90)
+        .filter(lang => lang.percentage >= 70)
         .map(lang => lang.code)
     })
 }
@@ -143,7 +143,8 @@ function fetchAllTags(lang) {
     "lists",
     "login",
     "footer",
-    "settings"
+    "settings",
+    "api-errors"
   ];
 
   const bar = multi.newBar(`${lang}\t:percent\t[:bar]`, {
@@ -166,7 +167,7 @@ fs.emptyDirSync(I18N_FOLDER);
 console.log("Fetching languages");
 getTranslatedLanguages()
   .then(languages => {
-    console.log(`Languages over 90% translated: ${languages.join(", ")}`);
+    console.log(`Languages over 70% translated: ${languages.join(", ")}`);
 
     for(const lang of languages)
       fetchAllTags(lang);

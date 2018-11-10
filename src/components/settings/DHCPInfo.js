@@ -23,45 +23,46 @@ import {
   Label
 } from "reactstrap";
 import { isPositiveNumber, isValidHostname, isValidIpv4 } from "../../validate";
+import Alert from "../common/Alert";
 
 class DHCPInfo extends Component {
   state = {
-    active: false,
-    ip_start: "",
-    ip_end: "",
-    router_ip: "",
-    lease_time: "",
-    domain: "",
-    ipv6_support: false
+    alertMessage: "",
+    alertType: "",
+    showAlert: false,
+    processing: false,
+    settings: {
+      active: false,
+      ip_start: "",
+      ip_end: "",
+      router_ip: "",
+      lease_time: "",
+      domain: "",
+      ipv6_support: false
+    }
   };
 
-  constructor(props) {
-    super(props);
-    this.updateDHCPInfo = this.updateDHCPInfo.bind(this);
-  }
-
-  updateDHCPInfo() {
-    this.updateHandler = makeCancelable(api.getDHCPInfo(), {
-      repeat: this.updateDHCPInfo,
-      interval: 600000
-    });
+  loadDHCPInfo = () => {
+    this.updateHandler = makeCancelable(api.getDHCPInfo());
     this.updateHandler.promise
       .then(res => {
         this.setState({
-          active: res.active,
-          ip_start: res.ip_start,
-          ip_end: res.ip_end,
-          router_ip: res.router_ip,
-          lease_time: res.lease_time,
-          domain: res.domain,
-          ipv6_support: res.ipv6_support
+          settings: {
+            active: res.active,
+            ip_start: res.ip_start,
+            ip_end: res.ip_end,
+            router_ip: res.router_ip,
+            lease_time: res.lease_time,
+            domain: res.domain,
+            ipv6_support: res.ipv6_support
+          }
         });
       })
       .catch(ignoreCancel);
-  }
+  };
 
   componentDidMount() {
-    this.updateDHCPInfo();
+    this.loadDHCPInfo();
   }
 
   componentWillUnmount() {
@@ -77,10 +78,16 @@ class DHCPInfo extends Component {
    * @returns {function(Event)}
    */
   onChange = (key, attr) => {
-    return e =>
-      this.setState({
-        [key]: e.target[attr]
-      });
+    return e => {
+      const value = e.target[attr];
+
+      this.setState(oldState => ({
+        settings: {
+          ...oldState.settings,
+          [key]: value
+        }
+      }));
+    };
   };
 
   /**
@@ -91,7 +98,44 @@ class DHCPInfo extends Component {
   saveSettings = e => {
     e.preventDefault();
 
-    // TODO: send settings to API
+    const { t } = this.props;
+
+    this.setState({
+      alertMessage: t("Processing..."),
+      alertType: "info",
+      showAlert: true,
+      processing: true
+    });
+
+    api
+      .updateDHCPInfo(this.state.settings)
+      .then(() => {
+        this.setState({
+          alertMessage: t("Successfully saved settings"),
+          alertType: "success",
+          showAlert: true,
+          processing: false
+        });
+      })
+      .catch(error => {
+        let message = "";
+
+        if (error instanceof Error) {
+          message = error.message;
+        } else {
+          // Translate the API's error message
+          message = t("API Error: {{error}}", {
+            error: t(error.key, error.data)
+          });
+        }
+
+        this.setState({
+          alertMessage: message,
+          alertType: "danger",
+          showAlert: true,
+          processing: false
+        });
+      });
   };
 
   /**
@@ -101,37 +145,55 @@ class DHCPInfo extends Component {
    * @param validator the validation function
    */
   isSettingValid = (value, validator) => {
-    return (!this.state.active && value.length === 0) || validator(value);
+    return (
+      (!this.state.settings.active && value.length === 0) || validator(value)
+    );
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
   };
 
   render() {
     const { t } = this.props;
 
     const isIpStartValid = this.isSettingValid(
-      this.state.ip_start,
+      this.state.settings.ip_start,
       isValidIpv4
     );
-    const isIpEndValid = this.isSettingValid(this.state.ip_end, isValidIpv4);
+    const isIpEndValid = this.isSettingValid(
+      this.state.settings.ip_end,
+      isValidIpv4
+    );
     const isRouterIpValid = this.isSettingValid(
-      this.state.router_ip,
+      this.state.settings.router_ip,
       isValidIpv4
     );
     const isLeaseTimeValid = this.isSettingValid(
-      this.state.lease_time,
+      this.state.settings.lease_time,
       isPositiveNumber
     );
     const isDomainValid = this.isSettingValid(
-      this.state.domain,
+      this.state.settings.domain,
       isValidHostname
     );
 
+    const alert = this.state.showAlert ? (
+      <Alert
+        message={this.state.alertMessage}
+        type={this.state.alertType}
+        onClick={this.hideAlert}
+      />
+    ) : null;
+
     return (
       <Form onSubmit={this.saveSettings}>
+        {alert}
         <FormGroup check>
           <Label check>
             <Input
               type="checkbox"
-              checked={this.state.active}
+              checked={this.state.settings.active}
               onChange={this.onChange("active", "checked")}
             />
             {t("Enabled")}
@@ -144,8 +206,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="startIP"
-              disabled={!this.state.active}
-              value={this.state.ip_start}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.ip_start}
               onChange={this.onChange("ip_start", "value")}
               invalid={!isIpStartValid}
             />
@@ -158,8 +220,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="endIP"
-              disabled={!this.state.active}
-              value={this.state.ip_end}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.ip_end}
               onChange={this.onChange("ip_end", "value")}
               invalid={!isIpEndValid}
             />
@@ -172,8 +234,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="routerIP"
-              disabled={!this.state.active}
-              value={this.state.router_ip}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.router_ip}
               onChange={this.onChange("router_ip", "value")}
               invalid={!isRouterIpValid}
             />
@@ -187,12 +249,12 @@ class DHCPInfo extends Component {
             <InputGroup>
               <Input
                 id="leaseTime"
-                disabled={!this.state.active}
-                value={this.state.lease_time}
+                disabled={!this.state.settings.active}
+                value={this.state.settings.lease_time}
                 onChange={this.onChange("lease_time", "value")}
                 invalid={!isLeaseTimeValid}
               />
-              <InputGroupAddon addonType={"append"}>Hours</InputGroupAddon>
+              <InputGroupAddon addonType="append">Hours</InputGroupAddon>
             </InputGroup>
           </Col>
         </FormGroup>
@@ -203,8 +265,8 @@ class DHCPInfo extends Component {
           <Col sm={10}>
             <Input
               id="domain"
-              disabled={!this.state.active}
-              value={this.state.domain}
+              disabled={!this.state.settings.active}
+              value={this.state.settings.domain}
               onChange={this.onChange("domain", "value")}
               invalid={!isDomainValid}
             />
@@ -214,8 +276,8 @@ class DHCPInfo extends Component {
           <Label check>
             <Input
               type="checkbox"
-              disabled={!this.state.active}
-              checked={this.state.ipv6_support}
+              disabled={!this.state.settings.active}
+              checked={this.state.settings.ipv6_support}
               onChange={this.onChange("ipv6_support", "checked")}
             />
             {t("IPv6 Support")}
@@ -224,6 +286,7 @@ class DHCPInfo extends Component {
         <Button
           type="submit"
           disabled={
+            this.state.processing ||
             !isIpStartValid ||
             !isIpEndValid ||
             !isRouterIpValid ||
@@ -238,4 +301,4 @@ class DHCPInfo extends Component {
   }
 }
 
-export default translate(["common", "settings"])(DHCPInfo);
+export default translate(["common", "settings", "api-errors"])(DHCPInfo);

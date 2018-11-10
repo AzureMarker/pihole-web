@@ -81,5 +81,8 @@ export default {
   },
   getDHCPInfo() {
     return http.get("settings/dhcp");
+  },
+  updateDHCPInfo(settings) {
+    return http.put("settings/dhcp", settings);
   }
 };
