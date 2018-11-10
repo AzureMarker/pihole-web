@@ -13,51 +13,64 @@ import { translate } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 
+/**
+ * Transform the API data into the form used in generateRows
+ *
+ * @param data the API data
+ * @returns {{totalBlocked: number, topBlocked: *}} the parsed data
+ */
+export const transformData = data => ({
+  totalBlocked: data.blocked_queries,
+  topBlocked: data.top_blocked
+});
+
+/**
+ * Create a function to generate rows of top blocked
+ *
+ * @param t the translation function
+ * @returns {function(*): any[]} a function to generate rows of top blocked
+ */
+export const generateRows = t => data => {
+  return data.topBlocked.map(item => {
+    const percentage = (item.count / data.totalBlocked) * 100;
+
+    return (
+      <tr key={item.domain}>
+        <td>{item.domain}</td>
+        <td>{item.count.toLocaleString()}</td>
+        <td style={{ verticalAlign: "middle" }}>
+          <div
+            className="progress"
+            title={t("{{percent}}% of {{total}}", {
+              percent: percentage.toFixed(1),
+              total: data.totalBlocked.toLocaleString()
+            })}
+          >
+            <div
+              className="progress-bar bg-warning"
+              style={{ width: percentage + "%" }}
+            />
+          </div>
+        </td>
+      </tr>
+    );
+  });
+};
+
 const TopBlocked = ({ t, ...props }) => (
   <TopTable
     {...props}
     title={t("Top Blocked Domains")}
-    initialState={{
-      total_blocked: 0,
-      top_blocked: []
+    initialData={{
+      totalBlocked: 0,
+      topBlocked: []
     }}
     headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
-    isEmpty={state => state.top_blocked.length === 0}
+    isEmpty={data => data.topBlocked.length === 0}
     apiCall={api.getTopBlocked}
-    apiHandler={(self, res) => {
-      self.setState({
-        loading: false,
-        total_blocked: res.blocked_queries,
-        top_blocked: res.top_blocked
-      });
-    }}
-    generateRows={state => {
-      return state.top_blocked.map(item => {
-        const percentage = (item.count / state.total_blocked) * 100;
-
-        return (
-          <tr key={item.domain}>
-            <td>{item.domain}</td>
-            <td>{item.count.toLocaleString()}</td>
-            <td style={{ verticalAlign: "middle" }}>
-              <div
-                className="progress"
-                title={t("{{percent}}% of {{total}}", {
-                  percent: percentage.toFixed(1),
-                  total: state.total_blocked.toLocaleString()
-                })}
-              >
-                <div
-                  className="progress-bar bg-warning"
-                  style={{ width: percentage + "%" }}
-                />
-              </div>
-            </td>
-          </tr>
-        );
-      });
-    }}
+    apiHandler={transformData}
+    generateRows={generateRows(t)}
   />
 );
 

@@ -9,11 +9,8 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { shallow } from "enzyme";
-import fetchMock from "fetch-mock";
-import TopDomains from "./TopDomains";
+import { generateRows, transformData } from "./TopDomains";
 
-const endpoint = "/admin/api/stats/top_domains";
 const fakeData = {
   top_domains: [
     { domain: "willow.com", count: 13739 },
@@ -30,28 +27,15 @@ const fakeData = {
   total_queries: 16549
 };
 
-it("loads the API data into state correctly", async () => {
-  fetchMock.mock(endpoint, fakeData);
+it("transforms the API data correctly", async () => {
+  const data = transformData(fakeData);
 
-  const wrapper = shallow(<TopDomains />).dive();
-
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().total_queries).toEqual(fakeData.total_queries);
-  expect(wrapper.state().top_domains).toEqual(fakeData.top_domains);
+  expect(data.totalQueries).toEqual(fakeData.total_queries);
+  expect(data.topDomains).toEqual(fakeData.top_domains);
 });
 
 it("creates an appropriately sized table", async () => {
-  fetchMock.mock(endpoint, fakeData);
+  const rows = generateRows(key => key)(transformData(fakeData));
 
-  const wrapper = shallow(<TopDomains />).dive();
-
-  await tick();
-  wrapper.update();
-
-  // Add one to the expected length to account for the table header
-  expect(wrapper.find("tbody").children("tr")).toHaveLength(
-    fakeData.top_domains.length + 1
-  );
+  expect(rows).toHaveLength(fakeData.top_domains.length);
 });

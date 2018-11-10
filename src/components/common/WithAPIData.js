@@ -66,15 +66,18 @@ export class WithAPIData extends Component {
 
     this.dataHandle = makeCancelable(this.props.apiCall(), cancelOptions);
 
-    if (this.props.repeatOptions.ignoreCancel) {
-      this.dataHandle.promise = this.dataHandle.promise.catch(ignoreCancel);
-    }
-
     this.dataHandle.promise
       .then(data => {
         this.setState({
           apiResult: Result.Ok(data)
         });
+      })
+      .catch(error => {
+        if (this.props.repeatOptions.ignoreCancel) {
+          ignoreCancel(error);
+        } else {
+          throw error;
+        }
       })
       .catch(error => {
         this.setState({
