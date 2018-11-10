@@ -29,6 +29,18 @@ const fakeData = {
   status: "enabled"
 };
 
+it("transforms the API data correctly", () => {
+  const expectedProps = {
+    totalQueries: "58,787",
+    blockedQueries: "30,175",
+    percentBlocked: "51.33%",
+    gravityDomains: "10,193",
+    uniqueClients: 28949
+  };
+
+  expect(transformData(fakeData)).toEqual(expectedProps);
+});
+
 it("displays summary stats correctly", async () => {
   const wrapper = shallow(
     <TranslatedSummaryStats {...transformData(fakeData)} />
