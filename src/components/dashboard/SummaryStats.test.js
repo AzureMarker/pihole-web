@@ -64,7 +64,7 @@ it("displays summary stats correctly", async () => {
 });
 
 it("displays error message correctly", async () => {
-  const wrapper = shallow(<TranslatedSummaryStats {...errorProps()} />);
+  const wrapper = shallow(<TranslatedSummaryStats {...errorProps} />);
 
   await tick();
   wrapper.update();
