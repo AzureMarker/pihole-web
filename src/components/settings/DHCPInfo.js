@@ -42,8 +42,8 @@ class DHCPInfo extends Component {
   };
 
   loadDHCPInfo = () => {
-    this.updateHandler = makeCancelable(api.getDHCPInfo());
-    this.updateHandler.promise
+    this.loadHandler = makeCancelable(api.getDHCPInfo());
+    this.loadHandler.promise
       .then(res => {
         this.setState({
           settings: {
@@ -65,7 +65,11 @@ class DHCPInfo extends Component {
   }
 
   componentWillUnmount() {
-    this.updateHandler.cancel();
+    this.loadHandler.cancel();
+
+    if (this.updateHandler) {
+      this.updateHandler.cancel();
+    }
   }
 
   /**
@@ -106,8 +110,10 @@ class DHCPInfo extends Component {
       processing: true
     });
 
-    api
-      .updateDHCPInfo(this.state.settings)
+    this.updateHandler = makeCancelable(
+      api.updateDHCPInfo(this.state.settings)
+    );
+    this.updateHandler.promise
       .then(() => {
         this.setState({
           alertMessage: t("Successfully saved settings"),
@@ -116,6 +122,7 @@ class DHCPInfo extends Component {
           processing: false
         });
       })
+      .catch(ignoreCancel)
       .catch(error => {
         let message = "";
 
