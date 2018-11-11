@@ -9,47 +9,19 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../../utils";
+import api from "../../util/api";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
+import { WithAPIData } from "../common/WithAPIData";
 
 class NetworkInfo extends Component {
-  state = {
-    interface: "",
-    ipv4_address: "",
-    ipv6_address: "",
-    hostname: ""
+  static propTypes = {
+    interface: PropTypes.string.isRequired,
+    ipv4Address: PropTypes.string.isRequired,
+    ipv6Address: PropTypes.string.isRequired,
+    hostname: PropTypes.string.isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.updateNetInfo = this.updateNetInfo.bind(this);
-  }
-
-  updateNetInfo() {
-    this.updateHandler = makeCancelable(api.getNetworkInfo(), {
-      repeat: this.updateNetInfo,
-      interval: 600000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        this.setState({
-          interface: res.interface,
-          ipv4_address: res.ipv4_address,
-          ipv6_address: res.ipv6_address,
-          hostname: res.hostname
-        });
-      })
-      .catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateNetInfo();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const { t } = this.props;
@@ -62,7 +34,7 @@ class NetworkInfo extends Component {
           </Label>
           <Col sm={8}>
             <Input plaintext id="interface">
-              {this.state.interface}
+              {this.props.interface}
             </Input>
           </Col>
         </FormGroup>
@@ -72,7 +44,7 @@ class NetworkInfo extends Component {
           </Label>
           <Col sm={8}>
             <Input plaintext id="ipv4_address">
-              {this.state.ipv4_address}
+              {this.props.ipv4Address}
             </Input>
           </Col>
         </FormGroup>
@@ -82,7 +54,7 @@ class NetworkInfo extends Component {
           </Label>
           <Col sm={8}>
             <Input plaintext id="ipv6_address">
-              {this.state.ipv6_address}
+              {this.props.ipv6Address}
             </Input>
           </Col>
         </FormGroup>
@@ -92,7 +64,7 @@ class NetworkInfo extends Component {
           </Label>
           <Col sm={8}>
             <Input plaintext id="hostname">
-              {this.state.hostname}
+              {this.props.hostname}
             </Input>
           </Col>
         </FormGroup>
@@ -101,4 +73,36 @@ class NetworkInfo extends Component {
   }
 }
 
-export default translate(["common", "settings"])(NetworkInfo);
+export const transformData = data => ({
+  interface: data.interface,
+  ipv4Address: data.ipv4_address,
+  ipv6Address: data.ipv6_address,
+  hostname: data.hostname
+});
+
+export const initialData = () => ({
+  interface: "",
+  ipv4Address: "",
+  ipv6Address: "",
+  hostname: ""
+});
+
+export const TranslatedNetworkInfo = translate(["common", "settings"])(
+  NetworkInfo
+);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getNetworkInfo}
+    repeatOptions={{
+      interval: 600000
+    }}
+    renderInitial={() => (
+      <TranslatedNetworkInfo {...initialData()} {...props} />
+    )}
+    renderOk={data => (
+      <TranslatedNetworkInfo {...transformData(data)} {...props} />
+    )}
+    renderErr={() => <TranslatedNetworkInfo {...initialData()} {...props} />}
+  />
+);

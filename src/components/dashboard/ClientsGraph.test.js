@@ -10,10 +10,12 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import fetchMock from "fetch-mock";
-import ClientsGraph from "./ClientsGraph";
+import {
+  TranslatedClientsGraph,
+  transformData,
+  loadingProps
+} from "./ClientsGraph";
 
-const endpoint = "/admin/api/stats/overTime/clients";
 const fakeData = {
   over_time: [
     { timestamp: 1513218354, data: [48476, 35688, 95153, 56971, 83497] },
@@ -36,45 +38,27 @@ const fakeData = {
   ]
 };
 
-it("shows loading indicator before first load", () => {
-  fetchMock.mock(endpoint, ignoreAPI);
+it("shows loading indicator correctly", () => {
+  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />);
 
-  const wrapper = shallow(<ClientsGraph />);
-
-  expect(wrapper.state().loading).toBeTruthy();
   expect(wrapper.children(".card-img-overlay")).toExist();
 });
 
-it("hides loading indicator after first load", async () => {
-  fetchMock.mock(endpoint, { body: fakeData });
+it("hides loading indicator correctly", async () => {
+  const wrapper = shallow(
+    <TranslatedClientsGraph {...loadingProps} loading={false} />
+  );
 
-  const wrapper = shallow(<ClientsGraph />);
-
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().loading).toBeFalsy();
   expect(wrapper.children(".card-img-overlay")).not.toExist();
 });
 
 it("loads API data correctly", async () => {
-  fetchMock.mock(endpoint, { body: fakeData });
+  const data = transformData(fakeData);
 
-  const wrapper = shallow(<ClientsGraph />);
-
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().data.labels[0]).toEqual(
+  expect(data.labels[0]).toEqual(
     new Date(1000 * fakeData.over_time[0].timestamp)
   );
-  expect(wrapper.state().data.datasets[2].label).toEqual(
-    fakeData.clients[2].name
-  );
-  expect(wrapper.state().data.datasets[1].label).toEqual(
-    fakeData.clients[1].ip
-  );
-  expect(wrapper.state().data.datasets[0].data.length).toEqual(
-    fakeData.over_time.length - 1
-  );
+  expect(data.datasets[2].label).toEqual(fakeData.clients[2].name);
+  expect(data.datasets[1].label).toEqual(fakeData.clients[1].ip);
+  expect(data.datasets[0].data.length).toEqual(fakeData.over_time.length - 1);
 });

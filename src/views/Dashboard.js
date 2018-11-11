@@ -17,7 +17,7 @@ import ForwardDestinationsChart from "../components/dashboard/ForwardDestination
 import TopDomains from "../components/dashboard/TopDomains";
 import TopBlocked from "../components/dashboard/TopBlocked";
 import TopClients from "../components/dashboard/TopClients";
-import { api } from "../utils";
+import api from "../util/api";
 
 export default () => (
   <div className="animated fadeIn">
