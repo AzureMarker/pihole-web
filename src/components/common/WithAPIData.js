@@ -49,7 +49,7 @@ export class WithAPIData extends Component {
   static defaultProps = {
     repeatOptions: {
       ignoreCancel: true,
-      repeatInterval: 0
+      interval: 0
     }
   };
 
