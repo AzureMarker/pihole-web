@@ -17,11 +17,25 @@ import DomainList from "./DomainList";
 import { ignoreCancel, makeCancelable } from "../../utils";
 
 class ListPage extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    note: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    placeholder: PropTypes.string.isRequired,
+    add: PropTypes.func.isRequired,
+    refresh: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+    isValid: PropTypes.func.isRequired,
+    validationErrorMsg: PropTypes.string.isRequired
+  };
+
+  static defaultProps = {
+    note: ""
+  };
+
   state = {
     domains: [],
-    infoMsg: "",
-    successMsg: "",
-    errorMsg: ""
+    message: "",
+    messageType: ""
   };
 
   onEnter = domain => {
@@ -50,32 +64,28 @@ class ListPage extends Component {
 
   onAdding = domain =>
     this.setState({
-      infoMsg: this.props.t("Adding {{domain}}...", { domain }),
-      successMsg: "",
-      errorMsg: ""
+      message: this.props.t("Adding {{domain}}...", { domain }),
+      messageType: "info"
     });
 
   onAlreadyAdded = domain =>
     this.setState({
-      infoMsg: "",
-      successMsg: "",
-      errorMsg: this.props.t("{{domain}} is already added", { domain })
+      message: this.props.t("{{domain}} is already added", { domain }),
+      messageType: "danger"
     });
 
   onAdded = domain =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
-      infoMsg: "",
-      successMsg: this.props.t("Successfully added {{domain}}", { domain }),
-      errorMsg: ""
+      message: this.props.t("Successfully added {{domain}}", { domain }),
+      messageType: "success"
     }));
 
   onAddFailed = (domain, prevDomains) =>
     this.setState({
       domains: prevDomains,
-      infoMsg: "",
-      successMsg: "",
-      errorMsg: this.props.t("Failed to add {{domain}}", { domain })
+      message: this.props.t("Failed to add {{domain}}", { domain }),
+      messageType: "danger"
     });
 
   onRemoved = domain =>
@@ -86,10 +96,22 @@ class ListPage extends Component {
   onRemoveFailed = (domain, prevDomains) =>
     this.setState({
       domains: prevDomains,
-      infoMsg: "",
-      successMsg: "",
-      errorMsg: this.props.t("Failed to remove {{domain}}", { domain })
+      message: this.props.t("Failed to remove {{domain}}", { domain }),
+      messageType: "danger"
     });
+
+  onRemove = domain => {
+    if (this.state.domains.includes(domain)) {
+      const prevDomains = this.state.domains.slice();
+
+      this.removeHandler = makeCancelable(this.props.remove(domain));
+      this.removeHandler.promise.catch(ignoreCancel).catch(() => {
+        this.onRemoveFailed(domain, prevDomains);
+      });
+
+      this.onRemoved(domain);
+    }
+  };
 
   onRefresh = () => {
     this.refreshHandler = makeCancelable(this.props.refresh());
@@ -102,7 +124,8 @@ class ListPage extends Component {
 
   handleValidationError = () => {
     this.setState({
-      errorMsg: this.props.validationErrorMsg
+      message: this.props.validationErrorMsg,
+      messageType: "danger"
     });
   };
 
@@ -112,9 +135,7 @@ class ListPage extends Component {
 
   componentWillUnmount() {
     if (this.addHandler) this.addHandler.cancel();
-
     if (this.removeHandler) this.removeHandler.cancel();
-
     if (this.refreshHandler) this.refreshHandler.cancel();
   }
 
@@ -131,47 +152,17 @@ class ListPage extends Component {
           onValidationError={this.handleValidationError}
         />
         {this.props.note}
-        {this.state.infoMsg ? (
+        {this.state.message ? (
           <Alert
-            message={this.state.infoMsg}
-            type="info"
-            onClick={() => this.setState({ infoMsg: "" })}
+            message={this.state.message}
+            type={this.state.messageType}
+            onClick={() => this.setState({ message: "" })}
           />
         ) : null}
-        {this.state.successMsg ? (
-          <Alert
-            message={this.state.successMsg}
-            type="success"
-            onClick={() => this.setState({ successMsg: "" })}
-          />
-        ) : null}
-        {this.state.errorMsg ? (
-          <Alert
-            message={this.state.errorMsg}
-            type="danger"
-            onClick={() => this.setState({ errorMsg: "" })}
-          />
-        ) : null}
-        <DomainList
-          domains={this.state.domains}
-          apiCall={this.props.remove}
-          onRemoved={this.onRemoved}
-          onFailed={this.onRemoveFailed}
-        />
+        <DomainList domains={this.state.domains} onRemove={this.onRemove} />
       </div>
     );
   }
 }
-
-ListPage.propTypes = {
-  title: PropTypes.string.isRequired,
-  note: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  placeholder: PropTypes.string.isRequired,
-  add: PropTypes.func.isRequired,
-  refresh: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
-  isValid: PropTypes.func.isRequired,
-  validationErrorMsg: PropTypes.string.isRequired
-};
 
 export default translate(["common", "lists"])(ListPage);

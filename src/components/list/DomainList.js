@@ -11,21 +11,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../../utils";
+import { api } from "../../utils";
 
 class DomainList extends Component {
-  onRemove(domain) {
-    if (this.props.domains.includes(domain)) {
-      const prevDomains = this.props.domains.slice();
-
-      this.removeHandler = makeCancelable(this.props.apiCall(domain));
-      this.removeHandler.promise.catch(ignoreCancel).catch(() => {
-        this.props.onFailed(domain, prevDomains);
-      });
-
-      this.props.onRemoved(domain);
-    }
-  }
+  static propTypes = {
+    domains: PropTypes.arrayOf(PropTypes.string),
+    onRemove: PropTypes.func.isRequired
+  };
 
   render() {
     const { t } = this.props;
@@ -40,7 +32,7 @@ class DomainList extends Component {
                   className="btn btn-danger btn-sm pull-right"
                   type="button"
                   style={{ marginTop: "2px" }}
-                  onClick={() => this.onRemove(item)}
+                  onClick={() => this.props.onRemove(item)}
                 >
                   <span className="fa fa-trash-o" />
                 </button>
@@ -65,16 +57,5 @@ class DomainList extends Component {
     );
   }
 }
-
-DomainList.propTypes = {
-  domains: PropTypes.arrayOf(PropTypes.string),
-  onRemoved: PropTypes.func.isRequired,
-  onFailed: PropTypes.func.isRequired,
-  apiCall: PropTypes.func.isRequired
-};
-
-DomainList.defaultProps = {
-  domains: []
-};
 
 export default translate(["common", "lists"])(DomainList);
