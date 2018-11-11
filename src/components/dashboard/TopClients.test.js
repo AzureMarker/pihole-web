@@ -9,11 +9,8 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { shallow } from "enzyme";
-import fetchMock from "fetch-mock";
-import TopClients from "./TopClients";
+import { transformData, generateRows } from "./TopClients";
 
-const endpoint = "/admin/api/stats/top_clients";
 const fakeData = {
   top_clients: [
     { name: "", ip: "21.43.61.185", count: 37586 },
@@ -30,28 +27,15 @@ const fakeData = {
   total_queries: 38451
 };
 
-it("loads the API data into state correctly", async () => {
-  fetchMock.mock(endpoint, fakeData);
+it("transforms the API data correctly", async () => {
+  const data = transformData(fakeData);
 
-  const wrapper = shallow(<TopClients />).dive();
-
-  await tick();
-  wrapper.update();
-
-  expect(wrapper.state().total_queries).toEqual(fakeData.total_queries);
-  expect(wrapper.state().top_clients).toEqual(fakeData.top_clients);
+  expect(data.totalQueries).toEqual(fakeData.total_queries);
+  expect(data.topClients).toEqual(fakeData.top_clients);
 });
 
 it("creates an appropriately sized table", async () => {
-  fetchMock.mock(endpoint, fakeData);
+  const rows = generateRows(key => key)(transformData(fakeData));
 
-  const wrapper = shallow(<TopClients />).dive();
-
-  await tick();
-  wrapper.update();
-
-  // Add one to the expected length to account for the table header
-  expect(wrapper.find("tbody").children("tr")).toHaveLength(
-    fakeData.top_clients.length + 1
-  );
+  expect(rows).toHaveLength(fakeData.top_clients.length);
 });

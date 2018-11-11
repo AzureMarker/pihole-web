@@ -10,10 +10,12 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import fetchMock from "fetch-mock";
-import SummaryStats from "./SummaryStats";
+import {
+  TranslatedSummaryStats,
+  transformData,
+  errorProps
+} from "./SummaryStats";
 
-const endpoint = "/admin/api/stats/summary";
 const fakeData = {
   domains_blocked: 10193,
   total_queries: 58787,
@@ -27,10 +29,22 @@ const fakeData = {
   status: "enabled"
 };
 
-it("displays summary stats correctly", async () => {
-  fetchMock.mock(endpoint, fakeData);
+it("transforms the API data correctly", () => {
+  const expectedProps = {
+    totalQueries: "58,787",
+    blockedQueries: "30,175",
+    percentBlocked: "51.33%",
+    gravityDomains: "10,193",
+    uniqueClients: 28949
+  };
 
-  const wrapper = shallow(<SummaryStats />);
+  expect(transformData(fakeData)).toEqual(expectedProps);
+});
+
+it("displays summary stats correctly", async () => {
+  const wrapper = shallow(
+    <TranslatedSummaryStats {...transformData(fakeData)} />
+  );
 
   await tick();
   wrapper.update();
@@ -38,7 +52,6 @@ it("displays summary stats correctly", async () => {
   expect(wrapper.childAt(0).find("h3")).toHaveText(
     fakeData.total_queries.toLocaleString()
   );
-  expect(wrapper.state().uniqueClients).toEqual(fakeData.unique_clients);
   expect(wrapper.childAt(1).find("h3")).toHaveText(
     fakeData.blocked_queries.toLocaleString()
   );
@@ -50,10 +63,8 @@ it("displays summary stats correctly", async () => {
   );
 });
 
-it("displays an error message on error", async () => {
-  fetchMock.mock(endpoint, { error: {} });
-
-  const wrapper = shallow(<SummaryStats />);
+it("displays error message correctly", async () => {
+  const wrapper = shallow(<TranslatedSummaryStats {...errorProps} />);
 
   await tick();
   wrapper.update();

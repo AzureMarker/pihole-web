@@ -14,6 +14,13 @@ import PropTypes from "prop-types";
 import { Collapse } from "reactstrap";
 
 class VersionCard extends Component {
+  static propTypes = {
+    branch: PropTypes.string.isRequired,
+    hash: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired
+  };
+
   state = {
     collapsed: true
   };
@@ -67,12 +74,5 @@ class VersionCard extends Component {
     );
   }
 }
-
-VersionCard.propTypes = {
-  branch: PropTypes.string.isRequired,
-  hash: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired
-};
 
 export default translate(["common", "settings"])(VersionCard);

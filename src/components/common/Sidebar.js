@@ -14,7 +14,7 @@ import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import logo from "../../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
-import { api } from "../../utils";
+import api from "../../util/api";
 import StatusBadge from "./StatusBadge";
 
 const handleClick = e => {

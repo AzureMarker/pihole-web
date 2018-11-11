@@ -8,7 +8,7 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import { api } from "./utils";
+import api from "./api";
 
 // This is a dumb test used to set up the next test,
 // which checks that the logged in state is reset before each test

@@ -11,7 +11,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import DomainInput from "./DomainInput";
-import { api } from "../../utils";
+import api from "../../util/api";
 import { isValidDomain } from "../../validate";
 
 it("has a placeholder", () => {

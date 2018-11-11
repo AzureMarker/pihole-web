@@ -14,7 +14,7 @@ import { translate } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert from "../common/Alert";
 import DomainList from "./DomainList";
-import { ignoreCancel, makeCancelable } from "../../utils";
+import { ignoreCancel, makeCancelable } from "../../util";
 
 class ListPage extends Component {
   static propTypes = {

@@ -10,7 +10,7 @@
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../utils";
+import api from "../util/api";
 import ListPage from "../components/list/ListPage";
 import { isValidDomain } from "../validate";
 
