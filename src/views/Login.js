@@ -11,7 +11,7 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import sha from "sha.js";
-import { api } from "../utils";
+import api from "../util/api";
 import logo from "../img/logo.svg";
 import { routes } from "../routes";
 import ForgotPassword from "../components/login/ForgotPassword";

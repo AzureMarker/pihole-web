@@ -11,68 +11,21 @@
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
 import PropTypes from "prop-types";
-import { makeCancelable, ignoreCancel } from "../../utils";
+import { WithAPIData } from "../common/WithAPIData";
 
-class GenericDoughnutChart extends Component {
-  state = {
-    loading: true,
-    data: [],
-    colors: [],
-    labels: []
+export class GenericDoughnutChart extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    loading: PropTypes.bool.isRequired,
+    data: PropTypes.array.isRequired,
+    colors: PropTypes.array.isRequired,
+    labels: PropTypes.array.isRequired
   };
 
   constructor(props) {
     super(props);
     this.chartRef = React.createRef();
   }
-
-  updateChart = () => {
-    this.updateHandler = makeCancelable(this.props.apiCall(), {
-      repeat: this.updateChart,
-      interval: 10 * 60 * 1000
-    });
-    this.updateHandler.promise
-      .then(apiData => {
-        const colors = [
-          "#20a8d8",
-          "#f86c6b",
-          "#4dbd74",
-          "#f8cb00",
-          "#263238",
-          "#63c2de",
-          "#b0bec5"
-        ];
-        const data = [];
-        const labels = [];
-        const usedColors = [];
-
-        // Fill in dataset metadata
-        let i = 0;
-        for (let entry of apiData) {
-          data.push(entry.percent);
-          labels.push(entry.name.length !== 0 ? entry.name : entry.ip);
-          usedColors.push(
-            // If we ran out of colors, make a random one
-            i < colors.length
-              ? colors[i]
-              : "#" +
-                parseInt("" + Math.random() * 0xffffff, 10)
-                  .toString(16)
-                  .padStart(6, "0")
-          );
-
-          i++;
-        }
-
-        this.setState({
-          loading: false,
-          data,
-          colors: usedColors,
-          labels
-        });
-      })
-      .catch(ignoreCancel);
-  };
 
   handleClick = (e, index) => {
     // Hide the entry by clicking on the internal legend item
@@ -86,14 +39,6 @@ class GenericDoughnutChart extends Component {
     // Cause an update so the external legend gets updated
     this.forceUpdate();
   };
-
-  componentDidMount() {
-    this.updateChart();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const options = {
@@ -119,7 +64,7 @@ class GenericDoughnutChart extends Component {
     const meta =
       this.chartRef.current !== null
         ? this.chartRef.current.chartInstance.getDatasetMeta(0).data
-        : this.state.data.map(() => ({ hidden: false }));
+        : this.props.data.map(() => ({ hidden: false }));
 
     return (
       <div className="card">
@@ -134,19 +79,19 @@ class GenericDoughnutChart extends Component {
               data={{
                 datasets: [
                   {
-                    data: this.state.data,
-                    backgroundColor: this.state.colors
+                    data: this.props.data,
+                    backgroundColor: this.props.colors
                   }
                 ],
-                labels: this.state.labels
+                labels: this.props.labels
               }}
             />
           </div>
           <div className="float-right" style={{ width: "33%" }}>
             <ul className="chart-legend">
-              {this.state.labels
+              {this.props.labels
                 // Zip label and color together
-                .map((label, i) => [label, this.state.colors[i]])
+                .map((label, i) => [label, this.props.colors[i]])
                 // Create the list items
                 .map(([label, color], i) => (
                   <li
@@ -161,7 +106,7 @@ class GenericDoughnutChart extends Component {
             </ul>
           </div>
         </div>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <div
             className="card-img-overlay"
             style={{ background: "rgba(255,255,255,0.7)" }}
@@ -182,9 +127,74 @@ class GenericDoughnutChart extends Component {
   }
 }
 
-GenericDoughnutChart.propTypes = {
-  title: PropTypes.string.isRequired,
-  apiCall: PropTypes.func.isRequired
+/**
+ * Transform the API data into props for GenericDoughnutChart
+ *
+ * @param apiData the API data
+ * @returns {{loading: boolean, data: Array, colors: Array, labels: Array}}
+ * GenericDoughnutChart props
+ */
+export const transformData = apiData => {
+  const colors = [
+    "#20a8d8",
+    "#f86c6b",
+    "#4dbd74",
+    "#f8cb00",
+    "#263238",
+    "#63c2de",
+    "#b0bec5"
+  ];
+  const data = [];
+  const labels = [];
+  const usedColors = [];
+
+  // Fill in dataset metadata
+  let i = 0;
+  for (let entry of apiData) {
+    data.push(entry.percent);
+    labels.push(entry.name.length !== 0 ? entry.name : entry.ip);
+    usedColors.push(
+      // If we ran out of colors, make a random one
+      i < colors.length
+        ? colors[i]
+        : "#" +
+          parseInt("" + Math.random() * 0xffffff, 10)
+            .toString(16)
+            .padStart(6, "0")
+    );
+
+    i++;
+  }
+
+  return {
+    loading: false,
+    data,
+    colors: usedColors,
+    labels
+  };
 };
 
-export default GenericDoughnutChart;
+/**
+ * The props used to show a loading state (either initial load or error)
+ */
+export const loadingProps = {
+  loading: true,
+  data: [],
+  colors: [],
+  labels: []
+};
+
+export default ({ apiCall, title, ...props }) => (
+  <WithAPIData
+    apiCall={apiCall}
+    renderInitial={() => (
+      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
+    )}
+    renderOk={data => (
+      <GenericDoughnutChart title={title} {...transformData(data)} {...props} />
+    )}
+    renderErr={() => (
+      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
+    )}
+  />
+);

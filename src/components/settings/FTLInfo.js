@@ -9,58 +9,55 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { translate } from "react-i18next";
-import { api, ignoreCancel, makeCancelable } from "../../utils";
+import api from "../../util/api";
+import { WithAPIData } from "../common/WithAPIData";
 
 class FTLInfo extends Component {
-  state = {
-    filesize: 0,
-    queries: 0,
-    sqlite_version: ""
+  static propTypes = {
+    fileSize: PropTypes.number.isRequired,
+    queries: PropTypes.number.isRequired,
+    sqliteVersion: PropTypes.string.isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.updateFTLInfo = this.updateFTLInfo.bind(this);
-  }
-
-  updateFTLInfo() {
-    this.updateHandler = makeCancelable(api.getFTLdb(), {
-      repeat: this.updateFTLInfo,
-      interval: 600000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        this.setState({
-          queries: res.queries.toLocaleString(),
-          filesize: res.filesize.toLocaleString(),
-          sqlite_version: res.sqlite_version
-        });
-      })
-      .catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateFTLInfo();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const { t } = this.props;
 
     return (
       <pre>
-        {t("Queries")}: {this.state.queries}
+        {t("Queries")}: {this.props.queries}
         <br />
-        {t("Filesize")}: {this.state.filesize} B<br />
-        {t("SQLite version")}: {this.state.sqlite_version}
+        {t("Filesize")}: {this.props.fileSize.toLocaleString()} B<br />
+        {t("SQLite version")}: {this.props.sqliteVersion.toLocaleString()}
         <br />
       </pre>
     );
   }
 }
 
-export default translate(["settings"])(FTLInfo);
+export const transformData = data => ({
+  fileSize: data.filesize,
+  queries: data.queries,
+  sqliteVersion: data.sqlite_version
+});
+
+export const initialData = {
+  fileSize: 0,
+  queries: 0,
+  sqliteVersion: ""
+};
+
+export const TranslatedFTLInfo = translate(["settings"])(FTLInfo);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getFTLdb}
+    repeatOptions={{
+      interval: 600000
+    }}
+    renderInitial={() => <TranslatedFTLInfo {...initialData} {...props} />}
+    renderOk={data => <TranslatedFTLInfo {...transformData(data)} {...props} />}
+    renderErr={() => <TranslatedFTLInfo {...initialData} {...props} />}
+  />
+);

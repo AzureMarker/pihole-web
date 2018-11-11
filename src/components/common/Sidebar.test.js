@@ -11,7 +11,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import { dropDownClassList, navDropdown, navItem, navList } from "./Sidebar";
-import { api } from "../../utils";
+import api from "../../util/api";
 
 it("expands active drop down items", () => {
   const classList = dropDownClassList("/testRoute", {

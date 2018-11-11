@@ -9,67 +9,30 @@
 *  Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
 import { translate } from "react-i18next";
-import { padNumber, api, makeCancelable, ignoreCancel } from "../../utils";
+import { padNumber } from "../../util";
+import api from "../../util/api";
+import { WithAPIData } from "../common/WithAPIData";
 
 class QueriesGraph extends Component {
-  state = {
-    loading: true,
-    labels: [],
-    domains_over_time: [],
-    blocked_over_time: []
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    labels: PropTypes.array.isRequired,
+    domains_over_time: PropTypes.array.isRequired,
+    blocked_over_time: PropTypes.array.isRequired
   };
-
-  constructor(props) {
-    super(props);
-    this.updateGraph = this.updateGraph.bind(this);
-  }
-
-  updateGraph() {
-    this.updateHandler = makeCancelable(api.getHistoryGraph(), {
-      repeat: this.updateGraph,
-      interval: 10 * 60 * 1000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        // Remove last data point as it's not yet finished
-        res.blocked_over_time.splice(-1, 1);
-        res.domains_over_time.splice(-1, 1);
-
-        const labels = res.domains_over_time.map(
-          step => new Date(1000 * step.timestamp)
-        );
-        const domains_over_time = res.domains_over_time.map(step => step.count);
-        const blocked_over_time = res.blocked_over_time.map(step => step.count);
-
-        this.setState({
-          loading: false,
-          labels,
-          domains_over_time,
-          blocked_over_time
-        });
-      })
-      .catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateGraph();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     const { t } = this.props;
 
     const data = {
-      labels: this.state.labels,
+      labels: this.props.labels,
       datasets: [
         {
           label: t("Total Queries"),
-          data: this.state.domains_over_time,
+          data: this.props.domains_over_time,
           fill: true,
           backgroundColor: "rgba(220,220,220,0.5)",
           borderColor: "rgba(0, 166, 90,.8)",
@@ -81,7 +44,7 @@ class QueriesGraph extends Component {
         },
         {
           label: t("Blocked Queries"),
-          data: this.state.blocked_over_time,
+          data: this.props.blocked_over_time,
           fill: true,
           backgroundColor: "rgba(0,192,239,0.5)",
           borderColor: "rgba(0,192,239,1)",
@@ -166,7 +129,7 @@ class QueriesGraph extends Component {
         <div className="card-body">
           <Line width={970} height={170} data={data} options={options} />
         </div>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <div
             className="card-img-overlay"
             style={{ background: "rgba(255,255,255,0.7)" }}
@@ -187,4 +150,54 @@ class QueriesGraph extends Component {
   }
 }
 
-export default translate("dashboard")(QueriesGraph);
+/**
+ * Transform the API data into props for QueriesGraph
+ *
+ * @param data the API data
+ * @returns {{loading: boolean, labels: Date[], domains_over_time: *,
+ * blocked_over_time: any[]}} QueriesGraph props
+ */
+export const transformData = data => {
+  // Remove last data point as it's not yet finished
+  const blockedData = data.blocked_over_time.slice(0, -1);
+  const allowedData = data.domains_over_time.slice(0, -1);
+
+  const labels = allowedData.map(step => new Date(1000 * step.timestamp));
+  const domains_over_time = allowedData.map(step => step.count);
+  const blocked_over_time = blockedData.map(step => step.count);
+
+  return {
+    loading: false,
+    labels,
+    domains_over_time,
+    blocked_over_time
+  };
+};
+
+/**
+ * The props used to show a loading state (either initial load or error)
+ */
+export const loadingProps = {
+  loading: true,
+  labels: [],
+  domains_over_time: [],
+  blocked_over_time: []
+};
+
+export const TranslatedQueriesGraph = translate("dashboard")(QueriesGraph);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getHistoryGraph}
+    repeatOptions={{
+      interval: 10 * 60 * 1000
+    }}
+    renderInitial={() => (
+      <TranslatedQueriesGraph {...loadingProps} {...props} />
+    )}
+    renderOk={data => (
+      <TranslatedQueriesGraph {...transformData(data)} {...props} />
+    )}
+    renderErr={() => <TranslatedQueriesGraph {...loadingProps} {...props} />}
+  />
+);

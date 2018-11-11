@@ -10,94 +10,24 @@
 
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
 import { translate } from "react-i18next";
-import { padNumber, api, makeCancelable, ignoreCancel } from "../../utils";
+import { padNumber } from "../../util";
+import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
+import { WithAPIData } from "../common/WithAPIData";
 
 class ClientsGraph extends Component {
-  state = {
-    loading: true,
-    data: {
-      labels: [],
-      datasets: []
-    }
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    labels: PropTypes.array.isRequired,
+    datasets: PropTypes.array.isRequired
   };
 
   constructor(props) {
     super(props);
     this.graphRef = React.createRef();
-    this.updateGraph = this.updateGraph.bind(this);
-  }
-
-  updateGraph() {
-    this.updateHandler = makeCancelable(api.getClientsGraph(), {
-      repeat: this.updateGraph,
-      interval: 10 * 60 * 1000
-    });
-    this.updateHandler.promise
-      .then(res => {
-        // Remove last data point as it's not yet finished
-        res.over_time.splice(-1, 1);
-
-        const colors = [
-          "#20a8d8",
-          "#f86c6b",
-          "#4dbd74",
-          "#f8cb00",
-          "#263238",
-          "#63c2de",
-          "#b0bec5"
-        ];
-        const labels = res.over_time.map(
-          step => new Date(1000 * step.timestamp)
-        );
-        const datasets = [];
-
-        // Fill in dataset metadata
-        let i = 0;
-        for (let client of res.clients) {
-          datasets.push({
-            label: client.name.length !== 0 ? client.name : client.ip,
-            // If we ran out of colors, make a random one
-            backgroundColor:
-              i < colors.length
-                ? colors[i]
-                : "#" +
-                  parseInt("" + Math.random() * 0xffffff, 10)
-                    .toString(16)
-                    .padStart(6, "0"),
-            pointRadius: 0,
-            pointHitRadius: 5,
-            pointHoverRadius: 5,
-            cubicInterpolationMode: "monotone",
-            data: []
-          });
-
-          i++;
-        }
-
-        // Fill in data & labels
-        for (let step of res.over_time) {
-          for (let destination in datasets) {
-            if (datasets.hasOwnProperty(destination))
-              datasets[destination].data.push(step.data[destination]);
-          }
-        }
-
-        datasets.sort((a, b) => a.label.localeCompare(b.label));
-
-        this.setState({ data: { labels, datasets }, loading: false });
-      })
-      .catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateGraph();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
   }
 
   render() {
@@ -159,12 +89,16 @@ class ClientsGraph extends Component {
           <Line
             width={970}
             height={170}
-            data={this.state.data}
+            data={{
+              labels: this.props.labels,
+              datasets: this.props.datasets
+            }}
             options={options}
             ref={this.graphRef}
           />
         </div>
-        {this.state.loading ? (
+
+        {this.props.loading ? (
           <div
             className="card-img-overlay"
             style={{ background: "rgba(255,255,255,0.7)" }}
@@ -180,6 +114,7 @@ class ClientsGraph extends Component {
             />
           </div>
         ) : null}
+
         {// Now you're thinking with portals!
         ReactDOM.createPortal(
           <ChartTooltip chart={this.graphRef} handler={options.tooltips} />,
@@ -190,4 +125,88 @@ class ClientsGraph extends Component {
   }
 }
 
-export default translate("dashboard")(ClientsGraph);
+/**
+ * Transform the API data into props for ClientsGraph
+ *
+ * @param data the API data
+ * @returns {{labels: Date[], datasets: Array, loading: boolean}} ClientsGraph
+ * props
+ */
+export const transformData = data => {
+  // Remove last data point as it's not yet finished
+  const overTime = data.over_time.slice(0, -1);
+
+  const colors = [
+    "#20a8d8",
+    "#f86c6b",
+    "#4dbd74",
+    "#f8cb00",
+    "#263238",
+    "#63c2de",
+    "#b0bec5"
+  ];
+  const labels = overTime.map(step => new Date(1000 * step.timestamp));
+  const datasets = [];
+
+  // Fill in dataset metadata
+  let i = 0;
+  for (let client of data.clients) {
+    datasets.push({
+      label: client.name.length !== 0 ? client.name : client.ip,
+      // If we ran out of colors, make a random one
+      backgroundColor:
+        i < colors.length
+          ? colors[i]
+          : "#" +
+            parseInt("" + Math.random() * 0xffffff, 10)
+              .toString(16)
+              .padStart(6, "0"),
+      pointRadius: 0,
+      pointHitRadius: 5,
+      pointHoverRadius: 5,
+      cubicInterpolationMode: "monotone",
+      data: []
+    });
+
+    i++;
+  }
+
+  // Fill in data & labels
+  for (let step of overTime) {
+    for (let destination in datasets) {
+      if (datasets.hasOwnProperty(destination))
+        datasets[destination].data.push(step.data[destination]);
+    }
+  }
+
+  datasets.sort((a, b) => a.label.localeCompare(b.label));
+
+  return { labels, datasets, loading: false };
+};
+
+/**
+ * The props used to show a loading state (either initial load or error)
+ */
+export const loadingProps = {
+  loading: true,
+  labels: [],
+  datasets: []
+};
+
+export const TranslatedClientsGraph = translate("dashboard")(ClientsGraph);
+
+export default props => (
+  <WithAPIData
+    apiCall={api.getClientsGraph}
+    repeatOptions={{
+      interval: 10 * 60 * 1000
+    }}
+    renderInitial={() => (
+      <TranslatedClientsGraph {...loadingProps} {...props} />
+    )}
+    renderOk={data => (
+      <TranslatedClientsGraph {...transformData(data)} {...props} />
+    )}
+    renderErr={() => <TranslatedClientsGraph {...loadingProps} {...props} />}
+  />
+);

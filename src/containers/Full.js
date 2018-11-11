@@ -13,7 +13,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Header, { mobileSidebarHide } from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
-import { api } from "../utils";
+import api from "../util/api";
 import { nav } from "../routes";
 
 export default props => (

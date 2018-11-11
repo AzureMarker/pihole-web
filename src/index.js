@@ -16,7 +16,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "simple-line-icons/css/simple-line-icons.css";
 import "./scss/style.css";
 import Full from "./containers/Full";
-import { api } from "./utils";
+import api from "./util/api";
 import { setupI18n } from "./i18n";
 
 // Before rendering anything, check if there is a session cookie.

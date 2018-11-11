@@ -10,26 +10,37 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ignoreCancel, makeCancelable } from "../../utils";
+import { WithAPIData } from "../common/WithAPIData";
 
-class TopTable extends Component {
-  state = {
+export class TopTable extends Component {
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    emptyMessage: PropTypes.string.isRequired,
+    isEmpty: PropTypes.func.isRequired,
+    generateRows: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
     loading: true,
-    ...this.props.initialState
+    title: "",
+    data: {},
+    headers: [],
+    emptyMessage: "",
+    isEmpty: () => true,
+    generateRows: () => null
   };
 
-  updateChart = () => {
-    this.updateHandler = makeCancelable(this.props.apiCall(), {
-      repeat: this.updateChart,
-      interval: 10 * 60 * 1000
-    });
-    this.updateHandler.promise
-      .then(res => this.props.apiHandler(this, res))
-      .catch(ignoreCancel);
-  };
-
+  /**
+   * Generate the table
+   *
+   * @returns {*} a React element for the table, or an empty message
+   */
   generateTable = () => {
-    if (this.props.isEmpty(this.state)) {
+    // If there is no data, just show a message
+    if (this.props.isEmpty(this.props.data)) {
       return this.props.emptyMessage;
     }
 
@@ -41,19 +52,11 @@ class TopTable extends Component {
               <th key={i}>{header}</th>
             ))}
           </tr>
-          {this.props.generateRows(this.state)}
+          {this.props.generateRows(this.props.data)}
         </tbody>
       </table>
     );
   };
-
-  componentDidMount() {
-    this.updateChart();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
 
   render() {
     return (
@@ -62,7 +65,7 @@ class TopTable extends Component {
         <div className="card-body">
           <div style={{ overflowX: "auto" }}>{this.generateTable()}</div>
         </div>
-        {this.state.loading ? (
+        {this.props.loading ? (
           <div
             className="card-img-overlay"
             style={{ background: "rgba(255,255,255,0.7)" }}
@@ -83,19 +86,57 @@ class TopTable extends Component {
   }
 }
 
-TopTable.propTypes = {
-  title: PropTypes.string.isRequired,
-  initialState: PropTypes.object,
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  emptyMessage: PropTypes.string.isRequired,
-  isEmpty: PropTypes.func.isRequired,
-  apiCall: PropTypes.func.isRequired,
-  apiHandler: PropTypes.func.isRequired,
-  generateRows: PropTypes.func.isRequired
-};
-
-TopTable.defaultProps = {
-  initialState: {}
-};
-
-export default TopTable;
+export default ({
+  title,
+  apiCall,
+  initialData,
+  headers,
+  emptyMessage,
+  isEmpty,
+  apiHandler,
+  generateRows,
+  ...props
+}) => (
+  <WithAPIData
+    apiCall={apiCall}
+    repeatOptions={{
+      interval: 10 * 60 * 1000
+    }}
+    renderInitial={() => (
+      <TopTable
+        title={title}
+        headers={headers}
+        emptyMessage={emptyMessage}
+        isEmpty={isEmpty}
+        generateRows={generateRows}
+        data={initialData}
+        loading={true}
+        {...props}
+      />
+    )}
+    renderOk={data => (
+      <TopTable
+        title={title}
+        headers={headers}
+        emptyMessage={emptyMessage}
+        isEmpty={isEmpty}
+        generateRows={generateRows}
+        data={apiHandler(data)}
+        loading={false}
+        {...props}
+      />
+    )}
+    renderErr={() => (
+      <TopTable
+        title={title}
+        headers={headers}
+        emptyMessage={emptyMessage}
+        isEmpty={isEmpty}
+        generateRows={generateRows}
+        data={initialData}
+        loading={true}
+        {...props}
+      />
+    )}
+  />
+);

@@ -10,54 +10,67 @@
 
 import React from "react";
 import { translate } from "react-i18next";
-import { api } from "../../utils";
+import api from "../../util/api";
 import TopTable from "./TopTable";
+
+/**
+ * Transform the API data into the form used in generateRows
+ *
+ * @param data the API data
+ * @returns {{totalQueries: number, topDomains: *}} the parsed data
+ */
+export const transformData = data => ({
+  totalQueries: data.total_queries,
+  topDomains: data.top_domains
+});
+
+/**
+ * Create a function to generate rows of top domains
+ *
+ * @param t the translation function
+ * @returns {function(*): any[]} a function to generate rows of top domains
+ */
+export const generateRows = t => data => {
+  return data.topDomains.map(item => {
+    const percentage = (item.count / data.totalQueries) * 100;
+
+    return (
+      <tr key={item.domain}>
+        <td>{item.domain}</td>
+        <td>{item.count.toLocaleString()}</td>
+        <td style={{ verticalAlign: "middle" }}>
+          <div
+            className="progress"
+            title={t("{{percent}}% of {{total}}", {
+              percent: percentage.toFixed(1),
+              total: data.totalQueries.toLocaleString()
+            })}
+          >
+            <div
+              className="progress-bar bg-success"
+              style={{ width: percentage + "%" }}
+            />
+          </div>
+        </td>
+      </tr>
+    );
+  });
+};
 
 const TopDomains = ({ t, ...props }) => (
   <TopTable
     {...props}
     title={t("Top Permitted Domains")}
-    initialState={{
-      total_queries: 0,
-      top_domains: []
+    initialData={{
+      totalQueries: 0,
+      topDomains: []
     }}
     headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
-    isEmpty={state => state.top_domains.length === 0}
+    isEmpty={data => data.topDomains.length === 0}
     apiCall={api.getTopDomains}
-    apiHandler={(self, res) => {
-      self.setState({
-        loading: false,
-        total_queries: res.total_queries,
-        top_domains: res.top_domains
-      });
-    }}
-    generateRows={state => {
-      return state.top_domains.map(item => {
-        const percentage = (item.count / state.total_queries) * 100;
-
-        return (
-          <tr key={item.domain}>
-            <td>{item.domain}</td>
-            <td>{item.count.toLocaleString()}</td>
-            <td style={{ verticalAlign: "middle" }}>
-              <div
-                className="progress"
-                title={t("{{percent}}% of {{total}}", {
-                  percent: percentage.toFixed(1),
-                  total: state.total_queries.toLocaleString()
-                })}
-              >
-                <div
-                  className="progress-bar bg-success"
-                  style={{ width: percentage + "%" }}
-                />
-              </div>
-            </td>
-          </tr>
-        );
-      });
-    }}
+    apiHandler={transformData}
+    generateRows={generateRows(t)}
   />
 );
 
