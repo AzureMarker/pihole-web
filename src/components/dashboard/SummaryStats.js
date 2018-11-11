@@ -107,16 +107,25 @@ export const transformData = data => ({
 /**
  * The props the summary stats should use when it fails to get the API data
  * (it does not need the error object)
- *
- * @returns {*} the error props
  */
-export const errorState = () => ({
+export const errorProps = {
   totalQueries: "Lost",
   blockedQueries: "Connection",
   percentBlocked: "To",
   gravityDomains: "API",
   uniqueClients: ""
-});
+};
+
+/**
+ * The props used to show a loading state
+ */
+export const initialProps = {
+  blockedQueries: "---",
+  totalQueries: "---",
+  percentBlocked: "---",
+  gravityDomains: "---",
+  uniqueClients: "---"
+};
 
 export const TranslatedSummaryStats = translate(["common", "dashboard"])(
   SummaryStats
@@ -127,18 +136,11 @@ export default props => (
     apiCall={api.getSummary}
     repeatOptions={{ interval: 5000 }}
     renderInitial={() => (
-      <TranslatedSummaryStats
-        blockedQueries="---"
-        totalQueries="---"
-        percentBlocked="---"
-        gravityDomains="---"
-        uniqueClients="---"
-        {...props}
-      />
+      <TranslatedSummaryStats {...initialProps} {...props} />
     )}
     renderOk={data => (
       <TranslatedSummaryStats {...transformData(data)} {...props} />
     )}
-    renderErr={() => <TranslatedSummaryStats {...errorState()} {...props} />}
+    renderErr={() => <TranslatedSummaryStats {...errorProps} {...props} />}
   />
 );

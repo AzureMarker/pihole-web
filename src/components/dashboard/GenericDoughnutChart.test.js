@@ -24,7 +24,7 @@ const fakeData = [
 
 it("shows loading indicator correctly", () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} {...loadingProps()} />
+    <GenericDoughnutChart title={""} {...loadingProps} />
   );
 
   expect(wrapper.children(".card-img-overlay")).toExist();
@@ -32,7 +32,7 @@ it("shows loading indicator correctly", () => {
 
 it("hides loading indicator correctly", async () => {
   const wrapper = shallow(
-    <GenericDoughnutChart title={""} {...loadingProps()} loading={false} />
+    <GenericDoughnutChart title={""} {...loadingProps} loading={false} />
   );
 
   expect(wrapper.children(".card-img-overlay")).not.toExist();
@@ -50,7 +50,7 @@ it("loads API data correctly", async () => {
 it("displays the title", () => {
   const title = "title";
   const wrapper = shallow(
-    <GenericDoughnutChart title={title} {...loadingProps()} />
+    <GenericDoughnutChart title={title} {...loadingProps} />
   );
 
   expect(wrapper.find(".card-header")).toHaveText(title);

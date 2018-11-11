@@ -13,7 +13,7 @@ import { shallow } from "enzyme";
 import {
   TranslatedSummaryStats,
   transformData,
-  errorState
+  errorProps
 } from "./SummaryStats";
 
 const fakeData = {
@@ -64,7 +64,7 @@ it("displays summary stats correctly", async () => {
 });
 
 it("displays error message correctly", async () => {
-  const wrapper = shallow(<TranslatedSummaryStats {...errorState()} />);
+  const wrapper = shallow(<TranslatedSummaryStats {...errorProps()} />);
 
   await tick();
   wrapper.update();

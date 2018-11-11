@@ -39,14 +39,14 @@ const fakeData = {
 };
 
 it("shows loading indicator correctly", () => {
-  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps()} />);
+  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />);
 
   expect(wrapper.children(".card-img-overlay")).toExist();
 });
 
 it("hides loading indicator correctly", async () => {
   const wrapper = shallow(
-    <TranslatedClientsGraph {...loadingProps()} loading={false} />
+    <TranslatedClientsGraph {...loadingProps} loading={false} />
   );
 
   expect(wrapper.children(".card-img-overlay")).not.toExist();

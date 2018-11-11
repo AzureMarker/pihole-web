@@ -176,27 +176,25 @@ export const transformData = apiData => {
 
 /**
  * The props used to show a loading state (either initial load or error)
- *
- * @returns {*} the loading props
  */
-export const loadingProps = () => ({
+export const loadingProps = {
   loading: true,
   data: [],
   colors: [],
   labels: []
-});
+};
 
 export default ({ apiCall, title, ...props }) => (
   <WithAPIData
     apiCall={apiCall}
     renderInitial={() => (
-      <GenericDoughnutChart title={title} {...loadingProps()} {...props} />
+      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
     )}
     renderOk={data => (
       <GenericDoughnutChart title={title} {...transformData(data)} {...props} />
     )}
     renderErr={() => (
-      <GenericDoughnutChart title={title} {...loadingProps()} {...props} />
+      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
     )}
   />
 );

@@ -176,15 +176,13 @@ export const transformData = data => {
 
 /**
  * The props used to show a loading state (either initial load or error)
- *
- * @returns {*} the loading props
  */
-export const loadingProps = () => ({
+export const loadingProps = {
   loading: true,
   labels: [],
   domains_over_time: [],
   blocked_over_time: []
-});
+};
 
 export const TranslatedQueriesGraph = translate("dashboard")(QueriesGraph);
 
@@ -195,11 +193,11 @@ export default props => (
       interval: 10 * 60 * 1000
     }}
     renderInitial={() => (
-      <TranslatedQueriesGraph {...loadingProps()} {...props} />
+      <TranslatedQueriesGraph {...loadingProps} {...props} />
     )}
     renderOk={data => (
       <TranslatedQueriesGraph {...transformData(data)} {...props} />
     )}
-    renderErr={() => <TranslatedQueriesGraph {...loadingProps()} {...props} />}
+    renderErr={() => <TranslatedQueriesGraph {...loadingProps} {...props} />}
   />
 );
