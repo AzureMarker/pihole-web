@@ -8,54 +8,60 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import api from "../../util/api";
+import { Button } from "reactstrap";
 
-class DomainList extends Component {
-  static propTypes = {
-    domains: PropTypes.arrayOf(PropTypes.string),
-    onRemove: PropTypes.func.isRequired
-  };
+const DomainList = ({ domains, onRemove, t }) => {
+  // Create a button to remove the domain
+  const removeButton = item => (
+    <Button
+      color="danger"
+      size="sm"
+      className="pull-right"
+      cssModule={{ marginTop: "2px" }}
+      onClick={() => onRemove(item)}
+    >
+      <span className="fa fa-trash-o" />
+    </Button>
+  );
 
-  render() {
-    const { t } = this.props;
+  // Map a domain string to a list item
+  const mapDomainsToListItems = domain => (
+    <li key={domain} className="list-group-item">
+      {api.loggedIn ? removeButton(domain) : null}
+      <span
+        style={{
+          display: "table-cell",
+          verticalAlign: "middle",
+          height: "32px"
+        }}
+      >
+        {domain}
+      </span>
+    </li>
+  );
 
-    return (
-      <ul className="list-group">
-        {this.props.domains.length > 0 ? (
-          this.props.domains.map(item => (
-            <li key={item} className="list-group-item">
-              {api.loggedIn ? (
-                <button
-                  className="btn btn-danger btn-sm pull-right"
-                  type="button"
-                  style={{ marginTop: "2px" }}
-                  onClick={() => this.props.onRemove(item)}
-                >
-                  <span className="fa fa-trash-o" />
-                </button>
-              ) : null}
-              <span
-                style={{
-                  display: "table-cell",
-                  verticalAlign: "middle",
-                  height: "32px"
-                }}
-              >
-                {item}
-              </span>
-            </li>
-          ))
-        ) : (
-          <div className="alert alert-info" role="alert">
-            {t("There are no domains in this list")}
-          </div>
-        )}
-      </ul>
+  let body;
+
+  if (domains.length > 0) {
+    body = domains.map(mapDomainsToListItems);
+  } else {
+    body = (
+      <div className="alert alert-info" role="alert">
+        {t("There are no domains in this list")}
+      </div>
     );
   }
-}
+
+  return <ul className="list-group">{body}</ul>;
+};
+
+DomainList.propTypes = {
+  domains: PropTypes.arrayOf(PropTypes.string),
+  onRemove: PropTypes.func.isRequired
+};
 
 export default translate(["common", "lists"])(DomainList);
