@@ -294,7 +294,7 @@ function getDNSInfo() {
       "fqdn_required": faker.random.boolean(),
       "bogus_priv": faker.random.boolean(),
       "dnssec": faker.random.boolean(),
-      "listening_type": faker.random.arrayElement(["single", "lan", "all"]),
+      "listening_type": faker.random.arrayElement(["single", "local", "all"]),
     },
     "conditional_forwarding": {
       "enabled": faker.random.boolean(),
