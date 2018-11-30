@@ -21,7 +21,7 @@ const DomainList = ({ domains, onRemove, t }) => {
       color="danger"
       size="sm"
       className="pull-right"
-      cssModule={{ marginTop: "2px" }}
+      style={{ marginTop: "2px" }}
       onClick={() => onRemove(item)}
     >
       <span className="fa fa-trash-o" />
