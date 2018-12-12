@@ -66,11 +66,15 @@ class DNSInfo extends Component {
     });
   };
 
+  saveSettings = e => {
+    e.preventDefault();
+  };
+
   render() {
     const { t } = this.props;
 
     return (
-      <Form>
+      <Form onSubmit={this.saveSettings}>
         <FormGroup row>
           <Col sm={6}>
             <h3>{t("Upstream DNS Servers")}</h3>
