@@ -12,13 +12,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
-import { recommendedUpstreamOptions } from "./recommendedUpstreams";
+import { translate } from "react-i18next";
 
 /**
  * A component to add upstream DNS servers. The servers are either selected from
  * a list of recommended upstreams, or custom servers can be input.
  */
-export default class DnsListNewItem extends Component {
+class DnsListNewItem extends Component {
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
     isValid: PropTypes.func.isRequired,
@@ -44,6 +44,8 @@ export default class DnsListNewItem extends Component {
   };
 
   render() {
+    const { t } = this.props;
+
     const isAddressValid = this.props.isValid(this.getAddress());
 
     return (
@@ -56,6 +58,7 @@ export default class DnsListNewItem extends Component {
               upstream => !this.props.upstreams.includes(upstream.address)
             )}
             selected={this.state.selected}
+            emptyLabel={t("Detected custom upstream server")}
             bodyContainer
           />
 
@@ -80,3 +83,5 @@ export default class DnsListNewItem extends Component {
     );
   }
 }
+
+export default translate("settings")(DnsListNewItem);
