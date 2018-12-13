@@ -13,10 +13,11 @@ import PropTypes from "prop-types";
 import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { translate } from "react-i18next";
+import { preconfiguredUpstreamOptions } from "./preconfiguredUpstreams";
 
 /**
  * A component to add upstream DNS servers. The servers are either selected from
- * a list of recommended upstreams, or custom servers can be input.
+ * a list of preconfigured upstreams, or custom servers can be input.
  */
 class DnsListNewItem extends Component {
   static propTypes = {
@@ -31,7 +32,7 @@ class DnsListNewItem extends Component {
   };
 
   /**
-   * Get the currently selected upstream address (either custom or recommended)
+   * Get the currently selected upstream address (either custom or preconfigured)
    *
    * @returns {string} the selected upstream address
    */
@@ -54,7 +55,7 @@ class DnsListNewItem extends Component {
           <Typeahead
             onInputChange={address => this.setState({ address })}
             onChange={selected => this.setState({ selected })}
-            options={recommendedUpstreamOptions.filter(
+            options={preconfiguredUpstreamOptions.filter(
               upstream => !this.props.upstreams.includes(upstream.address)
             )}
             selected={this.state.selected}

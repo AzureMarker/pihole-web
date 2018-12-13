@@ -3,16 +3,16 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Recommended Upstream DNS Servers
+*  Preconfigured Upstream DNS Servers
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
 /**
- * A list of recommended upstream DNS servers. Each item has primary and
+ * A list of preconfigured upstream DNS servers. Each item has primary and
  * secondary IPv4 and IPv6 server entries. Some addresses may be empty.
  */
-export const recommendedUpstreams = [
+export const preconfiguredUpstreams = [
   {
     name: "OpenDNS (ECS)",
     primaryIpv4: "208.67.222.222",
@@ -79,10 +79,10 @@ export const recommendedUpstreams = [
 ];
 
 /**
- * The recommended servers, but with an entry for each address. This is used
+ * The preconfigured servers, but with an entry for each address. This is used
  * when displaying the servers in a list.
  */
-export const recommendedUpstreamOptions = recommendedUpstreams.flatMap(
+export const preconfiguredUpstreamOptions = preconfiguredUpstreams.flatMap(
   upstream => {
     // Parse the upstream address information into the new format
     const parseUpstream = (address, order, type) => ({
