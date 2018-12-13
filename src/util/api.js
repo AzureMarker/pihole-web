@@ -84,5 +84,8 @@ export default {
   },
   updateDHCPInfo(settings) {
     return http.put("settings/dhcp", settings);
+  },
+  updateDNSInfo(settings) {
+    return http.put("settings/dns", settings);
   }
 };

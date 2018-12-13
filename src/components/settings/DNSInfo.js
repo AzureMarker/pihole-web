@@ -16,9 +16,15 @@ import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
 import ConditionalForwardingSettings from "./ConditionalForwardingSettings";
 import DnsOptionSettings from "./DnsOptionSettings";
+import Alert from "../common/Alert";
+import { isValidHostname, isValidIpv4 } from "../../validate";
 
 class DNSInfo extends Component {
   state = {
+    alertMessage: "",
+    alertType: "",
+    showAlert: false,
+    processing: false,
     upstreamDns: [],
     conditionalForwarding: {
       enabled: false,
@@ -33,17 +39,9 @@ class DNSInfo extends Component {
     }
   };
 
-  constructor(props) {
-    super(props);
-    this.updateDNSInfo = this.updateDNSInfo.bind(this);
-  }
-
-  updateDNSInfo() {
-    this.updateHandler = makeCancelable(api.getDNSInfo(), {
-      repeat: this.updateDNSInfo,
-      interval: 600000
-    });
-    this.updateHandler.promise
+  loadDNSInfo = () => {
+    this.loadHandler = makeCancelable(api.getDNSInfo());
+    this.loadHandler.promise
       .then(res => {
         this.setState({
           upstreamDns: res.upstream_dns,
@@ -61,14 +59,14 @@ class DNSInfo extends Component {
         });
       })
       .catch(ignoreCancel);
-  }
+  };
 
   componentDidMount() {
-    this.updateDNSInfo();
+    this.loadDNSInfo();
   }
 
   componentWillUnmount() {
-    this.updateHandler.cancel();
+    this.loadHandler.cancel();
   }
 
   handleUpstreamAdd = upstream => {
@@ -91,15 +89,105 @@ class DNSInfo extends Component {
     this.setState({ options });
   };
 
+  /**
+   * Save changes to DNS settings
+   *
+   * @param e the submit event
+   */
   saveSettings = e => {
     e.preventDefault();
+
+    const { t } = this.props;
+
+    this.setState({
+      alertMessage: t("Processing..."),
+      alertType: "info",
+      showAlert: true,
+      processing: true
+    });
+
+    this.updateHandler = makeCancelable(
+      api.updateDNSInfo({
+        upstream_dns: this.state.upstreamDns,
+        conditional_forwarding: {
+          enabled: this.state.conditionalForwarding.enabled,
+          router_ip: this.state.conditionalForwarding.routerIp,
+          domain: this.state.conditionalForwarding.domain
+        },
+        options: {
+          fqdn_required: this.state.options.fqdnRequired,
+          bogus_priv: this.state.options.bogusPriv,
+          dnssec: this.state.options.dnssec,
+          listening_type: this.state.options.listeningType
+        }
+      })
+    );
+    this.updateHandler.promise
+      .then(() => {
+        this.setState({
+          alertMessage: t("Successfully saved settings"),
+          alertType: "success",
+          showAlert: true,
+          processing: false
+        });
+      })
+      .catch(ignoreCancel)
+      .catch(error => {
+        let message = "";
+
+        if (error instanceof Error) {
+          message = error.message;
+        } else {
+          // Translate the API's error message
+          message = t("API Error: {{error}}", {
+            error: t(error.key, error.data)
+          });
+        }
+
+        this.setState({
+          alertMessage: message,
+          alertType: "danger",
+          showAlert: true,
+          processing: false
+        });
+      });
+  };
+
+  isCFSettingValid = (value, validator) => {
+    return (
+      (!this.state.conditionalForwarding.enabled && value.length === 0) ||
+      validator(value)
+    );
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
   };
 
   render() {
     const { t } = this.props;
 
+    const isRouterIpValid = this.isCFSettingValid(
+      this.state.conditionalForwarding.routerIp,
+      isValidIpv4
+    );
+
+    const isDomainValid = this.isCFSettingValid(
+      this.state.conditionalForwarding.domain,
+      isValidHostname
+    );
+
+    const alert = this.state.showAlert ? (
+      <Alert
+        message={this.state.alertMessage}
+        type={this.state.alertType}
+        onClick={this.hideAlert}
+      />
+    ) : null;
+
     return (
       <Form onSubmit={this.saveSettings}>
+        {alert}
         <FormGroup row>
           <Col sm={6}>
             <h3>{t("Upstream DNS Servers")}</h3>
@@ -114,6 +202,8 @@ class DNSInfo extends Component {
             <ConditionalForwardingSettings
               settings={this.state.conditionalForwarding}
               onUpdate={this.handleConditionalForwardingUpdate}
+              isRouterIpValid={isRouterIpValid}
+              isDomainValid={isDomainValid}
               t={t}
             />
             <h3>{t("DNS Options")}</h3>
@@ -124,7 +214,12 @@ class DNSInfo extends Component {
             />
           </Col>
         </FormGroup>
-        <Button type="submit">{t("Apply")}</Button>
+        <Button
+          type="submit"
+          disabled={this.state.processing || !isRouterIpValid || !isDomainValid}
+        >
+          {t("Apply")}
+        </Button>
       </Form>
     );
   }

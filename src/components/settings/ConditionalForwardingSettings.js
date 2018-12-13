@@ -12,7 +12,13 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Col, FormGroup, Input, Label } from "reactstrap";
 
-const ConditionalForwardingSettings = ({ settings, onUpdate, t }) => (
+const ConditionalForwardingSettings = ({
+  settings,
+  onUpdate,
+  isRouterIpValid,
+  isDomainValid,
+  t
+}) => (
   <Fragment>
     <FormGroup check>
       <Label check>
@@ -34,6 +40,7 @@ const ConditionalForwardingSettings = ({ settings, onUpdate, t }) => (
           disabled={!settings.enabled}
           value={settings.routerIp}
           onChange={e => onUpdate({ ...settings, routerIp: e.target.value })}
+          invalid={!isRouterIpValid}
         />
       </Col>
     </FormGroup>
@@ -47,6 +54,7 @@ const ConditionalForwardingSettings = ({ settings, onUpdate, t }) => (
           disabled={!settings.enabled}
           value={settings.domain}
           onChange={e => onUpdate({ ...settings, domain: e.target.value })}
+          invalid={!isDomainValid}
         />
       </Col>
     </FormGroup>
@@ -56,6 +64,8 @@ const ConditionalForwardingSettings = ({ settings, onUpdate, t }) => (
 ConditionalForwardingSettings.propTypes = {
   settings: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
+  isRouterIpValid: PropTypes.bool.isRequired,
+  isDomainValid: PropTypes.bool.isRequired,
   t: PropTypes.func.isRequired
 };
 
