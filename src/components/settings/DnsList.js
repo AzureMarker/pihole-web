@@ -37,6 +37,7 @@ const DnsList = ({ upstreams, onAdd, onRemove }) => (
     <DnsListNewItem
       onAdd={onAdd}
       isValid={address => isAddressValid(address, upstreams)}
+      upstreams={upstreams}
     />
   </ListGroup>
 );

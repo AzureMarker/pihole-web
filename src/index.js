@@ -14,6 +14,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "ionicons/dist/css/ionicons.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import "simple-line-icons/css/simple-line-icons.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 import "./scss/style.css";
 import Full from "./containers/Full";
 import api from "./util/api";
