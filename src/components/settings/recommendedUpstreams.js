@@ -14,13 +14,6 @@
  */
 export const recommendedUpstreams = [
   {
-    name: "Google (ECS)",
-    primaryIpv4: "8.8.8.8",
-    secondaryIpv4: "8.8.4.4",
-    primaryIpv6: "2001:4860:4860:0:0:0:0:8888",
-    secondaryIpv6: "2001:4860:4860:0:0:0:0:8844"
-  },
-  {
     name: "OpenDNS (ECS)",
     primaryIpv4: "208.67.222.222",
     secondaryIpv4: "208.67.220.220",
@@ -28,25 +21,11 @@ export const recommendedUpstreams = [
     secondaryIpv6: "2620:0:ccd::2"
   },
   {
-    name: "Level3",
-    primaryIpv4: "4.2.2.1",
-    secondaryIpv4: "4.2.2.2",
-    primaryIpv6: "",
-    secondaryIpv6: ""
-  },
-  {
-    name: "Comodo",
-    primaryIpv4: "8.26.56.26",
-    secondaryIpv4: "8.20.247.20",
-    primaryIpv6: "",
-    secondaryIpv6: ""
-  },
-  {
-    name: "DNS.WATCH",
-    primaryIpv4: "84.200.69.80",
-    secondaryIpv4: "84.200.70.40",
-    primaryIpv6: "2001:1608:10:25:0:0:1c04:b12f",
-    secondaryIpv6: "2001:1608:10:25:0:0:9249:d69b"
+    name: "Google (ECS)",
+    primaryIpv4: "8.8.8.8",
+    secondaryIpv4: "8.8.4.4",
+    primaryIpv6: "2001:4860:4860:0:0:0:0:8888",
+    secondaryIpv6: "2001:4860:4860:0:0:0:0:8844"
   },
   {
     name: "Quad9 (filtered, DNSSEC)",
@@ -75,6 +54,27 @@ export const recommendedUpstreams = [
     secondaryIpv4: "1.0.0.1",
     primaryIpv6: "2606:4700:4700::1111",
     secondaryIpv6: "2606:4700:4700::1001"
+  },
+  {
+    name: "Level3",
+    primaryIpv4: "4.2.2.1",
+    secondaryIpv4: "4.2.2.2",
+    primaryIpv6: "",
+    secondaryIpv6: ""
+  },
+  {
+    name: "Comodo",
+    primaryIpv4: "8.26.56.26",
+    secondaryIpv4: "8.20.247.20",
+    primaryIpv6: "",
+    secondaryIpv6: ""
+  },
+  {
+    name: "DNS.WATCH",
+    primaryIpv4: "84.200.69.80",
+    secondaryIpv4: "84.200.70.40",
+    primaryIpv6: "2001:1608:10:25:0:0:1c04:b12f",
+    secondaryIpv6: "2001:1608:10:25:0:0:9249:d69b"
   }
 ];
 

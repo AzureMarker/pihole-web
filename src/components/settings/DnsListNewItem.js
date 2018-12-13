@@ -10,13 +10,7 @@
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  ListGroupItem
-} from "reactstrap";
+import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { recommendedUpstreamOptions } from "./recommendedUpstreams";
 
@@ -33,67 +27,47 @@ export default class DnsListNewItem extends Component {
 
   state = {
     address: "",
-    selected: [],
-    isCustom: false
+    selected: []
+  };
+
+  /**
+   * Get the currently selected upstream address (either custom or recommended)
+   *
+   * @returns {string} the selected upstream address
+   */
+  getAddress = () => {
+    if (this.state.selected.length === 0) {
+      return this.state.address;
+    }
+
+    return this.state.selected[0].address;
   };
 
   render() {
-    // Check if input is valid. If it's a custom server, validate the IP
-    // address. If we're choosing a recommended server, just make sure one is
-    // selected.
-    const isAddressValid = this.state.isCustom
-      ? this.props.isValid(this.state.address)
-      : this.state.selected.length !== 0;
-
-    // The component used for custom input
-    const customInput = (
-      <Input
-        type="text"
-        value={this.state.address}
-        onChange={e => this.setState({ address: e.target.value })}
-      />
-    );
-
-    // The component used for selecting a recommended server
-    const recommendedInput = (
-      <Typeahead
-        onChange={selected => {
-          this.setState({ selected });
-        }}
-        options={recommendedUpstreamOptions.filter(
-          upstream => !this.props.upstreams.includes(upstream.address)
-        )}
-        selected={this.state.selected}
-        bodyContainer
-      />
-    );
+    const isAddressValid = this.props.isValid(this.getAddress());
 
     return (
       <ListGroupItem>
         <InputGroup>
-          {this.state.isCustom ? customInput : recommendedInput}
-
-          <InputGroupAddon addonType="append">
-            <Button
-              size="sm"
-              onClick={() => this.setState({ isCustom: !this.state.isCustom })}
-            >
-              {this.state.isCustom ? "Recommended" : "Custom"}
-            </Button>
-          </InputGroupAddon>
+          <Typeahead
+            onInputChange={address => this.setState({ address })}
+            onChange={selected => this.setState({ selected })}
+            options={recommendedUpstreamOptions.filter(
+              upstream => !this.props.upstreams.includes(upstream.address)
+            )}
+            selected={this.state.selected}
+            bodyContainer
+          />
 
           <InputGroupAddon addonType="append">
             <Button
               color="success"
               size="sm"
               onClick={() => {
-                // Choose the right address, given the mode we're in
-                const address = this.state.isCustom
-                  ? this.state.address
-                  : this.state.selected[0].address;
-
                 // Add the server to the list
-                this.props.onAdd(address);
+                this.props.onAdd(this.getAddress());
+
+                // Reset the input
                 this.setState({ address: "", selected: [] });
               }}
               disabled={!isAddressValid}
