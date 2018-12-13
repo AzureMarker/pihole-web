@@ -1,0 +1,10 @@
+{
+    "Password": "Password",
+    "Sign in to start your session": "Accedi per avviare la sessione",
+    "Log in": "Accedi",
+    "Forgot Password": "Hai dimenticato la password?",
+    "forgot_password_description": "Una volta configurato Pi-hole per la prima volta, viene generata e mostrata una password all'utente. La password non può essere più recuperata in futuro, ma è possibile impostare una nuova password digitando questo comando (la password può essere disattivata se si lascia il campo vuoto):",
+    "Wrong Password!": "Password errata!",
+    "You will be transferred to the \"{{page}}\" page": "Verrai reindirizzato alla pagina «{{page}}»",
+    "Verify that cookies are allowed for {{host}}": "Verifica che i cookie sono consentiti per {{host}}"
+}
