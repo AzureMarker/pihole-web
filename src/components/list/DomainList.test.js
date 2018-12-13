@@ -55,7 +55,7 @@ it("has a delete button when logged in", () => {
     wrapper
       .find("ul")
       .childAt(0)
-      .find("button")
+      .find("Button")
   ).toExist();
 });
 
@@ -68,7 +68,7 @@ it("calls onRemove when a delete button is clicked", () => {
   wrapper
     .find("ul")
     .childAt(0)
-    .find("button")
+    .find("Button")
     .simulate("click");
 
   expect(onRemove).toHaveBeenCalled();
