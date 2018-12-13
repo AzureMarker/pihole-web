@@ -3,7 +3,7 @@
 *  Network-wide ad blocking via your own hardware.
 *
 *  Web Interface
-*  Settings :: DHCP
+*  Settings :: DNS
 *
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
@@ -13,21 +13,23 @@ import { translate } from "react-i18next";
 import { ignoreCancel, makeCancelable } from "../../util";
 import api from "../../util/api";
 import DnsList from "./DnsList";
-import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Col, Form, FormGroup } from "reactstrap";
+import ConditionalForwardingSettings from "./ConditionalForwardingSettings";
+import DnsOptionSettings from "./DnsOptionSettings";
 
 class DNSInfo extends Component {
   state = {
-    upstream_dns: [],
-    conditional_forwarding: {
+    upstreamDns: [],
+    conditionalForwarding: {
       enabled: false,
-      router_ip: "",
+      routerIp: "",
       domain: ""
     },
     options: {
-      fqdn_required: false,
-      bogus_priv: false,
+      fqdnRequired: false,
+      bogusPriv: false,
       dnssec: false,
-      listening_type: "single"
+      listeningType: "single"
     }
   };
 
@@ -43,7 +45,20 @@ class DNSInfo extends Component {
     });
     this.updateHandler.promise
       .then(res => {
-        this.setState(res);
+        this.setState({
+          upstreamDns: res.upstream_dns,
+          conditionalForwarding: {
+            enabled: res.conditional_forwarding.enabled,
+            routerIp: res.conditional_forwarding.router_ip,
+            domain: res.conditional_forwarding.domain
+          },
+          options: {
+            fqdnRequired: res.options.fqdn_required,
+            bogusPriv: res.options.bogus_priv,
+            dnssec: res.options.dnssec,
+            listeningType: res.options.listening_type
+          }
+        });
       })
       .catch(ignoreCancel);
   }
@@ -57,13 +72,23 @@ class DNSInfo extends Component {
   }
 
   handleUpstreamAdd = upstream => {
-    this.setState({ upstream_dns: this.state.upstream_dns.concat(upstream) });
+    this.setState({
+      upstreamDns: this.state.upstreamDns.concat(upstream)
+    });
   };
 
   handleUpstreamRemove = upstream => {
     this.setState({
-      upstream_dns: this.state.upstream_dns.filter(item => item !== upstream)
+      upstreamDns: this.state.upstreamDns.filter(item => item !== upstream)
     });
+  };
+
+  handleConditionalForwardingUpdate = conditionalForwarding => {
+    this.setState({ conditionalForwarding });
+  };
+
+  handleDnsOptionsUpdate = options => {
+    this.setState({ options });
   };
 
   saveSettings = e => {
@@ -81,144 +106,22 @@ class DNSInfo extends Component {
             <DnsList
               onAdd={this.handleUpstreamAdd}
               onRemove={this.handleUpstreamRemove}
-              upstreams={this.state.upstream_dns}
+              upstreams={this.state.upstreamDns}
             />
           </Col>
           <Col sm={6}>
             <h3>{t("Conditional Forwarding")}</h3>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={this.state.conditional_forwarding.enabled}
-                  onChange={e =>
-                    this.setState({
-                      conditional_forwarding: {
-                        ...this.state.conditional_forwarding,
-                        enabled: e.target.checked
-                      }
-                    })
-                  }
-                />
-                {t("Enabled")}
-              </Label>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="routerIP" sm={5}>
-                {t("Router IP")}
-              </Label>
-              <Col sm={7}>
-                <Input
-                  id="routerIP"
-                  disabled={!this.state.conditional_forwarding.enabled}
-                  value={this.state.conditional_forwarding.router_ip}
-                  onChange={e =>
-                    this.setState({
-                      conditional_forwarding: {
-                        ...this.state.conditional_forwarding,
-                        router_ip: e.target.value
-                      }
-                    })
-                  }
-                />
-              </Col>
-            </FormGroup>
-            <FormGroup row>
-              <Label for="localDomain" sm={5}>
-                {t("Local Domain Name")}
-              </Label>
-              <Col sm={7}>
-                <Input
-                  id="localDomain"
-                  disabled={!this.state.conditional_forwarding.enabled}
-                  value={this.state.conditional_forwarding.domain}
-                  onChange={e =>
-                    this.setState({
-                      conditional_forwarding: {
-                        ...this.state.conditional_forwarding,
-                        domain: e.target.value
-                      }
-                    })
-                  }
-                />
-              </Col>
-            </FormGroup>
+            <ConditionalForwardingSettings
+              settings={this.state.conditionalForwarding}
+              onUpdate={this.handleConditionalForwardingUpdate}
+              t={t}
+            />
             <h3>{t("DNS Options")}</h3>
-            <FormGroup row>
-              <Label for="listeningBehavior" sm={5}>
-                {t("Interface listening behavior")}
-              </Label>
-              <Col sm={7}>
-                <Input
-                  id="listeningBehavior"
-                  type="select"
-                  value={this.state.options.listening_type}
-                  onChange={e =>
-                    this.setState({
-                      options: {
-                        ...this.state.options,
-                        listening_type: e.target.value
-                      }
-                    })
-                  }
-                >
-                  <option>all</option>
-                  <option>local</option>
-                  <option>single</option>
-                </Input>
-              </Col>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={this.state.options.fqdn_required}
-                  onChange={e =>
-                    this.setState({
-                      options: {
-                        ...this.state.options,
-                        fqdn_required: e.target.checked
-                      }
-                    })
-                  }
-                />
-                {t("Forward FQDNs only")}
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={this.state.options.bogus_priv}
-                  onChange={e =>
-                    this.setState({
-                      options: {
-                        ...this.state.options,
-                        bogus_priv: e.target.checked
-                      }
-                    })
-                  }
-                />
-                {t("Only forward public reverse lookups")}
-              </Label>
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  checked={this.state.options.dnssec}
-                  onChange={e =>
-                    this.setState({
-                      options: {
-                        ...this.state.options,
-                        dnssec: e.target.checked
-                      }
-                    })
-                  }
-                />
-                {t("Use DNSSEC")}
-              </Label>
-            </FormGroup>
+            <DnsOptionSettings
+              settings={this.state.options}
+              onUpdate={this.handleDnsOptionsUpdate}
+              t={t}
+            />
           </Col>
         </FormGroup>
         <Button type="submit">{t("Apply")}</Button>
