@@ -79,7 +79,12 @@ export class GenericDoughnutChart extends Component {
               data={{
                 datasets: [
                   {
-                    data: this.props.data,
+                    // Make a copy of the data here. ChartJS does weird things
+                    // to the data, which React doesn't catch. This can cause
+                    // oddities such as one chart showing the other chart's
+                    // data. This behavior is fixed by sending ChartJS its own
+                    // copy of the data.
+                    data: [...this.props.data],
                     backgroundColor: this.props.colors
                   }
                 ],
