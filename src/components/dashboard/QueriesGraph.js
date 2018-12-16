@@ -159,12 +159,11 @@ class QueriesGraph extends Component {
  */
 export const transformData = data => {
   // Remove last data point as it's not yet finished
-  const blockedData = data.blocked_over_time.slice(0, -1);
-  const allowedData = data.domains_over_time.slice(0, -1);
+  data = data.slice(0, -1);
 
-  const labels = allowedData.map(step => new Date(1000 * step.timestamp));
-  const domains_over_time = allowedData.map(step => step.count);
-  const blocked_over_time = blockedData.map(step => step.count);
+  const labels = data.map(step => new Date(1000 * step.timestamp));
+  const domains_over_time = data.map(step => step.total_queries);
+  const blocked_over_time = data.map(step => step.blocked_queries);
 
   return {
     loading: false,

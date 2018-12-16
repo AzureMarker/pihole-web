@@ -1,4 +1,5 @@
 import http from "./http";
+import config from "../config";
 
 export default {
   loggedIn: false,
@@ -22,14 +23,20 @@ export default {
   getQueryTypes() {
     return http.get("stats/query_types");
   },
-  getForwardDestinations() {
-    return http.get("stats/forward_destinations");
+  getUpstreams() {
+    return http.get("stats/upstreams");
   },
   getTopDomains() {
     return http.get("stats/top_domains");
   },
   getTopBlocked() {
-    return http.get("stats/top_blocked");
+    // The API uses a GET parameter to differentiate top domains from top
+    // blocked, but the fake API is not able to handle GET parameters right now.
+    const url = config.fakeAPI
+      ? "stats/top_blocked"
+      : "stats/top_domains?blocked=true";
+
+    return http.get(url);
   },
   getTopClients() {
     return http.get("stats/top_clients");

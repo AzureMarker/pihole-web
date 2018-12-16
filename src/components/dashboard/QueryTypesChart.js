@@ -14,7 +14,21 @@ import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 
 const QueryTypesChart = ({ t }) => (
-  <GenericDoughnutChart title={t("Query Types")} apiCall={api.getQueryTypes} />
+  <GenericDoughnutChart
+    title={t("Query Types")}
+    apiCall={api.getQueryTypes}
+    apiHandler={data => {
+      const total = data.reduce(
+        (previous, current) => previous + current.count,
+        0
+      );
+
+      return data.map(item => ({
+        name: item.name,
+        percent: total > 0 ? (item.count * 100) / total : 0
+      }));
+    }}
+  />
 );
 
 export default translate("dashboard")(QueryTypesChart);
