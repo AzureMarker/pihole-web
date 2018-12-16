@@ -79,7 +79,12 @@ export class GenericDoughnutChart extends Component {
               data={{
                 datasets: [
                   {
-                    data: this.props.data,
+                    // Make a copy of the data here. ChartJS does weird things
+                    // to the data, which React doesn't catch. This can cause
+                    // oddities such as one chart showing the other chart's
+                    // data. This behavior is fixed by sending ChartJS its own
+                    // copy of the data.
+                    data: [...this.props.data],
                     backgroundColor: this.props.colors
                   }
                 ],
@@ -184,14 +189,18 @@ export const loadingProps = {
   labels: []
 };
 
-export default ({ apiCall, title, ...props }) => (
+export default ({ apiCall, title, apiHandler, ...props }) => (
   <WithAPIData
     apiCall={apiCall}
     renderInitial={() => (
       <GenericDoughnutChart title={title} {...loadingProps} {...props} />
     )}
     renderOk={data => (
-      <GenericDoughnutChart title={title} {...transformData(data)} {...props} />
+      <GenericDoughnutChart
+        title={title}
+        {...transformData(apiHandler(data))}
+        {...props}
+      />
     )}
     renderErr={() => (
       <GenericDoughnutChart title={title} {...loadingProps} {...props} />
