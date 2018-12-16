@@ -12,7 +12,7 @@ import React from "react";
 import { transformData, generateRows } from "./TopBlocked";
 
 const fakeData = {
-  top_blocked: [
+  top_domains: [
     { domain: "jaron.info", count: 54316 },
     { domain: "candelario.info", count: 47470 },
     { domain: "delphia.info", count: 41629 },
@@ -31,11 +31,11 @@ it("transforms the API data correctly", async () => {
   const data = transformData(fakeData);
 
   expect(data.totalBlocked).toEqual(fakeData.blocked_queries);
-  expect(data.topBlocked).toEqual(fakeData.top_blocked);
+  expect(data.topBlocked).toEqual(fakeData.top_domains);
 });
 
 it("creates an appropriately sized table", async () => {
   const rows = generateRows(key => key)(transformData(fakeData));
 
-  expect(rows).toHaveLength(fakeData.top_blocked.length);
+  expect(rows).toHaveLength(fakeData.top_domains.length);
 });

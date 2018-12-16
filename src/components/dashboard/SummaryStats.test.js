@@ -17,25 +17,40 @@ import {
 } from "./SummaryStats";
 
 const fakeData = {
-  domains_blocked: 10193,
-  total_queries: 58787,
-  blocked_queries: 30175,
-  percent_blocked: 51.329375542211714,
-  unique_domains: 33209,
-  forwarded_queries: 33149,
-  cached_queries: 25638,
-  total_clients: 76083,
-  unique_clients: 28949,
-  status: "enabled"
+  active_clients: 2,
+  blocked_queries: 2281,
+  cached_queries: 3573,
+  forwarded_queries: 19154,
+  gravity_size: 129538,
+  percent_blocked: 10.0,
+  reply_types: {
+    CNAME: 0,
+    DOMAIN: 2,
+    IP: 1300,
+    NODATA: 564,
+    NXDOMAIN: 12
+  },
+  status: "enabled",
+  total_clients: 2,
+  total_queries: {
+    A: 14802,
+    AAAA: 7754,
+    ANY: 0,
+    PTR: 29,
+    SOA: 0,
+    SRV: 228,
+    TXT: 0
+  },
+  unique_domains: 15
 };
 
 it("transforms the API data correctly", () => {
   const expectedProps = {
-    totalQueries: "58,787",
-    blockedQueries: "30,175",
-    percentBlocked: "51.33%",
-    gravityDomains: "10,193",
-    uniqueClients: 28949
+    totalQueries: "22,813",
+    blockedQueries: "2,281",
+    percentBlocked: "10.00%",
+    gravityDomains: "129,538",
+    uniqueClients: 2
   };
 
   expect(transformData(fakeData)).toEqual(expectedProps);
@@ -49,18 +64,10 @@ it("displays summary stats correctly", async () => {
   await tick();
   wrapper.update();
 
-  expect(wrapper.childAt(0).find("h3")).toHaveText(
-    fakeData.total_queries.toLocaleString()
-  );
-  expect(wrapper.childAt(1).find("h3")).toHaveText(
-    fakeData.blocked_queries.toLocaleString()
-  );
-  expect(wrapper.childAt(2).find("h3")).toHaveText(
-    fakeData.percent_blocked.toFixed(2).toLocaleString() + "%"
-  );
-  expect(wrapper.childAt(3).find("h3")).toHaveText(
-    fakeData.domains_blocked.toLocaleString()
-  );
+  expect(wrapper.childAt(0).find("h3")).toHaveText("22,813");
+  expect(wrapper.childAt(1).find("h3")).toHaveText("2,281");
+  expect(wrapper.childAt(2).find("h3")).toHaveText("10.00%");
+  expect(wrapper.childAt(3).find("h3")).toHaveText("129,538");
 });
 
 it("displays error message correctly", async () => {
