@@ -21,7 +21,7 @@ import TopTable from "./TopTable";
  */
 export const transformData = data => ({
   totalBlocked: data.blocked_queries,
-  topBlocked: data.top_blocked
+  topBlocked: data.top_domains
 });
 
 /**

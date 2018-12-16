@@ -184,14 +184,18 @@ export const loadingProps = {
   labels: []
 };
 
-export default ({ apiCall, title, ...props }) => (
+export default ({ apiCall, title, apiHandler, ...props }) => (
   <WithAPIData
     apiCall={apiCall}
     renderInitial={() => (
       <GenericDoughnutChart title={title} {...loadingProps} {...props} />
     )}
     renderOk={data => (
-      <GenericDoughnutChart title={title} {...transformData(data)} {...props} />
+      <GenericDoughnutChart
+        title={title}
+        {...transformData(apiHandler(data))}
+        {...props}
+      />
     )}
     renderErr={() => (
       <GenericDoughnutChart title={title} {...loadingProps} {...props} />

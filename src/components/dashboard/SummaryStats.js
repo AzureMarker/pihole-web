@@ -97,11 +97,13 @@ class SummaryStats extends Component {
  * @returns {*} the transformed props
  */
 export const transformData = data => ({
-  totalQueries: data.total_queries.toLocaleString(),
+  totalQueries: Object.keys(data.total_queries)
+    .reduce((total, queryType) => total + data.total_queries[queryType], 0)
+    .toLocaleString(),
   blockedQueries: data.blocked_queries.toLocaleString(),
   percentBlocked: data.percent_blocked.toFixed(2).toLocaleString() + "%",
-  gravityDomains: data.domains_blocked.toLocaleString(),
-  uniqueClients: data.unique_clients
+  gravityDomains: data.gravity_size.toLocaleString(),
+  uniqueClients: data.total_clients
 });
 
 /**
