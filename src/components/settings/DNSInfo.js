@@ -43,12 +43,16 @@ class DNSInfo extends Component {
     this.loadHandler = makeCancelable(api.getDNSInfo());
     this.loadHandler.promise
       .then(res => {
+        // If the domain is empty, fill it in with a default.
+        const savedDomain = res.conditional_forwarding.domain;
+        const domain = savedDomain.length === 0 ? "lan" : savedDomain;
+
         this.setState({
           upstreamDns: res.upstream_dns,
           conditionalForwarding: {
             enabled: res.conditional_forwarding.enabled,
             routerIp: res.conditional_forwarding.router_ip,
-            domain: res.conditional_forwarding.domain
+            domain
           },
           options: {
             fqdnRequired: res.options.fqdn_required,
