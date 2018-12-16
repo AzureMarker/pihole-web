@@ -22,5 +22,8 @@
     "Branch": "Rama",
     "Hash": "Hash",
     "Tag": "Etiqueta",
-    "Only forward public reverse lookups": "Solo búsquedas públicas inversas hacia adelante"
+    "Only forward public reverse lookups": "Solo búsquedas públicas inversas hacia adelante",
+    "Processing...": "Procesando...",
+    "Successfully saved settings": "Opciones salvadas con exito",
+    "Apply": "Aplicar"
 }

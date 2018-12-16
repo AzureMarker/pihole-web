@@ -65,10 +65,32 @@ export function isValidIpv4(address) {
     return false;
   }
 
-  // No segment can be longer than 3 characters or be empty
-
   // All segments must be numbers (positive)
   return segments.every(
     segment => isPositiveNumber(segment) && parseInt(segment) < 256
+  );
+}
+
+/**
+ * Check if the string is a valid IPv4 address, and it can contain an optional
+ * port after the address, separated with a #.
+ * Example: 127.0.0.1#5353
+ *
+ * @param address {string} the address to check
+ * @returns {boolean} if the address is a valid IPv4 address and the port
+ * (if it exists) is valid.
+ */
+export function isValidIpv4OptionalPort(address) {
+  const split = address.split("#");
+  const ipv4 = split[0];
+
+  // Check the IPv4 address
+  if (!isValidIpv4(ipv4)) {
+    return false;
+  }
+
+  // If no port is given or if the port is valid, return true
+  return (
+    split.length === 1 || (split.length === 2 && isPositiveNumber(split[1]))
   );
 }

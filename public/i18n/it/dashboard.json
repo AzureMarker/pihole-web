@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Dominî nella lista dei bloccati",
+    "Query Types": "Tipi di interrogazioni",
+    "Forward Destinations": "Destinazioni inviate",
+    "Top Permitted Domains": "Classifica dei dominî consentiti più richiesti",
+    "Top Blocked Domains": "Classifica dei dominî bloccati più richiesti",
+    "Top Clients": "Classifica dei client",
+    "Total Queries ({{count}} clients)": "Totale delle interrogazioni (tramite 1 client)",
+    "Total Queries ({{count}} clients)_plural": "Totale delle interrogazioni (tramite {{count}} client)",
+    "Queries Blocked": "Interrogazioni bloccate",
+    "Percent Blocked": "Percentuale bloccata",
+    "Queries Over Last 24 Hours": "Le interrogazioni effettuate nelle ultime 24 ore",
+    "Clients Over Last 24 Hours": "I client che hanno effettuato richieste nelle ultime 24 ore",
+    "Queries Answered By": "Interrogazioni fornite da",
+    "Queries from {{from}} to {{to}}": "Interrogazioni dalle {{from}} alle {{to}}",
+    "Total Queries": "Totale delle interrogazioni",
+    "Blocked Queries": "Interrogazioni bloccate",
+    "Client activity from {{from}} to {{to}}": "Attività del client dalle {{from}} alle {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% di {{total}}",
+    "No Clients Found": "Nessun client trovato",
+    "No Domains Found": "Nessun dominio trovato",
+    "Queries Answered By Destination": "Interrogazioni fornite dalla destinazione"
+}
