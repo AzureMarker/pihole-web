@@ -2,6 +2,15 @@
     "Blocked": "Blocked",
     "Allowed (forwarded)": "Allowed (forwarded)",
     "Allowed (cached)": "Allowed (cached)",
-    "Blocked (regex)": "Blocked (regex)",
-    "Blocked (blacklist)": "Blocked (blacklist)"
+    "Blocked (regex/wildcard)": "Blocked (regex/wildcard)",
+    "Blocked (blacklist)": "Blocked (blacklist)",
+    "Unknown": "Unknown",
+    "Blocked (external)": "Blocked (external)",
+    "Blocked (gravity)": "Blocked (gravity)",
+    "Unspecified": "Unspecified",
+    "Secure": "Secure",
+    "Insecure": "Insecure",
+    "Bogus": "Bogus",
+    "Abandoned": "Abandoned",
+    "Reply": "Reply"
 }

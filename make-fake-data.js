@@ -42,21 +42,28 @@ function pastDate() {
 function history(length) {
   const startDate = pastDate();
 
-  return new Array(length).fill(null).map((_, i) => {
-    const isIPv4 = faker.random.boolean();
-    const isHostname = faker.random.boolean();
-    return [
-      startDate + i,
-      isIPv4 ? "IPv4" : "IPv6",
-      faker.internet.domainName(),
-      isHostname
-        ? faker.internet.domainWord() + ".local"
-        : isIPv4
-          ? faker.internet.ip()
-          : faker.internet.ipv6(),
-      Math.floor(Math.random() * 5) + 1
-    ];
-  });
+  return {
+    cursor: null,
+    history: new Array(length).fill(null).map((_, i) => {
+      const isIPv4 = faker.random.boolean();
+      const isHostname = faker.random.boolean();
+
+      return {
+        timestamp: startDate + i,
+        type: isIPv4 ? 0 : 1,
+        status: Math.floor(Math.random() * 6) + 1,
+        domain: faker.internet.domainName(),
+        client: isHostname
+          ? faker.internet.domainWord() + ".local"
+          : isIPv4
+            ? faker.internet.ip()
+            : faker.internet.ipv6(),
+        dnssec: Math.floor(Math.random() * 5) + 1,
+        reply: Math.floor(Math.random() * 6) + 1,
+        response_time: Math.floor(Math.random() * 100)
+      };
+    })
+  };
 }
 
 function summary() {

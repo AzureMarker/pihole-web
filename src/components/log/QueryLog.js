@@ -8,8 +8,9 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import ReactTable from "react-table";
+import i18n from "i18next";
 import { translate } from "react-i18next";
 import { ignoreCancel, makeCancelable, padNumber } from "../../util";
 import api from "../../util/api";
@@ -19,33 +20,51 @@ class QueryLog extends Component {
   updateHandler = null;
   state = {
     history: [],
-    loading: true
+    cursor: null,
+    loading: false,
+    atEnd: false
   };
 
-  constructor(props) {
-    super(props);
-    this.updateTable = this.updateTable.bind(this);
+  componentWillUnmount() {
+    if (this.updateHandler) {
+      this.updateHandler.cancel();
+    }
   }
 
-  updateTable() {
-    this.updateHandler = makeCancelable(api.getHistory());
+  fetchMoreQueries = state => {
+    // Check if we've reached the end of the queries, or are still waiting for
+    // the last fetch to finish
+    if (this.state.atEnd || this.state.loading) {
+      return;
+    }
+
+    // Check if we already have this page and the next page.
+    if (this.state.history.length >= (state.page + 2) * state.pageSize) {
+      return;
+    }
+
+    // We have to ask the API for more queries
+    this.setState({ loading: true });
+
+    // Send a request for more queries
+    this.updateHandler = makeCancelable(
+      api.getHistory({
+        cursor: this.state.cursor
+      })
+    );
+
     this.updateHandler.promise
       .then(data => {
+        // Update the log with the new queries
         this.setState({
-          history: data,
-          loading: false
+          loading: false,
+          atEnd: data.cursor === null,
+          cursor: data.cursor,
+          history: this.state.history.concat(data.history)
         });
       })
       .catch(ignoreCancel);
-  }
-
-  componentDidMount() {
-    this.updateTable();
-  }
-
-  componentWillUnmount() {
-    this.updateHandler.cancel();
-  }
+  };
 
   render() {
     const { t } = this.props;
@@ -53,91 +72,164 @@ class QueryLog extends Component {
     return (
       <ReactTable
         className="-striped"
-        style={{ background: "white", marginBottom: "24px" }}
+        style={{ background: "white", marginBottom: "24px", lineHeight: 1 }}
         columns={columns(t)}
         showPaginationTop={true}
-        filterable={true}
+        sortable={false}
+        filterable={false}
         data={this.state.history}
         loading={this.state.loading}
-        getTrProps={(state, rowInfo) => {
-          if (rowInfo && rowInfo.row.status !== 0)
-            return {
-              style: {
-                color: [1, 4, 5].includes(rowInfo.row.status) ? "red" : "green"
+        onFetchData={this.fetchMoreQueries}
+        getTrProps={(state, rowInfo) =>
+          // Check if the row is known to be blocked or allowed (not unknown)
+          rowInfo && rowInfo.row.status.code !== 0
+            ? {
+                style: {
+                  color: [1, 4, 5, 6].includes(rowInfo.row.status.code)
+                    ? "red"
+                    : "green"
+                }
               }
-            };
-          else return {};
-        }}
-        defaultSorted={[
-          {
-            id: "time",
-            desc: true
-          }
-        ]}
+            : {}
+        }
+        ofText={this.state.atEnd ? "of" : "of at least"}
       />
     );
   }
 }
 
-const status = t => ({
-  "1": t("Blocked"),
-  "2": t("Allowed (forwarded)"),
-  "3": t("Allowed (cached)"),
-  "4": t("Blocked (regex)"),
-  "5": t("Blocked (blacklist)")
-});
+/**
+ * Convert a status code to a status message. The messages are translated, so
+ * you must pass in the translation function before using the message array.
+ */
+const status = t => [
+  t("Unknown"),
+  t("Blocked (gravity)"),
+  t("Allowed (forwarded)"),
+  t("Allowed (cached)"),
+  t("Blocked (regex/wildcard)"),
+  t("Blocked (blacklist)"),
+  t("Blocked (external)")
+];
 
+/**
+ * Convert a DNSSEC code to a DNSSEC message. The messages are translated, so
+ * you must pass in the translation function before using the message array.
+ */
+const dnssec = t => [
+  "", // Unspecified, which means DNSSEC is off, so nothing should be shown
+  t("Secure"),
+  t("Insecure"),
+  t("Bogus"),
+  t("Abandoned"),
+  t("Unknown")
+];
+
+/**
+ * Convert a reply type code to a reply type. The unknown type is translated, so
+ * you must pass in the translation function before using the message array.
+ */
+const replyTypes = t => [
+  t("Unknown"),
+  "NODATA",
+  "NXDOMAIN",
+  "CNAME",
+  "IP",
+  "DOMAIN",
+  "RRNAME"
+];
+
+/**
+ * Convert a query type code to a query type.
+ */
+const queryTypes = ["ERROR", "A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
+
+/**
+ * The columns of the Query Log. Some pieces are translated, so you must pass in
+ * the translation function before using the columns.
+ */
 const columns = t => [
   {
     Header: t("Time"),
     id: "time",
-    accessor: r => r[0],
+    accessor: r => r.timestamp,
     width: 70,
     Cell: row => {
       const date = new Date(row.value * 1000);
+      const month = date.toLocaleDateString(i18n.language, {
+        month: "short"
+      });
+      const dayOfMonth = padNumber(date.getDate());
+      const hour = padNumber(date.getHours());
+      const minute = padNumber(date.getMinutes());
+      const second = padNumber(date.getSeconds());
 
-      return `${padNumber(date.getHours())}-${padNumber(
-        date.getMinutes()
-      )}-${padNumber(date.getSeconds())}`;
+      return (
+        <Fragment>
+          {month + ", " + dayOfMonth}
+          <br />
+          {hour + ":" + minute + ":" + second}
+        </Fragment>
+      );
     }
   },
   {
     Header: t("Type"),
     id: "type",
-    accessor: r => r[1],
-    width: 45
+    accessor: r => queryTypes[r.type],
+    width: 50
   },
   {
     Header: t("Domain"),
     id: "domain",
-    accessor: r => r[2],
-    minWidth: 200,
+    accessor: r => r.domain,
+    minWidth: 150,
     className: "horizontal-scroll"
   },
   {
     Header: t("Client"),
     id: "client",
-    accessor: r => r[3],
+    accessor: r => r.client,
     minWidth: 120,
     className: "horizontal-scroll"
   },
   {
     Header: t("Status"),
     id: "status",
-    accessor: r => r[4],
+    accessor: r => ({ code: r.status, dnssec: r.dnssec }),
     width: 140,
-    Cell: row => status(t)[row.value],
+    Cell: row => (
+      <Fragment>
+        {status(t)[row.value.code]}
+        <br />
+        {dnssec(t)[row.value.dnssec]}
+      </Fragment>
+    ),
     filterMethod: (filter, row) => {
-      const rowStatus = status(t)[row[filter.id]].toLowerCase();
+      const rowStatus = status(t)[row[filter.id].code].toLowerCase();
       return rowStatus.includes(filter.value.toLowerCase());
     }
+  },
+  {
+    Header: t("Reply"),
+    id: "reply",
+    accessor: r => ({ type: r.reply, time: r.response_time }),
+    width: 90,
+    Cell: row => (
+      <div style={{ color: "black" }}>
+        {replyTypes(t)[row.value.type]}
+        <br />
+        {"(" + (row.value.time / 10).toLocaleString() + "ms)"}
+      </div>
+    )
   },
   {
     Header: t("Action"),
     width: 100,
     filterable: false,
     Cell: data => {
-      if ([1, 4, 5].includes(data.row.status))
+      // Blocked, but can whitelist
+      if ([1, 4, 5].includes(data.row.status.code)) {
         return (
           <button
             type="button"
@@ -147,7 +239,11 @@ const columns = t => [
             {t("Whitelist")}
           </button>
         );
-      if ([2, 3].includes(data.row.status))
+      }
+
+      // Not explicitly blocked (or is whitelisted), but could be blocked.
+      // This includes externally blocked.
+      if ([2, 3, 6].includes(data.row.status.code))
         return (
           <button
             type="button"
