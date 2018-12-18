@@ -31,7 +31,38 @@ class QueryLog extends Component {
     }
   }
 
-  fetchMoreQueries = state => {
+  /**
+   * Get the props for a given row
+   *
+   * @param state the state of the ReactTable
+   * @param rowInfo the row information
+   * @returns {*} props for the row
+   */
+  getRowProps = (state, rowInfo) => {
+    // Check if the row is known to be blocked or allowed (not unknown)
+    if (rowInfo && rowInfo.row.status.code !== 0) {
+      // Blocked queries are red, allowed queries are green
+      return {
+        style: {
+          color: [1, 4, 5, 6].includes(rowInfo.row.status.code)
+            ? "red"
+            : "green"
+        }
+      };
+    } else {
+      // Unknown queries do not get colored
+      return {};
+    }
+  };
+
+  /**
+   * Fetch queries from the API, if necessary. This is called from the
+   * ReactTable component, which dictates its parameters.
+   *
+   * @param state The state of the ReactTable. Only the page and pageSize
+   * attributes are used.
+   */
+  fetchQueries = state => {
     // Check if we've reached the end of the queries, or are still waiting for
     // the last fetch to finish
     if (this.state.atEnd || this.state.loading) {
@@ -79,19 +110,8 @@ class QueryLog extends Component {
         filterable={false}
         data={this.state.history}
         loading={this.state.loading}
-        onFetchData={this.fetchMoreQueries}
-        getTrProps={(state, rowInfo) =>
-          // Check if the row is known to be blocked or allowed (not unknown)
-          rowInfo && rowInfo.row.status.code !== 0
-            ? {
-                style: {
-                  color: [1, 4, 5, 6].includes(rowInfo.row.status.code)
-                    ? "red"
-                    : "green"
-                }
-              }
-            : {}
-        }
+        onFetchData={this.fetchQueries}
+        getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
       />
     );
