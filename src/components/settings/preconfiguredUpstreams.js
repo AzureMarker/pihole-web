@@ -49,7 +49,7 @@ export const preconfiguredUpstreams = [
     secondaryIpv6: ""
   },
   {
-    name: "Cloudflare (ECS)",
+    name: "Cloudflare",
     primaryIpv4: "1.1.1.1",
     secondaryIpv4: "1.0.0.1",
     primaryIpv6: "2606:4700:4700::1111",
