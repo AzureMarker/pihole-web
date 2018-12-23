@@ -113,6 +113,14 @@ class QueryLog extends Component {
         onFetchData={this.fetchQueries}
         getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
+        // Pad empty rows to have the same height as filled rows
+        PadRowComponent={() => (
+          <span>
+            &nbsp;
+            <br />
+            &nbsp;
+          </span>
+        )}
       />
     );
   }
