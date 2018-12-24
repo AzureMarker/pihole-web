@@ -31,6 +31,11 @@ class DnsListNewItem extends Component {
     selected: []
   };
 
+  constructor(props) {
+    super(props);
+    this.typeahead = React.createRef();
+  }
+
   /**
    * Get the currently selected upstream address (either custom or preconfigured)
    *
@@ -61,6 +66,7 @@ class DnsListNewItem extends Component {
             selected={this.state.selected}
             emptyLabel={t("Detected custom upstream server")}
             bodyContainer
+            ref={this.typeahead}
           />
 
           <InputGroupAddon addonType="append">
@@ -73,6 +79,7 @@ class DnsListNewItem extends Component {
 
                 // Reset the input
                 this.setState({ address: "", selected: [] });
+                this.typeahead.current.getInstance().clear();
               }}
               disabled={!isAddressValid}
             >
