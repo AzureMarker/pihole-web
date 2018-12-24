@@ -41,8 +41,13 @@ export default {
   getTopClients() {
     return http.get("stats/top_clients");
   },
-  getHistory() {
-    return http.get("stats/history");
+  getHistory(params) {
+    return http.get(
+      "stats/history?" +
+        Object.keys(params)
+          .map(key => key + "=" + params[key])
+          .join("&")
+    );
   },
   getWhitelist() {
     return http.get("dns/whitelist");

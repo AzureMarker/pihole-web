@@ -2,6 +2,6 @@
     "Blocked": "блокиран",
     "Allowed (forwarded)": "Позволено (препратено)",
     "Allowed (cached)": "Позволено (кеширано)",
-    "Blocked (regex)": "Блокирано (регенериране)",
+    "Blocked (regex/wildcard)": "Блокирано (регенериране)",
     "Blocked (blacklist)": "Блокиран (черен списък)"
 }
