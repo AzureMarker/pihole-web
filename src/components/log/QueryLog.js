@@ -170,7 +170,7 @@ const replyTypes = t => [
 /**
  * Convert a query type code to a query type.
  */
-const queryTypes = ["ERROR", "A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
+const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
 
 /**
  * The columns of the Query Log. Some pieces are translated, so you must pass in
@@ -204,7 +204,7 @@ const columns = t => [
   {
     Header: t("Type"),
     id: "type",
-    accessor: r => queryTypes[r.type],
+    accessor: r => queryTypes[r.type - 1],
     width: 50
   },
   {
