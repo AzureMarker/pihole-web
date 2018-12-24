@@ -1,0 +1,7 @@
+{
+    "Blocked": "Bloqué",
+    "Allowed (forwarded)": "Autorisé et transmis",
+    "Allowed (cached)": "Autorisé et transmis depuis le cache",
+    "Blocked (regex/wildcard)": "Bloqué (regex)",
+    "Blocked (blacklist)": "Bloqué depuis la liste noire"
+}

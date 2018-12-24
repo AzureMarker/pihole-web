@@ -8,5 +8,7 @@
     "{{domain}} is already added": "{{domain}} is already added",
     "Failed to remove {{domain}}": "Failed to remove {{domain}}",
     "There are no domains in this list": "There are no domains in this list",
-    "Input a regular expression": "Input a regular expression"
+    "Input a regular expression": "Input a regular expression",
+    "Not a valid domain": "Not a valid domain",
+    "Not a valid regular expression": "Not a valid regular expression"
 }

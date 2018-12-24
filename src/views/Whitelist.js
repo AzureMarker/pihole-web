@@ -8,10 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import ListPage from "../components/ListPage";
-import { api } from "../utils";
+import React from "react";
+import { translate } from "react-i18next";
+import ListPage from "../components/list/ListPage";
+import api from "../util/api";
+import { isValidDomain } from "../validate";
 
 const Whitelist = props => {
   const { t } = props;
@@ -23,9 +24,11 @@ const Whitelist = props => {
       add={api.addWhitelist}
       remove={api.removeWhitelist}
       refresh={api.getWhitelist}
+      isValid={isValidDomain}
+      validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
-  )
+  );
 };
 
 export default translate(["location", "lists"])(Whitelist);

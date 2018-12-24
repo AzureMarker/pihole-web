@@ -113,6 +113,10 @@
   text-decoration: line-through !important;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .background-image {
   background: url("../img/backgroundLight.png") repeat fixed;
 }
@@ -167,4 +171,18 @@
 
 .sidebar .nav-item {
   cursor: pointer;
+}
+
+.sidebar button.nav-dropdown-toggle {
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.form-check-label {
+  margin-bottom: 10px;
+}
+
+.form-check-input {
+  margin-top: 0.2rem;
 }

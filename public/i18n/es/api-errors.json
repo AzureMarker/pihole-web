@@ -1,0 +1,22 @@
+{
+    "unknown": "desconocido",
+    "gravity_error": "Error_Gravity",
+    "ftl_connection_fail": "Fallo_Conexión_FTL",
+    "ftl_read_error": "Error_lectura_FTL",
+    "ftl_eom_error": "Error_eom_FTL",
+    "not_found": "No_se_encuentra",
+    "already_exists": "Ya_existe",
+    "invalid_domain": "Domino_inválido",
+    "bad_request": "Petición_inválida",
+    "unauthorized": "Sin_autorización",
+    "file_read": "Archivo_leido",
+    "file_write": "Archivo_escrito",
+    "config_parsing_error": "Error_en_la_configuración",
+    "invalid_setting_value": "Valor_inválido",
+    "restart_dns_error": "Error_reinicio_DNS",
+    "dnsmasq_config_write": "Escritura_config_dnsmasq",
+    "shared_memory_open": "shared_memory_open",
+    "shared_memory_read": "shared_memory_read",
+    "shared_memory_lock": "shared_memory_lock",
+    "API Error: {{error}}": "API Error: {{error}}"
+}

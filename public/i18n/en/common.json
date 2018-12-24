@@ -1,4 +1,5 @@
 {
+    "Details": "Details",
     "Status": "Status",
     "DNS": "DNS",
     "Donate": "Donate",
@@ -10,7 +11,7 @@
     "Add": "Add",
     "Time": "Time",
     "Type": "Type",
-    "Network": "Network\n",
+    "Network": "Network",
     "Action": "Action",
     "Enabled": "Enabled",
     "Disabled": "Disabled",
@@ -18,5 +19,6 @@
     "Core": "Core",
     "FTL": "FTL",
     "API": "API",
-    "Web": "Web"
+    "Web": "Web",
+    "Version": "Version"
 }

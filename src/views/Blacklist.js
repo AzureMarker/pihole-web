@@ -8,10 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import { api } from "../utils";
-import ListPage from "../components/ListPage";
+import React from "react";
+import { translate } from "react-i18next";
+import api from "../util/api";
+import ListPage from "../components/list/ListPage";
+import { isValidDomain } from "../validate";
 
 const Blacklist = props => {
   const { t } = props;
@@ -23,9 +24,11 @@ const Blacklist = props => {
       add={api.addBlacklist}
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
+      isValid={isValidDomain}
+      validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
-  )
+  );
 };
 
 export default translate("location")(Blacklist);

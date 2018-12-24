@@ -1,0 +1,22 @@
+{
+    "unknown": "Errore sconosciuto",
+    "gravity_error": "Errore nella creazione della lista dei bloccati",
+    "ftl_connection_fail": "Errore nella connessione a FTL",
+    "ftl_read_error": "Errore nella lettura da FTL",
+    "ftl_eom_error": "Lettura EOM inaspettata da FTL",
+    "not_found": "Non trovato",
+    "already_exists": "L'oggetto esiste già",
+    "invalid_domain": "Dominio non valido",
+    "bad_request": "Richiesta non valida",
+    "unauthorized": "Non hai le autorizzazioni necessarie",
+    "file_read": "Errore nella lettura da {{file}}",
+    "file_write": "Errore nella scrittura su {{file}}",
+    "config_parsing_error": "Errore nell'operazione di parsing della configurazione",
+    "invalid_setting_value": "Valore del parametro non valido",
+    "restart_dns_error": "Errore nel riavvio del server DNS",
+    "dnsmasq_config_write": "Errore nella generazione della configurazione di dnsmasq",
+    "shared_memory_open": "Errore nell'apertura della memoria condivisa",
+    "shared_memory_read": "Errore nella lettura della memoria condivisa",
+    "shared_memory_lock": "Errore nel blocco della memoria condivisa",
+    "API Error: {{error}}": "Errore dell'API: {{error}}"
+}

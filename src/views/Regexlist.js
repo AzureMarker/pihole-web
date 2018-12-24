@@ -8,10 +8,11 @@
 *  This file is copyright under the latest version of the EUPL.
 *  Please see LICENSE file for your rights under this license. */
 
-import React from 'react';
-import { translate } from 'react-i18next';
-import ListPage from "../components/ListPage";
-import { api } from "../utils";
+import React from "react";
+import { translate } from "react-i18next";
+import ListPage from "../components/list/ListPage";
+import api from "../util/api";
+import { isValidRegex } from "../validate";
 
 const Regexlist = props => {
   const { t } = props;
@@ -23,6 +24,8 @@ const Regexlist = props => {
       add={api.addRegexlist}
       remove={api.removeRegexlist}
       refresh={api.getRegexlist}
+      isValid={isValidRegex}
+      validationErrorMsg={t("Not a valid regular expression")}
       {...props}
     />
   );

@@ -1,0 +1,14 @@
+{
+    "Query Log": "Journal des requêtes",
+    "Whitelist": "Liste blanche",
+    "Blacklist": "Liste noire",
+    "Dashboard": "Panneau de contrôle",
+    "Exact": "Exacte",
+    "Wildcard": "Wildcard",
+    "Login": "Identification",
+    "Logout": "Déconnexion",
+    "Regex": "Regex",
+    "Settings": "Paramètres",
+    "Networking": "Réseau",
+    "Versions": "Versions"
+}

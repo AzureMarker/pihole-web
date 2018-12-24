@@ -1,0 +1,23 @@
+{
+    "Details": "Detalls",
+    "Status": "Estat",
+    "DNS": "DNS",
+    "Donate": "Donatius",
+    "Domain": "Domini",
+    "Hits": "Consultes",
+    "Frequency": "freqüència",
+    "Client": "Client",
+    "Requests": "Consultes",
+    "Add": "Afegir",
+    "Time": "Tiempo",
+    "Type": "Tipus",
+    "Network": "Xarxa",
+    "Action": "Acció",
+    "Enabled": "Activat",
+    "Disabled": "Desactivat",
+    "DHCP": "DHCP",
+    "Core": "Core",
+    "FTL": "FTL",
+    "API": "API",
+    "Web": "Web"
+}
