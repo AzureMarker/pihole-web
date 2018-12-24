@@ -1,4 +1,5 @@
 {
+    "Details": "Detalles",
     "Status": "Estado",
     "DNS": "DNS",
     "Donate": "Donar",
@@ -15,8 +16,9 @@
     "Enabled": "Habilitado",
     "Disabled": "Deshabilitado",
     "DHCP": "DHCP",
-    "Core": "Nucleo",
+    "Core": "Núcleo",
     "FTL": "FTL",
     "API": "API",
-    "Web": "Web"
+    "Web": "Web",
+    "Version": "Versión"
 }

@@ -1,5 +1,6 @@
 {
-    "if you found this useful": "si te parece util",
-    "Core Version": "Versión de Pi-hole",
-    "Web Version": "Versión de la interface web"
+    "if you found this useful": "si te parece útil",
+    "Core Version": "Versión del núcleo",
+    "Web Version": "Versión web",
+    "Update Available": "Actualización disponible"
 }
