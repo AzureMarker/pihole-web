@@ -50,16 +50,16 @@ function history(length) {
 
       return {
         timestamp: startDate + i,
-        type: isIPv4 ? 0 : 1,
-        status: Math.floor(Math.random() * 6) + 1,
+        type: isIPv4 ? 1 : 2,
+        status: Math.floor(Math.random() * 6),
         domain: faker.internet.domainName(),
         client: isHostname
           ? faker.internet.domainWord() + ".local"
           : isIPv4
             ? faker.internet.ip()
             : faker.internet.ipv6(),
-        dnssec: Math.floor(Math.random() * 5) + 1,
-        reply: Math.floor(Math.random() * 6) + 1,
+        dnssec: Math.floor(Math.random() * 5),
+        reply: Math.floor(Math.random() * 7),
         response_time: Math.floor(Math.random() * 100)
       };
     })
