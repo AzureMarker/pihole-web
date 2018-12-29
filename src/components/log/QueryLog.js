@@ -22,7 +22,9 @@ class QueryLog extends Component {
     history: [],
     cursor: null,
     loading: false,
-    atEnd: false
+    atEnd: false,
+    filtersChanged: false,
+    filters: []
   };
 
   componentWillUnmount() {
@@ -56,21 +58,52 @@ class QueryLog extends Component {
   };
 
   /**
+   * Convert the table filters into API history filters
+   *
+   * @param tableFilters the filters requested by the table
+   * @return the filters converted for use by the API
+   */
+  parseFilters = tableFilters => {
+    let filters = {};
+
+    for (const filter of tableFilters) {
+      switch (filter.id) {
+        case "queryType":
+          if (filter.value === "all") {
+            // No filters should be used
+            break;
+          }
+
+          filters.query_type = filter.value;
+          break;
+        default:
+          break;
+      }
+    }
+
+    return filters;
+  };
+
+  /**
    * Fetch queries from the API, if necessary. This is called from the
    * ReactTable component, which dictates its parameters.
    *
-   * @param state The state of the ReactTable. Only the page and pageSize
-   * attributes are used.
+   * @param page The page of the query log
+   * @param pageSize The number of queries in the page
    */
-  fetchQueries = state => {
+  fetchQueries = ({ page, pageSize }) => {
     // Check if we've reached the end of the queries, or are still waiting for
     // the last fetch to finish
     if (this.state.atEnd || this.state.loading) {
       return;
     }
 
-    // Check if we already have this page and the next page.
-    if (this.state.history.length >= (state.page + 2) * state.pageSize) {
+    // Check if the filters are the same and we already have this page and the
+    // next page.
+    if (
+      !this.state.filtersChanged &&
+      this.state.history.length >= (page + 2) * pageSize
+    ) {
       return;
     }
 
@@ -80,7 +113,8 @@ class QueryLog extends Component {
     // Send a request for more queries
     this.updateHandler = makeCancelable(
       api.getHistory({
-        cursor: this.state.cursor
+        cursor: this.state.cursor,
+        ...this.parseFilters(this.state.filters)
       })
     );
 
@@ -91,7 +125,8 @@ class QueryLog extends Component {
           loading: false,
           atEnd: data.cursor === null,
           cursor: data.cursor,
-          history: this.state.history.concat(data.history)
+          history: this.state.history.concat(data.history),
+          filtersChanged: false
         });
       })
       .catch(ignoreCancel);
@@ -111,6 +146,15 @@ class QueryLog extends Component {
         data={this.state.history}
         loading={this.state.loading}
         onFetchData={this.fetchQueries}
+        onFilteredChange={filters => {
+          this.setState({
+            filters,
+            filtersChanged: true,
+            atEnd: false,
+            history: []
+          });
+        }}
+        filtered={this.state.filters}
         getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
         // Pad empty rows to have the same height as filled rows
@@ -203,9 +247,25 @@ const columns = t => [
   },
   {
     Header: t("Type"),
-    id: "type",
+    id: "queryType",
     accessor: r => queryTypes[r.type - 1],
-    width: 50
+    width: 50,
+    filterable: true,
+    filterMethod: () => true, // Don't filter client side
+    Filter: ({ filter, onChange }) => (
+      <select
+        onChange={event => onChange(event.target.value)}
+        style={{ width: "100%" }}
+        value={filter ? filter.value : "all"}
+      >
+        <option value="all">All</option>
+        {queryTypes.map((queryType, i) => (
+          <option key={i} value={i + 1}>
+            {queryType}
+          </option>
+        ))}
+      </select>
+    )
   },
   {
     Header: t("Domain"),
