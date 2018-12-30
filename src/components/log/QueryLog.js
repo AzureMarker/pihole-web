@@ -12,6 +12,7 @@ import React, { Component, Fragment } from "react";
 import ReactTable from "react-table";
 import i18n from "i18next";
 import { translate } from "react-i18next";
+import debounce from "lodash.debounce";
 import { ignoreCancel, makeCancelable, padNumber } from "../../util";
 import api from "../../util/api";
 import "react-table/react-table.css";
@@ -70,11 +71,19 @@ class QueryLog extends Component {
       switch (filter.id) {
         case "queryType":
           if (filter.value === "all") {
-            // No filters should be used
+            // Filter is not applied
             break;
           }
 
           filters.query_type = filter.value;
+          break;
+        case "domain":
+          if (filter.value.length === 0) {
+            // Filter is not applied
+            break;
+          }
+
+          filters.domain = filter.value;
           break;
         default:
           break;
@@ -145,16 +154,17 @@ class QueryLog extends Component {
         filterable={false}
         data={this.state.history}
         loading={this.state.loading}
-        onFetchData={this.fetchQueries}
-        onFilteredChange={filters => {
+        onFetchData={debounce(this.fetchQueries, 350)}
+        onFilteredChange={debounce(filters => {
           this.setState({
             filters,
             filtersChanged: true,
+            cursor: null,
             atEnd: false,
+            loading: false,
             history: []
           });
-        }}
-        filtered={this.state.filters}
+        }, 300)}
         getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
         // Pad empty rows to have the same height as filled rows
@@ -272,7 +282,9 @@ const columns = t => [
     id: "domain",
     accessor: r => r.domain,
     minWidth: 150,
-    className: "horizontal-scroll"
+    className: "horizontal-scroll",
+    filterable: true,
+    filterMethod: () => true // Don't filter client side
   },
   {
     Header: t("Client"),
