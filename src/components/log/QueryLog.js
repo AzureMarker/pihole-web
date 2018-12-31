@@ -85,6 +85,14 @@ class QueryLog extends Component {
 
           filters.domain = filter.value;
           break;
+        case "client":
+          if (filter.value.length === 0) {
+            // Filter is not applied
+            break;
+          }
+
+          filters.client = filter.value;
+          break;
         default:
           break;
       }
@@ -291,7 +299,9 @@ const columns = t => [
     id: "client",
     accessor: r => r.client,
     minWidth: 120,
-    className: "horizontal-scroll"
+    className: "horizontal-scroll",
+    filterable: true,
+    filterMethod: () => true // Don't filter client side
   },
   {
     Header: t("Status"),
