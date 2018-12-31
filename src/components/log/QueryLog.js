@@ -207,12 +207,21 @@ const status = t => [
  * you must pass in the translation function before using the message array.
  */
 const dnssec = t => [
-  "", // Unspecified, which means DNSSEC is off, so nothing should be shown
+  "N/A", // Unspecified, which means DNSSEC is off, so nothing should be shown
   t("Secure"),
   t("Insecure"),
   t("Bogus"),
   t("Abandoned"),
   t("Unknown")
+];
+
+const dnssecColor = [
+  "", // Unspecified, which means DNSSEC is off, so the initial color should be shown
+  "green",
+  "orange",
+  "red",
+  "red",
+  "red"
 ];
 
 /**
@@ -306,19 +315,20 @@ const columns = t => [
   {
     Header: t("Status"),
     id: "status",
-    accessor: r => ({ code: r.status, dnssec: r.dnssec }),
+    accessor: r => r.status,
     width: 140,
+    Cell: row => status(t)[row.value]
+  },
+  {
+    Header: "DNSSEC",
+    id: "dnssec",
+    accessor: r => r.dnssec,
+    width: 90,
     Cell: row => (
-      <Fragment>
-        {status(t)[row.value.code]}
-        <br />
-        {dnssec(t)[row.value.dnssec]}
-      </Fragment>
-    ),
-    filterMethod: (filter, row) => {
-      const rowStatus = status(t)[row[filter.id].code].toLowerCase();
-      return rowStatus.includes(filter.value.toLowerCase());
-    }
+      <div style={{ color: dnssecColor[row.value] }}>
+        {dnssec(t)[row.value]}
+      </div>
+    )
   },
   {
     Header: t("Reply"),
