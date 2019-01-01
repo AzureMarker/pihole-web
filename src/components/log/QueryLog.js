@@ -285,7 +285,7 @@ const columns = t => [
         style={{ width: "100%" }}
         value={filter ? filter.value : "all"}
       >
-        <option value="all">All</option>
+        <option value="all">{t("All")}</option>
         {queryTypes.map((queryType, i) => (
           <option key={i} value={i + 1}>
             {queryType}
