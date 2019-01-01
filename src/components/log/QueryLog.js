@@ -43,13 +43,11 @@ class QueryLog extends Component {
    */
   getRowProps = (state, rowInfo) => {
     // Check if the row is known to be blocked or allowed (not unknown)
-    if (rowInfo && rowInfo.row.status.code !== 0) {
+    if (rowInfo && rowInfo.row.status !== 0) {
       // Blocked queries are red, allowed queries are green
       return {
         style: {
-          color: [1, 4, 5, 6].includes(rowInfo.row.status.code)
-            ? "red"
-            : "green"
+          color: [1, 4, 5, 6].includes(rowInfo.row.status) ? "red" : "green"
         }
       };
     } else {
