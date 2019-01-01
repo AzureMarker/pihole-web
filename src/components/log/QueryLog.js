@@ -93,12 +93,20 @@ class QueryLog extends Component {
           filters.client = filter.value;
           break;
         case "status":
-          if (filter.value === "all") {
-            // Filter is not applied
-            break;
+          switch (filter.value) {
+            case "all":
+              // Filter is not applied
+              break;
+            case "allowed":
+              filters.blocked = false;
+              break;
+            case "blocked":
+              filters.blocked = true;
+              break;
+            default:
+              filters.status = filter.value;
+              break;
           }
-
-          filters.status = filter.value;
           break;
         case "dnssec":
           if (filter.value === "all") {
@@ -262,12 +270,13 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
  * Create a method which returns a select component for the filter, using the
  * supplied items as the selectable filters.
  *
- * @param items the options to show in the filter
- * @param t the translation function
+ * @param items The options to show in the filter
+ * @param t The translation function
+ * @param extras Extra custom options which should show up in the filter list
  * @returns {function({filter: *, onChange: *}): *} A select component with the
  * filter data
  */
-const selectionFilter = (items, t) => {
+const selectionFilter = (items, t, extras = []) => {
   return ({ filter, onChange }) => (
     <select
       onChange={event => onChange(event.target.value)}
@@ -275,8 +284,13 @@ const selectionFilter = (items, t) => {
       value={filter ? filter.value : "all"}
     >
       <option value="all">{t("All")}</option>
+      {extras.map((extra, i) => (
+        <option key={i} value={extra.value}>
+          {extra.name}
+        </option>
+      ))}
       {items.map((item, i) => (
-        <option key={i} value={i}>
+        <option key={i + extras.length} value={i}>
           {item}
         </option>
       ))}
@@ -348,7 +362,10 @@ const columns = t => [
     Cell: row => status(t)[row.value],
     filterable: true,
     filterMethod: () => true, // Don't filter client side
-    Filter: selectionFilter(status(t), t)
+    Filter: selectionFilter(status(t), t, [
+      { name: t("Allowed"), value: "allowed" },
+      { name: t("Blocked"), value: "blocked" }
+    ])
   },
   {
     Header: "DNSSEC",
