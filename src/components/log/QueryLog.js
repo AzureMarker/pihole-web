@@ -116,6 +116,14 @@ class QueryLog extends Component {
 
           filters.dnssec = filter.value;
           break;
+        case "reply":
+          if (filter.value === "all") {
+            // Filter is not applied
+            break;
+          }
+
+          filters.reply = filter.value;
+          break;
         default:
           break;
       }
@@ -392,7 +400,10 @@ const columns = t => [
         <br />
         {"(" + (row.value.time / 10).toLocaleString() + "ms)"}
       </div>
-    )
+    ),
+    filterable: true,
+    filterMethod: () => true, // Don't filter client side
+    Filter: selectionFilter(replyTypes(t), t)
   },
   {
     Header: t("Action"),
