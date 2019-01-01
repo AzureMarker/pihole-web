@@ -362,7 +362,7 @@ const columns = t => [
     ),
     filterable: true,
     filterMethod: () => true, // Don't filter client side
-    Filter: selectionFilter(status(t), t)
+    Filter: selectionFilter(dnssec(t), t)
   },
   {
     Header: t("Reply"),
