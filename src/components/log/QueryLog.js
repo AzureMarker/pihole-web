@@ -75,7 +75,8 @@ class QueryLog extends Component {
             break;
           }
 
-          filters.query_type = filter.value;
+          // Query Types start at 1
+          filters.query_type = filter.value + 1;
           break;
         case "domain":
           if (filter.value.length === 0) {
@@ -92,6 +93,22 @@ class QueryLog extends Component {
           }
 
           filters.client = filter.value;
+          break;
+        case "status":
+          if (filter.value === "all") {
+            // Filter is not applied
+            break;
+          }
+
+          filters.status = filter.value;
+          break;
+        case "dnssec":
+          if (filter.value === "all") {
+            // Filter is not applied
+            break;
+          }
+
+          filters.dnssec = filter.value;
           break;
         default:
           break;
@@ -244,6 +261,32 @@ const replyTypes = t => [
 const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
 
 /**
+ * Create a method which returns a select component for the filter, using the
+ * supplied items as the selectable filters.
+ *
+ * @param items the options to show in the filter
+ * @param t the translation function
+ * @returns {function({filter: *, onChange: *}): *} A select component with the
+ * filter data
+ */
+const selectionFilter = (items, t) => {
+  return ({ filter, onChange }) => (
+    <select
+      onChange={event => onChange(event.target.value)}
+      style={{ width: "100%" }}
+      value={filter ? filter.value : "all"}
+    >
+      <option value="all">{t("All")}</option>
+      {items.map((item, i) => (
+        <option key={i} value={i}>
+          {item}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+/**
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
@@ -279,20 +322,7 @@ const columns = t => [
     width: 50,
     filterable: true,
     filterMethod: () => true, // Don't filter client side
-    Filter: ({ filter, onChange }) => (
-      <select
-        onChange={event => onChange(event.target.value)}
-        style={{ width: "100%" }}
-        value={filter ? filter.value : "all"}
-      >
-        <option value="all">{t("All")}</option>
-        {queryTypes.map((queryType, i) => (
-          <option key={i} value={i + 1}>
-            {queryType}
-          </option>
-        ))}
-      </select>
-    )
+    Filter: selectionFilter(queryTypes, t)
   },
   {
     Header: t("Domain"),
@@ -317,7 +347,10 @@ const columns = t => [
     id: "status",
     accessor: r => r.status,
     width: 140,
-    Cell: row => status(t)[row.value]
+    Cell: row => status(t)[row.value],
+    filterable: true,
+    filterMethod: () => true, // Don't filter client side
+    Filter: selectionFilter(status(t), t)
   },
   {
     Header: "DNSSEC",
@@ -328,7 +361,10 @@ const columns = t => [
       <div style={{ color: dnssecColor[row.value] }}>
         {dnssec(t)[row.value]}
       </div>
-    )
+    ),
+    filterable: true,
+    filterMethod: () => true, // Don't filter client side
+    Filter: selectionFilter(status(t), t)
   },
   {
     Header: t("Reply"),
