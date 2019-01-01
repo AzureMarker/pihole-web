@@ -411,7 +411,7 @@ const columns = t => [
     filterable: false,
     Cell: data => {
       // Blocked, but can whitelist
-      if ([1, 4, 5].includes(data.row.status.code)) {
+      if ([1, 4, 5].includes(data.row.status)) {
         return (
           <button
             type="button"
@@ -425,7 +425,7 @@ const columns = t => [
 
       // Not explicitly blocked (or is whitelisted), but could be blocked.
       // This includes externally blocked.
-      if ([2, 3, 6].includes(data.row.status.code))
+      if ([2, 3, 6].includes(data.row.status))
         return (
           <button
             type="button"
