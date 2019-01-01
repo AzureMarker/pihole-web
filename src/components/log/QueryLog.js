@@ -74,7 +74,7 @@ class QueryLog extends Component {
           }
 
           // Query Types start at 1
-          filters.query_type = filter.value + 1;
+          filters.query_type = parseInt(filter.value) + 1;
           break;
         case "domain":
           if (filter.value.length === 0) {
