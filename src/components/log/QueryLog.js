@@ -29,7 +29,15 @@ class QueryLog extends Component {
     loading: false,
     atEnd: false,
     filtersChanged: false,
-    filters: [
+    filters: []
+  };
+
+  constructor(props) {
+    super(props);
+
+    // This happens in the constructor to avoid using dateRanges before it's
+    // created
+    this.state.filters = [
       {
         id: "time",
         value: {
@@ -37,8 +45,8 @@ class QueryLog extends Component {
           end: dateRanges.Today[1]
         }
       }
-    ]
-  };
+    ];
+  }
 
   componentWillUnmount() {
     if (this.updateHandler) {
