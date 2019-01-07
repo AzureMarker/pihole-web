@@ -10,12 +10,16 @@
 
 import React, { Component, Fragment } from "react";
 import ReactTable from "react-table";
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import { Button } from "reactstrap";
 import i18n from "i18next";
 import { translate } from "react-i18next";
 import debounce from "lodash.debounce";
+import moment from "moment";
 import { ignoreCancel, makeCancelable, padNumber } from "../../util";
 import api from "../../util/api";
 import "react-table/react-table.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
 
 class QueryLog extends Component {
   updateHandler = null;
@@ -25,7 +29,15 @@ class QueryLog extends Component {
     loading: false,
     atEnd: false,
     filtersChanged: false,
-    filters: []
+    filters: [
+      {
+        id: "time",
+        value: {
+          start: dateRanges.Today[0],
+          end: dateRanges.Today[1]
+        }
+      }
+    ]
   };
 
   componentWillUnmount() {
@@ -67,6 +79,18 @@ class QueryLog extends Component {
 
     for (const filter of tableFilters) {
       switch (filter.id) {
+        case "time":
+          filters.from = Math.floor(
+            moment(filter.value.start)
+              .utc()
+              .valueOf() / 1000
+          );
+          filters.until = Math.floor(
+            moment(filter.value.end)
+              .utc()
+              .valueOf() / 1000
+          );
+          break;
         case "queryType":
           if (filter.value === "all") {
             // Filter is not applied
@@ -307,6 +331,34 @@ const selectionFilter = (items, t, extras = []) => {
 };
 
 /**
+ * Preconfigured date ranges listed in the date range picker
+ */
+const dateRanges = {
+  Today: [moment().startOf("day"), moment()],
+  Yesterday: [
+    moment()
+      .subtract(1, "days")
+      .startOf("day"),
+    moment()
+      .subtract(1, "days")
+      .endOf("day")
+  ],
+  "Last 7 Days": [moment().subtract(6, "days"), moment()],
+  "Last 30 Days": [moment().subtract(29, "days"), moment()],
+  "This Month": [moment().startOf("month"), moment()],
+  "Last Month": [
+    moment()
+      .subtract(1, "month")
+      .startOf("month"),
+    moment()
+      .subtract(1, "month")
+      .endOf("month")
+  ],
+  "This Year": [moment().startOf("year"), moment()],
+  "All Time": [moment(0), moment()]
+};
+
+/**
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
@@ -333,7 +385,26 @@ const columns = t => [
           {hour + ":" + minute + ":" + second}
         </Fragment>
       );
-    }
+    },
+    filterable: true,
+    filterMethod: () => true, // Don't filter client side
+    Filter: ({ filter, onChange }) => (
+      <DateRangePicker
+        startDate={filter ? filter.value.start : dateRanges.Today[0]}
+        endDate={filter ? filter.value.end : dateRanges.Today[1]}
+        maxDate={dateRanges.Today[1]}
+        onApply={(event, picker) =>
+          onChange({ start: picker.startDate, end: picker.endDate })
+        }
+        timePicker={true}
+        showDropdowns={true}
+        ranges={dateRanges}
+      >
+        <Button color="light" size="sm">
+          <i className="fa fa-clock-o fa-lg" />
+        </Button>
+      </DateRangePicker>
+    )
   },
   {
     Header: t("Type"),
