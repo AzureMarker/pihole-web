@@ -1,0 +1,10 @@
+{
+    "Password": "Şifre",
+    "Sign in to start your session": "Oturumunuzu başlatmak için oturum açın",
+    "Log in": "Giriş Yap",
+    "Forgot Password": "Şifremi Unuttum",
+    "forgot_password_description": "unutulan_şifre_açıklaması",
+    "Wrong Password!": "Yanlış şifre!",
+    "You will be transferred to the \"{{page}}\" page": "\"{{page}}\" sayfasına yönlendirileceksiniz",
+    "Verify that cookies are allowed for {{host}}": "{{Host}} için çerezlere izin verildiğini doğrulayın"
+}
