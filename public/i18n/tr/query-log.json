@@ -1,0 +1,18 @@
+{
+    "Blocked": "Engellendi",
+    "Allowed (forwarded)": "İzin verildi (iletildi)",
+    "Allowed (cached)": "İzin verildi (önbelleklenmiş)",
+    "Blocked (regex/wildcard)": "Engellendi (regex/wildcard)",
+    "Blocked (blacklist)": "Engellendi (kara liste)",
+    "Unknown": "Bilinmeyen",
+    "Blocked (external)": "Engellenen (dış)",
+    "Blocked (gravity)": "Engellenen (yerçekimi)",
+    "Unspecified": "Belirtilmemiş",
+    "Secure": "Güvenli",
+    "Insecure": "Güvenli Değil",
+    "Bogus": "Sahte",
+    "Abandoned": "Terkedilmiş",
+    "Reply": "Cevap",
+    "All": "Hepsi",
+    "Allowed": "İzin"
+}

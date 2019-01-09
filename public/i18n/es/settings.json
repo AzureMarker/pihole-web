@@ -25,5 +25,7 @@
     "Only forward public reverse lookups": "Solo búsquedas públicas inversas hacia adelante",
     "Processing...": "Procesando...",
     "Successfully saved settings": "Opciones salvadas con exito",
-    "Apply": "Aplicar"
+    "Apply": "Aplicar",
+    "Detected custom upstream server": "Detectar servidor de subida",
+    "DNS Options": "Opciones DNS"
 }

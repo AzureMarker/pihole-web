@@ -1,0 +1,22 @@
+{
+    "unknown": "bilinmeyen",
+    "gravity_error": "yerçekimi_hatası",
+    "ftl_connection_fail": "ftl_bağlantı_hatası",
+    "ftl_read_error": "ftl_okuma_hatası",
+    "ftl_eom_error": "ftl_eom_hatası",
+    "not_found": "bulunamadı",
+    "already_exists": "zaten_var",
+    "invalid_domain": "geçersiz_alanadı",
+    "bad_request": "geçersiz_istek",
+    "unauthorized": "yetkisiz",
+    "file_read": "dosya_oku",
+    "file_write": "dosya_yaz",
+    "config_parsing_error": "yapılandırma_ayrıştırma_hatası",
+    "invalid_setting_value": "geçersiz_ayar_değeri",
+    "restart_dns_error": "yeniden başlatma_dns_hatası",
+    "dnsmasq_config_write": "dnsmasq_yapılandırma_yazma",
+    "shared_memory_open": "paylaşılmış_bellek_açık",
+    "shared_memory_read": "paylaşılmış_bellek_açık",
+    "shared_memory_lock": "paylaşılmış_bellek_kilitli",
+    "API Error: {{error}}": "API Hatası: {{error}}"
+}

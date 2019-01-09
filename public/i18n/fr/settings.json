@@ -22,5 +22,8 @@
     "Branch": "Branche",
     "Hash": "Hash",
     "Tag": "Tag",
-    "Only forward public reverse lookups": "Ne transmettre que les requêtes inverses publiques"
+    "Only forward public reverse lookups": "Ne transmettre que les requêtes inverses publiques",
+    "Apply": "Appliquer",
+    "Detected custom upstream server": "Serveur personnalisé personnalisé détecté",
+    "DNS Options": "DNS Options"
 }
