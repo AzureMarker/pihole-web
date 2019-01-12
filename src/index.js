@@ -28,7 +28,7 @@ api.loggedIn = document.cookie.includes("user_id=");
 setupI18n();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Switch>
       <Route path="/" name="Home" component={Full} />
     </Switch>
