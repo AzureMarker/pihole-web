@@ -41,6 +41,10 @@ export default props => (
  * @param routeData the route data (see routes.js)
  */
 const createRoute = routeData => {
+  if (routeData.fakeRoute === true) {
+    return;
+  }
+
   if (routeData.children) {
     return routeData.children.map(createRoute);
   }

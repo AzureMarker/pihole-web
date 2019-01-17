@@ -54,6 +54,11 @@ export const navList = (items, props) =>
     // Some items (login page) should only be shown when logged in or logged out, not both
     if (item.authStrict && item.auth !== api.loggedIn) return null;
 
+    // Check if it's a custom component
+    if (item.customComponent !== undefined) {
+      return <item.customComponent key={index} />;
+    }
+
     // At this point it's ok to show the item
     return item.children
       ? navDropdown(item, index, props)
