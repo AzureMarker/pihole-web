@@ -10,23 +10,23 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import { dropDownClassList, navDropdown, navItem, navList } from "./Sidebar";
+import { isDropdownOpen, navDropdown, navItem, navList } from "./Sidebar";
 import api from "../../util/api";
 
 it("expands active drop down items", () => {
-  const classList = dropDownClassList("/testRoute", {
+  const isOpen = isDropdownOpen("/testRoute", {
     location: { pathname: "/testRoute/page" }
   });
 
-  expect(classList).toContain("open");
+  expect(isOpen).toBeTruthy();
 });
 
 it("does not expand inactive drop down items", () => {
-  const classList = dropDownClassList("/testRoute", {
+  const isOpen = isDropdownOpen("/testRoute", {
     location: { pathname: "/page" }
   });
 
-  expect(classList).not.toContain("open");
+  expect(isOpen).toBeFalsy();
 });
 
 it("creates nav items with correct data", () => {
@@ -62,9 +62,9 @@ it("creates a nav dropdown with correct data", () => {
   );
 
   expect(wrapper.key()).toEqual(key);
-  expect(wrapper.childAt(0).childAt(0)).toHaveClassName(item.icon);
-  expect(wrapper.childAt(0).childAt(1)).toHaveText(item.name);
-  expect(wrapper.childAt(1).children()).toHaveLength(0);
+  expect(wrapper).toHaveProp("icon", item.icon);
+  expect(wrapper).toHaveProp("name", item.name);
+  expect(wrapper.children()).toHaveLength(0);
 });
 
 it("shows auth routes when logged in", () => {

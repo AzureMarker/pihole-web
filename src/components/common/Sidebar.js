@@ -16,16 +16,10 @@ import logo from "../../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
 import api from "../../util/api";
 import StatusBadge from "./StatusBadge";
+import NavDropdown from "./NavDropdown";
 
-const handleClick = e => {
-  e.preventDefault();
-  e.target.parentElement.classList.toggle("open");
-};
-
-export const dropDownClassList = (routeName, props) =>
-  props.location.pathname.startsWith(routeName)
-    ? "nav-item nav-dropdown open"
-    : "nav-item nav-dropdown";
+export const isDropdownOpen = (routeName, props) =>
+  props.location.pathname.startsWith(routeName);
 
 export const navItem = (item, key, props) => (
   <NavItem key={key}>
@@ -42,13 +36,14 @@ export const navItem = (item, key, props) => (
 );
 
 export const navDropdown = (item, key, props) => (
-  <li key={key} className={dropDownClassList(item.url, props)}>
-    <button className="nav-link nav-dropdown-toggle" onClick={handleClick}>
-      <i className={"nav-icon " + item.icon} />
-      {props.t(item.name)}
-    </button>
-    <ul className="nav-dropdown-items">{navList(item.children, props)}</ul>
-  </li>
+  <NavDropdown
+    name={props.t(item.name)}
+    icon={item.icon}
+    isOpen={props.location.pathname.startsWith(item.url)}
+    key={key}
+  >
+    {navList(item.children, props)}
+  </NavDropdown>
 );
 
 export const navList = (items, props) =>
