@@ -24,7 +24,7 @@ export default () => {
         type="button"
         onClick={boxedLayoutToggle}
       >
-        <i className="fa fa-exchange" />
+        <i className="fa fa-exchange-alt" />
       </button>
     </div>
   );

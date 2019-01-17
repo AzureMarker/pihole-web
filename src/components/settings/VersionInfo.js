@@ -37,7 +37,7 @@ class VersionInfo extends Component {
         <div className="col-xl-3 col-md-6 col-xs-12">
           <VersionCard
             name={t("Core")}
-            icon="fa fa-dot-circle-o fa-2x"
+            icon="far fa-dot-circle fa-2x"
             branch={this.props.core.branch}
             hash={this.props.core.hash}
             tag={this.props.core.tag}
@@ -64,7 +64,7 @@ class VersionInfo extends Component {
         <div className="col-xl-3 col-md-6 col-xs-12">
           <VersionCard
             name={t("Web")}
-            icon="fa fa-list-alt fa-2x"
+            icon="far fa-list-alt fa-2x"
             branch={this.props.web.branch}
             hash={this.props.web.hash}
             tag={this.props.web.tag}

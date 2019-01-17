@@ -9,20 +9,20 @@ class StatusBadge extends Component {
     status: PropTypes.string.isRequired
   };
 
+  isEnabled = () => this.props.status === "enabled";
+
   render() {
     const { t } = this.props;
 
-    return this.props.status === "enabled" ? (
+    return (
       <span>
-        <i className="fa fa-circle text-success" />
+        <i
+          className={
+            "fa fa-circle text-" + (this.isEnabled() ? "success" : "danger")
+          }
+        />
         &nbsp;
-        {t("Enabled")}
-      </span>
-    ) : (
-      <span>
-        <i className="fa fa-circle text-danger" />
-        &nbsp;
-        {t("Disabled")}
+        {t(this.isEnabled() ? "Enabled" : "Disabled")}
       </span>
     );
   }

@@ -66,7 +66,7 @@ class DomainInput extends Component {
             className="btn border-secondary"
             type="button"
           >
-            <i className="fa fa-refresh" />
+            <i className="fa fa-sync" />
           </button>
         </span>
       </form>
