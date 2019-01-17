@@ -16,7 +16,7 @@ const DnsListItem = ({ address, onRemove }) => (
   <ListGroupItem>
     {address}
     <Button color="danger" size="sm" className="pull-right" onClick={onRemove}>
-      <span className="fa fa-trash-o" />
+      <span className="far fa-trash-alt" />
     </Button>
   </ListGroupItem>
 );

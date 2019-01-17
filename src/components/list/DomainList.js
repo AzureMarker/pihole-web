@@ -24,7 +24,7 @@ const DomainList = ({ domains, onRemove, t }) => {
       style={{ marginTop: "2px" }}
       onClick={() => onRemove(item)}
     >
-      <span className="fa fa-trash-o" />
+      <span className="far fa-trash-alt" />
     </Button>
   );
 

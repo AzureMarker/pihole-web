@@ -409,7 +409,7 @@ const columns = t => [
         ranges={dateRanges}
       >
         <Button color="light" size="sm">
-          <i className="fa fa-clock-o fa-lg" />
+          <i className="far fa-clock fa-lg" />
         </Button>
       </DateRangePicker>
     )

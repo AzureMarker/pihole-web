@@ -12,7 +12,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "ionicons/dist/css/ionicons.min.css";
-import "font-awesome/css/font-awesome.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "simple-line-icons/css/simple-line-icons.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import "./scss/style.css";

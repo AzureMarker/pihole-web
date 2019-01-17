@@ -35,7 +35,7 @@ export const nav = [
     name: "Dashboard",
     url: "/dashboard",
     component: Dashboard,
-    icon: "fa fa-dashboard",
+    icon: "fa fa-tachometer-alt",
     auth: false
   },
   {
@@ -49,7 +49,7 @@ export const nav = [
     name: "Whitelist",
     url: "/whitelist",
     component: Whitelist,
-    icon: "fa fa-check-circle-o",
+    icon: "far fa-check-circle",
     auth: false
   },
   {

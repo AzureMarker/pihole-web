@@ -33,7 +33,7 @@ class SummaryStats extends Component {
           <div className="card border-0 bg-success stat-height-lock">
             <div className="card-body">
               <div className="card-icon">
-                <i className="fa fa-globe fa-2x" />
+                <i className="fa fa-globe-americas fa-2x" />
               </div>
             </div>
             <div className="card-img-overlay">
@@ -50,7 +50,7 @@ class SummaryStats extends Component {
           <div className="card border-0 bg-primary stat-height-lock">
             <div className="card-body">
               <div className="card-icon">
-                <i className="fa fa-hand-stop-o fa-2x" />
+                <i className="far fa-hand-paper fa-2x" />
               </div>
             </div>
             <div className="card-img-overlay">
@@ -63,7 +63,7 @@ class SummaryStats extends Component {
           <div className="card border-0 bg-warning stat-height-lock">
             <div className="card-body">
               <div className="card-icon">
-                <i className="fa fa-pie-chart fa-2x" />
+                <i className="fa fa-chart-pie fa-2x" />
               </div>
             </div>
             <div className="card-img-overlay">
@@ -76,7 +76,7 @@ class SummaryStats extends Component {
           <div className="card border-0 bg-danger stat-height-lock">
             <div className="card-body">
               <div className="card-icon">
-                <i className="fa fa-list-alt fa-2x" />
+                <i className="far fa-list-alt fa-2x" />
               </div>
             </div>
             <div className="card-img-overlay">
