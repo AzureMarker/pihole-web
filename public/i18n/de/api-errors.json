@@ -1,1 +1,16 @@
-{}
+{
+    "unknown": "unbekannt",
+    "ftl_connection_fail": "ftl_verbindung_fehlgeschlagen",
+    "ftl_read_error": "ftl_lese_fehler",
+    "not_found": "nicht_gefunden",
+    "already_exists": "bereits_existent",
+    "invalid_domain": "ungültige_domain",
+    "bad_request": "ungültige_anfrage",
+    "unauthorized": "unautorisiert ",
+    "file_read": "datei_lesen",
+    "file_write": "datei_schreiben",
+    "config_parsing_error": "konfig_einfügen_fehler",
+    "invalid_setting_value": "ungültiger_einstellungswert",
+    "restart_dns_error": "fehler_dns_neustart",
+    "dnsmasq_config_write": "dnsmasq_konfig_schreiben"
+}

@@ -23,6 +23,8 @@
     "Hash": "Hash",
     "Tag": "Tag",
     "Only forward public reverse lookups": "Ne transmettre que les requêtes inverses publiques",
+    "Processing...": "En traitement...",
+    "Successfully saved settings": "Paramètres enregistrés avec succès",
     "Apply": "Appliquer",
     "Detected custom upstream server": "Serveur personnalisé personnalisé détecté",
     "DNS Options": "DNS Options"

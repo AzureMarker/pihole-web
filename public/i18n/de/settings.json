@@ -22,5 +22,9 @@
     "Branch": "Branch",
     "Hash": "Hash",
     "Tag": "Tag",
-    "Only forward public reverse lookups": "Nur öffentlichen Reverse Lookup weiterleiten"
+    "Only forward public reverse lookups": "Nur öffentlichen Reverse Lookup weiterleiten",
+    "Successfully saved settings": "Einstellungen gespeichert",
+    "Apply": "Annehmen",
+    "Detected custom upstream server": "Eigene Upstream Server erkannt",
+    "DNS Options": "DNS Optionen"
 }
