@@ -1,16 +1,16 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Update translations from POEditor
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Update translations from POEditor
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 const fs = require("fs-extra");
-const fetch = require('node-fetch');
-const MultiProgress = require('multi-progress');
+const fetch = require("node-fetch");
+const MultiProgress = require("multi-progress");
 
 const PROJECT_ID = 66305;
 const I18N_FOLDER = "public/i18n";
@@ -19,7 +19,7 @@ const multi = new MultiProgress(process.stderr);
 
 const apiToken = process.env.POEDITOR_API_TOKEN;
 
-if(!apiToken) {
+if (!apiToken) {
   console.log("Please set the POEDITOR_API_TOKEN environment variable");
   process.exit(1);
 }
@@ -40,23 +40,20 @@ function makeFormData(data) {
  * Return a list of languages which are at least 90% translated
  */
 function getTranslatedLanguages() {
-  return fetch(
-    "https://api.poeditor.com/v2/languages/list",
-    {
-      method: "POST",
-      body: makeFormData({
-        "api_token": apiToken,
-        "id": PROJECT_ID,
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    }
-  )
+  return fetch("https://api.poeditor.com/v2/languages/list", {
+    method: "POST",
+    body: makeFormData({
+      api_token: apiToken,
+      id: PROJECT_ID
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  })
     .then(response => response.json())
     .then(data => {
       return data.result.languages
         .filter(lang => lang.percentage >= 70)
-        .map(lang => lang.code)
-    })
+        .map(lang => lang.code);
+    });
 }
 
 /**
@@ -67,20 +64,17 @@ function getTranslatedLanguages() {
  * @param bar the progress bar
  */
 function fetchTag(lang, tag, bar) {
-  fetch(
-    "https://api.poeditor.com/v2/projects/export",
-    {
-      method: "POST",
-      body: makeFormData({
-        "api_token": apiToken,
-        "id": PROJECT_ID,
-        "language": lang,
-        "type": "json",
-        "tags": tag
-      }),
-      headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    }
-  )
+  fetch("https://api.poeditor.com/v2/projects/export", {
+    method: "POST",
+    body: makeFormData({
+      api_token: apiToken,
+      id: PROJECT_ID,
+      language: lang,
+      type: "json",
+      tags: tag
+    }),
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  })
     .then(exportResponse => {
       bar.tick();
       return exportResponse.json();
@@ -92,39 +86,42 @@ function fetchTag(lang, tag, bar) {
     })
     .then(langData => {
       const parsedData = langData.reduce((map, item) => {
-
         // Check for plurals
-        if(typeof item.definition === "string") {
+        if (typeof item.definition === "string") {
           map[item.term] = item.definition;
-        } else if(item.definition === null) {
+        } else if (item.definition === null) {
           // Don't add missing strings. They will be loaded from the fallback language.
           return map;
         } else {
           // Check if there's just singular and plural
-          if(Object.keys(item.definition).length === 2) {
+          if (Object.keys(item.definition).length === 2) {
             map[item.term] = item.definition["one"];
             map[item.term + "_plural"] = item.definition["other"];
           } else {
             // Map POEditor's plural keys to i18next's plural suffixes
             const pluralMap = {
-              "zero": "0",
-              "one": "1",
-              "two": "2",
-              "few": "3",
-              "many": "4",
-              "other": "5"
+              zero: "0",
+              one: "1",
+              two: "2",
+              few: "3",
+              many: "4",
+              other: "5"
             };
 
             // Add the various plural keys
-            for(let plural of Object.keys(item.definition))
-              map[item.term + "_" + pluralMap[plural]] = item.definition[plural];
+            for (let plural of Object.keys(item.definition))
+              map[item.term + "_" + pluralMap[plural]] =
+                item.definition[plural];
           }
         }
 
         return map;
       }, {});
 
-      fs.outputFileSync(`${I18N_FOLDER}/${lang}/${tag}.json`, JSON.stringify(parsedData, null, 4));
+      fs.outputFileSync(
+        `${I18N_FOLDER}/${lang}/${tag}.json`,
+        JSON.stringify(parsedData, null, 4)
+      );
       bar.tick();
     });
 }
@@ -155,8 +152,7 @@ function fetchAllTags(lang) {
   // Render at 0%
   bar.tick(0);
 
-  for(const tag of tags)
-    fetchTag(lang, tag, bar);
+  for (const tag of tags) fetchTag(lang, tag, bar);
 }
 
 // Remove old translations
@@ -165,10 +161,8 @@ fs.emptyDirSync(I18N_FOLDER);
 
 // Get the translated languages and download the translations
 console.log("Fetching languages");
-getTranslatedLanguages()
-  .then(languages => {
-    console.log(`Languages over 70% translated: ${languages.join(", ")}`);
+getTranslatedLanguages().then(languages => {
+  console.log(`Languages over 70% translated: ${languages.join(", ")}`);
 
-    for(const lang of languages)
-      fetchAllTags(lang);
-  });
+  for (const lang of languages) fetchAllTags(lang);
+});

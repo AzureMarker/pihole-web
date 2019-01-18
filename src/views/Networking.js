@@ -1,15 +1,15 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Settings Page - Networking DNS & DHCP
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Settings Page - Networking DNS & DHCP
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import DHCPInfo from "../components/settings/DHCPInfo";
 import DNSInfo from "../components/settings/DNSInfo";
@@ -83,4 +83,4 @@ class Networking extends Component {
   }
 }
 
-export default translate(["common", "settings"])(Networking);
+export default withNamespaces(["common", "settings"])(Networking);

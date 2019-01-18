@@ -1,17 +1,17 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Queries Graph component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Queries Graph component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import { padNumber } from "../../util";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
@@ -183,7 +183,7 @@ export const loadingProps = {
   blocked_over_time: []
 };
 
-export const TranslatedQueriesGraph = translate("dashboard")(QueriesGraph);
+export const TranslatedQueriesGraph = withNamespaces("dashboard")(QueriesGraph);
 
 export default props => (
   <WithAPIData

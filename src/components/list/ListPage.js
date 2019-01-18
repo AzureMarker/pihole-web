@@ -1,16 +1,16 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  List Page component (abstracted whitelist, blacklist, etc)
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * List Page component (abstracted whitelist, blacklist, etc)
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert from "../common/Alert";
 import DomainList from "./DomainList";
@@ -165,4 +165,4 @@ class ListPage extends Component {
   }
 }
 
-export default translate(["common", "lists"])(ListPage);
+export default withNamespaces(["common", "lists"])(ListPage);

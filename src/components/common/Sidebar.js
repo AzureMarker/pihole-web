@@ -1,15 +1,15 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Sidebar component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Sidebar component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import logo from "../../img/logo.svg";
@@ -102,4 +102,4 @@ const Sidebar = ({ items, ...props }) => {
   );
 };
 
-export default translate(["common", "location"])(Sidebar);
+export default withNamespaces(["common", "location"])(Sidebar);
