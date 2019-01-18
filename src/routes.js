@@ -17,6 +17,7 @@ import Versions from "./views/Versions";
 import Networking from "./views/Networking";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import EnableDisable from "./components/common/EnableDisable";
 
 export const routes = t => ({
   "/dashboard": t("Dashboard"),
@@ -73,6 +74,11 @@ export const nav = [
         auth: false
       }
     ]
+  },
+  {
+    customComponent: EnableDisable,
+    fakeRoute: true,
+    auth: true
   },
   {
     name: "Settings",

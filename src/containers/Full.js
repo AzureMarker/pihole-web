@@ -15,22 +15,25 @@ import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
 import api from "../util/api";
 import { nav } from "../routes";
+import { StatusProvider } from "../context";
 
 export default props => (
   <div className="app">
-    <Header />
-    <div className="app-body">
-      <Sidebar items={nav} {...props} />
-      <main className="main" onClick={mobileSidebarHide}>
-        <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
-          <Switch>
-            <Redirect exact from="/" to="/dashboard" />
-            {nav.map(createRoute)}
-          </Switch>
-        </div>
-      </main>
-    </div>
-    <Footer />
+    <StatusProvider>
+      <Header />
+      <div className="app-body">
+        <Sidebar items={nav} {...props} />
+        <main className="main" onClick={mobileSidebarHide}>
+          <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
+            <Switch>
+              <Redirect exact from="/" to="/dashboard" />
+              {nav.map(createRoute)}
+            </Switch>
+          </div>
+        </main>
+      </div>
+      <Footer />
+    </StatusProvider>
   </div>
 );
 
