@@ -64,6 +64,11 @@ export class WithAPIData extends Component {
       interval: this.props.repeatOptions.interval
     };
 
+    // Clear in-flight or repeating requests so they are not orphaned
+    if (this.dataHandle) {
+      this.dataHandle.cancel();
+    }
+
     this.dataHandle = makeCancelable(this.props.apiCall(), cancelOptions);
 
     this.dataHandle.promise
