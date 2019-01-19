@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Test Setup
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Test Setup
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -19,8 +19,8 @@ configure({ adapter: new Adapter() });
 
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
-  // This mock makes sure any components using the translate HoC receive the t function as a prop
-  translate: () => component => {
+  // This mock makes sure any components using the withNamespaces HoC receive the t function as a prop
+  withNamespaces: () => component => {
     component.defaultProps = { ...component.defaultProps, t: key => key };
     return component;
   }

@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Main container of the web interface (performs main routing)
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Main container of the web interface (performs main routing)
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -15,22 +15,25 @@ import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
 import api from "../util/api";
 import { nav } from "../routes";
+import { StatusProvider } from "../components/common/context";
 
 export default props => (
   <div className="app">
-    <Header />
-    <div className="app-body">
-      <Sidebar items={nav} {...props} />
-      <main className="main" onClick={mobileSidebarHide}>
-        <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
-          <Switch>
-            <Redirect exact from="/" to="/dashboard" />
-            {nav.map(createRoute)}
-          </Switch>
-        </div>
-      </main>
-    </div>
-    <Footer />
+    <StatusProvider>
+      <Header />
+      <div className="app-body">
+        <Sidebar items={nav} {...props} />
+        <main className="main" onClick={mobileSidebarHide}>
+          <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
+            <Switch>
+              <Redirect exact from="/" to="/dashboard" />
+              {nav.map(createRoute)}
+            </Switch>
+          </div>
+        </main>
+      </div>
+      <Footer />
+    </StatusProvider>
   </div>
 );
 
@@ -41,6 +44,10 @@ export default props => (
  * @param routeData the route data (see routes.js)
  */
 const createRoute = routeData => {
+  if (routeData.fakeRoute === true) {
+    return;
+  }
+
   if (routeData.children) {
     return routeData.children.map(createRoute);
   }

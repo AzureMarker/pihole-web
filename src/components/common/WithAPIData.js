@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  WithAPIData Component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * WithAPIData Component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import { Component } from "react";
 import PropTypes from "prop-types";
@@ -63,6 +63,11 @@ export class WithAPIData extends Component {
       repeat: this.props.repeatOptions.interval !== 0 ? this.loadData : null,
       interval: this.props.repeatOptions.interval
     };
+
+    // Clear in-flight or repeating requests so they are not orphaned
+    if (this.dataHandle) {
+      this.dataHandle.cancel();
+    }
 
     this.dataHandle = makeCancelable(this.props.apiCall(), cancelOptions);
 

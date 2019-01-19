@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Basic HTTP functions for accessing API endpoints
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Basic HTTP functions for accessing API endpoints
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import api from "./api";
 import config from "../config";
@@ -170,3 +170,15 @@ const credentialType = () => {
   // Therefore, allow credentials to be used across origins when in development mode.
   return config.developmentMode ? "include" : "same-origin";
 };
+
+/**
+ * Convert an object into GET parameters. The object must be flat (only
+ * key-value pairs).
+ *
+ * @param params the parameters object
+ * @returns {string} the parameters converted into GET parameter form
+ */
+export const paramsToString = params =>
+  Object.keys(params)
+    .map(key => key + "=" + params[key])
+    .join("&");

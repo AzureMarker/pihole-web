@@ -1,16 +1,16 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Domain List component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Domain List component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
 import PropTypes from "prop-types";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import { Button } from "reactstrap";
 
@@ -64,4 +64,4 @@ DomainList.propTypes = {
   onRemove: PropTypes.func.isRequired
 };
 
-export default translate(["common", "lists"])(DomainList);
+export default withNamespaces(["common", "lists"])(DomainList);

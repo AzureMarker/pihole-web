@@ -1,16 +1,16 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Summary Stats component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Summary Stats component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import { WithAPIData } from "../common/WithAPIData";
 import api from "../../util/api";
 
@@ -129,7 +129,7 @@ export const initialProps = {
   uniqueClients: "---"
 };
 
-export const TranslatedSummaryStats = translate(["common", "dashboard"])(
+export const TranslatedSummaryStats = withNamespaces(["common", "dashboard"])(
   SummaryStats
 );
 

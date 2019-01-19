@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Generic Doughnut Chart component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Generic Doughnut Chart component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
 import { Doughnut } from "react-chartjs-2";
@@ -163,9 +163,9 @@ export const transformData = apiData => {
       i < colors.length
         ? colors[i]
         : "#" +
-          parseInt("" + Math.random() * 0xffffff, 10)
-            .toString(16)
-            .padStart(6, "0")
+            parseInt("" + Math.random() * 0xffffff, 10)
+              .toString(16)
+              .padStart(6, "0")
     );
 
     i++;

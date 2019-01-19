@@ -194,3 +194,12 @@
 .pull-right {
   float: right;
 }
+
+.nav-item button {
+  cursor: pointer;
+}
+
+body {
+  // Prevent reactstrap's modal from incorrectly adjusting the padding
+  padding-right: 0 !important;
+}

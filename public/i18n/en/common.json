@@ -20,5 +20,15 @@
     "FTL": "FTL",
     "API": "API",
     "Web": "Web",
-    "Version": "Version"
+    "Version": "Version",
+    "Apply": "Apply",
+    "Disable": "Disable",
+    "Permanently": "Permanently",
+    "For {{time}} seconds": "For {{time}} seconds",
+    "For {{time}} minutes": "For {{time}} minutes",
+    "Custom time": "Custom time",
+    "Enable": "Enable",
+    "Cancel": "Cancel",
+    "Seconds": "Seconds",
+    "Minutes": "Minutes"
 }

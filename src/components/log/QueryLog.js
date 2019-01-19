@@ -1,19 +1,19 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Query Log component
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Query Log component
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
 import ReactTable from "react-table";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button } from "reactstrap";
 import i18n from "i18next";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
 import moment from "moment";
 import { ignoreCancel, makeCancelable, padNumber } from "../../util";
@@ -518,4 +518,4 @@ const columns = t => [
   }
 ];
 
-export default translate(["common", "query-log"])(QueryLog);
+export default withNamespaces(["common", "query-log"])(QueryLog);

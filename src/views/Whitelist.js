@@ -1,15 +1,15 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Whitelist page
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Whitelist page
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { translate } from "react-i18next";
+import { withNamespaces } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
 import { isValidDomain } from "../validate";
@@ -31,4 +31,4 @@ const Whitelist = props => {
   );
 };
 
-export default translate(["location", "lists"])(Whitelist);
+export default withNamespaces(["location", "lists"])(Whitelist);

@@ -1,4 +1,14 @@
-import http from "./http";
+/* Pi-hole: A black hole for Internet advertisements
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * API functions
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
+
+import http, { paramsToString } from "./http";
 import config from "../config";
 
 export default {
@@ -42,12 +52,7 @@ export default {
     return http.get("stats/top_clients");
   },
   getHistory(params) {
-    return http.get(
-      "stats/history?" +
-        Object.keys(params)
-          .map(key => key + "=" + params[key])
-          .join("&")
-    );
+    return http.get("stats/history?" + paramsToString(params));
   },
   getWhitelist() {
     return http.get("dns/whitelist");
@@ -78,6 +83,9 @@ export default {
   },
   getStatus() {
     return http.get("dns/status");
+  },
+  setStatus(action, time = null) {
+    return http.post("dns/status", { action, time });
   },
   getNetworkInfo() {
     return http.get("settings/network");

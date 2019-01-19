@@ -1,12 +1,12 @@
 /* Pi-hole: A black hole for Internet advertisements
-*  (c) 2017 Pi-hole, LLC (https://pi-hole.net)
-*  Network-wide ad blocking via your own hardware.
-*
-*  Web Interface
-*  Navigation information
-*
-*  This file is copyright under the latest version of the EUPL.
-*  Please see LICENSE file for your rights under this license. */
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Navigation information
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
 
 import Dashboard from "./views/Dashboard";
 import QueryLog from "./components/log/QueryLog";
@@ -17,6 +17,7 @@ import Versions from "./views/Versions";
 import Networking from "./views/Networking";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import EnableDisable from "./components/common/EnableDisable";
 
 export const routes = t => ({
   "/dashboard": t("Dashboard"),
@@ -73,6 +74,11 @@ export const nav = [
         auth: false
       }
     ]
+  },
+  {
+    customComponent: EnableDisable,
+    fakeRoute: true,
+    auth: true
   },
   {
     name: "Settings",
