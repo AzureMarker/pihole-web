@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import { TopTable } from "./TopTable";
+import { TopTable } from "../TopTable";
 
 it("shows loading indicator correctly", () => {
   const wrapper = shallow(<TopTable loading={true} />);

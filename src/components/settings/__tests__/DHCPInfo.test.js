@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import DHCPInfo from "./DHCPInfo";
+import DHCPInfo from "../DHCPInfo";
 import fetchMock from "fetch-mock";
 
 const endpoint = "/admin/api/settings/dhcp";

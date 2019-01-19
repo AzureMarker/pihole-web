@@ -14,7 +14,7 @@ import {
   TranslatedSummaryStats,
   transformData,
   errorProps
-} from "./SummaryStats";
+} from "../SummaryStats";
 
 const fakeData = {
   active_clients: 2,

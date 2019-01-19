@@ -14,7 +14,7 @@ import {
   GenericDoughnutChart,
   transformData,
   loadingProps
-} from "./GenericDoughnutChart";
+} from "../GenericDoughnutChart";
 
 const fakeData = [
   { name: "roberta.net", ip: "8.239.48.32", percent: 0.38411761010240625 },

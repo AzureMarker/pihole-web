@@ -10,9 +10,9 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import DomainInput from "./DomainInput";
-import api from "../../util/api";
-import { isValidDomain } from "../../validate";
+import DomainInput from "../DomainInput";
+import api from "../../../util/api";
+import { isValidDomain } from "../../../util/validate";
 
 it("has a placeholder", () => {
   const placeholder = "placeholder";

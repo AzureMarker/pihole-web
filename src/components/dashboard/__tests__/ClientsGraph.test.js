@@ -14,7 +14,7 @@ import {
   TranslatedClientsGraph,
   transformData,
   loadingProps
-} from "./ClientsGraph";
+} from "../ClientsGraph";
 
 const fakeData = {
   over_time: [

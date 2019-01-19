@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import ListPage from "./ListPage";
+import ListPage from "../ListPage";
 
 it("shows the title", () => {
   const title = "My Title";

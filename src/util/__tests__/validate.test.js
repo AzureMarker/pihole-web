@@ -14,7 +14,7 @@ import {
   isValidIpv4,
   isValidIpv4OptionalPort,
   isValidRegex
-} from "./validate";
+} from "../validate";
 
 describe("Testing the validation functions", () => {
   describe("isValidDomain", () => {

@@ -10,8 +10,8 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import { isDropdownOpen, navDropdown, navItem, navList } from "./Sidebar";
-import api from "../../util/api";
+import { isDropdownOpen, navDropdown, navItem, navList } from "../Sidebar";
+import api from "../../../util/api";
 
 it("expands active drop down items", () => {
   const isOpen = isDropdownOpen("/testRoute", {

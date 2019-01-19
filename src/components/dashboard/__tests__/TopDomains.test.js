@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { generateRows, transformData } from "./TopDomains";
+import { generateRows, transformData } from "../TopDomains";
 
 const fakeData = {
   top_domains: [
