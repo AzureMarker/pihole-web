@@ -170,3 +170,15 @@ const credentialType = () => {
   // Therefore, allow credentials to be used across origins when in development mode.
   return config.developmentMode ? "include" : "same-origin";
 };
+
+/**
+ * Convert an object into GET parameters. The object must be flat (only
+ * key-value pairs).
+ *
+ * @param params the parameters object
+ * @returns {string} the parameters converted into GET parameter form
+ */
+export const paramsToString = params =>
+  Object.keys(params)
+    .map(key => key + "=" + params[key])
+    .join("&");
