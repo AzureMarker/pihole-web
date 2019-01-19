@@ -33,9 +33,12 @@ class NetworkInfo extends Component {
             {t("Interface")}
           </Label>
           <Col sm={8}>
-            <Input plaintext id="interface">
-              {this.props.interface}
-            </Input>
+            <Input
+              plaintext
+              readOnly
+              id="interface"
+              value={this.props.interface}
+            />
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -43,9 +46,12 @@ class NetworkInfo extends Component {
             {t("IPv4 address")}
           </Label>
           <Col sm={8}>
-            <Input plaintext id="ipv4_address">
-              {this.props.ipv4Address}
-            </Input>
+            <Input
+              plaintext
+              readOnly
+              id="ipv4_address"
+              value={this.props.ipv4Address}
+            />
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -53,9 +59,12 @@ class NetworkInfo extends Component {
             {t("IPv6 address")}
           </Label>
           <Col sm={8}>
-            <Input plaintext id="ipv6_address">
-              {this.props.ipv6Address}
-            </Input>
+            <Input
+              plaintext
+              readOnly
+              id="ipv6_address"
+              value={this.props.ipv6Address}
+            />
           </Col>
         </FormGroup>
         <FormGroup row>
@@ -63,9 +72,12 @@ class NetworkInfo extends Component {
             {t("Hostname")}
           </Label>
           <Col sm={8}>
-            <Input plaintext id="hostname">
-              {this.props.hostname}
-            </Input>
+            <Input
+              plaintext
+              readOnly
+              id="hostname"
+              value={this.props.hostname}
+            />
           </Col>
         </FormGroup>
       </Form>
@@ -95,7 +107,8 @@ export default props => (
   <WithAPIData
     apiCall={api.getNetworkInfo}
     repeatOptions={{
-      interval: 600000
+      interval: 600000,
+      ignoreCancel: true
     }}
     renderInitial={() => (
       <TranslatedNetworkInfo {...initialData()} {...props} />
