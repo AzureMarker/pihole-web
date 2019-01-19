@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import { TranslatedStatusBadge } from "./StatusBadge";
+import { TranslatedStatusBadge } from "../StatusBadge";
 
 it("shows green enabled message if API returns enabled", async () => {
   const wrapper = shallow(<TranslatedStatusBadge status="enabled" />);

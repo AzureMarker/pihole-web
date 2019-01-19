@@ -17,7 +17,7 @@ import { Button, Col, Form, FormGroup } from "reactstrap";
 import ConditionalForwardingSettings from "./ConditionalForwardingSettings";
 import DnsOptionSettings from "./DnsOptionSettings";
 import Alert from "../common/Alert";
-import { isValidHostname, isValidIpv4 } from "../../validate";
+import { isValidHostname, isValidIpv4 } from "../../util/validate";
 
 class DNSInfo extends Component {
   state = {

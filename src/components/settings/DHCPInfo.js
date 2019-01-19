@@ -22,7 +22,11 @@ import {
   InputGroupAddon,
   Label
 } from "reactstrap";
-import { isPositiveNumber, isValidHostname, isValidIpv4 } from "../../validate";
+import {
+  isPositiveNumber,
+  isValidHostname,
+  isValidIpv4
+} from "../../util/validate";
 import Alert from "../common/Alert";
 
 class DHCPInfo extends Component {

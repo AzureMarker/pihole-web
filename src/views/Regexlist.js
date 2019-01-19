@@ -12,7 +12,7 @@ import React from "react";
 import { withNamespaces } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
-import { isValidRegex } from "../validate";
+import { isValidRegex } from "../util/validate";
 
 const Regexlist = props => {
   const { t } = props;

@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import BoxedLayoutButton from "./BoxedLayoutButton";
+import BoxedLayoutButton from "../BoxedLayoutButton";
 
 it("renders without crashing", () => {
   shallow(<BoxedLayoutButton />);

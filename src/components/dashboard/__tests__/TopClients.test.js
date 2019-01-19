@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { transformData, generateRows } from "./TopClients";
+import { transformData, generateRows } from "../TopClients";
 
 const fakeData = {
   top_clients: [

@@ -12,7 +12,7 @@ import React from "react";
 import { withNamespaces } from "react-i18next";
 import api from "../util/api";
 import ListPage from "../components/list/ListPage";
-import { isValidDomain } from "../validate";
+import { isValidDomain } from "../util/validate";
 
 const Blacklist = props => {
   const { t } = props;

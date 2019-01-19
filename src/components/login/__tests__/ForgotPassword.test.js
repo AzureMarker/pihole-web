@@ -10,7 +10,7 @@
 
 import React from "react";
 import { shallow } from "enzyme";
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from "../ForgotPassword";
 
 it("collapses and displays normal if there is no error", () => {
   const wrapper = shallow(<ForgotPassword error={false} />);

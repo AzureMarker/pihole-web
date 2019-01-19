@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import { ListGroup } from "reactstrap";
 import DnsListItem from "./DnsListItem";
 import DnsListNewItem from "./DnsListNewItem";
-import { isValidIpv4OptionalPort } from "../../validate";
+import { isValidIpv4OptionalPort } from "../../util/validate";
 
 /**
  * Check if an upstream address is unique and valid
