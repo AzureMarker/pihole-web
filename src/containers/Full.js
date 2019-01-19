@@ -15,7 +15,7 @@ import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
 import api from "../util/api";
 import { nav } from "../routes";
-import { StatusProvider } from "../context";
+import { StatusProvider } from "../components/common/context";
 
 export default props => (
   <div className="app">

@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 import { withNamespaces } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
-import { StatusContext } from "../../context";
+import { StatusContext } from "./context";
 
 class EnableDisable extends Component {
   static propTypes = {

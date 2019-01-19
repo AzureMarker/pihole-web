@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withNamespaces } from "react-i18next";
-import { StatusContext } from "../../context";
+import { StatusContext } from "./context";
 
 class StatusBadge extends Component {
   static propTypes = {

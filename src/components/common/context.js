@@ -9,8 +9,8 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithAPIData } from "./components/common/WithAPIData";
-import api from "./util/api";
+import { WithAPIData } from "./WithAPIData";
+import api from "../../util/api";
 
 export const StatusContext = React.createContext("unknown");
 
