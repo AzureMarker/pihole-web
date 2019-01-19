@@ -41,6 +41,6 @@ export const TranslatedStatusBadge = withNamespaces("common")(StatusBadge);
 
 export default () => (
   <StatusContext.Consumer>
-    {status => <TranslatedStatusBadge status={status} />}
+    {({ status }) => <TranslatedStatusBadge status={status} />}
   </StatusContext.Consumer>
 );

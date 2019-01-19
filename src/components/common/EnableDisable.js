@@ -19,7 +19,8 @@ import { StatusContext } from "./context";
 
 class EnableDisable extends Component {
   static propTypes = {
-    status: PropTypes.string.isRequired
+    status: PropTypes.string.isRequired,
+    refresh: PropTypes.func.isRequired
   };
 
   render() {
@@ -58,6 +59,8 @@ export const TranslatedEnableDisable = withNamespaces("common")(EnableDisable);
 
 export default () => (
   <StatusContext.Consumer>
-    {status => <TranslatedEnableDisable status={status} />}
+    {({ status, refresh }) => (
+      <TranslatedEnableDisable status={status} refresh={refresh} />
+    )}
   </StatusContext.Consumer>
 );

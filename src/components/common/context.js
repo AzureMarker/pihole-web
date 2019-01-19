@@ -24,17 +24,23 @@ export const StatusProvider = ({ children, ...props }) => (
     apiCall={api.getStatus}
     repeatOptions={{ interval: 5000 }}
     renderInitial={() => (
-      <StatusContext.Provider value="loading" {...props}>
+      <StatusContext.Provider
+        value={{ status: "loading", refresh: () => {} }}
+        {...props}
+      >
         {children}
       </StatusContext.Provider>
     )}
-    renderOk={data => (
-      <StatusContext.Provider value={data.status} {...props}>
+    renderOk={(data, refresh) => (
+      <StatusContext.Provider
+        value={{ status: data.status, refresh }}
+        {...props}
+      >
         {children}
       </StatusContext.Provider>
     )}
-    renderErr={() => (
-      <StatusContext.Provider value="unknown" {...props}>
+    renderErr={(_, refresh) => (
+      <StatusContext.Provider value={{ status: "unknown", refresh }} {...props}>
         {children}
       </StatusContext.Provider>
     )}
