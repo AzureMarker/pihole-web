@@ -21,10 +21,14 @@
     "API": "API",
     "Web": "Web",
     "Version": "Version",
+    "Apply": "Apply",
     "Disable": "Disable",
     "Permanently": "Permanently",
     "For {{time}} seconds": "For {{time}} seconds",
     "For {{time}} minutes": "For {{time}} minutes",
     "Custom time": "Custom time",
-    "Enable": "Enable"
+    "Enable": "Enable",
+    "Cancel": "Cancel",
+    "Seconds": "Seconds",
+    "Minutes": "Minutes"
 }

@@ -18,6 +18,17 @@ import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context";
 import { makeCancelable } from "../../util";
 import api from "../../util/api";
+import {
+  Form,
+  Modal,
+  ModalFooter,
+  ModalBody,
+  ModalHeader,
+  Input,
+  InputGroupAddon,
+  InputGroup,
+  Button
+} from "reactstrap";
 
 class EnableDisable extends Component {
   static propTypes = {
@@ -26,7 +37,10 @@ class EnableDisable extends Component {
   };
 
   state = {
-    processing: false
+    processing: false,
+    customModalShown: false,
+    customTime: 60,
+    customMultiplier: 60
   };
 
   setStatus = (action, time = null) => {
@@ -52,6 +66,77 @@ class EnableDisable extends Component {
       this.updateHandler.cancel();
     }
   }
+
+  /**
+   * Toggle the custom time modal
+   */
+  toggleModal = () => {
+    this.setState({ customModalShown: !this.state.customModalShown });
+  };
+
+  /**
+   * Submit the request to disable blocking for the custom time that the user
+   * input.
+   *
+   * @param e the submit event
+   */
+  submitCustom = e => {
+    e.preventDefault();
+
+    const time = parseInt(this.state.customTime);
+    const multiplier = parseInt(this.state.customMultiplier);
+
+    this.setState({ customModalShown: false });
+    this.setStatus("disable", time * multiplier);
+  };
+
+  /**
+   * Render the custom time modal
+   *
+   * @returns {*} the modal component tree
+   */
+  renderModal = () => {
+    const { t } = this.props;
+
+    return (
+      <Modal
+        isOpen={this.state.customModalShown}
+        toggle={this.toggleModal}
+        style={{ maxWidth: "300px" }}
+      >
+        <Form onSubmit={this.submitCustom}>
+          <ModalHeader toggle={this.toggleModal}>
+            {t("Custom time")}
+          </ModalHeader>
+          <ModalBody>
+            <InputGroup>
+              <Input
+                type="number"
+                value={this.state.customTime}
+                onChange={e => this.setState({ customTime: e.target.value })}
+              />
+              <InputGroupAddon addonType="append">
+                <Input
+                  type="select"
+                  value={this.state.customMultiplier}
+                  onChange={e =>
+                    this.setState({ customMultiplier: e.target.value })
+                  }
+                >
+                  <option value={1}>{t("Seconds")}</option>
+                  <option value={60}>{t("Minutes")}</option>
+                </Input>
+              </InputGroupAddon>
+            </InputGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit">{t("Apply")}</Button>
+            <Button onClick={this.toggleModal}>{t("Cancel")}</Button>
+          </ModalFooter>
+        </Form>
+      </Modal>
+    );
+  };
 
   render() {
     const { t, status } = this.props;
@@ -80,8 +165,12 @@ class EnableDisable extends Component {
               icon="fa fa-clock"
               onClick={() => this.setStatus("disable", 5 * 60)}
             />
-            {/* TODO: Implement custom time input */}
-            <NavButton name={t("Custom time")} icon="fa fa-clock" />
+            <NavButton
+              name={t("Custom time")}
+              icon="fa fa-clock"
+              onClick={this.toggleModal}
+            />
+            {this.renderModal()}
           </NavDropdown>
         );
       case "disabled":
