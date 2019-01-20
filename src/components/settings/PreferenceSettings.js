@@ -108,7 +108,7 @@ class PreferenceSettings extends Component {
           showAlert: true,
           processing: false
         });
-        this.props.refresh();
+        this.props.refresh(this.state.settings);
       })
       .catch(ignoreCancel)
       .catch(error => {

@@ -43,6 +43,29 @@ class EnableDisable extends Component {
     customMultiplier: 60
   };
 
+  /**
+   * Convert a status action into a status. ex. "enable" -> "enabled"
+   *
+   * @param action The action
+   * @returns {string} The associated status
+   */
+  getStatusFromAction = action => {
+    switch (action) {
+      case "enable":
+        return "enabled";
+      case "disable":
+        return "disabled";
+      default:
+        return "unknown";
+    }
+  };
+
+  /**
+   * Send a request to the API to update the status
+   *
+   * @param action The action to perform ("enable" or "disable")
+   * @param time The amount of time to disable for. This setting is optional.
+   */
   setStatus = (action, time = null) => {
     if (this.state.processing) {
       // Wait for the first status change to go through
@@ -56,7 +79,9 @@ class EnableDisable extends Component {
     this.updateHandler = makeCancelable(api.setStatus(action, time));
     this.updateHandler.promise
       // Refresh once we get a good response
-      .then(() => this.props.refresh())
+      .then(() =>
+        this.props.refresh({ status: this.getStatusFromAction(action) })
+      )
       // Even if it failed, allow new status changes
       .finally(() => this.setState({ processing: false }));
   };
