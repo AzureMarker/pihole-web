@@ -31,7 +31,8 @@ export function setupI18n() {
         "login",
         "query-log",
         "settings",
-        "api-errors"
+        "api-errors",
+        "preferences"
       ],
       nsSeparator: false,
       keySeparator: false,
