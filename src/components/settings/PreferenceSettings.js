@@ -16,6 +16,8 @@ import api from "../../util/api";
 import Alert from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { PreferencesContext } from "../common/context";
+import languages from "../../languages";
+import i18n from "i18next";
 
 class PreferenceSettings extends Component {
   static propTypes = {
@@ -40,7 +42,8 @@ class PreferenceSettings extends Component {
       .then(res => {
         this.setState({
           settings: {
-            layout: res.layout
+            layout: res.layout,
+            language: res.language
           }
         });
       })
@@ -108,6 +111,15 @@ class PreferenceSettings extends Component {
           showAlert: true,
           processing: false
         });
+
+        // Update the language
+        i18n.changeLanguage(this.state.settings.language).then(() =>
+          // Once the language is updated, update the alert message to use the
+          // new language
+          this.setState({ alertMessage: t("Successfully saved preferences") })
+        );
+
+        // Update anyone using the preferences
         this.props.refresh(this.state.settings);
       })
       .catch(ignoreCancel)
@@ -166,6 +178,25 @@ class PreferenceSettings extends Component {
             </Input>
           </Col>
         </FormGroup>
+        <FormGroup row>
+          <Label for="language" sm={2}>
+            {t("Language")}
+          </Label>
+          <Col sm={10}>
+            <Input
+              id="language"
+              type="select"
+              value={this.state.settings.language}
+              onChange={this.onChange("language", "value")}
+            >
+              {languages.map(language => (
+                <option key={language} value={language}>
+                  {language}
+                </option>
+              ))}
+            </Input>
+          </Col>
+        </FormGroup>
         <Button type="submit" disabled={this.state.processing}>
           {t("Apply")}
         </Button>
@@ -177,7 +208,8 @@ class PreferenceSettings extends Component {
 const TranslatedPreferenceSettings = withNamespaces([
   "common",
   "settings",
-  "api-errors"
+  "api-errors",
+  "preferences"
 ])(PreferenceSettings);
 
 export default () => (

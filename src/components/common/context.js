@@ -13,7 +13,10 @@ import { WithAPIData } from "./WithAPIData";
 import api from "../../util/api";
 
 const initialStatus = { status: "unknown", refresh: () => {} };
-const initialPreferences = { settings: { layout: "boxed" }, refresh: () => {} };
+const initialPreferences = {
+  settings: { layout: "boxed", language: "en" },
+  refresh: () => {}
+};
 
 export const StatusContext = React.createContext(initialStatus);
 export const PreferencesContext = React.createContext(initialPreferences);
@@ -78,7 +81,7 @@ export const PreferencesProvider = ({ children, ...props }) => (
     )}
     renderErr={(_, refresh) => (
       <PreferencesContext.Provider
-        value={{ settings: { layout: "boxed" }, refresh }}
+        value={{ settings: { layout: "boxed", language: "en" }, refresh }}
         {...props}
       >
         {children}
