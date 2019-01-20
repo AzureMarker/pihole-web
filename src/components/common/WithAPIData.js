@@ -33,7 +33,9 @@ export class WithAPIData extends Component {
      * Render the children if the API request succeeded
      *
      * @param data the data returned from the API call
-     * @param refresh a function to trigger an asynchronous data refresh
+     * @param refresh a function to trigger an asynchronous data refresh. If a
+     *        parameter is given, it will be used as the new API response
+     *        instead of hitting the API again.
      */
     renderOk: PropTypes.func.isRequired,
 
@@ -41,7 +43,9 @@ export class WithAPIData extends Component {
      * Render the children if the API request failed
      *
      * @param error the error returned from the API call
-     * @param refresh a function to trigger an asynchronous data refresh
+     * @param refresh a function to trigger an asynchronous data refresh. If a
+     *        parameter is given, it will be used as the new API response
+     *        instead of hitting the API again.
      */
     renderErr: PropTypes.func.isRequired
   };
@@ -57,7 +61,7 @@ export class WithAPIData extends Component {
     apiResult: null
   };
 
-  loadData = () => {
+  loadData = (data = null) => {
     // Only repeat if there is a non-zero repeat interval
     const cancelOptions = {
       repeat: this.props.repeatOptions.interval !== 0 ? this.loadData : null,
@@ -69,6 +73,21 @@ export class WithAPIData extends Component {
       this.dataHandle.cancel();
     }
 
+    if (data !== null) {
+      // Some data was given, it should be used as the API response
+      this.setState({ apiResult: Result.Ok(data) });
+
+      if (cancelOptions.interval !== 0) {
+        // If the request should be repeated, wait for the interval and then
+        // refresh with data from the API
+        new Promise(resolve =>
+          setTimeout(resolve, cancelOptions.interval)
+        ).then(() => this.loadData());
+      }
+      return;
+    }
+
+    // No data was given, make a request to the API
     this.dataHandle = makeCancelable(this.props.apiCall(), cancelOptions);
 
     this.dataHandle.promise
