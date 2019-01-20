@@ -12,7 +12,21 @@ import React from "react";
 import { WithAPIData } from "./WithAPIData";
 import api from "../../util/api";
 
-export const StatusContext = React.createContext("unknown");
+const initialStatus = { status: "unknown", refresh: () => {} };
+const initialPreferences = { settings: { layout: "boxed" }, refresh: () => {} };
+
+export const StatusContext = React.createContext(initialStatus);
+export const PreferencesContext = React.createContext(initialPreferences);
+
+/**
+ * Provide all of the necessary context needed at the root level to its
+ * children. Currently, this includes status and preferences.
+ */
+export const GlobalContextProvider = ({ children }) => (
+  <StatusProvider>
+    <PreferencesProvider>{children}</PreferencesProvider>
+  </StatusProvider>
+);
 
 /**
  * Provide the blocking status via React context.
@@ -24,10 +38,7 @@ export const StatusProvider = ({ children, ...props }) => (
     apiCall={api.getStatus}
     repeatOptions={{ interval: 5000 }}
     renderInitial={() => (
-      <StatusContext.Provider
-        value={{ status: "loading", refresh: () => {} }}
-        {...props}
-      >
+      <StatusContext.Provider value={initialStatus} {...props}>
         {children}
       </StatusContext.Provider>
     )}
@@ -43,6 +54,35 @@ export const StatusProvider = ({ children, ...props }) => (
       <StatusContext.Provider value={{ status: "unknown", refresh }} {...props}>
         {children}
       </StatusContext.Provider>
+    )}
+  />
+);
+
+/**
+ * Provide the web interface preferences via React context.
+ * Sub-components can use the `PreferencesContext.Consumer` component to get
+ * the preferences.
+ */
+export const PreferencesProvider = ({ children, ...props }) => (
+  <WithAPIData
+    apiCall={api.getPreferences}
+    renderInitial={() => (
+      <PreferencesContext.Provider value={initialPreferences} {...props}>
+        {children}
+      </PreferencesContext.Provider>
+    )}
+    renderOk={(settings, refresh) => (
+      <PreferencesContext.Provider value={{ settings, refresh }} {...props}>
+        {children}
+      </PreferencesContext.Provider>
+    )}
+    renderErr={(_, refresh) => (
+      <PreferencesContext.Provider
+        value={{ settings: { layout: "boxed" }, refresh }}
+        {...props}
+      >
+        {children}
+      </PreferencesContext.Provider>
     )}
   />
 );

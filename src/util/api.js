@@ -107,5 +107,11 @@ export default {
   },
   updateDNSInfo(settings) {
     return http.put("settings/dns", settings);
+  },
+  getPreferences() {
+    return http.get("settings/web");
+  },
+  updatePreferences(settings) {
+    return http.put("settings/web", settings);
   }
 };

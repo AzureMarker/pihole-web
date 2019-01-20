@@ -18,6 +18,7 @@ import Networking from "./views/Networking";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
 import EnableDisable from "./components/common/EnableDisable";
+import Preferences from "./views/Preferences";
 
 export const routes = t => ({
   "/dashboard": t("Dashboard"),
@@ -27,6 +28,7 @@ export const routes = t => ({
   "/blacklist/regex": `${t("Blacklist")} (${t("Regex")})`,
   "/settings/versions": t("Versions"),
   "/settings/networking": t("Networking"),
+  "/settings/preferences": t("Preferences"),
   "/login": t("Login"),
   "/logout": t("Logout")
 });
@@ -98,6 +100,13 @@ export const nav = [
         url: "/settings/networking",
         component: Networking,
         icon: "fa fa-sitemap",
+        auth: true
+      },
+      {
+        name: "Preferences",
+        url: "/settings/preferences",
+        component: Preferences,
+        icon: "fa fa-sliders-h",
         auth: true
       }
     ]
