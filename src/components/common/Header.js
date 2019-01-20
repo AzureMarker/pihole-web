@@ -10,7 +10,6 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import BoxedLayoutButton from "./BoxedLayoutButton";
 
 //const sidebarToggle = e => {
 //  e.preventDefault();
@@ -72,6 +71,5 @@ export default () => (
         </button>
       </li>
     </ul>
-    <BoxedLayoutButton />
   </header>
 );
