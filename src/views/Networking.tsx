@@ -8,15 +8,19 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
+import React, { Component, ReactNode } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import DHCPInfo from "../components/settings/DHCPInfo";
 import DNSInfo from "../components/settings/DNSInfo";
 import NetworkInfo from "../components/settings/NetworkInfo";
 import FTLInfo from "../components/settings/FTLInfo";
 
-class Networking extends Component {
+export interface NetworkingState {
+  activeTab: string;
+}
+
+class Networking extends Component<WithNamespaces, NetworkingState> {
   state = {
     activeTab: "network"
   };
@@ -26,7 +30,7 @@ class Networking extends Component {
    *
    * @param tab the tab ID to switch to
    */
-  setTab = tab => {
+  setTab = (tab: string) => {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
@@ -41,7 +45,7 @@ class Networking extends Component {
    * @param name the tab's display name
    * @returns {NavItem} the tab component
    */
-  tab = (id, name) => (
+  tab = (id: string, name: string): ReactNode => (
     <NavItem>
       <NavLink
         active={this.state.activeTab === id}
@@ -57,9 +61,11 @@ class Networking extends Component {
    *
    * @param id the tab's ID
    * @param component the component to render in the tab
-   * @returns {TabPane} the tab content component
+   * @returns {ReactNode} the tab content component
    */
-  tabContent = (id, component) => <TabPane tabId={id}>{component}</TabPane>;
+  tabContent = (id: string, component: ReactNode): ReactNode => (
+    <TabPane tabId={id}>{component}</TabPane>
+  );
 
   render() {
     const { t } = this.props;

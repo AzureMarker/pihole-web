@@ -8,17 +8,29 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component, Fragment } from "react";
+import React, { ChangeEvent, Component, FormEvent, Fragment, KeyboardEvent } from "react";
 import { Redirect } from "react-router-dom";
 import sha from "sha.js";
 import api from "../util/api";
 import logo from "../img/logo.svg";
 import { routes } from "../routes";
 import ForgotPassword from "../components/login/ForgotPassword";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import config from "../config";
+import { History, LocationDescriptorObject } from "history";
 
-class Login extends Component {
+export interface LoginProps extends WithNamespaces {
+  location: LocationDescriptorObject<{ from: Location }>
+  history: History;
+}
+
+export interface LoginState {
+  password: string;
+  error: boolean;
+  cookiesEnabled: boolean;
+}
+
+class Login extends Component<LoginProps, LoginState> {
   state = {
     password: "",
     error: false,
@@ -31,23 +43,29 @@ class Login extends Component {
   }
 
   /**
-   * Called when the user types into the password box.
-   * If they clicked Enter, try to authenticate them.
-   * Otherwise update the password in the state.
+   * Update the password in the state.
    *
    * @param e the event
    */
-  handlePasswordChange = e => {
-    if (e.keyCode === 13) this.authenticate();
-    else this.setState({ password: e.target.value });
+  handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ password: e.target.value });
+  };
+
+  /**
+   * If they clicked Enter, try to authenticate them.
+   */
+  handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      this.authenticate();
+    }
   };
 
   /**
    * Try to authenticate the user
    */
-  authenticate = e => {
+  authenticate = (e?: FormEvent) => {
     // Prevent the page from reloading when the user gets redirected
-    e.preventDefault();
+    e && e.preventDefault();
 
     // Hash the password twice before sending to the API
     let hashedPassword = sha("sha256")
@@ -79,7 +97,7 @@ class Login extends Component {
         }
 
         // Redirect to the page the user was originally going to, or if that doesn't exist, go to home
-        const locationState = this.props.location.state || "/";
+        const locationState = this.props.location.state || { from: { pathname: "/" } };
         this.props.history.push(locationState.from.pathname);
       })
       // If there was an error, tell the user they used the wrong password
@@ -142,7 +160,7 @@ class Login extends Component {
           </div>
 
           <div className="card-body">
-            <form id="loginform">
+            <form id="loginform" onSubmit={this.authenticate}>
               <div
                 className={
                   "input-group" + (this.state.error ? " has-error" : "")
@@ -153,15 +171,12 @@ class Login extends Component {
                   className="form-control"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
+                  onKeyDown={this.handleKeyDown}
                   placeholder={t("Password")}
                   autoFocus
                 />
                 <div className="input-group-append">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={this.authenticate}
-                  >
+                  <button type="submit" className="btn btn-primary">
                     {t("Log in")}
                   </button>
                 </div>

@@ -22,7 +22,9 @@ import Preferences from "./views/Preferences";
 import i18next from "i18next";
 import { ComponentType } from "react";
 
-export const routes = (t: i18next.TranslationFunction) => ({
+export const routes = (
+  t: i18next.TranslationFunction
+): { [key: string]: string } => ({
   "/dashboard": t("Dashboard"),
   "/query-log": t("Query Log"),
   "/whitelist": t("Whitelist"),
@@ -35,23 +37,23 @@ export const routes = (t: i18next.TranslationFunction) => ({
   "/logout": t("Logout")
 });
 
-interface NavItem {
+export interface NavItem {
   name: string;
   url: string;
-  component: ComponentType;
+  component: ComponentType<any>;
   icon: string;
   auth: boolean;
   authStrict?: boolean;
 }
 
-interface NavCustomItem {
-  customComponent: ComponentType;
+export interface NavCustomItem {
+  customComponent: ComponentType<any>;
   auth: boolean;
   authStrict?: boolean;
   fakeRoute: boolean;
 }
 
-interface NavGroup {
+export interface NavGroup {
   name: string;
   url: string;
   icon: string;
