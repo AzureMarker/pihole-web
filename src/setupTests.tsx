@@ -20,8 +20,8 @@ configure({ adapter: new Adapter() });
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
   // This mock makes sure any components using the withNamespaces HoC receive the t function as a prop
-  withNamespaces: () => component => {
-    component.defaultProps = { ...component.defaultProps, t: key => key };
+  withNamespaces: () => (component: any) => {
+    component.defaultProps = { ...component.defaultProps, t: (key: string) => key };
     return component;
   }
 }));

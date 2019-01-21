@@ -11,7 +11,8 @@
 import developmentConfig from "./config.development";
 import productionConfig from "./config.production";
 
-let config;
+let config: { developmentMode: boolean; fakeAPI: boolean };
+
 if (process.env.NODE_ENV === "development") config = developmentConfig;
 else config = productionConfig;
 
