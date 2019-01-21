@@ -8,13 +8,13 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import { withNamespaces } from "react-i18next";
+import React, { FunctionComponent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
 import { isValidRegex } from "../util/validate";
 
-const Regexlist = props => {
+const Regexlist: FunctionComponent<WithNamespaces> = props => {
   const { t } = props;
 
   return (

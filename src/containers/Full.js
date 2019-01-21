@@ -43,7 +43,7 @@ export default props => (
  * Create a route from the route data.
  * If the route has children, an array of routes will be returned.
  *
- * @param routeData the route data (see routes.js)
+ * @param routeData the route data (see routes.tsx)
  */
 const createRoute = routeData => {
   if (routeData.fakeRoute === true) {

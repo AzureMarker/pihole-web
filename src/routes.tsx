@@ -19,8 +19,10 @@ import Login from "./views/Login";
 import Logout from "./views/Logout";
 import EnableDisable from "./components/common/EnableDisable";
 import Preferences from "./views/Preferences";
+import i18next from "i18next";
+import { ComponentType } from "react";
 
-export const routes = t => ({
+export const routes = (t: i18next.TranslationFunction) => ({
   "/dashboard": t("Dashboard"),
   "/query-log": t("Query Log"),
   "/whitelist": t("Whitelist"),
@@ -33,7 +35,32 @@ export const routes = t => ({
   "/logout": t("Logout")
 });
 
-export const nav = [
+interface NavItem {
+  name: string;
+  url: string;
+  component: ComponentType;
+  icon: string;
+  auth: boolean;
+  authStrict?: boolean;
+}
+
+interface NavCustomItem {
+  customComponent: ComponentType;
+  auth: boolean;
+  authStrict?: boolean;
+  fakeRoute: boolean;
+}
+
+interface NavGroup {
+  name: string;
+  url: string;
+  icon: string;
+  auth: boolean;
+  authStrict?: boolean;
+  children: Array<NavItem | NavGroup | NavCustomItem>;
+}
+
+export const nav: Array<NavItem | NavGroup | NavCustomItem> = [
   {
     name: "Dashboard",
     url: "/dashboard",

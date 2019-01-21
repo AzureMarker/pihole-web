@@ -8,13 +8,13 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import { withNamespaces } from "react-i18next";
+import React, { FunctionComponent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../util/api";
 import ListPage from "../components/list/ListPage";
 import { isValidDomain } from "../util/validate";
 
-const Blacklist = props => {
+const Blacklist: FunctionComponent<WithNamespaces> = props => {
   const { t } = props;
 
   return (
@@ -31,4 +31,4 @@ const Blacklist = props => {
   );
 };
 
-export default withNamespaces("location")(Blacklist);
+export default withNamespaces(["location", "lists"])(Blacklist);
