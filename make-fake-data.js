@@ -371,6 +371,13 @@ function getDNSInfo() {
   };
 }
 
+function getPreferences() {
+  return {
+    layout: "boxed",
+    language: "en"
+  }
+}
+
 console.log("Deleting old fake API data...");
 fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
@@ -387,6 +394,7 @@ write("public/fakeAPI/settings/dhcp", getDHCPInfo());
 write("public/fakeAPI/settings/dns", getDNSInfo());
 write("public/fakeAPI/settings/network", getNetworkInfo());
 write("public/fakeAPI/settings/ftldb", getFTLdb());
+write("public/fakeAPI/settings/web", getPreferences());
 write("public/fakeAPI/stats/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/summary", summary());
