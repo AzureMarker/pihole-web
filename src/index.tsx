@@ -8,8 +8,8 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import ReactDOM from "react-dom";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "ionicons/dist/css/ionicons.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
