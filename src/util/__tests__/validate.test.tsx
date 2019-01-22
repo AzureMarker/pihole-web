@@ -8,13 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import {
-  isPositiveNumber,
-  isValidDomain,
-  isValidIpv4,
-  isValidIpv4OptionalPort,
-  isValidRegex
-} from "../validate";
+import { isPositiveNumber, isValidDomain, isValidIpv4, isValidIpv4OptionalPort, isValidRegex } from "../validate";
 
 describe("Testing the validation functions", () => {
   describe("isValidDomain", () => {

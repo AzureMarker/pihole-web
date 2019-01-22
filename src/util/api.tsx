@@ -11,9 +11,39 @@
 import http, { paramsToString } from "./http";
 import config from "../config";
 
+export interface DnsSettings {
+  upstream_dns: Array<string>,
+  options: {
+    fqdn_required: boolean,
+    bogus_priv: boolean,
+    dnssec: boolean,
+    listening_type: string
+  },
+  conditional_forwarding: {
+    enabled: boolean,
+    router_ip: string,
+    domain: string
+  }
+}
+
+export interface DhcpSettings {
+  active: boolean,
+  ip_start: string,
+  ip_end: string,
+  router_ip: string,
+  lease_time: number,
+  domain: string,
+  ipv6_support: boolean
+}
+
+export interface Preferences {
+  layout: "boxed" | "traditional",
+  language: string
+}
+
 export default {
   loggedIn: false,
-  authenticate(key) {
+  authenticate(key: string) {
     return http.get("auth", {
       headers: new Headers({ "X-Pi-hole-Authenticate": key })
     });
@@ -51,7 +81,7 @@ export default {
   getTopClients() {
     return http.get("stats/top_clients");
   },
-  getHistory(params) {
+  getHistory(params: any) {
     return http.get("stats/history?" + paramsToString(params));
   },
   getWhitelist() {
@@ -63,28 +93,28 @@ export default {
   getRegexlist() {
     return http.get("dns/regexlist");
   },
-  addWhitelist(domain) {
+  addWhitelist(domain: string) {
     return http.post("dns/whitelist", { domain: domain });
   },
-  addBlacklist(domain) {
+  addBlacklist(domain: string) {
     return http.post("dns/blacklist", { domain: domain });
   },
-  addRegexlist(domain) {
+  addRegexlist(domain: string) {
     return http.post("dns/regexlist", { domain: domain });
   },
-  removeWhitelist(domain) {
+  removeWhitelist(domain: string) {
     return http.delete("dns/whitelist/" + domain);
   },
-  removeBlacklist(domain) {
+  removeBlacklist(domain: string) {
     return http.delete("dns/blacklist/" + domain);
   },
-  removeRegexlist(domain) {
+  removeRegexlist(domain: string) {
     return http.delete("dns/regexlist/" + encodeURIComponent(domain));
   },
   getStatus() {
     return http.get("dns/status");
   },
-  setStatus(action, time = null) {
+  setStatus(action: string, time: number | null = null) {
     return http.post("dns/status", { action, time });
   },
   getNetworkInfo() {
@@ -96,22 +126,22 @@ export default {
   getFTLdb() {
     return http.get("settings/ftldb");
   },
-  getDNSInfo() {
+  getDNSInfo(): Promise<DnsSettings> {
     return http.get("settings/dns");
   },
-  getDHCPInfo() {
+  getDHCPInfo(): Promise<DhcpSettings> {
     return http.get("settings/dhcp");
   },
-  updateDHCPInfo(settings) {
+  updateDHCPInfo(settings: DhcpSettings) {
     return http.put("settings/dhcp", settings);
   },
-  updateDNSInfo(settings) {
+  updateDNSInfo(settings: DnsSettings) {
     return http.put("settings/dns", settings);
   },
-  getPreferences() {
+  getPreferences(): Promise<Preferences> {
     return http.get("settings/web");
   },
-  updatePreferences(settings) {
+  updatePreferences(settings: Preferences) {
     return http.put("settings/web", settings);
   }
 };

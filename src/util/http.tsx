@@ -21,9 +21,9 @@ export default {
    *
    * @param url the URL to access
    * @param options optional fetch configuration
-   * @returns {Promise<* | never>} a promise with the data or error returned
+   * @returns {Promise<any>} a promise with the data or error returned
    */
-  get(url, options = {}) {
+  get(url: string, options = {}) {
     return fetch(urlFor(url), {
       credentials: credentialType(),
       ...options
@@ -39,9 +39,9 @@ export default {
    *
    * @param url the URL to access
    * @param data the data to send
-   * @returns {Promise<* | never>} a promise with the data or error returned
+   * @returns {Promise<any>} a promise with the data or error returned
    */
-  post(url, data) {
+  post(url: string, data: {}) {
     return fetch(urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
@@ -59,9 +59,9 @@ export default {
    *
    * @param url the URL to access
    * @param data the data to send
-   * @returns {Promise<* | never>} a promise with the data or error returned
+   * @returns {Promise<any>} a promise with the data or error returned
    */
-  put(url, data) {
+  put(url: string, data: {}) {
     return fetch(urlFor(url), {
       method: "PUT",
       body: JSON.stringify(data),
@@ -78,9 +78,9 @@ export default {
    * Perform a DELETE request
    *
    * @param url the URL to access
-   * @returns {Promise<* | never>} a promise with the data or error returned
+   * @returns {Promise<any>} a promise with the data or error returned
    */
-  delete(url) {
+  delete(url: string) {
     return fetch(urlFor(url), {
       method: "DELETE",
       credentials: credentialType()
@@ -99,7 +99,7 @@ export default {
  * @param response the Response from fetch
  * @return {Promise} if logged in, the response, otherwise a canceled promise
  */
-const checkIfLoggedOut = response => {
+const checkIfLoggedOut = (response: Response) => {
   if (api.loggedIn && response.status === 401) {
     // Clear the user's old session and refresh the page
     document.cookie =
@@ -119,7 +119,7 @@ const checkIfLoggedOut = response => {
  * @param data a Response or Error
  * @returns {*} a promise with the parsed JSON, or the error
  */
-const convertJSON = data => {
+const convertJSON = (data: any): Promise<any> => {
   if (data.isCanceled || data instanceof Error) {
     return Promise.reject(data);
   }
@@ -134,7 +134,7 @@ const convertJSON = data => {
  * @returns {*} a resolving promise with the data if no error, otherwise a
  * rejecting promise with the error
  */
-const checkForErrors = data => {
+const checkForErrors = (data: any): Promise<any> => {
   if (data.error) {
     return Promise.reject(data.error);
   }
@@ -148,7 +148,7 @@ const checkForErrors = data => {
  * @param endpoint the endpoint
  * @returns {string} the URL for the endpoint
  */
-const urlFor = endpoint => {
+const urlFor = (endpoint: string): string => {
   let apiLocation;
 
   if (config.fakeAPI) {
@@ -178,7 +178,7 @@ const credentialType = () => {
  * @param params the parameters object
  * @returns {string} the parameters converted into GET parameter form
  */
-export const paramsToString = params =>
+export const paramsToString = (params: any) =>
   Object.keys(params)
     .map(key => key + "=" + params[key])
     .join("&");
