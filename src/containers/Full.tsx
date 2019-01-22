@@ -8,17 +8,17 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { ComponentType, ReactNode } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Header, { mobileSidebarHide } from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
 import api from "../util/api";
-import { nav } from "../routes";
+import { nav, NavCustomItem, NavGroup, NavItem, RouteData } from "../routes";
 import { GlobalContextProvider } from "../components/common/context";
 import LayoutApplier from "../components/common/LayoutApplier";
 
-export default props => (
+export default (props: any) => (
   <div className="app">
     <GlobalContextProvider>
       <LayoutApplier />
@@ -45,53 +45,67 @@ export default props => (
  *
  * @param routeData the route data (see routes.tsx)
  */
-const createRoute = routeData => {
-  if (routeData.fakeRoute === true) {
+const createRoute = (routeData: RouteData): ReactNode => {
+  if ((routeData as NavCustomItem).fakeRoute === true) {
     return;
   }
 
-  if (routeData.children) {
-    return routeData.children.map(createRoute);
+  if ((routeData as NavGroup).children) {
+    return (routeData as NavGroup).children.map(createRoute);
   }
 
-  return routeData.auth ? (
+  let navItem: NavItem = routeData as NavItem;
+
+  return navItem.auth ? (
     <AuthRoute
-      key={routeData.url}
-      path={routeData.url}
-      component={routeData.component}
+      key={navItem.url}
+      path={navItem.url}
+      component={navItem.component}
     />
   ) : (
-    <Route
-      key={routeData.url}
-      path={routeData.url}
-      component={routeData.component}
-    />
+    <Route key={navItem.url} path={navItem.url} component={navItem.component} />
   );
 };
+
+interface AuthRouteProps {
+  /**
+   * The component that the authenticated user will see
+   */
+  component: ComponentType<any>;
+
+  /**
+   * The route path
+   */
+  path: string;
+}
 
 /**
  * Create a route which requires authentication.
  * If the user is unauthenticated, they will be redirected to the login page.
  * If the user logs in at the redirected login page, they will go to their original destination.
  *
- * @param Component The component that the authenticated user will see
- * @param rest The rest of the Route arguments
+ * @param authProps The component and path to use for the route
  * @returns Route
  */
-const AuthRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      api.loggedIn ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
+const AuthRoute = (authProps: AuthRouteProps) => {
+  // Typescript only likes capitalized components in its TSX
+  const Component = authProps.component;
+
+  return (
+    <Route
+      path={authProps.path}
+      render={props =>
+        api.loggedIn ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+};

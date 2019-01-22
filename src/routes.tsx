@@ -62,7 +62,9 @@ export interface NavGroup {
   children: Array<NavItem | NavGroup | NavCustomItem>;
 }
 
-export const nav: Array<NavItem | NavGroup | NavCustomItem> = [
+export type RouteData = NavItem | NavGroup | NavCustomItem;
+
+export const nav: Array<RouteData> = [
   {
     name: "Dashboard",
     url: "/dashboard",
