@@ -32,7 +32,7 @@ export interface WithAPIDataProps<T> {
    *        parameter is given, it will be used as the new API response
    *        instead of hitting the API again.
    */
-  renderOk: (data: T, refresh: () => void) => ReactNode;
+  renderOk: (data: T, refresh: (data?: T) => void) => ReactNode;
 
   /**
    * Render the children if the API request failed
@@ -42,10 +42,10 @@ export interface WithAPIDataProps<T> {
    *        parameter is given, it will be used as the new API response
    *        instead of hitting the API again.
    */
-  renderErr: (error: any, refresh: () => void) => ReactNode;
+  renderErr: (error: any, refresh: (data?: T) => void) => ReactNode;
 }
 
-interface WithAPIDataState<T> {
+export interface WithAPIDataState<T> {
   apiResult: Result<T, any> | null;
 }
 

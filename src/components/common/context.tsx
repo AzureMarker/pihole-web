@@ -8,12 +8,25 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { WithAPIData } from "./WithAPIData";
-import api from "../../util/api";
+import api, { ApiPreferences, ApiStatus, Status } from "../../util/api";
 
-const initialStatus = { status: "unknown", refresh: () => {} };
-const initialPreferences = {
+export interface StatusContextType {
+  status: Status;
+  refresh: (data?: ApiStatus) => void;
+}
+
+export interface PreferencesContextType {
+  settings: ApiPreferences;
+  refresh: (data?: ApiPreferences) => void;
+}
+
+const initialStatus: StatusContextType = {
+  status: "unknown",
+  refresh: () => {}
+};
+const initialPreferences: PreferencesContextType = {
   settings: { layout: "boxed", language: "en" },
   refresh: () => {}
 };
@@ -25,7 +38,11 @@ export const PreferencesContext = React.createContext(initialPreferences);
  * Provide all of the necessary context needed at the root level to its
  * children. Currently, this includes status and preferences.
  */
-export const GlobalContextProvider = ({ children }) => (
+export const GlobalContextProvider = ({
+  children
+}: {
+  children: ReactNode;
+}) => (
   <StatusProvider>
     <PreferencesProvider>{children}</PreferencesProvider>
   </StatusProvider>
@@ -36,10 +53,15 @@ export const GlobalContextProvider = ({ children }) => (
  * Sub-components can use the `StatusContext.Consumer` component to get the
  * status.
  */
-export const StatusProvider = ({ children, ...props }) => (
+export const StatusProvider = ({
+  children,
+  ...props
+}: {
+  children: ReactNode;
+}) => (
   <WithAPIData
     apiCall={api.getStatus}
-    repeatOptions={{ interval: 5000 }}
+    repeatOptions={{ interval: 5000, ignoreCancel: true }}
     renderInitial={() => (
       <StatusContext.Provider value={initialStatus} {...props}>
         {children}
@@ -66,7 +88,12 @@ export const StatusProvider = ({ children, ...props }) => (
  * Sub-components can use the `PreferencesContext.Consumer` component to get
  * the preferences.
  */
-export const PreferencesProvider = ({ children, ...props }) => (
+export const PreferencesProvider = ({
+  children,
+  ...props
+}: {
+  children: ReactNode;
+}) => (
   <WithAPIData
     apiCall={api.getPreferences}
     renderInitial={() => (

@@ -59,7 +59,7 @@ export interface NavGroup {
   icon: string;
   auth: boolean;
   authStrict?: boolean;
-  children: Array<NavItem | NavGroup | NavCustomItem>;
+  children: Array<RouteData>;
 }
 
 export type RouteData = NavItem | NavGroup | NavCustomItem;

@@ -10,38 +10,46 @@
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import React, { Component, FormEvent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context";
-import { makeCancelable } from "../../util";
-import api from "../../util/api";
+import { CancelablePromise, makeCancelable } from "../../util";
+import api, { ApiStatus, Status, StatusAction } from "../../util/api";
 import {
+  Button,
   Form,
-  Modal,
-  ModalFooter,
-  ModalBody,
-  ModalHeader,
   Input,
-  InputGroupAddon,
   InputGroup,
-  Button
+  InputGroupAddon,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
 } from "reactstrap";
 
-class EnableDisable extends Component {
-  static propTypes = {
-    status: PropTypes.string.isRequired,
-    refresh: PropTypes.func.isRequired
-  };
+export interface EnableDisableProps extends WithNamespaces {
+  status: Status;
+  refresh: (data?: ApiStatus) => void;
+}
 
-  state = {
+export interface EnableDisableState {
+  processing: boolean;
+  customModalShown: boolean;
+  customTime: number;
+  customMultiplier: number;
+}
+
+class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
+  state: EnableDisableState = {
     processing: false,
     customModalShown: false,
     customTime: 60,
     customMultiplier: 60
   };
+
+  private updateHandler: CancelablePromise<ApiStatus> | undefined;
 
   /**
    * Convert a status action into a status. ex. "enable" -> "enabled"
@@ -49,14 +57,12 @@ class EnableDisable extends Component {
    * @param action The action
    * @returns {string} The associated status
    */
-  getStatusFromAction = action => {
+  getStatusFromAction = (action: StatusAction): Status => {
     switch (action) {
       case "enable":
         return "enabled";
       case "disable":
         return "disabled";
-      default:
-        return "unknown";
     }
   };
 
@@ -66,7 +72,7 @@ class EnableDisable extends Component {
    * @param action The action to perform ("enable" or "disable")
    * @param time The amount of time to disable for. This setting is optional.
    */
-  setStatus = (action, time = null) => {
+  setStatus = (action: StatusAction, time: number | null = null) => {
     if (this.state.processing) {
       // Wait for the first status change to go through
       return;
@@ -105,14 +111,14 @@ class EnableDisable extends Component {
    *
    * @param e the submit event
    */
-  submitCustom = e => {
+  submitCustom = (e: FormEvent) => {
     e.preventDefault();
 
-    const time = parseInt(this.state.customTime);
-    const multiplier = parseInt(this.state.customMultiplier);
-
     this.setState({ customModalShown: false });
-    this.setStatus("disable", time * multiplier);
+    this.setStatus(
+      "disable",
+      this.state.customTime * this.state.customMultiplier
+    );
   };
 
   /**
@@ -138,14 +144,18 @@ class EnableDisable extends Component {
               <Input
                 type="number"
                 value={this.state.customTime}
-                onChange={e => this.setState({ customTime: e.target.value })}
+                onChange={e =>
+                  this.setState({ customTime: parseInt(e.target.value) })
+                }
               />
               <InputGroupAddon addonType="append">
                 <Input
                   type="select"
                   value={this.state.customMultiplier}
                   onChange={e =>
-                    this.setState({ customMultiplier: e.target.value })
+                    this.setState({
+                      customMultiplier: parseInt(e.target.value)
+                    })
                   }
                 >
                   <option value={1}>{t("Seconds")}</option>

@@ -11,7 +11,7 @@
 import http, { paramsToString } from "./http";
 import config from "../config";
 
-export interface DnsSettings {
+export interface ApiDnsSettings {
   upstream_dns: Array<string>,
   options: {
     fqdn_required: boolean,
@@ -26,7 +26,7 @@ export interface DnsSettings {
   }
 }
 
-export interface DhcpSettings {
+export interface ApiDhcpSettings {
   active: boolean,
   ip_start: string,
   ip_end: string,
@@ -36,9 +36,18 @@ export interface DhcpSettings {
   ipv6_support: boolean
 }
 
-export interface Preferences {
-  layout: "boxed" | "traditional",
+export type WebLayout = "boxed" | "traditional";
+
+export interface ApiPreferences {
+  layout: WebLayout,
   language: string
+}
+
+export type Status = "enabled" | "disabled" | "unknown";
+export type StatusAction = "enable" | "disable";
+
+export interface ApiStatus {
+  status: Status
 }
 
 export default {
@@ -111,10 +120,10 @@ export default {
   removeRegexlist(domain: string) {
     return http.delete("dns/regexlist/" + encodeURIComponent(domain));
   },
-  getStatus() {
+  getStatus(): Promise<ApiStatus> {
     return http.get("dns/status");
   },
-  setStatus(action: string, time: number | null = null) {
+  setStatus(action: StatusAction, time: number | null = null) {
     return http.post("dns/status", { action, time });
   },
   getNetworkInfo() {
@@ -126,22 +135,22 @@ export default {
   getFTLdb() {
     return http.get("settings/ftldb");
   },
-  getDNSInfo(): Promise<DnsSettings> {
+  getDNSInfo(): Promise<ApiDnsSettings> {
     return http.get("settings/dns");
   },
-  getDHCPInfo(): Promise<DhcpSettings> {
+  getDHCPInfo(): Promise<ApiDhcpSettings> {
     return http.get("settings/dhcp");
   },
-  updateDHCPInfo(settings: DhcpSettings) {
+  updateDHCPInfo(settings: ApiDhcpSettings) {
     return http.put("settings/dhcp", settings);
   },
-  updateDNSInfo(settings: DnsSettings) {
+  updateDNSInfo(settings: ApiDnsSettings) {
     return http.put("settings/dns", settings);
   },
-  getPreferences(): Promise<Preferences> {
+  getPreferences(): Promise<ApiPreferences> {
     return http.get("settings/web");
   },
-  updatePreferences(settings: Preferences) {
+  updatePreferences(settings: ApiPreferences) {
     return http.put("settings/web", settings);
   }
 };

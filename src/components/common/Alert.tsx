@@ -8,10 +8,15 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FunctionComponent } from "react";
 
-const Alert = props => {
+export interface AlertProps {
+  type: "info" | "success" | "danger",
+  onClick: () => void,
+  message: string
+}
+
+const Alert: FunctionComponent<AlertProps> = (props: AlertProps) => {
   return (
     <div
       className={"alert alert-" + props.type + " alert-dismissible fade show"}
@@ -22,12 +27,6 @@ const Alert = props => {
       {props.message}
     </div>
   );
-};
-
-Alert.propTypes = {
-  message: PropTypes.node.isRequired,
-  type: PropTypes.string.isRequired,
-  onClick: PropTypes.func
 };
 
 Alert.defaultProps = {
