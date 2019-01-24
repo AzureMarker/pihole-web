@@ -9,11 +9,21 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 
-class ForgotPassword extends Component {
-  state = {
+export interface ForgotPasswordProps extends WithNamespaces {
+  error: boolean;
+}
+
+export interface ForgotPasswordState {
+  collapsed: boolean;
+}
+
+class ForgotPassword extends Component<
+  ForgotPasswordProps,
+  ForgotPasswordState
+> {
+  state: ForgotPasswordState = {
     collapsed: true
   };
 
@@ -80,9 +90,5 @@ class ForgotPassword extends Component {
     );
   }
 }
-
-ForgotPassword.propTypes = {
-  error: PropTypes.bool.isRequired
-};
 
 export default withNamespaces("login")(ForgotPassword);
