@@ -9,36 +9,45 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import DomainInput from "./DomainInput";
-import Alert from "../common/Alert";
+import Alert, { AlertType } from "../common/Alert";
 import DomainList from "./DomainList";
-import { ignoreCancel, makeCancelable } from "../../util";
+import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
 
-class ListPage extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    note: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    placeholder: PropTypes.string.isRequired,
-    add: PropTypes.func.isRequired,
-    refresh: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
-    isValid: PropTypes.func.isRequired,
-    validationErrorMsg: PropTypes.string.isRequired
-  };
+export interface ListPageProps extends WithNamespaces {
+  title: string,
+  note?: {} | string,
+  placeholder: string,
+  add: (domain: string) => Promise<any | never>,
+  refresh: () => Promise<any | never>,
+  remove: (domain: string) => Promise<any | never>,
+  isValid: (domain: string) => boolean,
+  validationErrorMsg: string
+}
 
+export interface ListPageState {
+  domains: string[],
+  message: string,
+  messageType: AlertType
+}
+
+export class ListPage extends Component<ListPageProps, ListPageState> {
   static defaultProps = {
     note: ""
   };
 
-  state = {
+  state: ListPageState = {
     domains: [],
     message: "",
-    messageType: ""
+    messageType: "info"
   };
 
-  onEnter = domain => {
+  private addHandler: undefined | CancelablePromise<any | never>;
+  private removeHandler: undefined | CancelablePromise<any | never>;
+  private refreshHandler: undefined | CancelablePromise<any | never>;
+
+  onEnter = (domain: string) => {
     // Check if the domain was already added
     if (this.state.domains.includes(domain)) {
       this.onAlreadyAdded(domain);
@@ -62,45 +71,45 @@ class ListPage extends Component {
     }
   };
 
-  onAdding = domain =>
+  onAdding = (domain: string) =>
     this.setState({
       message: this.props.t("Adding {{domain}}...", { domain }),
       messageType: "info"
     });
 
-  onAlreadyAdded = domain =>
+  onAlreadyAdded = (domain: string) =>
     this.setState({
       message: this.props.t("{{domain}} is already added", { domain }),
       messageType: "danger"
     });
 
-  onAdded = domain =>
+  onAdded = (domain: string) =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
       message: this.props.t("Successfully added {{domain}}", { domain }),
       messageType: "success"
     }));
 
-  onAddFailed = (domain, prevDomains) =>
+  onAddFailed = (domain: string, prevDomains: string[]) =>
     this.setState({
       domains: prevDomains,
       message: this.props.t("Failed to add {{domain}}", { domain }),
       messageType: "danger"
     });
 
-  onRemoved = domain =>
+  onRemoved = (domain: string) =>
     this.setState(prevState => ({
       domains: prevState.domains.filter(item => item !== domain)
     }));
 
-  onRemoveFailed = (domain, prevDomains) =>
+  onRemoveFailed = (domain: string, prevDomains: string[]) =>
     this.setState({
       domains: prevDomains,
       message: this.props.t("Failed to remove {{domain}}", { domain }),
       messageType: "danger"
     });
 
-  onRemove = domain => {
+  onRemove = (domain: string) => {
     if (this.state.domains.includes(domain)) {
       const prevDomains = this.state.domains.slice();
 

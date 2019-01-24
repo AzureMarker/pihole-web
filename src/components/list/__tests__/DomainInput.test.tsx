@@ -9,8 +9,8 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { shallow } from "enzyme";
-import DomainInput from "../DomainInput";
+import { shallow, ShallowWrapper } from "enzyme";
+import DomainInput, { DomainInputProps, DomainInputState } from "../DomainInput";
 import api from "../../../util/api";
 import { isValidDomain } from "../../../util/validate";
 
@@ -31,7 +31,7 @@ it("has a placeholder", () => {
 
 it("sets state to input", () => {
   const domain = "domain";
-  const wrapper = shallow(
+  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
     <DomainInput
       onEnter={jest.fn()}
       onRefresh={jest.fn()}
@@ -167,7 +167,7 @@ it("calls onEnter when input is not empty", () => {
 it("clears input after clicking add button", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
+  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
     <DomainInput
       onEnter={jest.fn()}
       onRefresh={jest.fn()}
@@ -189,7 +189,7 @@ it("clears input after clicking add button", () => {
 it("sets state.isValid to true when domain is properly formatted", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
+  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
     <DomainInput
       onEnter={jest.fn()}
       onRefresh={jest.fn()}
@@ -208,7 +208,7 @@ it("sets state.isValid to true when domain is properly formatted", () => {
 it("sets state.isValid to false when domain is not properly formatted", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
+  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
     <DomainInput
       onEnter={jest.fn()}
       onRefresh={jest.fn()}

@@ -8,20 +8,38 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import React, { ChangeEvent, Component, FormEvent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 
-class DomainInput extends Component {
-  state = {
+export interface DomainInputProps extends WithNamespaces {
+  placeholder?: string;
+  onEnter: (domain: string) => void;
+  onRefresh: () => void;
+  isValid: (domain: string) => boolean;
+  onValidationError: () => void;
+}
+
+export interface DomainInputState {
+  domain: string;
+  isValid: boolean;
+}
+
+class DomainInput extends Component<DomainInputProps, DomainInputState> {
+  static defaultProps = {
+    placeholder: ""
+  };
+
+  state: DomainInputState = {
     domain: "",
     isValid: true
   };
 
-  handleChange = e => this.setState({ domain: e.target.value });
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ domain: e.target.value });
+  };
 
-  handleSubmit = e => {
+  handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const domain = this.state.domain;
@@ -73,17 +91,5 @@ class DomainInput extends Component {
     );
   }
 }
-
-DomainInput.propTypes = {
-  placeholder: PropTypes.string,
-  onEnter: PropTypes.func.isRequired,
-  onRefresh: PropTypes.func.isRequired,
-  isValid: PropTypes.func.isRequired,
-  onValidationError: PropTypes.func.isRequired
-};
-
-DomainInput.defaultProps = {
-  placeholder: ""
-};
 
 export default withNamespaces(["common", "lists"])(DomainInput);

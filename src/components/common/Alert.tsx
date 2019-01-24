@@ -10,8 +10,10 @@
 
 import React, { FunctionComponent } from "react";
 
+export type AlertType = "info" | "success" | "danger";
+
 export interface AlertProps {
-  type: "info" | "success" | "danger",
+  type: AlertType,
   onClick: () => void,
   message: string
 }

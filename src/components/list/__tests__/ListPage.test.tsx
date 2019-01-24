@@ -9,8 +9,17 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { shallow } from "enzyme";
-import ListPage from "../ListPage";
+import { shallow, ShallowWrapper } from "enzyme";
+import ListPage, { ListPage as ListPageType, ListPageProps, ListPageState } from "../ListPage";
+
+const ignoreAPI = global.ignoreAPI;
+const tick = global.tick;
+
+type ListPageWrapper = ShallowWrapper<
+  ListPageProps,
+  ListPageState,
+  ListPageType
+>;
 
 it("shows the title", () => {
   const title = "My Title";
@@ -107,7 +116,7 @@ it("loads domains after mounting", async () => {
 it("checks if the domain was already added", async () => {
   const domains = ["domain1", "domain2.com", "domain3.net"];
   const onAlreadyAdded = jest.fn();
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -134,7 +143,7 @@ it("checks if the domain was already added", async () => {
 it("calls the add prop when adding a domain", () => {
   const domain = "domain";
   const add = jest.fn(ignoreAPI);
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -155,7 +164,7 @@ it("calls the add prop when adding a domain", () => {
 it("calls onAdding when adding a domain", () => {
   const domain = "domain";
   const onAdding = jest.fn();
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -178,7 +187,7 @@ it("calls onAdding when adding a domain", () => {
 it("calls onAdded after API request succeeds", async () => {
   const domain = "domain";
   const onAdded = jest.fn();
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -202,7 +211,7 @@ it("calls onAdded after API request succeeds", async () => {
 it("calls onAddFailed after API request fails", async () => {
   const domain = "domain";
   const onAddFailed = jest.fn();
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -225,7 +234,7 @@ it("calls onAddFailed after API request fails", async () => {
 
 it("adds the domain in onAdded", async () => {
   const domain = "domain";
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -247,7 +256,7 @@ it("adds the domain in onAdded", async () => {
 
 it("resets the domains when adding failed", async () => {
   const domain = "domain";
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -270,7 +279,7 @@ it("resets the domains when adding failed", async () => {
 it("removes the domain when onRemoved is called", async () => {
   const domain = "domain";
   const domains = [domain];
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""
@@ -292,7 +301,7 @@ it("removes the domain when onRemoved is called", async () => {
 it("resets the domains when removal failed", () => {
   const domain = "domain";
   const domains = [domain];
-  const wrapper = shallow(
+  const wrapper: ListPageWrapper = shallow(
     <ListPage
       title=""
       placeholder=""

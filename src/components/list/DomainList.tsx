@@ -9,14 +9,18 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import { Button } from "reactstrap";
 
-const DomainList = ({ domains, onRemove, t }) => {
+export interface DomainListProps extends WithNamespaces {
+  domains: string[],
+  onRemove: (domain: string) => void
+}
+
+const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
   // Create a button to remove the domain
-  const removeButton = item => (
+  const removeButton = (item: string) => (
     <Button
       color="danger"
       size="sm"
@@ -29,7 +33,7 @@ const DomainList = ({ domains, onRemove, t }) => {
   );
 
   // Map a domain string to a list item
-  const mapDomainsToListItems = domain => (
+  const mapDomainsToListItems = (domain: string) => (
     <li key={domain} className="list-group-item">
       {api.loggedIn ? removeButton(domain) : null}
       <span
@@ -57,11 +61,6 @@ const DomainList = ({ domains, onRemove, t }) => {
   }
 
   return <ul className="list-group">{body}</ul>;
-};
-
-DomainList.propTypes = {
-  domains: PropTypes.arrayOf(PropTypes.string),
-  onRemove: PropTypes.func.isRequired
 };
 
 export default withNamespaces(["common", "lists"])(DomainList);
