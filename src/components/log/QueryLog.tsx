@@ -9,21 +9,32 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
-import ReactTable from "react-table";
+import ReactTable, { Filter, ReactTableFunction, RowInfo, RowRenderProps } from "react-table";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button } from "reactstrap";
 import i18n from "i18next";
-import { withNamespaces } from "react-i18next";
+import i18next from "i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
-import moment from "moment";
-import { ignoreCancel, makeCancelable, padNumber } from "../../util";
-import api from "../../util/api";
+import moment, { Moment } from "moment";
+import { CancelablePromise, ignoreCancel, makeCancelable, padNumber } from "../../util";
+import api, { ApiHistoryResponse, ApiQuery } from "../../util/api";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 
-class QueryLog extends Component {
-  updateHandler = null;
-  state = {
+export interface QueryLogState {
+  history: Array<ApiQuery>;
+  cursor: null | string;
+  loading: boolean;
+  atEnd: boolean;
+  filtersChanged: boolean;
+  filters: Array<Filter>;
+}
+
+class QueryLog extends Component<WithNamespaces, QueryLogState> {
+  private updateHandler: null | CancelablePromise<ApiHistoryResponse> = null;
+
+  state: QueryLogState = {
     history: [],
     cursor: null,
     loading: false,
@@ -32,7 +43,7 @@ class QueryLog extends Component {
     filters: []
   };
 
-  constructor(props) {
+  constructor(props: WithNamespaces) {
     super(props);
 
     // This happens in the constructor to avoid using dateRanges before it's
@@ -61,7 +72,7 @@ class QueryLog extends Component {
    * @param rowInfo the row information
    * @returns {*} props for the row
    */
-  getRowProps = (state, rowInfo) => {
+  getRowProps = (state: any, rowInfo: RowInfo | undefined) => {
     // Check if the row is known to be blocked or allowed (not unknown)
     if (rowInfo && rowInfo.row.status !== 0) {
       // Blocked queries are red, allowed queries are green
@@ -82,8 +93,8 @@ class QueryLog extends Component {
    * @param tableFilters the filters requested by the table
    * @return the filters converted for use by the API
    */
-  parseFilters = tableFilters => {
-    let filters = {};
+  parseFilters = (tableFilters: Array<Filter>) => {
+    let filters: any = {};
 
     for (const filter of tableFilters) {
       switch (filter.id) {
@@ -171,7 +182,7 @@ class QueryLog extends Component {
    * @param page The page of the query log
    * @param pageSize The number of queries in the page
    */
-  fetchQueries = ({ page, pageSize }) => {
+  fetchQueries = ({ page, pageSize }: { page: number; pageSize: number }) => {
     // Check if we've reached the end of the queries, or are still waiting for
     // the last fetch to finish
     if (this.state.atEnd || this.state.loading) {
@@ -255,7 +266,7 @@ class QueryLog extends Component {
  * Convert a status code to a status message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const status = t => [
+const status = (t: i18next.TranslationFunction) => [
   t("Unknown"),
   t("Blocked (gravity)"),
   t("Allowed (forwarded)"),
@@ -269,7 +280,7 @@ const status = t => [
  * Convert a DNSSEC code to a DNSSEC message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const dnssec = t => [
+const dnssec = (t: i18next.TranslationFunction) => [
   "N/A", // Unspecified, which means DNSSEC is off, so nothing should be shown
   t("Secure"),
   t("Insecure"),
@@ -291,7 +302,7 @@ const dnssecColor = [
  * Convert a reply type code to a reply type. The unknown type is translated, so
  * you must pass in the translation function before using the message array.
  */
-const replyTypes = t => [
+const replyTypes = (t: i18next.TranslationFunction) => [
   t("Unknown"),
   "NODATA",
   "NXDOMAIN",
@@ -316,8 +327,18 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
  * @returns {function({filter: *, onChange: *}): *} A select component with the
  * filter data
  */
-const selectionFilter = (items, t, extras = []) => {
-  return ({ filter, onChange }) => (
+const selectionFilter = (
+  items: string[],
+  t: i18next.TranslationFunction,
+  extras: Array<{ name: string; value: any }> = []
+) => {
+  return ({
+    filter,
+    onChange
+  }: {
+    filter: Filter;
+    onChange: ReactTableFunction;
+  }) => (
     <select
       onChange={event => onChange(event.target.value)}
       style={{ width: "100%" }}
@@ -341,7 +362,7 @@ const selectionFilter = (items, t, extras = []) => {
 /**
  * Preconfigured date ranges listed in the date range picker
  */
-const dateRanges = {
+const dateRanges: { [name: string]: [Moment, Moment] } = {
   Today: [moment().startOf("day"), moment()],
   Yesterday: [
     moment()
@@ -370,13 +391,13 @@ const dateRanges = {
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
-const columns = t => [
+const columns = (t: i18next.TranslationFunction) => [
   {
     Header: t("Time"),
     id: "time",
-    accessor: r => r.timestamp,
+    accessor: (r: ApiQuery) => r.timestamp,
     width: 70,
-    Cell: row => {
+    Cell: (row: RowRenderProps) => {
       const date = new Date(row.value * 1000);
       const month = date.toLocaleDateString(i18n.language, {
         month: "short"
@@ -396,7 +417,13 @@ const columns = t => [
     },
     filterable: true,
     filterMethod: () => true, // Don't filter client side
-    Filter: ({ filter, onChange }) => (
+    Filter: ({
+      filter,
+      onChange
+    }: {
+      filter: Filter;
+      onChange: ReactTableFunction;
+    }) => (
       <DateRangePicker
         startDate={filter ? filter.value.start : dateRanges.Today[0]}
         endDate={filter ? filter.value.end : dateRanges.Today[1]}
@@ -417,7 +444,7 @@ const columns = t => [
   {
     Header: t("Type"),
     id: "queryType",
-    accessor: r => queryTypes[r.type - 1],
+    accessor: (r: ApiQuery) => queryTypes[r.type - 1],
     width: 50,
     filterable: true,
     filterMethod: () => true, // Don't filter client side
@@ -426,7 +453,7 @@ const columns = t => [
   {
     Header: t("Domain"),
     id: "domain",
-    accessor: r => r.domain,
+    accessor: (r: ApiQuery) => r.domain,
     minWidth: 150,
     className: "horizontal-scroll",
     filterable: true,
@@ -435,7 +462,7 @@ const columns = t => [
   {
     Header: t("Client"),
     id: "client",
-    accessor: r => r.client,
+    accessor: (r: ApiQuery) => r.client,
     minWidth: 120,
     className: "horizontal-scroll",
     filterable: true,
@@ -444,9 +471,9 @@ const columns = t => [
   {
     Header: t("Status"),
     id: "status",
-    accessor: r => r.status,
+    accessor: (r: ApiQuery) => r.status,
     width: 140,
-    Cell: row => status(t)[row.value],
+    Cell: (row: RowRenderProps) => status(t)[row.value],
     filterable: true,
     filterMethod: () => true, // Don't filter client side
     Filter: selectionFilter(status(t), t, [
@@ -457,9 +484,9 @@ const columns = t => [
   {
     Header: "DNSSEC",
     id: "dnssec",
-    accessor: r => r.dnssec,
+    accessor: (r: ApiQuery) => r.dnssec,
     width: 90,
-    Cell: row => (
+    Cell: (row: RowRenderProps) => (
       <div style={{ color: dnssecColor[row.value] }}>
         {dnssec(t)[row.value]}
       </div>
@@ -471,9 +498,9 @@ const columns = t => [
   {
     Header: t("Reply"),
     id: "reply",
-    accessor: r => ({ type: r.reply, time: r.response_time }),
+    accessor: (r: ApiQuery) => ({ type: r.reply, time: r.response_time }),
     width: 90,
-    Cell: row => (
+    Cell: (row: RowRenderProps) => (
       <div style={{ color: "black" }}>
         {replyTypes(t)[row.value.type]}
         <br />
@@ -488,7 +515,7 @@ const columns = t => [
     Header: t("Action"),
     width: 100,
     filterable: false,
-    Cell: data => {
+    Cell: (data: { row: any }) => {
       // Blocked, but can whitelist
       if ([1, 4, 5].includes(data.row.status)) {
         return (

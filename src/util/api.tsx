@@ -11,6 +11,22 @@
 import http, { paramsToString } from "./http";
 import config from "../config";
 
+export interface ApiQuery {
+  timestamp: number;
+  type: number;
+  status: number;
+  domain: string;
+  client: string;
+  dnssec: number;
+  reply: number;
+  response_time: number;
+}
+
+export interface ApiHistoryResponse {
+  cursor: null | string;
+  history: Array<ApiQuery>
+}
+
 export interface ApiDnsSettings {
   upstream_dns: Array<string>,
   options: {
@@ -90,7 +106,7 @@ export default {
   getTopClients() {
     return http.get("stats/top_clients");
   },
-  getHistory(params: any) {
+  getHistory(params: any): Promise<ApiHistoryResponse> {
     return http.get("stats/history?" + paramsToString(params));
   },
   getWhitelist() {
