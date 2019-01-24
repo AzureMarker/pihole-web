@@ -9,9 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { shallow } from "enzyme";
-import DHCPInfo from "../DHCPInfo";
+import { shallow, ShallowWrapper } from "enzyme";
+import DHCPInfo, { DHCPInfoState } from "../DHCPInfo";
 import fetchMock from "fetch-mock";
+import { WithNamespaces } from "react-i18next";
+
+const tick = global.tick;
 
 const endpoint = "/admin/api/settings/dhcp";
 const fakeData = {
@@ -51,7 +54,9 @@ it("disables the apply button if an input is invalid", async () => {
 it("disables inputs only when DHCP is not enabled", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+    <DHCPInfo />
+  );
 
   await tick();
   wrapper.update();
@@ -69,7 +74,9 @@ it("disables the apply button when processing setting update", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+    <DHCPInfo />
+  );
 
   await tick();
 
@@ -86,7 +93,9 @@ it("sends the correct data to the API when apply is clicked", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+    <DHCPInfo />
+  );
 
   await tick();
 
@@ -99,9 +108,9 @@ it("sends the correct data to the API when apply is clicked", async () => {
   expect(wrapper.find("Button")).toBeDisabled();
 
   // The output of lastCall is [url, request]
-  const updateRequest = fetchMock.lastCall(endpoint)[1];
+  const updateRequest = fetchMock.lastCall(endpoint)![1];
 
-  expect(JSON.parse(updateRequest.body)).toEqual(fakeData);
+  expect(JSON.parse(updateRequest!.body as string)).toEqual(fakeData);
 });
 
 it("shows a success message after successfully saving settings", async () => {

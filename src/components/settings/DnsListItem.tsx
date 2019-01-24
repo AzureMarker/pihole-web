@@ -9,10 +9,14 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, ListGroupItem } from "reactstrap";
 
-const DnsListItem = ({ address, onRemove }) => (
+export interface DnsListItemProps {
+  address: string,
+  onRemove: () => void;
+}
+
+const DnsListItem = ({ address, onRemove }: DnsListItemProps) => (
   <ListGroupItem>
     {address}
     <Button color="danger" size="sm" className="pull-right" onClick={onRemove}>
@@ -20,10 +24,5 @@ const DnsListItem = ({ address, onRemove }) => (
     </Button>
   </ListGroupItem>
 );
-
-DnsListItem.propTypes = {
-  address: PropTypes.string.isRequired,
-  onRemove: PropTypes.func.isRequired
-};
 
 export default DnsListItem;

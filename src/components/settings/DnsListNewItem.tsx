@@ -8,30 +8,39 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component, RefObject } from "react";
 import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
-import { withNamespaces } from "react-i18next";
-import { preconfiguredUpstreamOptions } from "./preconfiguredUpstreams";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import { PreconfiguredUpstreamOption, preconfiguredUpstreamOptions } from "./preconfiguredUpstreams";
+
+export interface DnsListNewItemProps {
+  onAdd: (address: string) => void;
+  isValid: (address: string) => boolean;
+  upstreams: Array<string>;
+}
+
+export interface DnsListNewItemState {
+  address: string;
+  selected: Array<PreconfiguredUpstreamOption>;
+}
 
 /**
  * A component to add upstream DNS servers. The servers are either selected from
  * a list of preconfigured upstreams, or custom servers can be input.
  */
-class DnsListNewItem extends Component {
-  static propTypes = {
-    onAdd: PropTypes.func.isRequired,
-    isValid: PropTypes.func.isRequired,
-    upstreams: PropTypes.arrayOf(PropTypes.string).isRequired
-  };
-
-  state = {
+class DnsListNewItem extends Component<
+  DnsListNewItemProps & WithNamespaces,
+  DnsListNewItemState
+> {
+  state: DnsListNewItemState = {
     address: "",
     selected: []
   };
 
-  constructor(props) {
+  private readonly typeahead: RefObject<any>;
+
+  constructor(props: DnsListNewItemProps & WithNamespaces) {
     super(props);
     this.typeahead = React.createRef();
   }

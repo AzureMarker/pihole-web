@@ -8,31 +8,26 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
-import { ignoreCancel, makeCancelable } from "../../util";
-import api from "../../util/api";
-import {
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Label
-} from "reactstrap";
-import {
-  isPositiveNumber,
-  isValidHostname,
-  isValidIpv4
-} from "../../util/validate";
-import Alert from "../common/Alert";
+import React, { ChangeEvent, Component, FormEvent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import api, { ApiDhcpSettings, ApiResultResponse } from "../../util/api";
+import { Button, Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
+import { isValidHostname, isValidIpv4 } from "../../util/validate";
+import Alert, { AlertType } from "../common/Alert";
 
-class DHCPInfo extends Component {
-  state = {
+export interface DHCPInfoState {
+  alertMessage: string;
+  alertType: AlertType;
+  showAlert: boolean;
+  processing: boolean;
+  settings: ApiDhcpSettings;
+}
+
+class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
+  state: DHCPInfoState = {
     alertMessage: "",
-    alertType: "",
+    alertType: "info",
     showAlert: false,
     processing: false,
     settings: {
@@ -40,27 +35,20 @@ class DHCPInfo extends Component {
       ip_start: "",
       ip_end: "",
       router_ip: "",
-      lease_time: "",
+      lease_time: 0,
       domain: "",
       ipv6_support: false
     }
   };
 
+  private loadHandler: undefined | CancelablePromise<ApiDhcpSettings>;
+  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+
   loadDHCPInfo = () => {
     this.loadHandler = makeCancelable(api.getDHCPInfo());
     this.loadHandler.promise
       .then(res => {
-        this.setState({
-          settings: {
-            active: res.active,
-            ip_start: res.ip_start,
-            ip_end: res.ip_end,
-            router_ip: res.router_ip,
-            lease_time: res.lease_time,
-            domain: res.domain,
-            ipv6_support: res.ipv6_support
-          }
-        });
+        this.setState({ settings: res });
       })
       .catch(ignoreCancel);
   };
@@ -70,7 +58,9 @@ class DHCPInfo extends Component {
   }
 
   componentWillUnmount() {
-    this.loadHandler.cancel();
+    if (this.loadHandler) {
+      this.loadHandler.cancel();
+    }
 
     if (this.updateHandler) {
       this.updateHandler.cancel();
@@ -85,9 +75,10 @@ class DHCPInfo extends Component {
    * @param attr {string} the event target attribute to use
    * @returns {function(Event)}
    */
-  onChange = (key, attr) => {
-    return e => {
-      const value = e.target[attr];
+  onChange = (key: string, attr: string) => {
+    return (e: ChangeEvent) => {
+      // @ts-ignore
+      const value: string = e.target[attr];
 
       this.setState(oldState => ({
         settings: {
@@ -103,7 +94,7 @@ class DHCPInfo extends Component {
    *
    * @param e the submit event
    */
-  saveSettings = e => {
+  saveSettings = (e: FormEvent) => {
     e.preventDefault();
 
     const { t } = this.props;
@@ -155,7 +146,7 @@ class DHCPInfo extends Component {
    * @param value the value to check
    * @param validator the validation function
    */
-  isSettingValid = (value, validator) => {
+  isSettingValid = (value: string, validator: (value: string) => boolean) => {
     return (
       (!this.state.settings.active && value.length === 0) || validator(value)
     );
@@ -180,10 +171,7 @@ class DHCPInfo extends Component {
       this.state.settings.router_ip,
       isValidIpv4
     );
-    const isLeaseTimeValid = this.isSettingValid(
-      this.state.settings.lease_time,
-      isPositiveNumber
-    );
+    const isLeaseTimeValid = this.state.settings.lease_time >= 0;
     const isDomainValid = this.isSettingValid(
       this.state.settings.domain,
       isValidHostname
@@ -262,7 +250,14 @@ class DHCPInfo extends Component {
                 id="leaseTime"
                 disabled={!this.state.settings.active}
                 value={this.state.settings.lease_time}
-                onChange={this.onChange("lease_time", "value")}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  this.setState(oldState => ({
+                    settings: {
+                      ...oldState.settings,
+                      lease_time: parseInt(e.target.value)
+                    }
+                  }))
+                }
                 invalid={!isLeaseTimeValid}
               />
               <InputGroupAddon addonType="append">Hours</InputGroupAddon>

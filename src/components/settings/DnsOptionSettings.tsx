@@ -11,8 +11,26 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Col, FormGroup, Input, Label } from "reactstrap";
+import i18next from "i18next";
 
-const DnsOptionSettings = ({ settings, onUpdate, t }) => (
+export interface DnsOptionsObject {
+  fqdnRequired: boolean;
+  bogusPriv: boolean;
+  dnssec: boolean;
+  listeningType: string;
+}
+
+export interface DnsOptionSettingsProps {
+  settings: DnsOptionsObject;
+  onUpdate: (settings: DnsOptionsObject) => void;
+  t: i18next.TranslationFunction;
+}
+
+const DnsOptionSettings = ({
+  settings,
+  onUpdate,
+  t
+}: DnsOptionSettingsProps) => (
   <Fragment>
     <FormGroup row>
       <Label for="listeningBehavior" sm={5}>

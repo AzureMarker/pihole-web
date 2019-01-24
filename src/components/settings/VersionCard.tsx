@@ -9,19 +9,23 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
-import PropTypes from "prop-types";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { Collapse } from "reactstrap";
 
-class VersionCard extends Component {
-  static propTypes = {
-    branch: PropTypes.string.isRequired,
-    hash: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired
-  };
+export interface VersionCardProps extends WithNamespaces {
+  branch: string;
+  hash: string;
+  name: string;
+  tag: string;
+  icon: string;
+}
 
-  state = {
+export interface VersionCardState {
+  collapsed: boolean
+}
+
+class VersionCard extends Component<VersionCardProps, VersionCardState> {
+  state: VersionCardState = {
     collapsed: true
   };
 

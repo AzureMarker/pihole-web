@@ -9,8 +9,22 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { Col, FormGroup, Input, Label } from "reactstrap";
+import i18next from "i18next";
+
+export interface ConditionalForwardingObject {
+  enabled: boolean,
+  routerIp: string,
+  domain: string
+}
+
+export interface ConditionalForwardingSettingsProps {
+  settings: ConditionalForwardingObject,
+  onUpdate: (settings: ConditionalForwardingObject) => void,
+  isRouterIpValid: boolean;
+  isDomainValid: boolean;
+  t: i18next.TranslationFunction
+}
 
 const ConditionalForwardingSettings = ({
   settings,
@@ -18,7 +32,7 @@ const ConditionalForwardingSettings = ({
   isRouterIpValid,
   isDomainValid,
   t
-}) => (
+}: ConditionalForwardingSettingsProps) => (
   <Fragment>
     <FormGroup check>
       <Label check>
@@ -60,13 +74,5 @@ const ConditionalForwardingSettings = ({
     </FormGroup>
   </Fragment>
 );
-
-ConditionalForwardingSettings.propTypes = {
-  settings: PropTypes.object.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  isRouterIpValid: PropTypes.bool.isRequired,
-  isDomainValid: PropTypes.bool.isRequired,
-  t: PropTypes.func.isRequired
-};
 
 export default ConditionalForwardingSettings;

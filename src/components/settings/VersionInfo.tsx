@@ -9,26 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
-import api from "../../util/api";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import api, { ApiVersions } from "../../util/api";
 import VersionCard from "./VersionCard";
 import { WithAPIData } from "../common/WithAPIData";
 
-class VersionInfo extends Component {
-  static versionPropType = PropTypes.shape({
-    branch: PropTypes.string.isRequired,
-    hash: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired
-  }).isRequired;
-
-  static propTypes = {
-    api: VersionInfo.versionPropType,
-    core: VersionInfo.versionPropType,
-    ftl: VersionInfo.versionPropType,
-    web: VersionInfo.versionPropType
-  };
-
+class VersionInfo extends Component<ApiVersions & WithNamespaces, {}> {
   render() {
     const { t } = this.props;
 
@@ -75,7 +61,7 @@ class VersionInfo extends Component {
   }
 }
 
-export const initialData = {
+export const initialData: ApiVersions = {
   api: {
     branch: "unknown",
     hash: "unknown",
@@ -100,10 +86,10 @@ export const initialData = {
 
 export const TranslatedVersionInfo = withNamespaces(["common"])(VersionInfo);
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getVersion}
-    repeatOptions={{ interval: 600000 }}
+    repeatOptions={{ interval: 600000, ignoreCancel: true }}
     renderInitial={() => <TranslatedVersionInfo {...initialData} {...props} />}
     renderOk={data => <TranslatedVersionInfo {...data} {...props} />}
     renderErr={() => <TranslatedVersionInfo {...initialData} {...props} />}

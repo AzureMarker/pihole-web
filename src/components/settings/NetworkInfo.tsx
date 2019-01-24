@@ -9,20 +9,19 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
-import api from "../../util/api";
+import { Subtract, WithNamespaces, withNamespaces } from "react-i18next";
+import api, { ApiNetworkSettings } from "../../util/api";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { WithAPIData } from "../common/WithAPIData";
 
-class NetworkInfo extends Component {
-  static propTypes = {
-    interface: PropTypes.string.isRequired,
-    ipv4Address: PropTypes.string.isRequired,
-    ipv6Address: PropTypes.string.isRequired,
-    hostname: PropTypes.string.isRequired
-  };
+export interface NetworkInfoProps extends WithNamespaces {
+  interface: string;
+  ipv4Address: string;
+  ipv6Address: string;
+  hostname: string;
+}
 
+class NetworkInfo extends Component<NetworkInfoProps, {}> {
   render() {
     const { t } = this.props;
 
@@ -85,7 +84,9 @@ class NetworkInfo extends Component {
   }
 }
 
-export const transformData = data => ({
+export const transformData = (
+  data: ApiNetworkSettings
+): Subtract<NetworkInfoProps, WithNamespaces> => ({
   interface: data.interface,
   ipv4Address: data.ipv4_address,
   ipv6Address: data.ipv6_address,
@@ -103,7 +104,7 @@ export const TranslatedNetworkInfo = withNamespaces(["common", "settings"])(
   NetworkInfo
 );
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getNetworkInfo}
     repeatOptions={{

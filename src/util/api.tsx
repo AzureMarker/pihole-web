@@ -24,46 +24,88 @@ export interface ApiQuery {
 
 export interface ApiHistoryResponse {
   cursor: null | string;
-  history: Array<ApiQuery>
+  history: Array<ApiQuery>;
+}
+
+export interface ApiNetworkSettings {
+  interface: string;
+  ipv4_address: string;
+  ipv6_address: string;
+  hostname: string;
+}
+
+export interface ApiVersion {
+  branch: string;
+  hash: string;
+  tag: string;
+}
+
+export interface ApiVersions {
+  api: ApiVersion;
+  core: ApiVersion;
+  ftl: ApiVersion;
+  web: ApiVersion;
 }
 
 export interface ApiDnsSettings {
-  upstream_dns: Array<string>,
+  upstream_dns: Array<string>;
   options: {
-    fqdn_required: boolean,
-    bogus_priv: boolean,
-    dnssec: boolean,
-    listening_type: string
-  },
+    fqdn_required: boolean;
+    bogus_priv: boolean;
+    dnssec: boolean;
+    listening_type: string;
+  };
   conditional_forwarding: {
-    enabled: boolean,
-    router_ip: string,
-    domain: string
-  }
+    enabled: boolean;
+    router_ip: string;
+    domain: string;
+  };
 }
 
 export interface ApiDhcpSettings {
-  active: boolean,
-  ip_start: string,
-  ip_end: string,
-  router_ip: string,
-  lease_time: number,
-  domain: string,
-  ipv6_support: boolean
+  active: boolean;
+  ip_start: string;
+  ip_end: string;
+  router_ip: string;
+  lease_time: number;
+  domain: string;
+  ipv6_support: boolean;
 }
+
+export interface ApiFtlDbResponse {
+  filesize: number;
+  queries: number;
+  sqlite_version: string;
+}
+
+export interface ApiSuccessResponse {
+  status: "success";
+}
+
+export interface ApiError {
+  key: string;
+  message: string;
+  data: any;
+}
+
+export interface ApiErrorResponse {
+  error: ApiError;
+}
+
+export type ApiResultResponse = ApiSuccessResponse | ApiErrorResponse;
 
 export type WebLayout = "boxed" | "traditional";
 
 export interface ApiPreferences {
-  layout: WebLayout,
-  language: string
+  layout: WebLayout;
+  language: string;
 }
 
 export type Status = "enabled" | "disabled" | "unknown";
 export type StatusAction = "enable" | "disable";
 
 export interface ApiStatus {
-  status: Status
+  status: Status;
 }
 
 export default {
@@ -142,13 +184,13 @@ export default {
   setStatus(action: StatusAction, time: number | null = null) {
     return http.post("dns/status", { action, time });
   },
-  getNetworkInfo() {
+  getNetworkInfo(): Promise<ApiNetworkSettings> {
     return http.get("settings/network");
   },
-  getVersion() {
+  getVersion(): Promise<ApiVersions> {
     return http.get("version");
   },
-  getFTLdb() {
+  getFTLdb(): Promise<ApiFtlDbResponse> {
     return http.get("settings/ftldb");
   },
   getDNSInfo(): Promise<ApiDnsSettings> {

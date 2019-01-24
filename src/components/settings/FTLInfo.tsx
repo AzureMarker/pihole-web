@@ -9,18 +9,17 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
-import api from "../../util/api";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import api, { ApiFtlDbResponse } from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 
-class FTLInfo extends Component {
-  static propTypes = {
-    fileSize: PropTypes.number.isRequired,
-    queries: PropTypes.number.isRequired,
-    sqliteVersion: PropTypes.string.isRequired
-  };
+export interface FTLInfoProps {
+  fileSize: number,
+  queries: number,
+  sqliteVersion: string
+}
 
+class FTLInfo extends Component<FTLInfoProps & WithNamespaces, {}> {
   render() {
     const { t } = this.props;
 
@@ -36,7 +35,7 @@ class FTLInfo extends Component {
   }
 }
 
-export const transformData = data => ({
+export const transformData = (data: ApiFtlDbResponse): FTLInfoProps => ({
   fileSize: data.filesize,
   queries: data.queries,
   sqliteVersion: data.sqlite_version
@@ -50,11 +49,12 @@ export const initialData = {
 
 export const TranslatedFTLInfo = withNamespaces(["settings"])(FTLInfo);
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getFTLdb}
     repeatOptions={{
-      interval: 600000
+      interval: 600000,
+      ignoreCancel: true
     }}
     renderInitial={() => <TranslatedFTLInfo {...initialData} {...props} />}
     renderOk={data => <TranslatedFTLInfo {...transformData(data)} {...props} />}

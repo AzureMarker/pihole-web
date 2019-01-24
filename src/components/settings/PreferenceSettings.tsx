@@ -8,44 +8,50 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
-import { ignoreCancel, makeCancelable } from "../../util";
-import api from "../../util/api";
-import Alert from "../common/Alert";
+import React, { ChangeEvent, Component, FormEvent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import api, { ApiPreferences, ApiResultResponse } from "../../util/api";
+import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { PreferencesContext } from "../common/context";
-import languages from "../../languages";
+import languages from "../../languages.json";
 import i18n from "i18next";
 
-class PreferenceSettings extends Component {
-  static propTypes = {
-    settings: PropTypes.shape({
-      layout: PropTypes.string.isRequired
-    }),
-    refresh: PropTypes.func.isRequired
-  };
+export interface PreferenceSettingsProps {
+  settings: ApiPreferences;
+  refresh: (preferences?: ApiPreferences) => void;
+}
 
-  state = {
+export interface PreferenceSettingsState {
+  alertMessage: string;
+  alertType: AlertType;
+  showAlert: boolean;
+  processing: boolean;
+  settings: ApiPreferences;
+}
+
+class PreferenceSettings extends Component<
+  PreferenceSettingsProps & WithNamespaces,
+  PreferenceSettingsState
+> {
+  state: PreferenceSettingsState = {
     alertMessage: "",
-    alertType: "",
+    alertType: "info",
     showAlert: false,
     processing: false,
     // Initial value is the current settings
     settings: this.props.settings
   };
 
+  private loadHandler: undefined | CancelablePromise<ApiPreferences>;
+  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+
   loadPreferences = () => {
     this.loadHandler = makeCancelable(api.getPreferences());
     this.loadHandler.promise
       .then(res => {
-        this.setState({
-          settings: {
-            layout: res.layout,
-            language: res.language
-          }
-        });
+        this.setState({ settings: res });
       })
       .catch(ignoreCancel);
   };
@@ -55,7 +61,9 @@ class PreferenceSettings extends Component {
   }
 
   componentWillUnmount() {
-    this.loadHandler.cancel();
+    if (this.loadHandler) {
+      this.loadHandler.cancel();
+    }
 
     if (this.updateHandler) {
       this.updateHandler.cancel();
@@ -70,9 +78,10 @@ class PreferenceSettings extends Component {
    * @param attr {string} the event target attribute to use
    * @returns {function(Event)}
    */
-  onChange = (key, attr) => {
-    return e => {
-      const value = e.target[attr];
+  onChange = (key: string, attr: string) => {
+    return (e: ChangeEvent) => {
+      // @ts-ignore
+      const value: string = e.target[attr];
 
       this.setState(oldState => ({
         settings: {
@@ -88,7 +97,7 @@ class PreferenceSettings extends Component {
    *
    * @param e the submit event
    */
-  saveSettings = e => {
+  saveSettings = (e: FormEvent) => {
     e.preventDefault();
 
     const { t } = this.props;

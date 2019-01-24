@@ -9,11 +9,16 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import PropTypes from "prop-types";
 import { ListGroup } from "reactstrap";
 import DnsListItem from "./DnsListItem";
 import DnsListNewItem from "./DnsListNewItem";
 import { isValidIpv4OptionalPort } from "../../util/validate";
+
+export interface DnsListProps {
+  upstreams: Array<string>;
+  onAdd: (upstream: string) => void;
+  onRemove: (upstream: string) => void;
+}
 
 /**
  * Check if an upstream address is unique and valid
@@ -22,10 +27,10 @@ import { isValidIpv4OptionalPort } from "../../util/validate";
  * @param upstreams the list of current upstreams
  * @returns {boolean} if the upstream address is unique and valid
  */
-export const isAddressValid = (address, upstreams) =>
+export const isAddressValid = (address: string, upstreams: Array<string>) =>
   !upstreams.includes(address) && isValidIpv4OptionalPort(address);
 
-const DnsList = ({ upstreams, onAdd, onRemove }) => (
+const DnsList = ({ upstreams, onAdd, onRemove }: DnsListProps) => (
   <ListGroup style={{ overflowY: "scroll", maxHeight: "350px" }}>
     {upstreams.map(upstream => (
       <DnsListItem
@@ -36,16 +41,10 @@ const DnsList = ({ upstreams, onAdd, onRemove }) => (
     ))}
     <DnsListNewItem
       onAdd={onAdd}
-      isValid={address => isAddressValid(address, upstreams)}
+      isValid={(address: string) => isAddressValid(address, upstreams)}
       upstreams={upstreams}
     />
   </ListGroup>
 );
-
-DnsList.propTypes = {
-  upstreams: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired
-};
 
 export default DnsList;

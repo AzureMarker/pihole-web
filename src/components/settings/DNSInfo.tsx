@@ -8,21 +8,31 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
-import { ignoreCancel, makeCancelable } from "../../util";
-import api from "../../util/api";
+import React, { Component, FormEvent } from "react";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import api, { ApiDnsSettings, ApiResultResponse } from "../../util/api";
 import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
-import ConditionalForwardingSettings from "./ConditionalForwardingSettings";
-import DnsOptionSettings from "./DnsOptionSettings";
-import Alert from "../common/Alert";
+import ConditionalForwardingSettings, { ConditionalForwardingObject } from "./ConditionalForwardingSettings";
+import DnsOptionSettings, { DnsOptionsObject } from "./DnsOptionSettings";
+import Alert, { AlertType } from "../common/Alert";
 import { isValidHostname, isValidIpv4 } from "../../util/validate";
 
-class DNSInfo extends Component {
-  state = {
+export interface DNSInfoState {
+  alertMessage: string;
+  alertType: AlertType;
+  showAlert: boolean;
+  processing: boolean;
+  upstreamDns: Array<string>;
+  conditionalForwarding: ConditionalForwardingObject;
+  options: DnsOptionsObject;
+}
+
+class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
+  state: DNSInfoState = {
     alertMessage: "",
-    alertType: "",
+    alertType: "info",
     showAlert: false,
     processing: false,
     upstreamDns: [],
@@ -38,6 +48,9 @@ class DNSInfo extends Component {
       listeningType: "single"
     }
   };
+
+  private loadHandler: undefined | CancelablePromise<ApiDnsSettings>;
+  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
 
   loadDNSInfo = () => {
     this.loadHandler = makeCancelable(api.getDNSInfo());
@@ -70,26 +83,30 @@ class DNSInfo extends Component {
   }
 
   componentWillUnmount() {
-    this.loadHandler.cancel();
+    if (this.loadHandler) {
+      this.loadHandler.cancel();
+    }
   }
 
-  handleUpstreamAdd = upstream => {
+  handleUpstreamAdd = (upstream: string) => {
     this.setState({
       upstreamDns: this.state.upstreamDns.concat(upstream)
     });
   };
 
-  handleUpstreamRemove = upstream => {
+  handleUpstreamRemove = (upstream: string) => {
     this.setState({
       upstreamDns: this.state.upstreamDns.filter(item => item !== upstream)
     });
   };
 
-  handleConditionalForwardingUpdate = conditionalForwarding => {
+  handleConditionalForwardingUpdate = (
+    conditionalForwarding: ConditionalForwardingObject
+  ) => {
     this.setState({ conditionalForwarding });
   };
 
-  handleDnsOptionsUpdate = options => {
+  handleDnsOptionsUpdate = (options: DnsOptionsObject) => {
     this.setState({ options });
   };
 
@@ -98,7 +115,7 @@ class DNSInfo extends Component {
    *
    * @param e the submit event
    */
-  saveSettings = e => {
+  saveSettings = (e: FormEvent) => {
     e.preventDefault();
 
     const { t } = this.props;
@@ -157,7 +174,7 @@ class DNSInfo extends Component {
       });
   };
 
-  isCFSettingValid = (value, validator) => {
+  isCFSettingValid = (value: string, validator: (value: string) => boolean) => {
     return (
       (!this.state.conditionalForwarding.enabled && value.length === 0) ||
       validator(value)

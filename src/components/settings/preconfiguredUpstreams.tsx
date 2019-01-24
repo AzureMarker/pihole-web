@@ -8,11 +8,19 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
+export interface PreconfiguredUpstream {
+  name: string;
+  primaryIpv4: string;
+  secondaryIpv4: string;
+  primaryIpv6: string;
+  secondaryIpv6: string;
+}
+
 /**
  * A list of preconfigured upstream DNS servers. Each item has primary and
  * secondary IPv4 and IPv6 server entries. Some addresses may be empty.
  */
-export const preconfiguredUpstreams = [
+export const preconfiguredUpstreams: Array<PreconfiguredUpstream> = [
   {
     name: "OpenDNS (ECS)",
     primaryIpv4: "208.67.222.222",
@@ -78,6 +86,11 @@ export const preconfiguredUpstreams = [
   }
 ];
 
+export interface PreconfiguredUpstreamOption {
+  label: string;
+  address: string;
+}
+
 /**
  * The preconfigured servers, but with an entry for each address. This is used
  * when displaying the servers in a list.
@@ -85,12 +98,12 @@ export const preconfiguredUpstreams = [
 export const preconfiguredUpstreamOptions = preconfiguredUpstreams.flatMap(
   upstream => {
     // Parse the upstream address information into the new format
-    const parseUpstream = (address, order, type) => ({
+    const parseUpstream = (address: string, order: string, type: string) => ({
       label: upstream.name + " " + order + " " + type + " (" + address + ")",
       address
     });
 
-    let parsedUpstreams = [];
+    let parsedUpstreams: Array<PreconfiguredUpstreamOption> = [];
 
     if (upstream.primaryIpv4.length > 0) {
       parsedUpstreams.push(
