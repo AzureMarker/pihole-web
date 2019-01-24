@@ -12,7 +12,7 @@ import React from "react";
 import { withNamespaces } from "react-i18next";
 import FooterUpdateStatus from "./FooterUpdateStatus";
 
-const Footer = props => {
+const Footer = (props: any) => {
   const { t } = props;
 
   return (

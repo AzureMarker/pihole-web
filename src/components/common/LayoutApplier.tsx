@@ -10,15 +10,15 @@
 
 import React from "react";
 import { PreferencesContext } from "./context";
+import { WebLayout } from "../../util/api";
 
 /**
  * Update the web interface layout
  *
  * @param layout The layout to update to
  */
-const applyLayout = layout => {
+const applyLayout = (layout: WebLayout) => {
   switch (layout) {
-    default:
     case "boxed":
       document.body.classList.add("boxcontainer");
       document.body.classList.add("background-image");

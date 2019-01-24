@@ -9,15 +9,14 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { StatusContext } from "./context";
 
-class StatusBadge extends Component {
-  static propTypes = {
-    status: PropTypes.string.isRequired
-  };
+export interface StatusBadgeProps extends WithNamespaces {
+  status: string;
+}
 
+class StatusBadge extends Component<StatusBadgeProps, {}> {
   isEnabled = () => this.props.status === "enabled";
 
   render() {

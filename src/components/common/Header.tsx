@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 
 //const sidebarToggle = e => {
@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 //  document.body.classList.toggle('sidebar-hidden');
 //};
 
-const sidebarMinimize = e => {
+const sidebarMinimize = (e: MouseEvent) => {
   e.preventDefault();
   document.body.classList.toggle("sidebar-minimized");
   document.body.classList.toggle("brand-minimized");

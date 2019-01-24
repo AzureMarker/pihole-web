@@ -8,14 +8,14 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { shallow } from "enzyme";
 import { isDropdownOpen, navDropdown, navItem, navList } from "../Sidebar";
 import api from "../../../util/api";
 
 it("expands active drop down items", () => {
   const isOpen = isDropdownOpen("/testRoute", {
-    location: { pathname: "/testRoute/page" }
+    location: { pathname: "/testRoute/page" } as Location
   });
 
   expect(isOpen).toBeTruthy();
@@ -23,17 +23,24 @@ it("expands active drop down items", () => {
 
 it("does not expand inactive drop down items", () => {
   const isOpen = isDropdownOpen("/testRoute", {
-    location: { pathname: "/page" }
+    location: { pathname: "/page" } as Location
   });
 
   expect(isOpen).toBeFalsy();
 });
 
 it("creates nav items with correct data", () => {
-  const item = { url: "/testUrl", icon: "test-icon", name: "testName" };
+  const item = {
+    url: "/testUrl",
+    icon: "test-icon",
+    name: "testName",
+    auth: false,
+    component: () => <div/>
+  };
   const key = "testKey";
   const wrapper = shallow(
-    React.createElement(() => navItem(item, key, { t: key => key }))
+    React.createElement((() =>
+      navItem(item, key, key => key)) as FunctionComponent<any>)
   );
 
   expect(wrapper.key()).toEqual(key);
@@ -51,14 +58,10 @@ it("creates a nav dropdown with correct data", () => {
     children: []
   };
   const key = "testKey";
-  const props = {
-    t: key => key,
-    location: {
-      pathname: "/blacklist/exact"
-    }
-  };
+  const location = { pathname: "/blacklist/exact" } as Location;
   const wrapper = shallow(
-    React.createElement(() => navDropdown(item, key, props))
+    React.createElement((() =>
+      navDropdown(item, key, key => key, location)) as FunctionComponent<any>)
   );
 
   expect(wrapper.key()).toEqual(key);
@@ -73,11 +76,14 @@ it("shows auth routes when logged in", () => {
   const item = {
     name: "Query Log",
     url: "/query-log",
+    component: () => <div />,
     icon: "fa fa-database",
     auth: true
   };
   const wrapper = shallow(
-    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+    React.createElement(() => (
+      <ul>{navList([item], key => key, {} as Location)}</ul>
+    ))
   );
 
   expect(wrapper.children()).toHaveLength(1);
@@ -89,11 +95,14 @@ it("hides auth routes when not logged in", () => {
   const item = {
     name: "Query Log",
     url: "/query-log",
+    component: () => <div />,
     icon: "fa fa-database",
     auth: true
   };
   const wrapper = shallow(
-    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+    React.createElement(() => (
+      <ul>{navList([item], key => key, {} as Location)}</ul>
+    ))
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -105,12 +114,15 @@ it("hides strict non-auth routes when logged in", () => {
   const item = {
     name: "Login",
     url: "/login",
+    component: () => <div />,
     icon: "fa fa-user",
     auth: false,
     authStrict: true
   };
   const wrapper = shallow(
-    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+    React.createElement(() => (
+      <ul>{navList([item], key => key, {} as Location)}</ul>
+    ))
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -122,12 +134,15 @@ it("hides strict auth routes when not logged in", () => {
   const item = {
     name: "Logout",
     url: "/logout",
+    component: () => <div />,
     icon: "fa fa-user-times",
     auth: true,
     authStrict: true
   };
   const wrapper = shallow(
-    React.createElement(() => <ul>{navList([item], { t: key => key })}</ul>)
+    React.createElement(() => (
+      <ul>{navList([item], key => key, {} as Location)}</ul>
+    ))
   );
 
   expect(wrapper.children()).toHaveLength(0);

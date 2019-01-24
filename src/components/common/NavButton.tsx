@@ -10,9 +10,19 @@
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-export default ({ name, icon, onClick = e => e.preventDefault() }) => (
+export interface NavButtonProps {
+  name: string;
+  icon: string;
+  onClick: MouseEventHandler;
+}
+
+export default ({
+  name,
+  icon,
+  onClick = e => e.preventDefault()
+}: NavButtonProps) => (
   <li className="nav-item">
     <a href="#" onClick={onClick} className="nav-link">
       <i className={"nav-icon " + icon} />

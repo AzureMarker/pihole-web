@@ -10,9 +10,16 @@
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React from "react";
+import React, { MouseEvent, ReactNode } from "react";
 
-export default ({ name, icon, isOpen, children }) => (
+export interface NavDropdownProps {
+  name: string;
+  icon: string;
+  isOpen: boolean;
+  children: ReactNode;
+}
+
+export default ({ name, icon, isOpen, children }: NavDropdownProps) => (
   <li className={"nav-item nav-dropdown" + (isOpen ? " open" : "")}>
     <button
       className="nav-link nav-dropdown-toggle"
@@ -25,7 +32,7 @@ export default ({ name, icon, isOpen, children }) => (
   </li>
 );
 
-const handleDropdownClick = e => {
+const handleDropdownClick = (e: MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
-  e.target.parentElement.classList.toggle("open");
+  (e.target as HTMLButtonElement).parentElement!.classList.toggle("open");
 };

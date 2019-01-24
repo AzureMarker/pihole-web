@@ -14,7 +14,7 @@ import Header, { mobileSidebarHide } from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
 import api from "../util/api";
-import { nav, NavCustomItem, NavGroup, NavItem, RouteData } from "../routes";
+import { nav, RouteCustomItem, RouteData, RouteGroup, RouteItem } from "../routes";
 import { GlobalContextProvider } from "../components/common/context";
 import LayoutApplier from "../components/common/LayoutApplier";
 
@@ -46,15 +46,15 @@ export default (props: any) => (
  * @param routeData the route data (see routes.tsx)
  */
 const createRoute = (routeData: RouteData): ReactNode => {
-  if ((routeData as NavCustomItem).fakeRoute === true) {
+  if ((routeData as RouteCustomItem).fakeRoute === true) {
     return;
   }
 
-  if ((routeData as NavGroup).children) {
-    return (routeData as NavGroup).children.map(createRoute);
+  if ((routeData as RouteGroup).children) {
+    return (routeData as RouteGroup).children.map(createRoute);
   }
 
-  let navItem: NavItem = routeData as NavItem;
+  let navItem: RouteItem = routeData as RouteItem;
 
   return navItem.auth ? (
     <AuthRoute

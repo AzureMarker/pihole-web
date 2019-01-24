@@ -37,7 +37,7 @@ export const routes = (
   "/logout": t("Logout")
 });
 
-export interface NavItem {
+export interface RouteItem {
   name: string;
   url: string;
   component: ComponentType<any>;
@@ -46,14 +46,14 @@ export interface NavItem {
   authStrict?: boolean;
 }
 
-export interface NavCustomItem {
+export interface RouteCustomItem {
   customComponent: ComponentType<any>;
   auth: boolean;
   authStrict?: boolean;
   fakeRoute: boolean;
 }
 
-export interface NavGroup {
+export interface RouteGroup {
   name: string;
   url: string;
   icon: string;
@@ -62,7 +62,7 @@ export interface NavGroup {
   children: Array<RouteData>;
 }
 
-export type RouteData = NavItem | NavGroup | NavCustomItem;
+export type RouteData = RouteItem | RouteGroup | RouteCustomItem;
 
 export const nav: Array<RouteData> = [
   {

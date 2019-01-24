@@ -9,10 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const FooterUpdateStatus = props => {
+const FooterUpdateStatus = (props: WithNamespaces) => {
   const { t } = props;
   const updateAvailable = false;
 
