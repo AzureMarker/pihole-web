@@ -11,7 +11,7 @@
 import React, { Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
-import api, { ApiDnsSettings, ApiResultResponse } from "../../util/api";
+import api from "../../util/api";
 import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
 import ConditionalForwardingSettings, {

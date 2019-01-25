@@ -10,7 +10,6 @@
 
 import React from "react";
 import { generateRows, transformData } from "../TopDomains";
-import { ApiTopDomains } from "../../../util/api";
 
 const fakeData: ApiTopDomains = {
   top_domains: [

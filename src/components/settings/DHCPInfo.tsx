@@ -11,7 +11,7 @@
 import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
-import api, { ApiDhcpSettings, ApiResultResponse } from "../../util/api";
+import api from "../../util/api";
 import {
   Button,
   Col,

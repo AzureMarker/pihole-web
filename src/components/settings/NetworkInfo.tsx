@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { Subtract, WithNamespaces, withNamespaces } from "react-i18next";
-import api, { ApiNetworkSettings } from "../../util/api";
+import api from "../../util/api";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { WithAPIData } from "../common/WithAPIData";
 

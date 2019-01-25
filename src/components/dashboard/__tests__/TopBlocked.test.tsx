@@ -10,7 +10,6 @@
 
 import React from "react";
 import { generateRows, transformData } from "../TopBlocked";
-import { ApiTopBlocked } from "../../../util/api";
 
 const fakeData: ApiTopBlocked = {
   top_domains: [

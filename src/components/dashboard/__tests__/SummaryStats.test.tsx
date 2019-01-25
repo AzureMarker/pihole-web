@@ -15,7 +15,6 @@ import {
   transformData,
   TranslatedSummaryStats
 } from "../SummaryStats";
-import { ApiSummary } from "../../../util/api";
 
 const tick = global.tick;
 

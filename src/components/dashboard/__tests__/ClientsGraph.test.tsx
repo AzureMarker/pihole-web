@@ -15,7 +15,6 @@ import {
   transformData,
   TranslatedClientsGraph
 } from "../ClientsGraph";
-import { ApiClientsGraph } from "../../../util/api";
 
 const fakeData: ApiClientsGraph = {
   over_time: [

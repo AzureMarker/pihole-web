@@ -13,7 +13,7 @@ import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { padNumber } from "../../util";
-import api, { ApiClientsGraph } from "../../util/api";
+import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
 import { ChartDataSets, ChartOptions } from "chart.js";

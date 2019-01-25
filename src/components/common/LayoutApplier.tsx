@@ -10,7 +10,6 @@
 
 import React from "react";
 import { PreferencesContext } from "./context";
-import { WebLayout } from "../../util/api";
 
 /**
  * Update the web interface layout

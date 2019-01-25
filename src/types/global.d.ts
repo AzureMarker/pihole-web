@@ -1,3 +1,13 @@
+/* Pi-hole: A black hole for Internet advertisements
+ * (c) 2019 Pi-hole, LLC (https://pi-hole.net)
+ * Network-wide ad blocking via your own hardware.
+ *
+ * Web Interface
+ * Type definitions for the `global` variable
+ *
+ * This file is copyright under the latest version of the EUPL.
+ * Please see LICENSE file for your rights under this license. */
+
 namespace NodeJS {
   interface Global {
     tick(): Promise<any>

@@ -28,7 +28,7 @@ import {
   makeCancelable,
   padNumber
 } from "../../util";
-import api, { ApiHistoryResponse, ApiQuery } from "../../util/api";
+import api from "../../util/api";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 

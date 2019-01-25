@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import api, { ApiFtlDbResponse } from "../../util/api";
+import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 
 export interface FTLInfoProps {

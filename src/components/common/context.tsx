@@ -10,7 +10,7 @@
 
 import React, { ReactNode } from "react";
 import { WithAPIData } from "./WithAPIData";
-import api, { ApiPreferences, ApiStatus, Status } from "../../util/api";
+import api from "../../util/api";
 
 export interface StatusContextType {
   status: Status;

@@ -11,7 +11,7 @@
 import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
-import api, { ApiPreferences, ApiResultResponse } from "../../util/api";
+import api from "../../util/api";
 import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { PreferencesContext } from "../common/context";

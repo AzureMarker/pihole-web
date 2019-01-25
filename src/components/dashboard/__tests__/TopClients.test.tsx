@@ -10,7 +10,6 @@
 
 import React from "react";
 import { generateRows, transformData } from "../TopClients";
-import { ApiTopClients } from "../../../util/api";
 
 const fakeData: ApiTopClients = {
   top_clients: [

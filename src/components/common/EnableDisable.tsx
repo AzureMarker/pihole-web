@@ -16,7 +16,7 @@ import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context";
 import { CancelablePromise, makeCancelable } from "../../util";
-import api, { ApiStatus, Status, StatusAction } from "../../util/api";
+import api from "../../util/api";
 import {
   Button,
   Form,

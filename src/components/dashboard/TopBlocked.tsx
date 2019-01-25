@@ -10,7 +10,7 @@
 
 import React from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import api, { ApiTopBlocked, ApiTopDomainItem } from "../../util/api";
+import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
 

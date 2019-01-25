@@ -11,7 +11,7 @@
 import React, { Component, Fragment } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { WithAPIData } from "../common/WithAPIData";
-import api, { ApiSummary } from "../../util/api";
+import api from "../../util/api";
 
 export interface SummaryStatsProps {
   totalQueries: string;
