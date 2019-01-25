@@ -166,7 +166,4 @@ getTranslatedLanguages().then(languages => {
   console.log(`Languages over 70% translated: ${languages.join(", ")}`);
 
   for (const lang of languages) fetchAllTags(lang);
-
-  // Save the language list so the web interface knows what's available
-  fs.outputFileSync("src/languages.json", JSON.stringify(languages));
 });

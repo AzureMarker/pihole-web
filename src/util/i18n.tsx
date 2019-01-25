@@ -13,6 +13,7 @@ import XHR from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { reactI18nextModule } from "react-i18next";
 import config from "../config";
+import languages from "../languages";
 
 export function setupI18n() {
   i18n
@@ -21,6 +22,7 @@ export function setupI18n() {
     .use(reactI18nextModule)
     .init({
       fallbackLng: "en",
+      whitelist: languages,
       ns: ["common"],
       defaultNS: "common",
       fallbackNS: [
