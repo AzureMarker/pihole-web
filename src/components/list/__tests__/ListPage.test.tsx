@@ -10,7 +10,11 @@
 
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
-import ListPage, { ListPage as ListPageType, ListPageProps, ListPageState } from "../ListPage";
+import ListPage, {
+  ListPage as ListPageType,
+  ListPageProps,
+  ListPageState
+} from "../ListPage";
 
 const ignoreAPI = global.ignoreAPI;
 const tick = global.tick;

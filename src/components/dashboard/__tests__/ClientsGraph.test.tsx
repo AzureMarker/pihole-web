@@ -11,12 +11,13 @@
 import React from "react";
 import { shallow } from "enzyme";
 import {
-  TranslatedClientsGraph,
+  loadingProps,
   transformData,
-  loadingProps
+  TranslatedClientsGraph
 } from "../ClientsGraph";
+import { ApiClientsGraph } from "../../../util/api";
 
-const fakeData = {
+const fakeData: ApiClientsGraph = {
   over_time: [
     { timestamp: 1513218354, data: [48476, 35688, 95153, 56971, 83497] },
     { timestamp: 1513218954, data: [53603, 88146, 17471, 3039, 33678] },
@@ -60,5 +61,5 @@ it("loads API data correctly", async () => {
   );
   expect(data.datasets[2].label).toEqual(fakeData.clients[2].name);
   expect(data.datasets[1].label).toEqual(fakeData.clients[1].ip);
-  expect(data.datasets[0].data.length).toEqual(fakeData.over_time.length - 1);
+  expect(data.datasets[0].data!.length).toEqual(fakeData.over_time.length - 1);
 });

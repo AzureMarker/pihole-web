@@ -8,24 +8,26 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
+import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { padNumber } from "../../util";
-import api from "../../util/api";
+import api, { ApiClientsGraph } from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
+import { ChartDataSets, ChartOptions } from "chart.js";
 
-class ClientsGraph extends Component {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-    labels: PropTypes.array.isRequired,
-    datasets: PropTypes.array.isRequired
-  };
+export interface ClientsGraphProps {
+  loading: boolean;
+  labels: Array<string>;
+  datasets: Array<ChartDataSets>;
+}
 
-  constructor(props) {
+class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
+  private readonly graphRef: RefObject<Line>;
+
+  constructor(props: ClientsGraphProps & WithNamespaces) {
     super(props);
     this.graphRef = React.createRef();
   }
@@ -33,19 +35,20 @@ class ClientsGraph extends Component {
   render() {
     const { t } = this.props;
 
-    const options = {
+    const options: ChartOptions = {
       tooltips: {
         enabled: false,
         mode: "x-axis",
         custom: () => "placeholder",
-        itemSort: function(a, b) {
+        itemSort: (a, b) => {
+          // @ts-ignore
           return b.yLabel - a.yLabel;
         },
         callbacks: {
           title: tooltipItem => {
-            const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-            const hour = parseInt(time[1], 10);
-            const minute = parseInt(time[2], 10) || 0;
+            const time = tooltipItem[0].xLabel!.match(/(\d?\d):?(\d?\d?)/);
+            const hour = parseInt(time![1], 10);
+            const minute = parseInt(time![2], 10) || 0;
             const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
             const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
 
@@ -53,7 +56,7 @@ class ClientsGraph extends Component {
           },
           label: (tooltipItems, data) => {
             return (
-              data.datasets[tooltipItems.datasetIndex].label +
+              data.datasets![tooltipItems.datasetIndex!].label +
               ": " +
               tooltipItems.yLabel
             );
@@ -117,7 +120,7 @@ class ClientsGraph extends Component {
 
         {// Now you're thinking with portals!
         ReactDOM.createPortal(
-          <ChartTooltip chart={this.graphRef} handler={options.tooltips} />,
+          <ChartTooltip chart={this.graphRef} handler={options.tooltips!} />,
           document.body
         )}
       </div>
@@ -132,7 +135,7 @@ class ClientsGraph extends Component {
  * @returns {{labels: Date[], datasets: Array, loading: boolean}} ClientsGraph
  * props
  */
-export const transformData = data => {
+export const transformData = (data: ApiClientsGraph) => {
   // Remove last data point as it's not yet finished
   const overTime = data.over_time.slice(0, -1);
 
@@ -146,7 +149,7 @@ export const transformData = data => {
     "#b0bec5"
   ];
   const labels = overTime.map(step => new Date(1000 * step.timestamp));
-  const datasets = [];
+  const datasets: Array<ChartDataSets> = [];
 
   // Fill in dataset metadata
   let i = 0;
@@ -175,11 +178,13 @@ export const transformData = data => {
   for (let step of overTime) {
     for (let destination in datasets) {
       if (datasets.hasOwnProperty(destination))
-        datasets[destination].data.push(step.data[destination]);
+        (datasets[destination].data as Array<number>).push(
+          step.data[destination]
+        );
     }
   }
 
-  datasets.sort((a, b) => a.label.localeCompare(b.label));
+  datasets.sort((a, b) => a.label!.localeCompare(b.label!));
 
   return { labels, datasets, loading: false };
 };
@@ -195,11 +200,12 @@ export const loadingProps = {
 
 export const TranslatedClientsGraph = withNamespaces("dashboard")(ClientsGraph);
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getClientsGraph}
     repeatOptions={{
-      interval: 10 * 60 * 1000
+      interval: 10 * 60 * 1000,
+      ignoreCancel: true
     }}
     renderInitial={() => (
       <TranslatedClientsGraph {...loadingProps} {...props} />

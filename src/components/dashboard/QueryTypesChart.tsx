@@ -9,11 +9,11 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 
-const QueryTypesChart = ({ t }) => (
+const QueryTypesChart = ({ t }: WithNamespaces) => (
   <GenericDoughnutChart
     title={t("Query Types")}
     apiCall={api.getQueryTypes}

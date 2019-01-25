@@ -14,9 +14,9 @@ import api, { ApiFtlDbResponse } from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 
 export interface FTLInfoProps {
-  fileSize: number,
-  queries: number,
-  sqliteVersion: string
+  fileSize: number;
+  queries: number;
+  sqliteVersion: string;
 }
 
 class FTLInfo extends Component<FTLInfoProps & WithNamespaces, {}> {

@@ -14,7 +14,9 @@ import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
 import api, { ApiDnsSettings, ApiResultResponse } from "../../util/api";
 import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
-import ConditionalForwardingSettings, { ConditionalForwardingObject } from "./ConditionalForwardingSettings";
+import ConditionalForwardingSettings, {
+  ConditionalForwardingObject
+} from "./ConditionalForwardingSettings";
 import DnsOptionSettings, { DnsOptionsObject } from "./DnsOptionSettings";
 import Alert, { AlertType } from "../common/Alert";
 import { isValidHostname, isValidIpv4 } from "../../util/validate";

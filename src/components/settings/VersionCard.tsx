@@ -21,7 +21,7 @@ export interface VersionCardProps extends WithNamespaces {
 }
 
 export interface VersionCardState {
-  collapsed: boolean
+  collapsed: boolean;
 }
 
 class VersionCard extends Component<VersionCardProps, VersionCardState> {

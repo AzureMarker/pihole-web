@@ -17,7 +17,12 @@ import { mobileSidebarHide } from "./Header";
 import api from "../../util/api";
 import StatusBadge from "./StatusBadge";
 import NavDropdown from "./NavDropdown";
-import { RouteCustomItem, RouteData, RouteGroup, RouteItem } from "../../routes";
+import {
+  RouteCustomItem,
+  RouteData,
+  RouteGroup,
+  RouteItem
+} from "../../routes";
 import i18next from "i18next";
 
 export const isDropdownOpen = (
@@ -88,11 +93,7 @@ export interface SidebarProps extends WithNamespaces {
   location: Location;
 }
 
-const Sidebar = ({
-  items,
-  t,
-  location
-}: SidebarProps) => {
+const Sidebar = ({ items, t, location }: SidebarProps) => {
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">

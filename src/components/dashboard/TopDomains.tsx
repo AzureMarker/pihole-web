@@ -3,36 +3,44 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Top Blocked component
+ * Top Domains component
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { withNamespaces } from "react-i18next";
-import api from "../../util/api";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import api, { ApiTopDomainItem, ApiTopDomains } from "../../util/api";
 import TopTable from "./TopTable";
+import i18next from "i18next";
+
+export interface TopDomainsData {
+  totalQueries: number;
+  topDomains: Array<ApiTopDomainItem>;
+}
 
 /**
  * Transform the API data into the form used in generateRows
  *
  * @param data the API data
- * @returns {{totalBlocked: number, topBlocked: *}} the parsed data
+ * @returns {{totalQueries: number, topDomains: *}} the parsed data
  */
-export const transformData = data => ({
-  totalBlocked: data.blocked_queries,
-  topBlocked: data.top_domains
+export const transformData = (data: ApiTopDomains): TopDomainsData => ({
+  totalQueries: data.total_queries,
+  topDomains: data.top_domains
 });
 
 /**
- * Create a function to generate rows of top blocked
+ * Create a function to generate rows of top domains
  *
  * @param t the translation function
- * @returns {function(*): any[]} a function to generate rows of top blocked
+ * @returns {function(*): any[]} a function to generate rows of top domains
  */
-export const generateRows = t => data => {
-  return data.topBlocked.map(item => {
-    const percentage = (item.count / data.totalBlocked) * 100;
+export const generateRows = (t: i18next.TranslationFunction) => (
+  data: TopDomainsData
+) => {
+  return data.topDomains.map(item => {
+    const percentage = (item.count / data.totalQueries) * 100;
 
     return (
       <tr key={item.domain}>
@@ -43,11 +51,11 @@ export const generateRows = t => data => {
             className="progress"
             title={t("{{percent}}% of {{total}}", {
               percent: percentage.toFixed(1),
-              total: data.totalBlocked.toLocaleString()
+              total: data.totalQueries.toLocaleString()
             })}
           >
             <div
-              className="progress-bar bg-warning"
+              className="progress-bar bg-success"
               style={{ width: percentage + "%" }}
             />
           </div>
@@ -57,21 +65,21 @@ export const generateRows = t => data => {
   });
 };
 
-const TopBlocked = ({ t, ...props }) => (
+const TopDomains = ({ t, ...props }: WithNamespaces) => (
   <TopTable
     {...props}
-    title={t("Top Blocked Domains")}
+    title={t("Top Permitted Domains")}
     initialData={{
-      totalBlocked: 0,
-      topBlocked: []
+      totalQueries: 0,
+      topDomains: []
     }}
     headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
-    isEmpty={data => data.topBlocked.length === 0}
-    apiCall={api.getTopBlocked}
+    isEmpty={data => data.topDomains.length === 0}
+    apiCall={api.getTopDomains}
     apiHandler={transformData}
     generateRows={generateRows(t)}
   />
 );
 
-export default withNamespaces(["common", "dashboard"])(TopBlocked);
+export default withNamespaces(["common", "dashboard"])(TopDomains);

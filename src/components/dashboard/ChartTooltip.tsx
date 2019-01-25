@@ -8,11 +8,21 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component, RefObject } from "react";
+import { ChartTooltipOptions } from "chart.js";
+import { Line } from "react-chartjs-2";
 
-class ChartTooltip extends Component {
-  state = {
+export interface ChartTooltipProps {
+  chart: RefObject<Line>;
+  handler: ChartTooltipOptions;
+}
+
+export interface ChartTooltipState {
+  tooltip: any | null;
+}
+
+class ChartTooltip extends Component<ChartTooltipProps, ChartTooltipState> {
+  state: ChartTooltipState = {
     tooltip: null
   };
 
@@ -43,12 +53,15 @@ class ChartTooltip extends Component {
       return null;
 
     // Get the graph's position data so we can offset the tooltip
-    const position = this.props.chart.current.chartInstance.canvas.getBoundingClientRect();
+    const position = this.props.chart.current.chartInstance.canvas!.getBoundingClientRect();
     let width = tooltip.caretX;
 
     // Prevent compression of the tooltip at the right edge of the screen
-    if (document.offsetWidth - tooltip.caretX < 400)
+    // @ts-ignore
+    if (document.offsetWidth - tooltip.caretX < 400) {
+      // @ts-ignore
       width = document.offsetWidth - 400;
+    }
 
     // Prevent tooltip disappearing behind the sidebar
     if (tooltip.caretX < 100) width = 100;
@@ -68,13 +81,13 @@ class ChartTooltip extends Component {
     let data = [];
     if (tooltip.body) {
       data = tooltip.body
-        .map(body => body.lines)
-        .map((item, i) => ({
+        .map((body: any) => body.lines)
+        .map((item: any, i: number) => ({
           data: item[0],
           colors: tooltip.labelColors[i]
         }));
     }
-    data.sort((a, b) =>
+    data.sort((a: any, b: any) =>
       a.data.split(": ")[0].localeCompare(b.data.split(": ")[0])
     );
 
@@ -82,14 +95,14 @@ class ChartTooltip extends Component {
       <div className="chartjs-tooltip" style={style}>
         <table>
           <thead>
-            {tooltip.title.map((title, i) => (
+            {tooltip.title.map((title: string, i: number) => (
               <tr key={i}>
                 <th>{title}</th>
               </tr>
             ))}
           </thead>
           <tbody>
-            {data.map((item, i) => (
+            {data.map((item: any, i: number) => (
               <tr key={i}>
                 <td>
                   <span
@@ -110,12 +123,5 @@ class ChartTooltip extends Component {
     );
   }
 }
-
-ChartTooltip.propTypes = {
-  chart: PropTypes.object.isRequired,
-  handler: PropTypes.shape({
-    custom: PropTypes.func.isRequired
-  }).isRequired
-};
 
 export default ChartTooltip;

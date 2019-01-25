@@ -14,8 +14,8 @@ import api from "../../util/api";
 import { Button } from "reactstrap";
 
 export interface DomainListProps extends WithNamespaces {
-  domains: string[],
-  onRemove: (domain: string) => void
+  domains: string[];
+  onRemove: (domain: string) => void;
 }
 
 const DomainList = ({ domains, onRemove, t }: DomainListProps) => {

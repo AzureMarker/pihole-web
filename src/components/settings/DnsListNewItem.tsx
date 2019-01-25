@@ -12,7 +12,10 @@ import React, { Component, RefObject } from "react";
 import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { PreconfiguredUpstreamOption, preconfiguredUpstreamOptions } from "./preconfiguredUpstreams";
+import {
+  PreconfiguredUpstreamOption,
+  preconfiguredUpstreamOptions
+} from "./preconfiguredUpstreams";
 
 export interface DnsListNewItemProps {
   onAdd: (address: string) => void;

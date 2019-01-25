@@ -108,6 +108,98 @@ export interface ApiStatus {
   status: Status;
 }
 
+export interface ApiClientsGraph {
+  over_time: Array<ApiClientOverTime>;
+  clients: Array<ApiClientGraphInfo>;
+}
+
+export interface ApiClientOverTime {
+  timestamp: number;
+  data: Array<number>;
+}
+
+export interface ApiClientGraphInfo {
+  name: string;
+  ip: string;
+}
+
+export interface ApiHistoryGraphItem {
+  timestamp: number;
+  total_queries: number;
+  blocked_queries: number;
+}
+
+export interface ApiQueryType {
+  name: string;
+  count: number;
+}
+
+export interface ApiSummary {
+  gravity_size: number;
+  total_queries: {
+    A: number;
+    AAAA: number;
+    ANY: number;
+    SRV: number;
+    SOA: number;
+    PTR: number;
+    TXT: number;
+    [key: string]: number;
+  };
+  blocked_queries: number;
+  percent_blocked: number;
+  unique_domains: number;
+  forwarded_queries: number;
+  cached_queries: number;
+  reply_types: {
+    IP: number;
+    CNAME: number;
+    DOMAIN: number;
+    NODATA: number;
+    NXDOMAIN: number;
+    [key: string]: number;
+  };
+  total_clients: number;
+  active_clients: number;
+  status: string;
+}
+
+export interface ApiUpstreams {
+  upstreams: Array<{
+    name: string;
+    ip: string;
+    count: number;
+  }>;
+  forwarded_queries: number;
+  total_queries: number;
+}
+
+export interface ApiTopDomainItem {
+  domain: string;
+  count: number;
+}
+
+export interface ApiTopBlocked {
+  top_domains: Array<ApiTopDomainItem>;
+  blocked_queries: number;
+}
+
+export interface ApiTopDomains {
+  top_domains: Array<ApiTopDomainItem>;
+  total_queries: number;
+}
+
+export interface ApiTopClients {
+  top_clients: Array<ApiClient>;
+  total_queries: number;
+}
+
+export interface ApiClient {
+  name: string;
+  ip: string;
+  count: number;
+}
+
 export default {
   loggedIn: false,
   authenticate(key: string) {
@@ -118,25 +210,25 @@ export default {
   logout() {
     return http.delete("auth");
   },
-  getSummary() {
+  getSummary(): Promise<ApiSummary> {
     return http.get("stats/summary");
   },
-  getHistoryGraph() {
+  getHistoryGraph(): Promise<Array<ApiHistoryGraphItem>> {
     return http.get("stats/overTime/history");
   },
-  getClientsGraph() {
+  getClientsGraph(): Promise<ApiClientsGraph> {
     return http.get("stats/overTime/clients");
   },
-  getQueryTypes() {
+  getQueryTypes(): Promise<Array<ApiQueryType>> {
     return http.get("stats/query_types");
   },
-  getUpstreams() {
+  getUpstreams(): Promise<ApiUpstreams> {
     return http.get("stats/upstreams");
   },
-  getTopDomains() {
+  getTopDomains(): Promise<ApiTopDomains> {
     return http.get("stats/top_domains");
   },
-  getTopBlocked() {
+  getTopBlocked(): Promise<ApiTopBlocked> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
     const url = config.fakeAPI
@@ -145,7 +237,7 @@ export default {
 
     return http.get(url);
   },
-  getTopClients() {
+  getTopClients(): Promise<ApiTopClients> {
     return http.get("stats/top_clients");
   },
   getHistory(params: any): Promise<ApiHistoryResponse> {

@@ -9,21 +9,19 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { WithAPIData } from "../common/WithAPIData";
-import api from "../../util/api";
+import api, { ApiSummary } from "../../util/api";
 
-class SummaryStats extends Component {
-  static propTypes = {
-    totalQueries: PropTypes.string.isRequired,
-    blockedQueries: PropTypes.string.isRequired,
-    percentBlocked: PropTypes.string.isRequired,
-    gravityDomains: PropTypes.string.isRequired,
-    uniqueClients: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-      .isRequired
-  };
+export interface SummaryStatsProps {
+  totalQueries: string;
+  blockedQueries: string;
+  percentBlocked: string;
+  gravityDomains: string;
+  uniqueClients: number;
+}
 
+class SummaryStats extends Component<SummaryStatsProps & WithNamespaces, {}> {
   render() {
     const { t } = this.props;
 
@@ -96,7 +94,7 @@ class SummaryStats extends Component {
  * @param data the API data
  * @returns {*} the transformed props
  */
-export const transformData = data => ({
+export const transformData = (data: ApiSummary): SummaryStatsProps => ({
   totalQueries: Object.keys(data.total_queries)
     .reduce((total, queryType) => total + data.total_queries[queryType], 0)
     .toLocaleString(),
@@ -110,33 +108,33 @@ export const transformData = data => ({
  * The props the summary stats should use when it fails to get the API data
  * (it does not need the error object)
  */
-export const errorProps = {
+export const errorProps: SummaryStatsProps = {
   totalQueries: "Lost",
   blockedQueries: "Connection",
   percentBlocked: "To",
   gravityDomains: "API",
-  uniqueClients: ""
+  uniqueClients: 0
 };
 
 /**
  * The props used to show a loading state
  */
-export const initialProps = {
+export const initialProps: SummaryStatsProps = {
   blockedQueries: "---",
   totalQueries: "---",
   percentBlocked: "---",
   gravityDomains: "---",
-  uniqueClients: "---"
+  uniqueClients: 0
 };
 
 export const TranslatedSummaryStats = withNamespaces(["common", "dashboard"])(
   SummaryStats
 );
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getSummary}
-    repeatOptions={{ interval: 5000 }}
+    repeatOptions={{ interval: 5000, ignoreCancel: true }}
     renderInitial={() => (
       <TranslatedSummaryStats {...initialProps} {...props} />
     )}

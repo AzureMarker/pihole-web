@@ -9,9 +9,15 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { withNamespaces } from "react-i18next";
-import api from "../../util/api";
+import { WithNamespaces, withNamespaces } from "react-i18next";
+import api, { ApiClient, ApiTopClients } from "../../util/api";
 import TopTable from "./TopTable";
+import i18next from "i18next";
+
+export interface TopClientsData {
+  totalQueries: number;
+  topClients: Array<ApiClient>;
+}
 
 /**
  * Transform the API data into the form used in generateRows
@@ -19,7 +25,7 @@ import TopTable from "./TopTable";
  * @param data the API data
  * @returns {{totalQueries: number, topClients: *}} the parsed data
  */
-export const transformData = data => ({
+export const transformData = (data: ApiTopClients): TopClientsData => ({
   totalQueries: data.total_queries,
   topClients: data.top_clients
 });
@@ -30,7 +36,9 @@ export const transformData = data => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top clients
  */
-export const generateRows = t => data => {
+export const generateRows = (t: i18next.TranslationFunction) => (
+  data: TopClientsData
+) => {
   return data.topClients.map(item => {
     const percentage = (item.count / data.totalQueries) * 100;
 
@@ -57,7 +65,7 @@ export const generateRows = t => data => {
   });
 };
 
-const TopClients = ({ t, ...props }) => (
+const TopClients = ({ t, ...props }: WithNamespaces) => (
   <TopTable
     {...props}
     title={t("Top Clients")}

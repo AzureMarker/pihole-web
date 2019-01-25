@@ -8,21 +8,21 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component, ReactNode } from "react";
 import { WithAPIData } from "../common/WithAPIData";
+import { Subtract } from "react-i18next";
 
-export class TopTable extends Component {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired,
-    headers: PropTypes.arrayOf(PropTypes.string).isRequired,
-    emptyMessage: PropTypes.string.isRequired,
-    isEmpty: PropTypes.func.isRequired,
-    generateRows: PropTypes.func.isRequired
-  };
+export interface TopTableInnerProps<T> {
+  loading: boolean;
+  title: string;
+  data: T;
+  headers: Array<string>;
+  emptyMessage: string;
+  isEmpty: (data: T) => boolean;
+  generateRows: (data: T) => ReactNode;
+}
 
+export class TopTable<T> extends Component<TopTableInnerProps<T>, {}> {
   static defaultProps = {
     loading: true,
     title: "",
@@ -86,7 +86,14 @@ export class TopTable extends Component {
   }
 }
 
-export default ({
+export interface TopTableProps<T, D>
+  extends Subtract<TopTableInnerProps<T>, { loading: boolean; data: T }> {
+  apiCall: () => Promise<D>;
+  initialData: T;
+  apiHandler: (data: D) => T;
+}
+
+export default function<T, D>({
   title,
   apiCall,
   initialData,
@@ -96,47 +103,50 @@ export default ({
   apiHandler,
   generateRows,
   ...props
-}) => (
-  <WithAPIData
-    apiCall={apiCall}
-    repeatOptions={{
-      interval: 10 * 60 * 1000
-    }}
-    renderInitial={() => (
-      <TopTable
-        title={title}
-        headers={headers}
-        emptyMessage={emptyMessage}
-        isEmpty={isEmpty}
-        generateRows={generateRows}
-        data={initialData}
-        loading={true}
-        {...props}
-      />
-    )}
-    renderOk={data => (
-      <TopTable
-        title={title}
-        headers={headers}
-        emptyMessage={emptyMessage}
-        isEmpty={isEmpty}
-        generateRows={generateRows}
-        data={apiHandler(data)}
-        loading={false}
-        {...props}
-      />
-    )}
-    renderErr={() => (
-      <TopTable
-        title={title}
-        headers={headers}
-        emptyMessage={emptyMessage}
-        isEmpty={isEmpty}
-        generateRows={generateRows}
-        data={initialData}
-        loading={true}
-        {...props}
-      />
-    )}
-  />
-);
+}: TopTableProps<T, D>) {
+  return (
+    <WithAPIData
+      apiCall={apiCall}
+      repeatOptions={{
+        interval: 10 * 60 * 1000,
+        ignoreCancel: true
+      }}
+      renderInitial={() => (
+        <TopTable
+          title={title}
+          headers={headers}
+          emptyMessage={emptyMessage}
+          isEmpty={isEmpty}
+          generateRows={generateRows}
+          data={initialData}
+          loading={true}
+          {...props}
+        />
+      )}
+      renderOk={data => (
+        <TopTable
+          title={title}
+          headers={headers}
+          emptyMessage={emptyMessage}
+          isEmpty={isEmpty}
+          generateRows={generateRows}
+          data={apiHandler(data)}
+          loading={false}
+          {...props}
+        />
+      )}
+      renderErr={() => (
+        <TopTable
+          title={title}
+          headers={headers}
+          emptyMessage={emptyMessage}
+          isEmpty={isEmpty}
+          generateRows={generateRows}
+          data={initialData}
+          loading={true}
+          {...props}
+        />
+      )}
+    />
+  );
+}

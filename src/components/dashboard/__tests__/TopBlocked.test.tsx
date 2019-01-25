@@ -9,9 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { transformData, generateRows } from "../TopBlocked";
+import { generateRows, transformData } from "../TopBlocked";
+import { ApiTopBlocked } from "../../../util/api";
 
-const fakeData = {
+const fakeData: ApiTopBlocked = {
   top_domains: [
     { domain: "jaron.info", count: 54316 },
     { domain: "candelario.info", count: 47470 },

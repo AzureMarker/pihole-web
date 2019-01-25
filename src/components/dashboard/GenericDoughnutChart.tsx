@@ -8,28 +8,33 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component } from "react";
+import React, { Component, MouseEvent, RefObject } from "react";
 import { Doughnut } from "react-chartjs-2";
-import PropTypes from "prop-types";
 import { WithAPIData } from "../common/WithAPIData";
+import { ChartOptions } from "chart.js";
 
-export class GenericDoughnutChart extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    loading: PropTypes.bool.isRequired,
-    data: PropTypes.array.isRequired,
-    colors: PropTypes.array.isRequired,
-    labels: PropTypes.array.isRequired
-  };
+export interface GenericDoughnutChartProps {
+  title: string;
+  loading: boolean;
+  data: Array<number>;
+  colors: Array<string>;
+  labels: Array<string>;
+}
 
-  constructor(props) {
+export class GenericDoughnutChart extends Component<
+  GenericDoughnutChartProps,
+  {}
+> {
+  private readonly chartRef: RefObject<Doughnut>;
+
+  constructor(props: GenericDoughnutChartProps) {
     super(props);
     this.chartRef = React.createRef();
   }
 
-  handleClick = (e, index) => {
+  handleClick = (e: MouseEvent, index: number) => {
     // Hide the entry by clicking on the internal legend item
-    const chart = this.chartRef.current.chartInstance;
+    const chart: any = this.chartRef.current!.chartInstance;
     chart.legend.options.onClick.call(
       chart,
       e,
@@ -41,17 +46,20 @@ export class GenericDoughnutChart extends Component {
   };
 
   render() {
-    const options = {
+    const options: ChartOptions = {
       legend: { display: false },
       tooltips: {
         enabled: true,
         callbacks: {
           title: () => this.props.title,
           label: (tooltipItems, data) => {
-            const dataset = data.datasets[tooltipItems.datasetIndex];
-            const label = data.labels[tooltipItems.index];
+            const dataset = data.datasets![tooltipItems.datasetIndex!];
+            const label = data.labels![tooltipItems.index!];
             return (
-              label + ": " + dataset.data[tooltipItems.index].toFixed(1) + "%"
+              label +
+              ": " +
+              (dataset.data![tooltipItems.index!] as number).toFixed(1) +
+              "%"
             );
           }
         }
@@ -132,14 +140,19 @@ export class GenericDoughnutChart extends Component {
   }
 }
 
+export interface ChartItem {
+  name: string;
+  ip?: string;
+  percent: number;
+}
+
 /**
  * Transform the API data into props for GenericDoughnutChart
  *
  * @param apiData the API data
- * @returns {{loading: boolean, data: Array, colors: Array, labels: Array}}
- * GenericDoughnutChart props
+ * @returns GenericDoughnutChartProps
  */
-export const transformData = apiData => {
+export const transformData = (apiData: Array<ChartItem>) => {
   const colors = [
     "#20a8d8",
     "#f86c6b",
@@ -157,7 +170,7 @@ export const transformData = apiData => {
   let i = 0;
   for (let entry of apiData) {
     data.push(entry.percent);
-    labels.push(entry.name.length !== 0 ? entry.name : entry.ip);
+    labels.push(entry.name.length !== 0 ? entry.name : entry.ip!);
     usedColors.push(
       // If we ran out of colors, make a random one
       i < colors.length
@@ -189,21 +202,32 @@ export const loadingProps = {
   labels: []
 };
 
-export default ({ apiCall, title, apiHandler, ...props }) => (
-  <WithAPIData
-    apiCall={apiCall}
-    renderInitial={() => (
-      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
-    )}
-    renderOk={data => (
-      <GenericDoughnutChart
-        title={title}
-        {...transformData(apiHandler(data))}
-        {...props}
-      />
-    )}
-    renderErr={() => (
-      <GenericDoughnutChart title={title} {...loadingProps} {...props} />
-    )}
-  />
-);
+export default function<T>({
+  apiCall,
+  title,
+  apiHandler,
+  ...props
+}: {
+  apiCall: () => Promise<T>;
+  title: string;
+  apiHandler: (data: T) => Array<ChartItem>;
+}) {
+  return (
+    <WithAPIData
+      apiCall={apiCall}
+      renderInitial={() => (
+        <GenericDoughnutChart title={title} {...loadingProps} {...props} />
+      )}
+      renderOk={data => (
+        <GenericDoughnutChart
+          title={title}
+          {...transformData(apiHandler(data))}
+          {...props}
+        />
+      )}
+      renderErr={() => (
+        <GenericDoughnutChart title={title} {...loadingProps} {...props} />
+      )}
+    />
+  );
+}

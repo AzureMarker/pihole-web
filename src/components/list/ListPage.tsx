@@ -16,20 +16,20 @@ import DomainList from "./DomainList";
 import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
 
 export interface ListPageProps extends WithNamespaces {
-  title: string,
-  note?: {} | string,
-  placeholder: string,
-  add: (domain: string) => Promise<any | never>,
-  refresh: () => Promise<any | never>,
-  remove: (domain: string) => Promise<any | never>,
-  isValid: (domain: string) => boolean,
-  validationErrorMsg: string
+  title: string;
+  note?: {} | string;
+  placeholder: string;
+  add: (domain: string) => Promise<any | never>;
+  refresh: () => Promise<any | never>;
+  remove: (domain: string) => Promise<any | never>;
+  isValid: (domain: string) => boolean;
+  validationErrorMsg: string;
 }
 
 export interface ListPageState {
-  domains: string[],
-  message: string,
-  messageType: AlertType
+  domains: string[];
+  message: string;
+  messageType: AlertType;
 }
 
 export class ListPage extends Component<ListPageProps, ListPageState> {

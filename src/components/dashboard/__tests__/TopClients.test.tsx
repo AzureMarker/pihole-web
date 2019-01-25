@@ -9,9 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { transformData, generateRows } from "../TopClients";
+import { generateRows, transformData } from "../TopClients";
+import { ApiTopClients } from "../../../util/api";
 
-const fakeData = {
+const fakeData: ApiTopClients = {
   top_clients: [
     { name: "", ip: "21.43.61.185", count: 37586 },
     { name: "", ip: "224.77.182.60", count: 28664 },

@@ -11,12 +11,13 @@
 import React from "react";
 import { shallow } from "enzyme";
 import {
+  ChartItem,
   GenericDoughnutChart,
-  transformData,
-  loadingProps
+  loadingProps,
+  transformData
 } from "../GenericDoughnutChart";
 
-const fakeData = [
+const fakeData: Array<ChartItem> = [
   { name: "roberta.net", ip: "8.239.48.32", percent: 0.38411761010240625 },
   { name: "", ip: "89.60.252.186", percent: 0.2830935477791041 },
   { name: "christop.net", ip: "181.219.42.222", percent: 0.6249293208519193 }

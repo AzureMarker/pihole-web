@@ -11,12 +11,15 @@
 import React from "react";
 import { shallow } from "enzyme";
 import {
-  TranslatedSummaryStats,
+  errorProps,
   transformData,
-  errorProps
+  TranslatedSummaryStats
 } from "../SummaryStats";
+import { ApiSummary } from "../../../util/api";
 
-const fakeData = {
+const tick = global.tick;
+
+const fakeData: ApiSummary = {
   active_clients: 2,
   blocked_queries: 2281,
   cached_queries: 3573,

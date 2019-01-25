@@ -9,7 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
-import ReactTable, { Filter, ReactTableFunction, RowInfo, RowRenderProps } from "react-table";
+import ReactTable, {
+  Filter,
+  ReactTableFunction,
+  RowInfo,
+  RowRenderProps
+} from "react-table";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button } from "reactstrap";
 import i18n from "i18next";
@@ -17,7 +22,12 @@ import i18next from "i18next";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
 import moment, { Moment } from "moment";
-import { CancelablePromise, ignoreCancel, makeCancelable, padNumber } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable,
+  padNumber
+} from "../../util";
 import api, { ApiHistoryResponse, ApiQuery } from "../../util/api";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";

@@ -13,17 +13,17 @@ import { Col, FormGroup, Input, Label } from "reactstrap";
 import i18next from "i18next";
 
 export interface ConditionalForwardingObject {
-  enabled: boolean,
-  routerIp: string,
-  domain: string
+  enabled: boolean;
+  routerIp: string;
+  domain: string;
 }
 
 export interface ConditionalForwardingSettingsProps {
-  settings: ConditionalForwardingObject,
-  onUpdate: (settings: ConditionalForwardingObject) => void,
+  settings: ConditionalForwardingObject;
+  onUpdate: (settings: ConditionalForwardingObject) => void;
   isRouterIpValid: boolean;
   isDomainValid: boolean;
-  t: i18next.TranslationFunction
+  t: i18next.TranslationFunction;
 }
 
 const ConditionalForwardingSettings = ({

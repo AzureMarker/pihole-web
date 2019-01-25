@@ -10,8 +10,9 @@
 
 import React from "react";
 import { generateRows, transformData } from "../TopDomains";
+import { ApiTopDomains } from "../../../util/api";
 
-const fakeData = {
+const fakeData: ApiTopDomains = {
   top_domains: [
     { domain: "willow.com", count: 13739 },
     { domain: "maurine.info", count: 13397 },

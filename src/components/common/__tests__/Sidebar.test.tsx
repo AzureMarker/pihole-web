@@ -35,7 +35,7 @@ it("creates nav items with correct data", () => {
     icon: "test-icon",
     name: "testName",
     auth: false,
-    component: () => <div/>
+    component: () => <div />
   };
   const key = "testKey";
   const wrapper = shallow(

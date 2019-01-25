@@ -10,7 +10,10 @@
 
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
-import DomainInput, { DomainInputProps, DomainInputState } from "../DomainInput";
+import DomainInput, {
+  DomainInputProps,
+  DomainInputState
+} from "../DomainInput";
 import api from "../../../util/api";
 import { isValidDomain } from "../../../util/validate";
 

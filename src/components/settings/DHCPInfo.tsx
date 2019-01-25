@@ -12,7 +12,16 @@ import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
 import api, { ApiDhcpSettings, ApiResultResponse } from "../../util/api";
-import { Button, Col, Form, FormGroup, Input, InputGroup, InputGroupAddon, Label } from "reactstrap";
+import {
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Label
+} from "reactstrap";
 import { isValidHostname, isValidIpv4 } from "../../util/validate";
 import Alert, { AlertType } from "../common/Alert";
 

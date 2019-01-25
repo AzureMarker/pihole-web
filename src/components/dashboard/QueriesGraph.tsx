@@ -9,25 +9,26 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Line } from "react-chartjs-2";
-import { withNamespaces } from "react-i18next";
+import { WithNamespaces, withNamespaces } from "react-i18next";
 import { padNumber } from "../../util";
-import api from "../../util/api";
+import api, { ApiHistoryGraphItem } from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
+import { ChartData, ChartOptions } from "chart.js";
+import { Line } from "react-chartjs-2";
 
-class QueriesGraph extends Component {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-    labels: PropTypes.array.isRequired,
-    domains_over_time: PropTypes.array.isRequired,
-    blocked_over_time: PropTypes.array.isRequired
-  };
+export interface QueriesGraphProps {
+  loading: boolean;
+  labels: Array<Date>;
+  domains_over_time: Array<number>;
+  blocked_over_time: Array<number>;
+}
 
+class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
   render() {
     const { t } = this.props;
 
-    const data = {
+    const data: ChartData = {
+      // @ts-ignore
       labels: this.props.labels,
       datasets: [
         {
@@ -57,15 +58,15 @@ class QueriesGraph extends Component {
       ]
     };
 
-    const options = {
+    const options: ChartOptions = {
       tooltips: {
         enabled: true,
         mode: "x-axis",
         callbacks: {
           title: tooltipItem => {
-            const time = tooltipItem[0].xLabel.match(/(\d?\d):?(\d?\d?)/);
-            const hour = parseInt(time[1], 10);
-            const minute = parseInt(time[2], 10) || 0;
+            const time = tooltipItem[0].xLabel!.match(/(\d?\d):?(\d?\d?)/);
+            const hour = parseInt(time![1], 10);
+            const minute = parseInt(time![2], 10) || 0;
             const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
             const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
 
@@ -74,19 +75,17 @@ class QueriesGraph extends Component {
           label: (tooltipItems, data) => {
             if (tooltipItems.datasetIndex === 1) {
               let percentage = 0.0;
-              const total = parseInt(
-                data.datasets[0].data[tooltipItems.index],
-                10
-              );
-              const blocked = parseInt(
-                data.datasets[1].data[tooltipItems.index],
-                10
-              );
+              const total = data.datasets![0].data![
+                tooltipItems.index!
+              ] as number;
+              const blocked = data.datasets![1].data![
+                tooltipItems.index!
+              ] as number;
 
               if (total > 0) percentage = (100.0 * blocked) / total;
 
               return (
-                data.datasets[tooltipItems.datasetIndex].label +
+                data.datasets![tooltipItems.datasetIndex].label +
                 ": " +
                 tooltipItems.yLabel +
                 " (" +
@@ -95,7 +94,7 @@ class QueriesGraph extends Component {
               );
             } else
               return (
-                data.datasets[tooltipItems.datasetIndex].label +
+                data.datasets![tooltipItems.datasetIndex!].label +
                 ": " +
                 tooltipItems.yLabel
               );
@@ -157,7 +156,9 @@ class QueriesGraph extends Component {
  * @returns {{loading: boolean, labels: Date[], domains_over_time: *,
  * blocked_over_time: any[]}} QueriesGraph props
  */
-export const transformData = data => {
+export const transformData = (
+  data: Array<ApiHistoryGraphItem>
+): QueriesGraphProps => {
   // Remove last data point as it's not yet finished
   data = data.slice(0, -1);
 
@@ -185,11 +186,12 @@ export const loadingProps = {
 
 export const TranslatedQueriesGraph = withNamespaces("dashboard")(QueriesGraph);
 
-export default props => (
+export default (props: any) => (
   <WithAPIData
     apiCall={api.getHistoryGraph}
     repeatOptions={{
-      interval: 10 * 60 * 1000
+      interval: 10 * 60 * 1000,
+      ignoreCancel: true
     }}
     renderInitial={() => (
       <TranslatedQueriesGraph {...loadingProps} {...props} />

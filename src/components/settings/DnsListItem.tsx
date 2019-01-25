@@ -12,7 +12,7 @@ import React from "react";
 import { Button, ListGroupItem } from "reactstrap";
 
 export interface DnsListItemProps {
-  address: string,
+  address: string;
   onRemove: () => void;
 }
 

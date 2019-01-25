@@ -8,7 +8,13 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { ChangeEvent, Component, FormEvent, Fragment, KeyboardEvent } from "react";
+import React, {
+  ChangeEvent,
+  Component,
+  FormEvent,
+  Fragment,
+  KeyboardEvent
+} from "react";
 import { Redirect } from "react-router-dom";
 import sha from "sha.js";
 import api from "../util/api";
@@ -20,7 +26,7 @@ import config from "../config";
 import { History, LocationDescriptorObject } from "history";
 
 export interface LoginProps extends WithNamespaces {
-  location: LocationDescriptorObject<{ from: Location }>
+  location: LocationDescriptorObject<{ from: Location }>;
   history: History;
 }
 
@@ -97,7 +103,9 @@ class Login extends Component<LoginProps, LoginState> {
         }
 
         // Redirect to the page the user was originally going to, or if that doesn't exist, go to home
-        const locationState = this.props.location.state || { from: { pathname: "/" } };
+        const locationState = this.props.location.state || {
+          from: { pathname: "/" }
+        };
         this.props.history.push(locationState.from.pathname);
       })
       // If there was an error, tell the user they used the wrong password
