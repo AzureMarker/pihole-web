@@ -1,0 +1,18 @@
+{
+    "Blocked": "Geblokkeerd",
+    "Allowed (forwarded)": "Toegestaan (doorgestuurd)",
+    "Allowed (cached)": "",
+    "Blocked (regex/wildcard)": "Geblokkeerd (reguliere expressie)",
+    "Blocked (blacklist)": "Geblokkeerd (blacklist)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
+}
