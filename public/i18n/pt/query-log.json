@@ -3,5 +3,16 @@
     "Allowed (forwarded)": "Permitido (encaminhado)",
     "Allowed (cached)": "Permitido (em cache)",
     "Blocked (regex/wildcard)": "Bloqueado (regex)",
-    "Blocked (blacklist)": "Bloqueado (lista negra)"
+    "Blocked (blacklist)": "Bloqueado (lista negra)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
 }
