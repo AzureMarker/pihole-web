@@ -20,7 +20,7 @@
     "IPv6 address": "IPv6 adresi",
     "Hostname": "Sunucu adı",
     "Branch": "Şube",
-    "Hash": "Hash",
+    "Hash": "",
     "Tag": "Etiket",
     "Only forward public reverse lookups": "Yalnızca ileriye dönük genel ters aramalar",
     "Processing...": "İşleniyor...",
