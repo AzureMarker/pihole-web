@@ -18,5 +18,8 @@
     "shared_memory_open": "shared_memory_open",
     "shared_memory_read": "shared_memory_read",
     "shared_memory_lock": "shared_memory_lock",
-    "API Error: {{error}}": "API Error: {{error}}"
+    "API Error: {{error}}": "",
+    "reload_dns_error": "",
+    "shared_memory_version": "",
+    "ftl_database": ""
 }
