@@ -38,6 +38,7 @@ export function setupI18n() {
       ],
       nsSeparator: false,
       keySeparator: false,
+      returnEmptyString: false,
       debug: config.developmentMode,
       interpolation: {
         // Handled by React
