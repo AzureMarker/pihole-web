@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blokované",
+    "Allowed (forwarded)": "Povolené (pretlačené)",
+    "Allowed (cached)": "Povolené (cached)",
+    "Blocked (regex/wildcard)": "Blokované (wildcard)",
+    "Blocked (blacklist)": "Blokované (čierna listina)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
+}
