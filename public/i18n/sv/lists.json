@@ -1,0 +1,14 @@
+{
+    "Adding {{domain}}...": "Lägger till {{domain}}...",
+    "Successfully added {{domain}}": "Lyckades lägga till {{domain}}",
+    "Failed to add {{domain}}": "Misslyckades att lägga till {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Obs: Det är inte möjligt att vitlista en underdomän av en wildcard blockerad domän.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Obs: Endast domänen och underdomänerna för den blockerade domänen blockeras.",
+    "Add a domain (example.com or sub.example.com)": "Lägg till en domän (exempel.se eller under.exempel.se)",
+    "{{domain}} is already added": "{{domain}} redan tillagd",
+    "Failed to remove {{domain}}": "Misslyckades med att ta bort {{domain}}",
+    "There are no domains in this list": "Det finna inga domäner i listan",
+    "Input a regular expression": "Mata in ett reguljärt uttryck",
+    "Not a valid domain": "Inte en giltig domän",
+    "Not a valid regular expression": "Inte ett giltigt reguljärt uttryck"
+}
