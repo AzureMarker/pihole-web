@@ -8,5 +8,7 @@
     "{{domain}} is already added": "{{domain}} ja està afegit\n",
     "Failed to remove {{domain}}": "Error en esborrar {{domain}}",
     "There are no domains in this list": "No hi ha dominis en aquesta llista",
-    "Input a regular expression": "Escriu una expressió regular"
+    "Input a regular expression": "Escriu una expressió regular",
+    "Not a valid domain": "",
+    "Not a valid regular expression": ""
 }
