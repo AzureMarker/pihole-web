@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Domena blokirano",
+    "Query Types": "Tipovi upita",
+    "Forward Destinations": "Daljnje destinacije",
+    "Top Permitted Domains": "Top domene",
+    "Top Blocked Domains": "Top oglašivači",
+    "Top Clients": "Top klijenti",
+    "Total Queries ({{count}} clients)": "",
+    "Total Queries ({{count}} clients)_plural": "",
+    "Queries Blocked": "",
+    "Percent Blocked": "",
+    "Queries Over Last 24 Hours": "",
+    "Clients Over Last 24 Hours": "",
+    "Queries Answered By": "",
+    "Queries from {{from}} to {{to}}": "",
+    "Total Queries": "",
+    "Blocked Queries": "",
+    "Client activity from {{from}} to {{to}}": "",
+    "{{percent}}% of {{total}}": "",
+    "No Clients Found": "",
+    "No Domains Found": "",
+    "Queries Answered By Destination": ""
+}

@@ -18,5 +18,8 @@
     "shared_memory_open": "paylaşılmış_bellek_açık",
     "shared_memory_read": "paylaşılmış_bellek_açık",
     "shared_memory_lock": "paylaşılmış_bellek_kilitli",
-    "API Error: {{error}}": "API Hatası: {{error}}"
+    "API Error: {{error}}": "API Hatası: {{error}}",
+    "reload_dns_error": "",
+    "shared_memory_version": "",
+    "ftl_database": ""
 }

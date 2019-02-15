@@ -7,8 +7,9 @@
     "Wildcard": "Wildcard\n",
     "Login": "Giriş Yap",
     "Logout": "Çıkış Yap",
-    "Regex": "Regex",
+    "Regex": "",
     "Settings": "Ayarlar",
     "Networking": "Ağ",
-    "Versions": "Sürümler"
+    "Versions": "Sürümler",
+    "Preferences": ""
 }

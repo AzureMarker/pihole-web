@@ -22,5 +22,9 @@
     "Branch": "Бранш",
     "Hash": "Хеш",
     "Tag": "Тагове",
-    "Only forward public reverse lookups": "Само препращане публично обратното търсене"
+    "Only forward public reverse lookups": "Само препращане публично обратното търсене",
+    "Processing...": "",
+    "Successfully saved settings": "",
+    "Detected custom upstream server": "",
+    "DNS Options": ""
 }

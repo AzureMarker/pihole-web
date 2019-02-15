@@ -1,7 +1,7 @@
 {
     "Details": "Ayrıntılar",
     "Status": "Durum",
-    "DNS": "DNS",
+    "DNS": "",
     "Donate": "Bağış yapın",
     "Domain": "Alan Adı",
     "Hits": "İsabetler",
@@ -17,9 +17,18 @@
     "Disabled": "Devre Dışı",
     "DHCP": "DHCP\n",
     "Core": "Çekirdek",
-    "FTL": "FTL",
-    "API": "API",
+    "FTL": "",
+    "API": "",
     "Web": "Ağ",
     "Version": "Sürüm",
-    "Apply": "Uygula"
+    "Apply": "Uygula",
+    "Disable": "",
+    "Permanently": "",
+    "For {{time}} seconds": "",
+    "For {{time}} minutes": "",
+    "Custom time": "",
+    "Enable": "",
+    "Cancel": "",
+    "Seconds": "",
+    "Minutes": ""
 }

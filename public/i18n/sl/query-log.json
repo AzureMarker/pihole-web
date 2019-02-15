@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blokirano",
+    "Allowed (forwarded)": "Dovoljeno (posredovano)",
+    "Allowed (cached)": "Dovoljeno (predpomnjeno)",
+    "Blocked (regex/wildcard)": "Blokirano (regex)",
+    "Blocked (blacklist)": "Blokirano (seznam)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
+}
