@@ -15,12 +15,16 @@
     "Queries": "Consultas",
     "Filesize": "Tamanho do arquivo",
     "SQLite version": "Versão do SQLite",
-    "Interface": "Interface",
+    "Interface": "",
     "IPv4 address": "Endereço IPv4",
     "IPv6 address": "Endereço IPv6",
     "Hostname": "Nome de anfitrião",
     "Branch": "Ramal",
-    "Hash": "Hash",
+    "Hash": "",
     "Tag": "etiqueta",
-    "Only forward public reverse lookups": "Somente encaminhar pesquisas reversas públicas"
+    "Only forward public reverse lookups": "Somente encaminhar pesquisas reversas públicas",
+    "Processing...": "",
+    "Successfully saved settings": "",
+    "Detected custom upstream server": "",
+    "DNS Options": ""
 }

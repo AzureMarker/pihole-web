@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Domæner Blokeret",
+    "Query Types": "Forespørgelses Typer",
+    "Forward Destinations": "Forespørgelses Destination",
+    "Top Permitted Domains": "Top Tilladte Domæner",
+    "Top Blocked Domains": "Top Blokerede Domæner",
+    "Top Clients": "Top Klienter",
+    "Total Queries ({{count}} clients)": "",
+    "Total Queries ({{count}} clients)_plural": "",
+    "Queries Blocked": "",
+    "Percent Blocked": "",
+    "Queries Over Last 24 Hours": "",
+    "Clients Over Last 24 Hours": "",
+    "Queries Answered By": "",
+    "Queries from {{from}} to {{to}}": "",
+    "Total Queries": "",
+    "Blocked Queries": "",
+    "Client activity from {{from}} to {{to}}": "",
+    "{{percent}}% of {{total}}": "",
+    "No Clients Found": "",
+    "No Domains Found": "",
+    "Queries Answered By Destination": ""
+}

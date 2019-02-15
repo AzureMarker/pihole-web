@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blocat",
+    "Allowed (forwarded)": "Permis (redirectionat)",
+    "Allowed (cached)": "Permis (cached)",
+    "Blocked (regex/wildcard)": "Blocat (regex)",
+    "Blocked (blacklist)": "Blocat (lista neagra)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
+}

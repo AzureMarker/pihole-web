@@ -1,0 +1,10 @@
+{
+    "Password": "Lösenord",
+    "Sign in to start your session": "Logga in för att starta din session",
+    "Log in": "Logga in",
+    "Forgot Password": "Glömt lösenord",
+    "forgot_password_description": "",
+    "Wrong Password!": "Fel lösenord!",
+    "You will be transferred to the \"{{page}}\" page": "Du kommer att bli överflyttad till \"{{page}}\"",
+    "Verify that cookies are allowed for {{host}}": "Verifiera att kakor är tillåtna för {{host}}"
+}

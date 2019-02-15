@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blokkoltak",
+    "Allowed (forwarded)": "Engedélyezett (továbbítás)",
+    "Allowed (cached)": "Engedélyezett (tároltak)",
+    "Blocked (regex/wildcard)": "Blokkolt (névjegy)",
+    "Blocked (blacklist)": "Blokkolt (tíltólista)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
+}

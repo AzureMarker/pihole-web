@@ -7,8 +7,9 @@
     "Wildcard": "Comodín",
     "Login": "Iniciar sesión",
     "Logout": "Cerrar sesión",
-    "Regex": "Regex",
+    "Regex": "",
     "Settings": "Configuración",
     "Networking": "Redes",
-    "Versions": "Versiones"
+    "Versions": "Versiones",
+    "Preferences": ""
 }

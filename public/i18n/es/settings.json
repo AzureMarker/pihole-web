@@ -20,7 +20,7 @@
     "IPv6 address": "Dirección IPv6",
     "Hostname": "Nombre del Host",
     "Branch": "Rama",
-    "Hash": "Hash",
+    "Hash": "",
     "Tag": "Etiqueta",
     "Only forward public reverse lookups": "Solo búsquedas públicas inversas hacia adelante",
     "Processing...": "Procesando...",

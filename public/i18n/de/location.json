@@ -2,13 +2,14 @@
     "Query Log": "Abfragenprotokoll",
     "Whitelist": "Weißliste",
     "Blacklist": "Schwarzliste",
-    "Dashboard": "Dashboard",
+    "Dashboard": "",
     "Exact": "Exakt",
-    "Wildcard": "Wildcard",
+    "Wildcard": "",
     "Login": "Anmelden",
     "Logout": "Abmelden",
     "Regex": "Regulärer Ausdruck",
     "Settings": "Einstellungen",
-    "Networking": "Networking",
-    "Versions": "Versionen"
+    "Networking": "",
+    "Versions": "Versionen",
+    "Preferences": ""
 }

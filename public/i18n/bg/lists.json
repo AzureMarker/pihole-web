@@ -8,5 +8,7 @@
     "{{domain}} is already added": "{{домейнът}} вече е добавено в списък",
     "Failed to remove {{domain}}": "Неуспех при премахването на {{домейна}}",
     "There are no domains in this list": "Няма домейни в този списък",
-    "Input a regular expression": "Въведете регулярен израз"
+    "Input a regular expression": "Въведете регулярен израз",
+    "Not a valid domain": "",
+    "Not a valid regular expression": ""
 }

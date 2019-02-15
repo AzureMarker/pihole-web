@@ -1,0 +1,10 @@
+{
+    "Password": "Heslo",
+    "Sign in to start your session": "Přihlásit se a začát správu",
+    "Log in": "Přihlásit se",
+    "Forgot Password": "Zabudnuté heslo",
+    "forgot_password_description": "Při prvej instalaci Pi-hole se heslo vygeneruje a zobrazí užívateli. Heslo se \tpozději nedá zjistit, ale je tu potom možnost nastavit jsi nové (nebo explicitne vypnout nastavením prázdného hesla) použitím příkazu:",
+    "Wrong Password!": "Nesprávne heslo! ",
+    "You will be transferred to the \"{{page}}\" page": "Budete přesunutý na stránku {{page}} ",
+    "Verify that cookies are allowed for {{host}}": "Uistite se, že jsou povolené cookies pro {{host}}"
+}

@@ -1,7 +1,9 @@
 {
     "unknown": "unbekannt",
+    "gravity_error": "Erstellen der Blockierliste fehlgeschlagen",
     "ftl_connection_fail": "ftl_verbindung_fehlgeschlagen",
     "ftl_read_error": "ftl_lese_fehler",
+    "ftl_eom_error": "Unerwartetes EOM von FTL empfangen",
     "not_found": "nicht_gefunden",
     "already_exists": "bereits_existent",
     "invalid_domain": "ungültige_domain",
@@ -12,5 +14,12 @@
     "config_parsing_error": "konfig_einfügen_fehler",
     "invalid_setting_value": "ungültiger_einstellungswert",
     "restart_dns_error": "fehler_dns_neustart",
-    "dnsmasq_config_write": "dnsmasq_konfig_schreiben"
+    "dnsmasq_config_write": "dnsmasq_konfig_schreiben",
+    "shared_memory_open": "",
+    "shared_memory_read": "",
+    "shared_memory_lock": "",
+    "API Error: {{error}}": "API Fehler: {{error}}",
+    "reload_dns_error": "Der DNS Server konnte nicht neu gestartet werden",
+    "shared_memory_version": "",
+    "ftl_database": ""
 }
