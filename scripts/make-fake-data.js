@@ -51,16 +51,16 @@ function history(length) {
       return {
         timestamp: startDate + i,
         type: isIPv4 ? 1 : 2,
-        status: Math.floor(Math.random() * 6),
+        status: Math.floor(Math.random() * 6.9),
         domain: faker.internet.domainName(),
         client: isHostname
           ? faker.internet.domainWord() + ".local"
           : isIPv4
             ? faker.internet.ip()
             : faker.internet.ipv6(),
-        dnssec: Math.floor(Math.random() * 5),
-        reply: Math.floor(Math.random() * 7),
-        response_time: Math.floor(Math.random() * 100)
+        dnssec: Math.floor(Math.random() * 5.9),
+        reply: Math.floor(Math.random() * 7.9),
+        response_time: Math.floor(Math.random() * 100.9)
       };
     })
   };

@@ -305,7 +305,7 @@ const dnssecColor = [
   "orange",
   "red",
   "red",
-  "red"
+  "orange"
 ];
 
 /**
