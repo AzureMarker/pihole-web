@@ -27,7 +27,7 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 - Open the folder in the terminal
 - Run `npm install`
     - This will install all the packages listed in `package.json` and will let you build/run the web interface
-- Run `npm start` to make sure that it is working
+- Run `npm start-fake` to make sure that it is working
     - This will launch the web interface on port 3000 in debug mode
     - If it crashes/has a compile error it will show you the code and the error
     - Changes will be automatically applied and the web interface will reload
@@ -42,6 +42,18 @@ make a pull request, base the PR against `development`.
 - Checkout the branch you want to test using `git checkout`
 - Run `npm install` just to make sure you have the correct dependencies for the branch
 - Run `npm run start-fake` to start the web interface with fake data
-    - See the `npm start` section of the getting started guide above for more details,
+    - See the `npm start-fake` section of the getting started guide above for more details,
     like the port number
 - Note: interactive API features, like adding to the whitelist, will not work with fake data
+
+## Testing With Real Data
+
+- Follow the "Getting Started" guide above
+- Checkout the branch you want to test using `git checkout`
+- Run `npm install` just to make sure you have the correct dependencies for the branch
+- Open `package.json` and add `"proxy": "http://pi.hole"`. Change the URL to a URL that your API is listening on if
+  it is not `http://pi.hole` (ex. `http://my.device.local:8000`)
+- Run `npm run start` to start the web interface
+    - See the `npm start-fake` section of the getting started guide above for more details,
+    like the port number
+
