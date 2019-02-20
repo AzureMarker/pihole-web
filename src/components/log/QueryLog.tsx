@@ -301,11 +301,11 @@ const dnssec = (t: i18next.TranslationFunction) => [
 
 const dnssecColor = [
   "", // Unspecified, which means DNSSEC is off, so the initial color should be shown
-  "green",
-  "orange",
-  "red",
-  "red",
-  "orange"
+  "green", // Secure
+  "orange", // Insecure
+  "red", // Bogus
+  "red", // Abandoned
+  "orange" // Unknown
 ];
 
 /**
