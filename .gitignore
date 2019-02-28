@@ -9,6 +9,9 @@ node_modules
 build
 src/scss/style.css
 
+# Generated Files
+src/languages.json
+
 # Misc
 .DS_Store
 .env
