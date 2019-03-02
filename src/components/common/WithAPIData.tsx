@@ -70,7 +70,7 @@ export class WithAPIData<T> extends Component<
 
   private dataHandle: CancelablePromise<T> | undefined;
 
-  loadData = (data: T | null = null) => {
+  loadData = (data?: T) => {
     // Only repeat if there is a non-zero repeat interval
     const cancelOptions =
       this.props.repeatOptions.interval !== 0
@@ -85,7 +85,7 @@ export class WithAPIData<T> extends Component<
       this.dataHandle.cancel();
     }
 
-    if (data !== null) {
+    if (data) {
       // Some data was given, it should be used as the API response
       this.setState({ apiResult: new Ok(data) });
 
