@@ -84,7 +84,7 @@ export default {
   getStatus(): Promise<ApiStatus> {
     return http.get("dns/status");
   },
-  setStatus(action: StatusAction, time: number | null = null) {
+  setStatus(action: StatusAction, time?: number) {
     return http.post("dns/status", { action, time });
   },
   getNetworkInfo(): Promise<ApiNetworkSettings> {

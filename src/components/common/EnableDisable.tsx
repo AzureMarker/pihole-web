@@ -72,7 +72,7 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
    * @param action The action to perform ("enable" or "disable")
    * @param time The amount of time to disable for. This setting is optional.
    */
-  setStatus = (action: StatusAction, time: number | null = null) => {
+  setStatus = (action: StatusAction, time?: number) => {
     if (this.state.processing) {
       // Wait for the first status change to go through
       return;
