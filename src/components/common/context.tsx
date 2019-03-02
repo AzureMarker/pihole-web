@@ -22,12 +22,41 @@ export interface PreferencesContextType {
   refresh: (data?: ApiPreferences) => void;
 }
 
+export const WEB_PREFERENCES_STORAGE_KEY = "webPreferences";
+
 const initialStatus: StatusContextType = {
   status: "unknown",
   refresh: () => {}
 };
+
+export const defaultPreferences: ApiPreferences = {
+  layout: "boxed",
+  language: "en"
+};
+
+/**
+ * Load the initial web interface preferences. Cached preferences from local
+ * storage will be used if available, otherwise default preferences will be
+ * used.
+ */
+export const loadInitialPreferences = (): ApiPreferences => {
+  const cachedPreferencesString = localStorage.getItem(
+    WEB_PREFERENCES_STORAGE_KEY
+  );
+
+  if (cachedPreferencesString === null) {
+    return defaultPreferences;
+  }
+
+  try {
+    return JSON.parse(cachedPreferencesString);
+  } catch (e) {
+    return defaultPreferences;
+  }
+};
+
 const initialPreferences: PreferencesContextType = {
-  settings: { layout: "boxed", language: "en" },
+  settings: loadInitialPreferences(),
   refresh: () => {}
 };
 
@@ -101,11 +130,19 @@ export const PreferencesProvider = ({
         {children}
       </PreferencesContext.Provider>
     )}
-    renderOk={(settings, refresh) => (
-      <PreferencesContext.Provider value={{ settings, refresh }} {...props}>
-        {children}
-      </PreferencesContext.Provider>
-    )}
+    renderOk={(settings, refresh) => {
+      // Update the cached settings
+      localStorage.setItem(
+        WEB_PREFERENCES_STORAGE_KEY,
+        JSON.stringify(settings)
+      );
+
+      return (
+        <PreferencesContext.Provider value={{ settings, refresh }} {...props}>
+          {children}
+        </PreferencesContext.Provider>
+      );
+    }}
     renderErr={(_, refresh) => (
       <PreferencesContext.Provider
         value={{ settings: { layout: "boxed", language: "en" }, refresh }}
