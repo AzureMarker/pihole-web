@@ -16,7 +16,6 @@ import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { PreferencesContext } from "../common/context";
 import languages from "../../languages.json";
-import i18n from "i18next";
 
 export interface PreferenceSettingsProps {
   settings: ApiPreferences;
@@ -28,6 +27,8 @@ export interface PreferenceSettingsState {
   alertType: AlertType;
   showAlert: boolean;
   processing: boolean;
+  translateMessage: boolean;
+  error: { key: string; data: any } | null;
   settings: ApiPreferences;
 }
 
@@ -40,6 +41,8 @@ class PreferenceSettings extends Component<
     alertType: "info",
     showAlert: false,
     processing: false,
+    translateMessage: true,
+    error: null,
     // Initial value is the current settings
     settings: this.props.settings
   };
@@ -100,13 +103,13 @@ class PreferenceSettings extends Component<
   saveSettings = (e: FormEvent) => {
     e.preventDefault();
 
-    const { t } = this.props;
-
     this.setState({
-      alertMessage: t("Processing..."),
+      alertMessage: "Processing...",
+      error: null,
       alertType: "info",
       showAlert: true,
-      processing: true
+      processing: true,
+      translateMessage: true
     });
 
     this.updateHandler = makeCancelable(
@@ -115,18 +118,12 @@ class PreferenceSettings extends Component<
     this.updateHandler.promise
       .then(() => {
         this.setState({
-          alertMessage: t("Successfully saved preferences"),
+          alertMessage: "Successfully saved preferences",
           alertType: "success",
           showAlert: true,
-          processing: false
+          processing: false,
+          translateMessage: true
         });
-
-        // Update the language
-        i18n.changeLanguage(this.state.settings.language).then(() =>
-          // Once the language is updated, update the alert message to use the
-          // new language
-          this.setState({ alertMessage: t("Successfully saved preferences") })
-        );
 
         // Update anyone using the preferences
         this.props.refresh(this.state.settings);
@@ -134,21 +131,24 @@ class PreferenceSettings extends Component<
       .catch(ignoreCancel)
       .catch(error => {
         let message = "";
+        let apiError = null;
+        let translateMessage = true;
 
         if (error instanceof Error) {
           message = error.message;
+          translateMessage = false;
         } else {
-          // Translate the API's error message
-          message = t("API Error: {{error}}", {
-            error: t(error.key, error.data)
-          });
+          message = "API Error: {{error}}";
+          apiError = error;
         }
 
         this.setState({
           alertMessage: message,
+          error: apiError,
           alertType: "danger",
           showAlert: true,
-          processing: false
+          processing: false,
+          translateMessage
         });
       });
   };
@@ -157,12 +157,30 @@ class PreferenceSettings extends Component<
     this.setState({ showAlert: false });
   };
 
+  getAlertMessage = () => {
+    const { t } = this.props;
+
+    if (this.state.error) {
+      // Translate the API error
+      return t(this.state.alertMessage, {
+        error: t(this.state.error.key, this.state.error.data)
+      });
+    } else {
+      // Check if the message should be translated
+      if (this.state.translateMessage) {
+        return t(this.state.alertMessage);
+      } else {
+        return this.state.alertMessage;
+      }
+    }
+  };
+
   render() {
     const { t } = this.props;
 
     const alert = this.state.showAlert ? (
       <Alert
-        message={this.state.alertMessage}
+        message={this.getAlertMessage()}
         type={this.state.alertType}
         onClick={this.hideAlert}
       />
