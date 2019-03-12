@@ -4,12 +4,12 @@
     "Blacklist": "Svartlista",
     "Dashboard": "Kontrollpanel",
     "Exact": "Exakt",
-    "Wildcard": "",
+    "Wildcard": "Jokertecken",
     "Login": "Logga in",
     "Logout": "Logga ut",
-    "Regex": "",
+    "Regex": "Regex",
     "Settings": "Inställningar",
-    "Networking": "Nätverk",
+    "Networking": "Nätverkande",
     "Versions": "Versioner",
-    "Preferences": ""
+    "Preferences": "Inställningar"
 }

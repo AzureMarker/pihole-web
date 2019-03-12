@@ -2,7 +2,7 @@
     "Blocked": "Blockerad",
     "Allowed (forwarded)": "Tillåtet (vidarebefordras)",
     "Allowed (cached)": "Tillåten (cachad)",
-    "Blocked (regex/wildcard)": "Blockerad (regex)",
+    "Blocked (regex/wildcard)": "Blockerad (regex/jokertecken)",
     "Blocked (blacklist)": "Blockerad (svartlista)",
     "Unknown": "Okänd",
     "Blocked (external)": "Blockerad (extern)",

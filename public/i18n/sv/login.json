@@ -3,8 +3,8 @@
     "Sign in to start your session": "Logga in för att starta din session",
     "Log in": "Logga in",
     "Forgot Password": "Glömt lösenord",
-    "forgot_password_description": "",
+    "forgot_password_description": "När Pi-hole installeras för första gången genereras ett lösenord och visas för användaren. Lösenordet kan inte hämtas senare, men det är möjligt att ställa in ett nytt lösenord (eller uttryckligen inaktivera lösenordet genom att ange ett tomt lösenord) med kommandot:",
     "Wrong Password!": "Fel lösenord!",
-    "You will be transferred to the \"{{page}}\" page": "Du kommer att bli överflyttad till \"{{page}}\"",
+    "You will be transferred to the \"{{page}}\" page": "Du kommer att överföras till sidan \"{{page}}\"",
     "Verify that cookies are allowed for {{host}}": "Verifiera att kakor är tillåtna för {{host}}"
 }

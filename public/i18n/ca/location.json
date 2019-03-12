@@ -7,9 +7,9 @@
     "Wildcard": "Comodí",
     "Login": "Entrar",
     "Logout": "Sortir",
-    "Regex": "",
-    "Settings": "",
-    "Networking": "",
-    "Versions": "",
-    "Preferences": ""
+    "Regex": "Expressió regular",
+    "Settings": "Configuracó",
+    "Networking": "Xarxes",
+    "Versions": "Versions",
+    "Preferences": "Preferències"
 }

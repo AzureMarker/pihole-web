@@ -4,12 +4,12 @@
     "Blacklist": "Liste noire",
     "Dashboard": "Panneau de contrôle",
     "Exact": "Exacte",
-    "Wildcard": "",
+    "Wildcard": "Wildcard",
     "Login": "Identification",
     "Logout": "Déconnexion",
-    "Regex": "",
+    "Regex": "Regex",
     "Settings": "Paramètres",
     "Networking": "Réseau",
-    "Versions": "",
-    "Preferences": ""
+    "Versions": "Versions",
+    "Preferences": "Préférences"
 }

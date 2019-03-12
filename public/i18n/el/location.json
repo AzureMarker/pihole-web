@@ -2,14 +2,14 @@
     "Query Log": "Αρχείο καταγραφής ερωτημάτων",
     "Whitelist": "Λευκή λίστα",
     "Blacklist": "Μαύρη λίστα",
-    "Dashboard": "",
-    "Exact": "",
-    "Wildcard": "",
+    "Dashboard": "Πίνακας ελέγχου",
+    "Exact": "Ακριβές",
+    "Wildcard": "Μπαλαντέρ",
     "Login": "Είσοδος",
     "Logout": "Έξοδος",
-    "Regex": "",
-    "Settings": "",
-    "Networking": "",
-    "Versions": "",
-    "Preferences": ""
+    "Regex": "Κανονική έκφραση",
+    "Settings": "Ρυθμίσεις",
+    "Networking": "Δίκτυο",
+    "Versions": "Εκδόσεις",
+    "Preferences": "Προτιμήσεις"
 }

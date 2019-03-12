@@ -11,7 +11,7 @@
     "Percent Blocked": "Engellenen Yüzde",
     "Queries Over Last 24 Hours": "Son 24 Saat İçindeki Sorgular",
     "Clients Over Last 24 Hours": "Son 24 Saat İçindeki İstemciler",
-    "Queries Answered By": "Tarafından Cevaplanan Sorgular",
+    "Queries Answered By": "Tarafından cevaplanan istekler",
     "Queries from {{from}} to {{to}}": "{{from}} 'dan {{to}}' a sorgular",
     "Total Queries": "Toplam Sorgular",
     "Blocked Queries": "Engellenen Sorgular",

@@ -1,7 +1,7 @@
 {
-    "Adding {{domain}}...": "Ekleme",
-    "Successfully added {{domain}}": "Listeye eklendi",
-    "Failed to add {{domain}}": "Yükleme başarısız oldu",
+    "Adding {{domain}}...": "{{domain}} ekleniyor...",
+    "Successfully added {{domain}}": "Başarıyla eklendi {{domain}}",
+    "Failed to add {{domain}}": "{{domain}} eklenemedi",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Not: Wildcard engellenmiş bir alanın alt alan adını beyaz listeleme mümkün değildir.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Not: Yalnızca engellenen alan adının etki alanı ve alt alanları engellenir.\n",
     "Add a domain (example.com or sub.example.com)": "Bir alan adı ekleyin (ornek.com veya sub.ornek.com)",

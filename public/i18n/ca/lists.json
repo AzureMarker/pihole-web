@@ -1,7 +1,7 @@
 {
     "Adding {{domain}}...": "Afegint a",
-    "Successfully added {{domain}}": "¡Correcte! La llista se actualitzarà.",
-    "Failed to add {{domain}}": "¡S' ha produït un error!",
+    "Successfully added {{domain}}": "{{domain}} ha estat correctament afegit",
+    "Failed to add {{domain}}": "Errada afeging {{domain}}",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nota: Afegir a la llista blanca un domini bloquejat per comodí no es possible",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nota: Només el domini i subdominis del domini bloquejat seran bloquejats",
     "Add a domain (example.com or sub.example.com)": "Afegir un domini ( example.com o sub.example.com)",
@@ -9,6 +9,6 @@
     "Failed to remove {{domain}}": "Error en esborrar {{domain}}",
     "There are no domains in this list": "No hi ha dominis en aquesta llista",
     "Input a regular expression": "Escriu una expressió regular",
-    "Not a valid domain": "",
-    "Not a valid regular expression": ""
+    "Not a valid domain": "Domini invàlid",
+    "Not a valid regular expression": "Expressió regular no vàlida"
 }

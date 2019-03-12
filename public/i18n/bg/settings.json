@@ -24,7 +24,7 @@
     "Tag": "Тагове",
     "Only forward public reverse lookups": "Само препращане публично обратното търсене",
     "Processing...": "",
-    "Successfully saved settings": "",
-    "Detected custom upstream server": "",
-    "DNS Options": ""
+    "Successfully saved settings": "Успешно запаметени настройки",
+    "Detected custom upstream server": "Открити потребителски upstream сървър",
+    "DNS Options": "DNS опции"
 }

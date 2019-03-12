@@ -2,7 +2,7 @@
     "Blocked": "Bloqueado",
     "Allowed (forwarded)": "Permitido (reenviado)",
     "Allowed (cached)": "Permitido (en caché)",
-    "Blocked (regex/wildcard)": "Bloqueado (regex)",
+    "Blocked (regex/wildcard)": "Bloqueado (regex/comodín)",
     "Blocked (blacklist)": "Bloqueado (lista negra)",
     "Unknown": "Desconocido",
     "Blocked (external)": "Bloqueado (externo)",
@@ -13,6 +13,6 @@
     "Bogus": "Falso",
     "Abandoned": "Abandonado",
     "Reply": "Respuesta",
-    "All": "Todos",
+    "All": "Todo",
     "Allowed": "Permitido"
 }

@@ -4,7 +4,7 @@
     "Forward Destinations": "Destinos de reenvío",
     "Top Permitted Domains": "Principales dominios permitidos",
     "Top Blocked Domains": "Principales dominios bloqueados",
-    "Top Clients": "Clientes principales",
+    "Top Clients": "Clientes frecuentes",
     "Total Queries ({{count}} clients)": "Peticiones totales (1 cliente)",
     "Total Queries ({{count}} clients)_plural": "Peticiones totales ({{count}} clientes)",
     "Queries Blocked": "Peticiones bloqueadas",

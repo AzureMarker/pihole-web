@@ -15,16 +15,16 @@
     "Queries": "Requêtes",
     "Filesize": "Taille du fichier",
     "SQLite version": "Version de SQLite",
-    "Interface": "",
+    "Interface": "Interface",
     "IPv4 address": "Adresse IPv4",
     "IPv6 address": "Adresse IPv6",
     "Hostname": "Nom d'hôte",
     "Branch": "Branche",
-    "Hash": "",
-    "Tag": "",
+    "Hash": "Hash",
+    "Tag": "Tag",
     "Only forward public reverse lookups": "Ne transmettre que les requêtes inverses publiques",
     "Processing...": "En traitement...",
     "Successfully saved settings": "Paramètres enregistrés avec succès",
     "Detected custom upstream server": "Serveur personnalisé personnalisé détecté",
-    "DNS Options": ""
+    "DNS Options": "Options de DNS"
 }
