@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { StatusContext } from "./context";
+import { StatusContext } from "./context/StatusContext";
 
 export interface StatusBadgeProps extends WithNamespaces {
   status: string;

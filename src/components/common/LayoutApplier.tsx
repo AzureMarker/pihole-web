@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { PreferencesContext } from "./context";
+import { PreferencesContext } from "./context/PreferencesContext";
 
 /**
  * Update the web interface layout
