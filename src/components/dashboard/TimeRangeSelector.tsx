@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { Fragment } from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button } from "reactstrap";
 import {
@@ -28,23 +28,58 @@ export interface TimeRangeSelectorProps {
   /**
    * Called when a new range is selected
    *
-   * @param range The new range, or null if none is selected
+   * @param range The new range, or null if "Last 24 Hours" is selected
    */
   onSelect: (range: TimeRange | null) => void;
+
+  /**
+   * If the chosen label should be shown outside of the selector
+   */
+  showLabel: boolean;
 }
+
+/**
+ * Get the label to be shown next to the selector button
+ *
+ * @param props The selector props
+ */
+const renderLabel = (
+  props: TimeRangeSelectorProps & WithNamespaces
+): string | null => {
+  const { t } = props;
+
+  if (!props.showLabel) {
+    return null;
+  }
+
+  if (!props.range) {
+    return t("Last 24 Hours");
+  }
+
+  if (props.range.name === "Custom Range") {
+    return (
+      props.range.from.toDate().toLocaleString() +
+      " - " +
+      props.range.until.toDate().toLocaleString()
+    );
+  }
+
+  return props.range.name;
+};
 
 /**
  * A time range selector which shows the selected time range (label if
  * predefined, or time range if custom)
  */
-export const TimeRangeSelector = ({
-  range,
-  onSelect,
-  t
-}: TimeRangeSelectorProps & WithNamespaces) => {
+export const TimeRangeSelector = (
+  props: TimeRangeSelectorProps & WithNamespaces
+) => {
+  const { range, onSelect, t } = props;
+
   const translatedDateRanges = dateRanges(t);
   const last24Hours = t("Last 24 Hours");
   const today = t("Today");
+  const label = renderLabel(props);
 
   return (
     <DateRangePicker
@@ -73,14 +108,12 @@ export const TimeRangeSelector = ({
     >
       <Button color="light" size="sm">
         <i className="far fa-clock fa-lg" />
-        &nbsp; &nbsp;
-        {range
-          ? range.name === "Custom Range"
-            ? range.from.toDate().toLocaleString() +
-              " - " +
-              range.until.toDate().toLocaleString()
-            : range.name
-          : t("Last 24 Hours")}
+        {label ? (
+          <Fragment>
+            &nbsp; &nbsp;
+            {label}
+          </Fragment>
+        ) : null}
       </Button>
     </DateRangePicker>
   );
@@ -96,6 +129,7 @@ export const TimeRangeSelectorContainer = () => (
       <TranslatedTimeRangeSelector
         range={context.range}
         onSelect={context.update}
+        showLabel={true}
       />
     )}
   </TimeRangeContext.Consumer>
