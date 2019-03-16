@@ -59,6 +59,9 @@ export default {
   getQueryTypes(): Promise<Array<ApiQueryType>> {
     return http.get("stats/query_types");
   },
+  getQueryTypesDb(range: TimeRange): Promise<Array<ApiQueryType>> {
+    return http.get("stats/database/query_types?" + timeRangeToParams(range));
+  },
   getUpstreams(): Promise<ApiUpstreams> {
     return http.get("stats/upstreams");
   },
