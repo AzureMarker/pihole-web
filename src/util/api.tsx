@@ -91,6 +91,9 @@ export default {
   getTopClients(): Promise<ApiTopClients> {
     return http.get("stats/top_clients");
   },
+  getTopClientsDb(range: TimeRange): Promise<ApiTopClients> {
+    return http.get("stats/database/top_clients?" + timeRangeToParams(range));
+  },
   getHistory(params: any): Promise<ApiHistoryResponse> {
     return http.get("stats/history?" + paramsToString(params));
   },
