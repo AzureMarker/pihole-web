@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import { Moment } from "moment";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 
 /**
  * Represents a range of time
@@ -30,36 +30,33 @@ export interface TimeRangeContextType {
    *
    * @param range The new time range
    */
-  update: (range: TimeRange) => void;
+  update: (range: TimeRange | null) => void;
 }
 
 /**
- * Used to store the current time range
+ * The initial data shared by the time range context
  */
-let range: TimeRange | null = null;
-
-/**
- * The data shared by the time range context
- */
-const context: TimeRangeContextType = {
-  range,
-  update: newRange => {
-    range = newRange;
-  }
+const initialContext: TimeRangeContextType = {
+  range: null,
+  update: () => {}
 };
 
 /**
  * The React context which provides the time range to consumers
  */
-export const TimeRangeContext = React.createContext(context);
+export const TimeRangeContext = React.createContext(initialContext);
 
 /**
  * Provide the time range via React context.
  * Sub-components can use the `TimeRangeContext.Consumer` component to get the
  * time range.
  */
-export const TimeRangeProvider = ({ children }: { children: ReactNode }) => (
-  <TimeRangeContext.Provider value={context}>
-    {children}
-  </TimeRangeContext.Provider>
-);
+export const TimeRangeProvider = ({ children }: { children: ReactNode }) => {
+  const [range, setRange] = useState(initialContext.range);
+
+  return (
+    <TimeRangeContext.Provider value={{ range, update: setRange }}>
+      {children}
+    </TimeRangeContext.Provider>
+  );
+};
