@@ -31,6 +31,17 @@ export default {
   getHistoryGraph(): Promise<Array<ApiHistoryGraphItem>> {
     return http.get("stats/overTime/history");
   },
+  getHistoryGraphDb(
+    range: TimeRange,
+    interval: number
+  ): Promise<Array<ApiHistoryGraphItem>> {
+    return http.get(
+      "stats/database/overTime/history?interval=" +
+        interval +
+        "&" +
+        timeRangeToParams(range)
+    );
+  },
   getClientsGraph(): Promise<ApiClientsGraph> {
     return http.get("stats/overTime/clients");
   },
