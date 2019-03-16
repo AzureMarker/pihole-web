@@ -71,6 +71,9 @@ export default {
   getTopDomains(): Promise<ApiTopDomains> {
     return http.get("stats/top_domains");
   },
+  getTopDomainsDb(range: TimeRange): Promise<ApiTopDomains> {
+    return http.get("stats/database/top_domains?" + timeRangeToParams(range));
+  },
   getTopBlocked(): Promise<ApiTopBlocked> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
