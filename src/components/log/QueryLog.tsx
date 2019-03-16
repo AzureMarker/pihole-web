@@ -21,7 +21,7 @@ import i18n from "i18next";
 import i18next from "i18next";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
-import moment, { Moment } from "moment";
+import moment from "moment";
 import {
   CancelablePromise,
   ignoreCancel,
@@ -29,6 +29,7 @@ import {
   padNumber
 } from "../../util";
 import api from "../../util/api";
+import { dateRanges } from "../../util/dateRanges";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 
@@ -56,14 +57,18 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
   constructor(props: WithNamespaces) {
     super(props);
 
-    // This happens in the constructor to avoid using dateRanges before it's
-    // created
+    const { t } = this.props;
+    const translatedDateRanges = dateRanges(t);
+    const today = t("Today");
+
+    // This happens in the constructor to more easily use the translated date
+    // ranges
     this.state.filters = [
       {
         id: "time",
         value: {
-          start: dateRanges.Today[0],
-          end: dateRanges.Today[1]
+          start: translatedDateRanges[today][0],
+          end: translatedDateRanges[today][1]
         }
       }
     ];
@@ -370,35 +375,6 @@ const selectionFilter = (
 };
 
 /**
- * Preconfigured date ranges listed in the date range picker
- */
-export const dateRanges: { [name: string]: [Moment, Moment] } = {
-  "Last 24 Hours": [moment().subtract(1, "day"), moment()],
-  Today: [moment().startOf("day"), moment()],
-  Yesterday: [
-    moment()
-      .subtract(1, "days")
-      .startOf("day"),
-    moment()
-      .subtract(1, "days")
-      .endOf("day")
-  ],
-  "Last 7 Days": [moment().subtract(6, "days"), moment()],
-  "Last 30 Days": [moment().subtract(29, "days"), moment()],
-  "This Month": [moment().startOf("month"), moment()],
-  "Last Month": [
-    moment()
-      .subtract(1, "month")
-      .startOf("month"),
-    moment()
-      .subtract(1, "month")
-      .endOf("month")
-  ],
-  "This Year": [moment().startOf("year"), moment()],
-  "All Time": [moment(0), moment()]
-};
-
-/**
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
@@ -434,23 +410,33 @@ const columns = (t: i18next.TranslationFunction) => [
     }: {
       filter: Filter;
       onChange: ReactTableFunction;
-    }) => (
-      <DateRangePicker
-        startDate={filter ? filter.value.start : dateRanges["Last 24 Hours"][0]}
-        endDate={filter ? filter.value.end : dateRanges["Last 24 Hours"][1]}
-        maxDate={dateRanges.Today[1]}
-        onApply={(event, picker) =>
-          onChange({ start: picker.startDate, end: picker.endDate })
-        }
-        timePicker={true}
-        showDropdowns={true}
-        ranges={dateRanges}
-      >
-        <Button color="light" size="sm">
-          <i className="far fa-clock fa-lg" />
-        </Button>
-      </DateRangePicker>
-    )
+    }) => {
+      const translatedDateRanges = dateRanges(t);
+      const last24Hours = t("Last 24 Hours");
+      const today = t("Today");
+
+      return (
+        <DateRangePicker
+          startDate={
+            filter ? filter.value.start : translatedDateRanges[last24Hours][0]
+          }
+          endDate={
+            filter ? filter.value.end : translatedDateRanges[last24Hours][1]
+          }
+          maxDate={translatedDateRanges[today][1]}
+          onApply={(event, picker) =>
+            onChange({ start: picker.startDate, end: picker.endDate })
+          }
+          timePicker={true}
+          showDropdowns={true}
+          ranges={translatedDateRanges}
+        >
+          <Button color="light" size="sm">
+            <i className="far fa-clock fa-lg" />
+          </Button>
+        </DateRangePicker>
+      );
+    }
   },
   {
     Header: t("Type"),
