@@ -17,6 +17,7 @@ import React, { ReactNode, useState } from "react";
 export interface TimeRange {
   from: Moment;
   until: Moment;
+  name: string;
 }
 
 /**

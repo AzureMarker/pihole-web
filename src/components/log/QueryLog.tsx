@@ -372,7 +372,8 @@ const selectionFilter = (
 /**
  * Preconfigured date ranges listed in the date range picker
  */
-const dateRanges: { [name: string]: [Moment, Moment] } = {
+export const dateRanges: { [name: string]: [Moment, Moment] } = {
+  "Last 24 Hours": [moment().subtract(1, "day"), moment()],
   Today: [moment().startOf("day"), moment()],
   Yesterday: [
     moment()
@@ -435,8 +436,8 @@ const columns = (t: i18next.TranslationFunction) => [
       onChange: ReactTableFunction;
     }) => (
       <DateRangePicker
-        startDate={filter ? filter.value.start : dateRanges.Today[0]}
-        endDate={filter ? filter.value.end : dateRanges.Today[1]}
+        startDate={filter ? filter.value.start : dateRanges["Last 24 Hours"][0]}
+        endDate={filter ? filter.value.end : dateRanges["Last 24 Hours"][1]}
         maxDate={dateRanges.Today[1]}
         onApply={(event, picker) =>
           onChange({ start: picker.startDate, end: picker.endDate })

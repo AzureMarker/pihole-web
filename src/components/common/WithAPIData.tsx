@@ -132,6 +132,20 @@ export class WithAPIData<T> extends Component<
     }
   }
 
+  componentDidUpdate(
+    prevProps: Readonly<WithAPIDataProps<T>>,
+    prevState: Readonly<WithAPIDataState<T>>,
+    snapshot?: any
+  ): void {
+    if (prevProps === this.props) {
+      // Don't do anything if the props didn't change
+      return;
+    }
+
+    // The props changed, so trigger a reload of the data
+    this.loadData();
+  }
+
   render() {
     if (!this.state.apiResult) {
       return this.props.renderInitial();

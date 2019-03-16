@@ -8,8 +8,9 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import http, { paramsToString } from "./http";
+import http, { paramsToString, timeRangeToParams } from "./http";
 import config from "../config";
+import { TimeRange } from "../components/common/context/TimeRangeContext";
 
 export default {
   loggedIn: false,
@@ -23,6 +24,9 @@ export default {
   },
   getSummary(): Promise<ApiSummary> {
     return http.get("stats/summary");
+  },
+  getSummaryDb(range: TimeRange): Promise<ApiSummary> {
+    return http.get("stats/database/summary?" + timeRangeToParams(range));
   },
   getHistoryGraph(): Promise<Array<ApiHistoryGraphItem>> {
     return http.get("stats/overTime/history");

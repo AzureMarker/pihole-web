@@ -12,6 +12,7 @@ import React, { Component, Fragment } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { WithAPIData } from "../common/WithAPIData";
 import api from "../../util/api";
+import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface SummaryStatsProps {
   totalQueries: string;
@@ -132,15 +133,23 @@ export const TranslatedSummaryStats = withNamespaces(["common", "dashboard"])(
 );
 
 export default (props: any) => (
-  <WithAPIData
-    apiCall={api.getSummary}
-    repeatOptions={{ interval: 5000, ignoreCancel: true }}
-    renderInitial={() => (
-      <TranslatedSummaryStats {...initialProps} {...props} />
+  <TimeRangeContext.Consumer>
+    {context => (
+      <WithAPIData
+        apiCall={() =>
+          context.range ? api.getSummaryDb(context.range) : api.getSummary()
+        }
+        repeatOptions={
+          context.range ? undefined : { interval: 5000, ignoreCancel: true }
+        }
+        renderInitial={() => (
+          <TranslatedSummaryStats {...initialProps} {...props} />
+        )}
+        renderOk={data => (
+          <TranslatedSummaryStats {...transformData(data)} {...props} />
+        )}
+        renderErr={() => <TranslatedSummaryStats {...errorProps} {...props} />}
+      />
     )}
-    renderOk={data => (
-      <TranslatedSummaryStats {...transformData(data)} {...props} />
-    )}
-    renderErr={() => <TranslatedSummaryStats {...errorProps} {...props} />}
-  />
+  </TimeRangeContext.Consumer>
 );
