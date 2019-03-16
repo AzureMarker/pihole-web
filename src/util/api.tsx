@@ -45,6 +45,17 @@ export default {
   getClientsGraph(): Promise<ApiClientsGraph> {
     return http.get("stats/overTime/clients");
   },
+  getClientsGraphDb(
+    range: TimeRange,
+    interval: number
+  ): Promise<ApiClientsGraph> {
+    return http.get(
+      "stats/database/overTime/clients?interval=" +
+        interval +
+        "&" +
+        timeRangeToParams(range)
+    );
+  },
   getQueryTypes(): Promise<Array<ApiQueryType>> {
     return http.get("stats/query_types");
   },

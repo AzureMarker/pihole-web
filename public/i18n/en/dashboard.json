@@ -9,7 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Total Queries ({{count}} clients)",
     "Queries Blocked": "Queries Blocked",
     "Percent Blocked": "Percent Blocked",
-    "Clients Over Last 24 Hours": "Clients Over Last 24 Hours",
     "Queries Answered By": "Queries Answered By",
     "Queries from {{from}} to {{to}}": "Queries from {{from}} to {{to}}",
     "Total Queries": "Total Queries",
@@ -19,5 +18,6 @@
     "No Clients Found": "No Clients Found",
     "No Domains Found": "No Domains Found",
     "Queries Answered By Destination": "Queries Answered By Destination",
-    "Queries Over {{range}}": "Queries Over {{range}}"
+    "Queries Over {{range}}": "Queries Over {{range}}",
+    "Clients Over {{range}}": "Clients Over {{range}}"
 }

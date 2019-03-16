@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { padNumber } from "../../util";
+import { getIntervalForRange, padNumber } from "../../util";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 import { ChartData, ChartOptions, TimeUnit } from "chart.js";
@@ -200,9 +200,11 @@ export const transformData = (
 /**
  * The props used to show a loading state (either initial load or error)
  */
-export const loadingProps = {
+export const loadingProps: QueriesGraphProps = {
   loading: true,
   labels: [],
+  timeUnit: "hour",
+  rangeName: "Last 24 Hours",
   domains_over_time: [],
   blocked_over_time: []
 };
@@ -220,12 +222,7 @@ export default (props: any) => (
           context.range
             ? api.getHistoryGraphDb(
                 context.range,
-                // Dynamically calculate a time interval so there are always 144
-                // data points (144 so that every point represents 10 minutes
-                // when the range is 24 hours)
-                Math.ceil(
-                  (context.range.until.unix() - context.range.from.unix()) / 144
-                )
+                getIntervalForRange(context.range)
               )
             : api.getHistoryGraph()
         }
