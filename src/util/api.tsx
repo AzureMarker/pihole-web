@@ -65,6 +65,9 @@ export default {
   getUpstreams(): Promise<ApiUpstreams> {
     return http.get("stats/upstreams");
   },
+  getUpstreamsDb(range: TimeRange): Promise<ApiUpstreams> {
+    return http.get("stats/database/upstreams?" + timeRangeToParams(range));
+  },
   getTopDomains(): Promise<ApiTopDomains> {
     return http.get("stats/top_domains");
   },
