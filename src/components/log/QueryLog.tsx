@@ -15,8 +15,6 @@ import ReactTable, {
   RowInfo,
   RowRenderProps
 } from "react-table";
-import DateRangePicker from "react-bootstrap-daterangepicker";
-import { Button } from "reactstrap";
 import i18n from "i18next";
 import i18next from "i18next";
 import { WithNamespaces, withNamespaces } from "react-i18next";
@@ -30,6 +28,8 @@ import {
 } from "../../util";
 import api from "../../util/api";
 import { dateRanges } from "../../util/dateRanges";
+import { TranslatedTimeRangeSelector } from "../dashboard/TimeRangeSelector";
+import { TimeRange } from "../common/context/TimeRangeContext";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 
@@ -41,6 +41,22 @@ export interface QueryLogState {
   filtersChanged: boolean;
   filters: Array<Filter>;
 }
+
+/**
+ * Get the default time range for the query log
+ *
+ * @param t The translation function
+ */
+const getDefaultRange = (t: i18next.TranslationFunction): TimeRange => {
+  const translatedDateRanges = dateRanges(t);
+  const last24Hours = t("Last 24 Hours");
+
+  return {
+    from: translatedDateRanges[last24Hours][0],
+    until: translatedDateRanges[last24Hours][1],
+    name: last24Hours
+  };
+};
 
 class QueryLog extends Component<WithNamespaces, QueryLogState> {
   private updateHandler: null | CancelablePromise<ApiHistoryResponse> = null;
@@ -58,18 +74,13 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
     super(props);
 
     const { t } = this.props;
-    const translatedDateRanges = dateRanges(t);
-    const today = t("Today");
 
     // This happens in the constructor to more easily use the translated date
     // ranges
     this.state.filters = [
       {
         id: "time",
-        value: {
-          start: translatedDateRanges[today][0],
-          end: translatedDateRanges[today][1]
-        }
+        value: getDefaultRange(t)
       }
     ];
   }
@@ -114,16 +125,8 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
     for (const filter of tableFilters) {
       switch (filter.id) {
         case "time":
-          filters.from = Math.floor(
-            moment(filter.value.start)
-              .utc()
-              .valueOf() / 1000
-          );
-          filters.until = Math.floor(
-            moment(filter.value.end)
-              .utc()
-              .valueOf() / 1000
-          );
+          filters.from = moment(filter.value.from).unix();
+          filters.until = moment(filter.value.until).unix();
           break;
         case "queryType":
           if (filter.value === "all") {
@@ -410,33 +413,19 @@ const columns = (t: i18next.TranslationFunction) => [
     }: {
       filter: Filter;
       onChange: ReactTableFunction;
-    }) => {
-      const translatedDateRanges = dateRanges(t);
-      const last24Hours = t("Last 24 Hours");
-      const today = t("Today");
-
-      return (
-        <DateRangePicker
-          startDate={
-            filter ? filter.value.start : translatedDateRanges[last24Hours][0]
+    }) => (
+      <TranslatedTimeRangeSelector
+        range={filter ? filter.value : null}
+        onSelect={range => {
+          if (range) {
+            onChange(range);
+          } else {
+            onChange(getDefaultRange(t));
           }
-          endDate={
-            filter ? filter.value.end : translatedDateRanges[last24Hours][1]
-          }
-          maxDate={translatedDateRanges[today][1]}
-          onApply={(event, picker) =>
-            onChange({ start: picker.startDate, end: picker.endDate })
-          }
-          timePicker={true}
-          showDropdowns={true}
-          ranges={translatedDateRanges}
-        >
-          <Button color="light" size="sm">
-            <i className="far fa-clock fa-lg" />
-          </Button>
-        </DateRangePicker>
-      );
-    }
+        }}
+        showLabel={false}
+      />
+    )
   },
   {
     Header: t("Type"),
@@ -542,4 +531,4 @@ const columns = (t: i18next.TranslationFunction) => [
   }
 ];
 
-export default withNamespaces(["common", "query-log"])(QueryLog);
+export default withNamespaces(["common", "query-log", "time-ranges"])(QueryLog);
