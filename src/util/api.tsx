@@ -83,6 +83,11 @@ export default {
 
     return http.get(url);
   },
+  getTopBlockedDb(range: TimeRange): Promise<ApiTopBlocked> {
+    return http.get(
+      "stats/database/top_domains?blocked=true&" + timeRangeToParams(range)
+    );
+  },
   getTopClients(): Promise<ApiTopClients> {
     return http.get("stats/top_clients");
   },
