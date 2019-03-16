@@ -11,6 +11,7 @@
 import React, { MouseEvent } from "react";
 import { Link } from "react-router-dom";
 import { TimeRangeSelectorContainer } from "../dashboard/TimeRangeSelector";
+import api from "../../util/api";
 
 //const sidebarToggle = e => {
 //  e.preventDefault();
@@ -71,7 +72,7 @@ export default () => (
           &#9776;
         </button>
       </li>
-      {window.location.pathname.endsWith("/dashboard") ? (
+      {api.loggedIn && window.location.pathname.endsWith("/dashboard") ? (
         <li>
           <TimeRangeSelectorContainer />
         </li>
