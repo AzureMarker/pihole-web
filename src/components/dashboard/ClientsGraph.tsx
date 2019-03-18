@@ -227,7 +227,7 @@ export const loadingProps: ClientsGraphProps = {
   loading: true,
   labels: [],
   timeUnit: "hour",
-  rangeName: "Last 24 Hours",
+  rangeName: "---",
   datasets: []
 };
 

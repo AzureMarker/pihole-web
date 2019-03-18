@@ -204,7 +204,7 @@ export const loadingProps: QueriesGraphProps = {
   loading: true,
   labels: [],
   timeUnit: "hour",
-  rangeName: "Last 24 Hours",
+  rangeName: "---",
   domains_over_time: [],
   blocked_over_time: []
 };
