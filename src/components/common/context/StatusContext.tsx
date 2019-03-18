@@ -48,6 +48,7 @@ export const StatusProvider = ({
   <WithAPIData
     apiCall={api.getStatus}
     repeatOptions={{ interval: 5000, ignoreCancel: true }}
+    flushOnUpdate={false}
     renderInitial={() => (
       <StatusContext.Provider value={initialContext} {...props}>
         {children}

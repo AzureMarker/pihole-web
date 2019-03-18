@@ -20,6 +20,11 @@ export interface WithAPIDataProps<T> {
   };
 
   /**
+   * If the data should be cleared when the props update. Defaults to true.
+   */
+  flushOnUpdate: boolean;
+
+  /**
    * Render the children before the first API request is done
    */
   renderInitial: () => ReactNode;
@@ -61,7 +66,8 @@ export class WithAPIData<T> extends Component<
     repeatOptions: {
       ignoreCancel: true,
       interval: 0
-    }
+    },
+    flushOnUpdate: true
   };
 
   state: WithAPIDataState<T> = {
@@ -142,8 +148,12 @@ export class WithAPIData<T> extends Component<
       return;
     }
 
-    // The props changed, so trigger a reload of the data
-    this.loadData();
+    if (this.props.flushOnUpdate) {
+      // The props changed, so trigger a full reload of the data. Current data is
+      // cleared so that loading indicators are shown.
+      this.setState({ apiResult: null });
+      this.loadData();
+    }
   }
 
   render() {
