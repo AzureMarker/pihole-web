@@ -13,6 +13,7 @@ import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
+import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopDomainsData {
   totalQueries: number;
@@ -65,7 +66,11 @@ export const generateRows = (t: i18next.TranslationFunction) => (
   });
 };
 
-const TopDomains = ({ t, ...props }: WithNamespaces) => (
+const TopDomains = ({
+  apiCall,
+  t,
+  ...props
+}: WithNamespaces & { apiCall: () => Promise<ApiTopDomains> }) => (
   <TopTable
     {...props}
     title={t("Top Permitted Domains")}
@@ -76,10 +81,25 @@ const TopDomains = ({ t, ...props }: WithNamespaces) => (
     headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
     isEmpty={data => data.topDomains.length === 0}
-    apiCall={api.getTopDomains}
+    apiCall={apiCall}
     apiHandler={transformData}
     generateRows={generateRows(t)}
   />
 );
 
-export default withNamespaces(["common", "dashboard"])(TopDomains);
+const TopDomainsContainer = (props: WithNamespaces) => (
+  <TimeRangeContext.Consumer>
+    {context => (
+      <TopDomains
+        {...props}
+        apiCall={() =>
+          context.range
+            ? api.getTopDomainsDb(context.range)
+            : api.getTopDomains()
+        }
+      />
+    )}
+  </TimeRangeContext.Consumer>
+);
+
+export default withNamespaces(["common", "dashboard"])(TopDomainsContainer);

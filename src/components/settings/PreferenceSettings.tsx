@@ -14,7 +14,7 @@ import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
 import api from "../../util/api";
 import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
-import { PreferencesContext } from "../common/context";
+import { PreferencesContext } from "../common/context/PreferencesContext";
 import languages from "../../languages.json";
 
 export interface PreferenceSettingsProps {

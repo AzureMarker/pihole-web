@@ -53,7 +53,7 @@ it("hides loading indicator correctly", async () => {
 });
 
 it("loads API data correctly", async () => {
-  const data = transformData(fakeData);
+  const data = transformData(fakeData, null);
 
   expect(data.labels[0]).toEqual(
     new Date(1000 * fakeData.over_time[0].timestamp)

@@ -10,15 +10,21 @@
 
 import React, { Component } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { padNumber } from "../../util";
+import { getIntervalForRange, padNumber } from "../../util";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
-import { ChartData, ChartOptions } from "chart.js";
+import { ChartData, ChartOptions, TimeUnit } from "chart.js";
 import { Line } from "react-chartjs-2";
+import {
+  TimeRange,
+  TimeRangeContext
+} from "../common/context/TimeRangeContext";
 
 export interface QueriesGraphProps {
   loading: boolean;
   labels: Array<Date>;
+  timeUnit: TimeUnit;
+  rangeName?: string;
   domains_over_time: Array<number>;
   blocked_over_time: Array<number>;
 }
@@ -107,7 +113,7 @@ class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
           {
             type: "time",
             time: {
-              unit: "hour",
+              unit: this.props.timeUnit,
               displayFormats: { hour: "HH:mm" },
               tooltipFormat: "HH:mm"
             }
@@ -122,9 +128,15 @@ class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
       maintainAspectRatio: false
     };
 
+    const range = this.props.rangeName
+      ? this.props.rangeName
+      : t("Last 24 Hours");
+
     return (
       <div className="card">
-        <div className="card-header">{t("Queries Over Last 24 Hours")}</div>
+        <div className="card-header">
+          {t("Queries Over {{range}}", { range })}
+        </div>
         <div className="card-body">
           <Line width={970} height={170} data={data} options={options} />
         </div>
@@ -152,15 +164,24 @@ class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
 /**
  * Transform the API data into props for QueriesGraph
  *
- * @param data the API data
- * @returns {{loading: boolean, labels: Date[], domains_over_time: *,
- * blocked_over_time: any[]}} QueriesGraph props
+ * @param data The API data
+ * @param range The time range to use
+ * @returns QueriesGraphProps QueriesGraph props
  */
 export const transformData = (
-  data: Array<ApiHistoryGraphItem>
+  data: Array<ApiHistoryGraphItem>,
+  range: TimeRange | null
 ): QueriesGraphProps => {
-  // Remove last data point as it's not yet finished
-  data = data.slice(0, -1);
+  let timeUnit: TimeUnit = "hour";
+
+  if (range) {
+    if (range.until.diff(range.from, "day") > 1) {
+      timeUnit = "day";
+    }
+  } else {
+    // Remove last data point as it's not yet finished
+    data = data.slice(0, -1);
+  }
 
   const labels = data.map(step => new Date(1000 * step.timestamp));
   const domains_over_time = data.map(step => step.total_queries);
@@ -169,6 +190,8 @@ export const transformData = (
   return {
     loading: false,
     labels,
+    timeUnit,
+    rangeName: range ? range.name : undefined,
     domains_over_time,
     blocked_over_time
   };
@@ -177,28 +200,53 @@ export const transformData = (
 /**
  * The props used to show a loading state (either initial load or error)
  */
-export const loadingProps = {
+export const loadingProps: QueriesGraphProps = {
   loading: true,
   labels: [],
+  timeUnit: "hour",
+  rangeName: "---",
   domains_over_time: [],
   blocked_over_time: []
 };
 
-export const TranslatedQueriesGraph = withNamespaces("dashboard")(QueriesGraph);
+export const TranslatedQueriesGraph = withNamespaces([
+  "dashboard",
+  "time-ranges"
+])(QueriesGraph);
 
 export default (props: any) => (
-  <WithAPIData
-    apiCall={api.getHistoryGraph}
-    repeatOptions={{
-      interval: 10 * 60 * 1000,
-      ignoreCancel: true
-    }}
-    renderInitial={() => (
-      <TranslatedQueriesGraph {...loadingProps} {...props} />
+  <TimeRangeContext.Consumer>
+    {context => (
+      <WithAPIData
+        apiCall={() =>
+          context.range
+            ? api.getHistoryGraphDb(
+                context.range,
+                getIntervalForRange(context.range)
+              )
+            : api.getHistoryGraph()
+        }
+        repeatOptions={
+          context.range
+            ? undefined
+            : {
+                interval: 10 * 60 * 1000,
+                ignoreCancel: true
+              }
+        }
+        renderInitial={() => (
+          <TranslatedQueriesGraph {...loadingProps} {...props} />
+        )}
+        renderOk={data => (
+          <TranslatedQueriesGraph
+            {...transformData(data, context.range)}
+            {...props}
+          />
+        )}
+        renderErr={() => (
+          <TranslatedQueriesGraph {...loadingProps} {...props} />
+        )}
+      />
     )}
-    renderOk={data => (
-      <TranslatedQueriesGraph {...transformData(data)} {...props} />
-    )}
-    renderErr={() => <TranslatedQueriesGraph {...loadingProps} {...props} />}
-  />
+  </TimeRangeContext.Consumer>
 );

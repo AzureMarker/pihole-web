@@ -13,6 +13,7 @@ import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
+import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopBlockedData {
   totalBlocked: number;
@@ -65,7 +66,11 @@ export const generateRows = (t: i18next.TranslationFunction) => (
   });
 };
 
-const TopBlocked = ({ t, ...props }: WithNamespaces) => (
+const TopBlocked = ({
+  apiCall,
+  t,
+  ...props
+}: WithNamespaces & { apiCall: () => Promise<ApiTopBlocked> }) => (
   <TopTable
     {...props}
     title={t("Top Blocked Domains")}
@@ -76,10 +81,25 @@ const TopBlocked = ({ t, ...props }: WithNamespaces) => (
     headers={[t("Domain"), t("Hits"), t("Frequency")]}
     emptyMessage={t("No Domains Found")}
     isEmpty={data => data.topBlocked.length === 0}
-    apiCall={api.getTopBlocked}
+    apiCall={apiCall}
     apiHandler={transformData}
     generateRows={generateRows(t)}
   />
 );
 
-export default withNamespaces(["common", "dashboard"])(TopBlocked);
+const TopBlockedContainer = (props: WithNamespaces) => (
+  <TimeRangeContext.Consumer>
+    {context => (
+      <TopBlocked
+        {...props}
+        apiCall={() =>
+          context.range
+            ? api.getTopBlockedDb(context.range)
+            : api.getTopBlocked()
+        }
+      />
+    )}
+  </TimeRangeContext.Consumer>
+);
+
+export default withNamespaces(["common", "dashboard"])(TopBlockedContainer);

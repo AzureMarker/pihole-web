@@ -8,8 +8,9 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import http, { paramsToString } from "./http";
+import http, { paramsToString, timeRangeToParams } from "./http";
 import config from "../config";
+import { TimeRange } from "../components/common/context/TimeRangeContext";
 
 export default {
   loggedIn: false,
@@ -24,20 +25,54 @@ export default {
   getSummary(): Promise<ApiSummary> {
     return http.get("stats/summary");
   },
+  getSummaryDb(range: TimeRange): Promise<ApiSummary> {
+    return http.get("stats/database/summary?" + timeRangeToParams(range));
+  },
   getHistoryGraph(): Promise<Array<ApiHistoryGraphItem>> {
     return http.get("stats/overTime/history");
+  },
+  getHistoryGraphDb(
+    range: TimeRange,
+    interval: number
+  ): Promise<Array<ApiHistoryGraphItem>> {
+    return http.get(
+      "stats/database/overTime/history?interval=" +
+        interval +
+        "&" +
+        timeRangeToParams(range)
+    );
   },
   getClientsGraph(): Promise<ApiClientsGraph> {
     return http.get("stats/overTime/clients");
   },
+  getClientsGraphDb(
+    range: TimeRange,
+    interval: number
+  ): Promise<ApiClientsGraph> {
+    return http.get(
+      "stats/database/overTime/clients?interval=" +
+        interval +
+        "&" +
+        timeRangeToParams(range)
+    );
+  },
   getQueryTypes(): Promise<Array<ApiQueryType>> {
     return http.get("stats/query_types");
+  },
+  getQueryTypesDb(range: TimeRange): Promise<Array<ApiQueryType>> {
+    return http.get("stats/database/query_types?" + timeRangeToParams(range));
   },
   getUpstreams(): Promise<ApiUpstreams> {
     return http.get("stats/upstreams");
   },
+  getUpstreamsDb(range: TimeRange): Promise<ApiUpstreams> {
+    return http.get("stats/database/upstreams?" + timeRangeToParams(range));
+  },
   getTopDomains(): Promise<ApiTopDomains> {
     return http.get("stats/top_domains");
+  },
+  getTopDomainsDb(range: TimeRange): Promise<ApiTopDomains> {
+    return http.get("stats/database/top_domains?" + timeRangeToParams(range));
   },
   getTopBlocked(): Promise<ApiTopBlocked> {
     // The API uses a GET parameter to differentiate top domains from top
@@ -48,8 +83,16 @@ export default {
 
     return http.get(url);
   },
+  getTopBlockedDb(range: TimeRange): Promise<ApiTopBlocked> {
+    return http.get(
+      "stats/database/top_domains?blocked=true&" + timeRangeToParams(range)
+    );
+  },
   getTopClients(): Promise<ApiTopClients> {
     return http.get("stats/top_clients");
+  },
+  getTopClientsDb(range: TimeRange): Promise<ApiTopClients> {
+    return http.get("stats/database/top_clients?" + timeRangeToParams(range));
   },
   getHistory(params: any): Promise<ApiHistoryResponse> {
     return http.get("stats/history?" + paramsToString(params));

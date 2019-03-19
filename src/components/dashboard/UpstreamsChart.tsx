@@ -12,11 +12,15 @@ import React from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
+import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
-const UpstreamsChart = ({ t }: WithNamespaces) => (
+const UpstreamsChart = ({
+  t,
+  apiCall
+}: WithNamespaces & { apiCall: () => Promise<ApiUpstreams> }) => (
   <GenericDoughnutChart
     title={t("Queries Answered By Destination")}
-    apiCall={api.getUpstreams}
+    apiCall={apiCall}
     apiHandler={data =>
       data.upstreams.map(upstream => ({
         name: upstream.name,
@@ -27,4 +31,17 @@ const UpstreamsChart = ({ t }: WithNamespaces) => (
   />
 );
 
-export default withNamespaces("dashboard")(UpstreamsChart);
+export const UpstreamsChartContainer = (props: WithNamespaces) => (
+  <TimeRangeContext.Consumer>
+    {context => (
+      <UpstreamsChart
+        {...props}
+        apiCall={() =>
+          context.range ? api.getUpstreamsDb(context.range) : api.getUpstreams()
+        }
+      />
+    )}
+  </TimeRangeContext.Consumer>
+);
+
+export default withNamespaces("dashboard")(UpstreamsChartContainer);
