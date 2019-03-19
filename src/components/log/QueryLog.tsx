@@ -254,7 +254,18 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
         filterable={false}
         data={this.state.history}
         loading={this.state.loading}
-        onFetchData={debounce(this.fetchQueries, 350)}
+        onFetchData={state => {
+          if (state.filtered === this.state.filters) {
+            // If the filters have not changed, do not debounce the fetch.
+            // This allows fetching the next page to happen without waiting for
+            // the debounce.
+            this.fetchQueries(state);
+          } else {
+            // The filters have changed, so debounce until they have stabilized
+            // (wait for the user to stop typing)
+            return debounce(this.fetchQueries, 350)(state);
+          }
+        }}
         onFilteredChange={debounce(filters => {
           this.setState({
             filters,
