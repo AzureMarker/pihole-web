@@ -8,6 +8,8 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
+import { TimeRange } from "../components/common/context/TimeRangeContext";
+
 /**
  * Pad a two digit number
  *
@@ -16,6 +18,16 @@
  */
 export const padNumber = (num: number) => {
   return ("00" + num).substr(-2, 2);
+};
+
+/**
+ * Dynamically calculate a time interval so there are always 144 data points
+ * (144 so that every point represents 10 minutes when the range is 24 hours)
+ *
+ * @param range The range to find the interval for
+ */
+export const getIntervalForRange = (range: TimeRange): number => {
+  return Math.ceil((range.until.unix() - range.from.unix()) / 144);
 };
 
 export interface CancelablePromise<T> {
@@ -27,7 +39,7 @@ export interface CancelableOptions {
   /**
    * The function to call to repeat the promise
    */
-  repeat: (() => void);
+  repeat: () => void;
 
   /**
    * The amount of time to wait until repeating

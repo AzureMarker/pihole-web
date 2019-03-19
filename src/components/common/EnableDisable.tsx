@@ -14,7 +14,7 @@ import React, { Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
-import { StatusContext } from "./context";
+import { StatusContext } from "./context/StatusContext";
 import { CancelablePromise, makeCancelable } from "../../util";
 import api from "../../util/api";
 import {

@@ -12,11 +12,15 @@ import React from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
+import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
-const QueryTypesChart = ({ t }: WithNamespaces) => (
+const QueryTypesChart = ({
+  t,
+  apiCall
+}: WithNamespaces & { apiCall: () => Promise<Array<ApiQueryType>> }) => (
   <GenericDoughnutChart
     title={t("Query Types")}
-    apiCall={api.getQueryTypes}
+    apiCall={apiCall}
     apiHandler={data => {
       const total = data.reduce(
         (previous, current) => previous + current.count,
@@ -31,4 +35,19 @@ const QueryTypesChart = ({ t }: WithNamespaces) => (
   />
 );
 
-export default withNamespaces("dashboard")(QueryTypesChart);
+export const QueryTypesChartContainer = (props: WithNamespaces) => (
+  <TimeRangeContext.Consumer>
+    {context => (
+      <QueryTypesChart
+        {...props}
+        apiCall={() =>
+          context.range
+            ? api.getQueryTypesDb(context.range)
+            : api.getQueryTypes()
+        }
+      />
+    )}
+  </TimeRangeContext.Consumer>
+);
+
+export default withNamespaces("dashboard")(QueryTypesChartContainer);

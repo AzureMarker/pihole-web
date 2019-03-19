@@ -12,7 +12,7 @@ import {
   defaultPreferences,
   loadInitialPreferences,
   WEB_PREFERENCES_STORAGE_KEY
-} from "../context";
+} from "../PreferencesContext";
 
 it("loads the default preferences if none are cached", () => {
   const preferences = loadInitialPreferences();

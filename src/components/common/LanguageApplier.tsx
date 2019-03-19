@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { PreferencesContext } from "./context";
+import { PreferencesContext } from "./context/PreferencesContext";
 import i18n from "i18next";
 
 const applyLanguage = (language: string) => {

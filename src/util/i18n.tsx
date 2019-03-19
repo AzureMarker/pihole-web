@@ -34,7 +34,8 @@ export function setupI18n() {
         "query-log",
         "settings",
         "api-errors",
-        "preferences"
+        "preferences",
+        "time-ranges"
       ],
       nsSeparator: false,
       keySeparator: false,

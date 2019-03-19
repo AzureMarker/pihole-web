@@ -3,32 +3,32 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * React context objects
+ * Preferences context
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
 import React, { ReactNode } from "react";
-import { WithAPIData } from "./WithAPIData";
-import api from "../../util/api";
+import { WithAPIData } from "../WithAPIData";
+import api from "../../../util/api";
 
-export interface StatusContextType {
-  status: Status;
-  refresh: (data?: ApiStatus) => void;
-}
-
+/**
+ * The data shared by the preferences context
+ */
 export interface PreferencesContextType {
   settings: ApiPreferences;
   refresh: (data?: ApiPreferences) => void;
 }
 
+/**
+ * The key used to store preferences in local storage
+ */
 export const WEB_PREFERENCES_STORAGE_KEY = "webPreferences";
 
-const initialStatus: StatusContextType = {
-  status: "unknown",
-  refresh: () => {}
-};
-
+/**
+ * The default preferences. These preferences are used until the API responds
+ * with the real preferences, unless there are cached preferences available.
+ */
 export const defaultPreferences: ApiPreferences = {
   layout: "boxed",
   language: "en"
@@ -55,62 +55,19 @@ export const loadInitialPreferences = (): ApiPreferences => {
   }
 };
 
-const initialPreferences: PreferencesContextType = {
+/**
+ * The context which will be used initially, until the API responds with the
+ * real preferences. These preferences are loaded from cache if available.
+ */
+const initialContext: PreferencesContextType = {
   settings: loadInitialPreferences(),
   refresh: () => {}
 };
 
-export const StatusContext = React.createContext(initialStatus);
-export const PreferencesContext = React.createContext(initialPreferences);
-
 /**
- * Provide all of the necessary context needed at the root level to its
- * children. Currently, this includes status and preferences.
+ * The React context which provides the preferences to consumers
  */
-export const GlobalContextProvider = ({
-  children
-}: {
-  children: ReactNode;
-}) => (
-  <StatusProvider>
-    <PreferencesProvider>{children}</PreferencesProvider>
-  </StatusProvider>
-);
-
-/**
- * Provide the blocking status via React context.
- * Sub-components can use the `StatusContext.Consumer` component to get the
- * status.
- */
-export const StatusProvider = ({
-  children,
-  ...props
-}: {
-  children: ReactNode;
-}) => (
-  <WithAPIData
-    apiCall={api.getStatus}
-    repeatOptions={{ interval: 5000, ignoreCancel: true }}
-    renderInitial={() => (
-      <StatusContext.Provider value={initialStatus} {...props}>
-        {children}
-      </StatusContext.Provider>
-    )}
-    renderOk={(data, refresh) => (
-      <StatusContext.Provider
-        value={{ status: data.status, refresh }}
-        {...props}
-      >
-        {children}
-      </StatusContext.Provider>
-    )}
-    renderErr={(_, refresh) => (
-      <StatusContext.Provider value={{ status: "unknown", refresh }} {...props}>
-        {children}
-      </StatusContext.Provider>
-    )}
-  />
-);
+export const PreferencesContext = React.createContext(initialContext);
 
 /**
  * Provide the web interface preferences via React context.
@@ -126,7 +83,7 @@ export const PreferencesProvider = ({
   <WithAPIData
     apiCall={api.getPreferences}
     renderInitial={() => (
-      <PreferencesContext.Provider value={initialPreferences} {...props}>
+      <PreferencesContext.Provider value={initialContext} {...props}>
         {children}
       </PreferencesContext.Provider>
     )}
@@ -145,7 +102,9 @@ export const PreferencesProvider = ({
     }}
     renderErr={(_, refresh) => (
       <PreferencesContext.Provider
-        value={{ settings: { layout: "boxed", language: "en" }, refresh }}
+        // Reload the initial settings here, as the cache may have been updated
+        // between page load and when the error occurred
+        value={{ settings: loadInitialPreferences(), refresh }}
         {...props}
       >
         {children}

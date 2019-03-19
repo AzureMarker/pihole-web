@@ -10,6 +10,7 @@
 
 import api from "./api";
 import config from "../config";
+import { TimeRange } from "../components/common/context/TimeRangeContext";
 
 /**
  * A group of HTTP functions. Each function parses the response checks for
@@ -182,3 +183,15 @@ export const paramsToString = (params: any) =>
   Object.keys(params)
     .map(key => key + "=" + params[key])
     .join("&");
+
+/**
+ * Convert a time range into GET parameters
+ *
+ * @param range The time range to convert
+ * @return The time range as GET parameters
+ */
+export const timeRangeToParams = (range: TimeRange) =>
+  paramsToString({
+    from: range.from.unix(),
+    until: range.until.unix()
+  });

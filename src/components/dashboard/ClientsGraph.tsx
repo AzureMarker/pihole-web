@@ -12,15 +12,21 @@ import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { padNumber } from "../../util";
+import { getIntervalForRange, padNumber } from "../../util";
 import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
-import { ChartDataSets, ChartOptions } from "chart.js";
+import { ChartDataSets, ChartOptions, TimeUnit } from "chart.js";
+import {
+  TimeRange,
+  TimeRangeContext
+} from "../common/context/TimeRangeContext";
 
 export interface ClientsGraphProps {
   loading: boolean;
   labels: Array<string>;
+  timeUnit: TimeUnit;
+  rangeName?: string;
   datasets: Array<ChartDataSets>;
 }
 
@@ -69,7 +75,7 @@ class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
           {
             type: "time",
             time: {
-              unit: "hour",
+              unit: this.props.timeUnit,
               displayFormats: { hour: "HH:mm" },
               tooltipFormat: "HH:mm"
             }
@@ -85,9 +91,15 @@ class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
       maintainAspectRatio: false
     };
 
+    const range = this.props.rangeName
+      ? this.props.rangeName
+      : t("Last 24 Hours");
+
     return (
       <div className="card">
-        <div className="card-header">{t("Clients Over Last 24 Hours")}</div>
+        <div className="card-header">
+          {t("Clients Over {{range}}", { range })}
+        </div>
         <div className="card-body">
           <Line
             width={970}
@@ -131,13 +143,26 @@ class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
 /**
  * Transform the API data into props for ClientsGraph
  *
- * @param data the API data
+ * @param data The API data
+ * @param range The time range to use
  * @returns {{labels: Date[], datasets: Array, loading: boolean}} ClientsGraph
  * props
  */
-export const transformData = (data: ApiClientsGraph) => {
-  // Remove last data point as it's not yet finished
-  const overTime = data.over_time.slice(0, -1);
+export const transformData = (
+  data: ApiClientsGraph,
+  range: TimeRange | null
+) => {
+  let timeUnit: TimeUnit = "hour";
+  let overTime = data.over_time;
+
+  if (range) {
+    if (range.until.diff(range.from, "day") > 1) {
+      timeUnit = "day";
+    }
+  } else {
+    // Remove last data point as it's not yet finished
+    overTime = data.over_time.slice(0, -1);
+  }
 
   const colors = [
     "#20a8d8",
@@ -186,33 +211,64 @@ export const transformData = (data: ApiClientsGraph) => {
 
   datasets.sort((a, b) => a.label!.localeCompare(b.label!));
 
-  return { labels, datasets, loading: false };
+  return {
+    labels,
+    datasets,
+    loading: false,
+    timeUnit,
+    rangeName: range ? range.name : undefined
+  };
 };
 
 /**
  * The props used to show a loading state (either initial load or error)
  */
-export const loadingProps = {
+export const loadingProps: ClientsGraphProps = {
   loading: true,
   labels: [],
+  timeUnit: "hour",
+  rangeName: "---",
   datasets: []
 };
 
-export const TranslatedClientsGraph = withNamespaces("dashboard")(ClientsGraph);
+export const TranslatedClientsGraph = withNamespaces([
+  "dashboard",
+  "time-ranges"
+])(ClientsGraph);
 
 export default (props: any) => (
-  <WithAPIData
-    apiCall={api.getClientsGraph}
-    repeatOptions={{
-      interval: 10 * 60 * 1000,
-      ignoreCancel: true
-    }}
-    renderInitial={() => (
-      <TranslatedClientsGraph {...loadingProps} {...props} />
+  <TimeRangeContext.Consumer>
+    {context => (
+      <WithAPIData
+        apiCall={() =>
+          context.range
+            ? api.getClientsGraphDb(
+                context.range,
+                getIntervalForRange(context.range)
+              )
+            : api.getClientsGraph()
+        }
+        repeatOptions={
+          context.range
+            ? undefined
+            : {
+                interval: 10 * 60 * 1000,
+                ignoreCancel: true
+              }
+        }
+        renderInitial={() => (
+          <TranslatedClientsGraph {...loadingProps} {...props} />
+        )}
+        renderOk={data => (
+          <TranslatedClientsGraph
+            {...transformData(data, context.range)}
+            {...props}
+          />
+        )}
+        renderErr={() => (
+          <TranslatedClientsGraph {...loadingProps} {...props} />
+        )}
+      />
     )}
-    renderOk={data => (
-      <TranslatedClientsGraph {...transformData(data)} {...props} />
-    )}
-    renderErr={() => <TranslatedClientsGraph {...loadingProps} {...props} />}
-  />
+  </TimeRangeContext.Consumer>
 );
