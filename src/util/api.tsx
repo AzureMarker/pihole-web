@@ -84,9 +84,13 @@ export default {
     return http.get(url);
   },
   getTopBlockedDb(range: TimeRange): Promise<ApiTopBlocked> {
-    return http.get(
-      "stats/database/top_domains?blocked=true&" + timeRangeToParams(range)
-    );
+    // The API uses a GET parameter to differentiate top domains from top
+    // blocked, but the fake API is not able to handle GET parameters right now.
+    const url = config.fakeAPI
+      ? "stats/database/top_blocked?"
+      : "stats/database/top_domains?blocked=true&";
+
+    return http.get(url + timeRangeToParams(range));
   },
   getTopClients(): Promise<ApiTopClients> {
     return http.get("stats/top_clients");
