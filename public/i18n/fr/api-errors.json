@@ -1,1 +1,25 @@
-{}
+{
+    "unknown": "inconnu",
+    "gravity_error": "",
+    "ftl_connection_fail": "",
+    "ftl_read_error": "",
+    "ftl_eom_error": "",
+    "not_found": "Pas trouvé",
+    "already_exists": "",
+    "invalid_domain": "",
+    "bad_request": "Demande incorrecte",
+    "unauthorized": "non autorisé",
+    "file_read": "",
+    "file_write": "",
+    "config_parsing_error": "",
+    "invalid_setting_value": "",
+    "restart_dns_error": "Impossible de redémarrer le serveur DNS",
+    "dnsmasq_config_write": "",
+    "shared_memory_open": "",
+    "shared_memory_read": "",
+    "shared_memory_lock": "",
+    "API Error: {{error}}": "",
+    "reload_dns_error": "",
+    "shared_memory_version": "",
+    "ftl_database": ""
+}

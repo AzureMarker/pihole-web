@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "النطاقات المحظورة",
+    "Query Types": "نوع الإستعلام",
+    "Forward Destinations": "مستقبل التوجيهات",
+    "Top Permitted Domains": "أعلى النطاقات",
+    "Top Blocked Domains": "أعلى الإعلانات",
+    "Top Clients": "أعلى العملاء",
+    "Total Queries ({{count}} clients)": "",
+    "Total Queries ({{count}} clients)_plural": "",
+    "Queries Blocked": "",
+    "Percent Blocked": "",
+    "Queries Answered By": "",
+    "Queries from {{from}} to {{to}}": "",
+    "Total Queries": "",
+    "Blocked Queries": "",
+    "Client activity from {{from}} to {{to}}": "",
+    "{{percent}}% of {{total}}": "",
+    "No Clients Found": "",
+    "No Domains Found": "",
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
+}

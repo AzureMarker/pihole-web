@@ -1,9 +1,9 @@
 {
     "Password": "Contraseña",
-    "Sign in to start your session": "Introduzca sus datos de inicio de sesión",
+    "Sign in to start your session": "Ingrese sus datos para iniciar sesión",
     "Log in": "Iniciar sesión",
     "Forgot Password": "Olvidé la contraseña",
-    "forgot_password_description": "Frase para recordar la contraseña",
+    "forgot_password_description": "Después de instalar Pi-hole por primera vez, se genera una contraseña y se muestra al usuario. La contraseña no se podrá recuperar más adelante, pero es posible establecer una nueva contraseña (o deshabilitar explícitamente la contraseña al establecer una contraseña vacía) usando el comando:",
     "Wrong Password!": "¡Contraseña incorrecta!",
     "You will be transferred to the \"{{page}}\" page": "Será trasferido a la página {{page}}",
     "Verify that cookies are allowed for {{host}}": "Verifique que las cookies estén permitidas para {{host}}"

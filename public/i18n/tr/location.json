@@ -1,0 +1,15 @@
+{
+    "Query Log": "Sorgu Günlügü",
+    "Whitelist": "Beyaz Liste",
+    "Blacklist": "Kara Liste",
+    "Dashboard": "Gösterge Paneli",
+    "Exact": "Kesin",
+    "Wildcard": "Wildcard\n",
+    "Login": "Giriş Yap",
+    "Logout": "Çıkış Yap",
+    "Regex": "Düzenli ifade",
+    "Settings": "Ayarlar",
+    "Networking": "Ağ",
+    "Versions": "Sürümler",
+    "Preferences": "Tercihler"
+}

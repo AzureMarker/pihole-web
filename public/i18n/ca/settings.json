@@ -18,9 +18,13 @@
     "Interface": "Interface",
     "IPv4 address": "Adreça IPv4",
     "IPv6 address": "Adreça IPv6",
-    "Hostname": "Hostname",
+    "Hostname": "Nom de host",
     "Branch": "Branca",
     "Hash": "Hash",
-    "Tag": "Tag",
-    "Only forward public reverse lookups": "Reenviar només les cerques inverses públiques"
+    "Tag": "Etiqueta",
+    "Only forward public reverse lookups": "Reenviar només les cerques inverses públiques",
+    "Processing...": "Processant...",
+    "Successfully saved settings": "Configuració guardada correctament",
+    "Detected custom upstream server": "S'ha detectat un servidor extern personalitzat",
+    "DNS Options": "Opcions DNS"
 }

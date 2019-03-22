@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blockerad",
+    "Allowed (forwarded)": "Tillåtet (vidarebefordras)",
+    "Allowed (cached)": "Tillåten (cachad)",
+    "Blocked (regex/wildcard)": "Blockerad (regex/jokertecken)",
+    "Blocked (blacklist)": "Blockerad (svartlista)",
+    "Unknown": "Okänd",
+    "Blocked (external)": "Blockerad (extern)",
+    "Blocked (gravity)": "",
+    "Unspecified": "Obestämd",
+    "Secure": "Säker",
+    "Insecure": "Osäker",
+    "Bogus": "Falsk",
+    "Abandoned": "Övergiven",
+    "Reply": "Svara",
+    "All": "Alla",
+    "Allowed": "Tillåten"
+}

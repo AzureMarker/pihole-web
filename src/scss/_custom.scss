@@ -186,3 +186,20 @@
 .form-check-input {
   margin-top: 0.2rem;
 }
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.nav-item button {
+  cursor: pointer;
+}
+
+body {
+  // Prevent reactstrap's modal from incorrectly adjusting the padding
+  padding-right: 0 !important;
+}

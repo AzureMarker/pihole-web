@@ -1,0 +1,18 @@
+{
+    "Blocked": "Αποκλεισμένο",
+    "Allowed (forwarded)": "Επιτρεπόμενο (προωθείται)",
+    "Allowed (cached)": "Επιτρέπεται (σε προσωρινή μνήμη)",
+    "Blocked (regex/wildcard)": "Αποκλεισμένα (κανονική έκφραση/μπαλαντέρ)",
+    "Blocked (blacklist)": "Αποκλεισμένα (μαύρη λίστα)",
+    "Unknown": "Άγνωστο",
+    "Blocked (external)": "Αποκλεισμένο (εξωτερικό)",
+    "Blocked (gravity)": "Αποκλεισμένο (gravity)",
+    "Unspecified": "Απροσδιόριστο",
+    "Secure": "Ασφαλής",
+    "Insecure": "Μη ασφαλής",
+    "Bogus": "Ψεύτικο",
+    "Abandoned": "Εγκαταλειμμένο",
+    "Reply": "Απάντηση",
+    "All": "Όλα",
+    "Allowed": "Επιτρέπεται"
+}

@@ -3,5 +3,16 @@
     "Allowed (forwarded)": "Позволено (препратено)",
     "Allowed (cached)": "Позволено (кеширано)",
     "Blocked (regex/wildcard)": "Блокирано (регенериране)",
-    "Blocked (blacklist)": "Блокиран (черен списък)"
+    "Blocked (blacklist)": "Блокиран (черен списък)",
+    "Unknown": "",
+    "Blocked (external)": "",
+    "Blocked (gravity)": "",
+    "Unspecified": "",
+    "Secure": "",
+    "Insecure": "",
+    "Bogus": "",
+    "Abandoned": "",
+    "Reply": "",
+    "All": "",
+    "Allowed": ""
 }

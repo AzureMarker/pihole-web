@@ -1,0 +1,4 @@
+commit_message: "Signed-off-by: pralor <36384445+pralor@users.noreply.github.com>"
+files:
+  - source: /public/i18n/en/*.json
+    translation: /public/i18n/%two_letters_code%/%original_file_name%

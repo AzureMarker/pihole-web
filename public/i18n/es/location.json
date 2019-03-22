@@ -1,5 +1,5 @@
 {
-    "Query Log": "Registro de peticiones",
+    "Query Log": "Registro de consultas",
     "Whitelist": "Lista blanca",
     "Blacklist": "Lista negra",
     "Dashboard": "Panel de control",
@@ -10,5 +10,6 @@
     "Regex": "Regex",
     "Settings": "Configuración",
     "Networking": "Redes",
-    "Versions": "Versiones"
+    "Versions": "Versiones",
+    "Preferences": "Preferencias"
 }

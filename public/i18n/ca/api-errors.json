@@ -1,1 +1,25 @@
-{}
+{
+    "unknown": "Error desconegut",
+    "gravity_error": "No s'ha pogut crear la llista de bloqueig",
+    "ftl_connection_fail": "No s'ha pogut connectar amb FTL",
+    "ftl_read_error": "Errada llegint de FTL",
+    "ftl_eom_error": "Final inesperat llegint de FTL",
+    "not_found": "No s'ha trobat",
+    "already_exists": "El ítem ja existeix",
+    "invalid_domain": "Domini invàlid",
+    "bad_request": "Petició incorrecta",
+    "unauthorized": "No autoritzat",
+    "file_read": "Errada llegint de {{file}}",
+    "file_write": "Errada escrivint a {{file}}",
+    "config_parsing_error": "Errada carregant la configuració",
+    "invalid_setting_value": "Valor invàlid",
+    "restart_dns_error": "No s'ha pogut engegar el servidor DNS",
+    "dnsmasq_config_write": "Errada generant la configuració de dnsmasq",
+    "shared_memory_open": "No s'ha pogut obrir a la memòria compartida",
+    "shared_memory_read": "No s'ha pogut llegir de la memòria compartida",
+    "shared_memory_lock": "No s'ha pogut bloquejar la memòria compartida",
+    "API Error: {{error}}": "API Error: {{error}}",
+    "reload_dns_error": "No s'ha pogut recarregar el servidor DNS",
+    "shared_memory_version": "Versió de la memòria compartida incompatible",
+    "ftl_database": "Error d'interacció amb la base de dades FTL"
+}

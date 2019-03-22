@@ -21,7 +21,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: node:8
+    - image: pihole/web-build:latest
     steps:
     - checkout
     - restore_cache:

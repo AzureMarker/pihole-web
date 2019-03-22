@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Domäner på blockeringslistan",
+    "Query Types": "Förfrågningstyper",
+    "Forward Destinations": "Vidarebefordra destinationer",
+    "Top Permitted Domains": "Mest tillåtna domäner",
+    "Top Blocked Domains": "Mest blockerade domäner",
+    "Top Clients": "Topp klienter",
+    "Total Queries ({{count}} clients)": "Förfrågningar totalt (1 klienter)",
+    "Total Queries ({{count}} clients)_plural": "Förfrågningar totalt ({{count}} klienter)",
+    "Queries Blocked": "Förfrågningar blockerade",
+    "Percent Blocked": "Procent blockerade",
+    "Queries Answered By": "Förfrågningar besvarade av",
+    "Queries from {{from}} to {{to}}": "Förfrågningar från {{from}} till {{to}} ",
+    "Total Queries": "Förfrågningar totalt",
+    "Blocked Queries": "Blockerade förfrågningar",
+    "Client activity from {{from}} to {{to}}": "Klientaktivitet från {{from}} till {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% av {{total}}",
+    "No Clients Found": "Inga klienter hittades",
+    "No Domains Found": "Inga domäner hittades",
+    "Queries Answered By Destination": "Förfrågningar besvarade efter destination",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
+}

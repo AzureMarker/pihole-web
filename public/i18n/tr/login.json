@@ -1,0 +1,10 @@
+{
+    "Password": "Şifre",
+    "Sign in to start your session": "Oturumunuzu başlatmak için giriş yapın",
+    "Log in": "Giriş Yap",
+    "Forgot Password": "Şifremi Unuttum",
+    "forgot_password_description": "Pi-hole'i ilk kez kurduktan sonra, bir şifre üretilir ve kullanıcıya gösterilir. Parola daha sonra alınamaz, ancak aşağıdaki komutu kullanarak yeni bir parola ayarlamak (veya boş bir parola ayarlayarak parolayı açıkça devre dışı bırakmak) mümkündür:",
+    "Wrong Password!": "Yanlış şifre!",
+    "You will be transferred to the \"{{page}}\" page": "\"{{page}}\" sayfasına yönlendirileceksiniz",
+    "Verify that cookies are allowed for {{host}}": "{{host}} için çerezlere izin verildiğini doğrulayın"
+}

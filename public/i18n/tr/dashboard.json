@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Erişimi engellenmiş Alan Adları",
+    "Query Types": "Sorgulama Çeşitleri",
+    "Forward Destinations": "Yönlendirme Hedefleri",
+    "Top Permitted Domains": "En Çok Ziyaret Edilen Site",
+    "Top Blocked Domains": "En Çok Engellenen Alan Adları",
+    "Top Clients": "En Popüler İstemciler",
+    "Total Queries ({{count}} clients)": "Toplam Sorgu  ({{count}} istemci)",
+    "Total Queries ({{count}} clients)_plural": "Toplam Sorgu  ({{count}} istemci)",
+    "Queries Blocked": "Engellenen Sorgular",
+    "Percent Blocked": "Engellenen Yüzde",
+    "Queries Answered By": "Tarafından cevaplanan istekler",
+    "Queries from {{from}} to {{to}}": "{{from}} 'dan {{to}}' a sorgular",
+    "Total Queries": "Toplam Sorgular",
+    "Blocked Queries": "Engellenen Sorgular",
+    "Client activity from {{from}} to {{to}}": "{{from}} 'dan {{to}}' a istemci aktivitesi",
+    "{{percent}}% of {{total}}": "{{total}}'den {{percent}}%",
+    "No Clients Found": "İstemci Bulunamadı",
+    "No Domains Found": "Alan Adı Bulunamadı",
+    "Queries Answered By Destination": "Hedef Tarafından Yanıtlanan Sorgular",
+    "Queries Over {{range}}": "İstemciler üzerinde {{range}}",
+    "Clients Over {{range}}": "İstemciler üzerinde {{range}}"
+}

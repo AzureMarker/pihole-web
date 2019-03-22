@@ -3,5 +3,16 @@
     "Allowed (forwarded)": "Permès (reenviat)",
     "Allowed (cached)": "Permès (al cau)",
     "Blocked (regex/wildcard)": "Bloquejat (comodí)",
-    "Blocked (blacklist)": "Bloquejat (Llista negra)"
+    "Blocked (blacklist)": "Bloquejat (Llista negra)",
+    "Unknown": "Desconegut",
+    "Blocked (external)": "Bloquejat (extern)",
+    "Blocked (gravity)": "Bloquejat (gravity)",
+    "Unspecified": "Sense especificar",
+    "Secure": "Segur",
+    "Insecure": "Insegur",
+    "Bogus": "Fals",
+    "Abandoned": "Abandonat",
+    "Reply": "Resposta",
+    "All": "Tots",
+    "Allowed": "Permès"
 }

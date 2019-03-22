@@ -9,7 +9,7 @@
     "Client": "Cliente",
     "Requests": "Peticiones",
     "Add": "Añadir",
-    "Time": "Fecha/hora",
+    "Time": "Fecha\/hora",
     "Type": "Tipo",
     "Network": "Red",
     "Action": "Acción",
@@ -20,5 +20,15 @@
     "FTL": "FTL",
     "API": "API",
     "Web": "Web",
-    "Version": "Versión"
+    "Version": "Versión",
+    "Apply": "Aplicar",
+    "Disable": "Deshabilitar",
+    "Permanently": "Permanentemente",
+    "For {{time}} seconds": "Durante {{time}} segundos",
+    "For {{time}} minutes": "Durante {{time}} minutos",
+    "Custom time": "Horario personalizado",
+    "Enable": "Habilitar",
+    "Cancel": "Cancelar",
+    "Seconds": "Segundos",
+    "Minutes": "Minutos"
 }
