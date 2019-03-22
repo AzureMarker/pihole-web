@@ -18,5 +18,8 @@
     "shared_memory_open": "Failed to open shared memory",
     "shared_memory_read": "Failed to read from shared memory",
     "shared_memory_lock": "Failed to lock shared memory",
-    "API Error: {{error}}": "API Error: {{error}}"
+    "API Error: {{error}}": "API Error: {{error}}",
+    "reload_dns_error": "Failed to reload the DNS server",
+    "shared_memory_version": "Incompatible version of shared memory detected",
+    "ftl_database": "Error while interacting with the FTL database"
 }

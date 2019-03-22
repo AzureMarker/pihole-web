@@ -1,1 +1,1 @@
-{"api":{"branch":"test","hash":"3a21051","tag":"vDev"},"core":{"branch":"beta","hash":"2f51007","tag":"vDev"},"ftl":{"branch":"FTL","hash":"2d09377","tag":"vDev"},"web":{"branch":"FTL","hash":"2b7f581","tag":"vDev"}}
+{"api":{"branch":"development","hash":"3f4c347","tag":"vDev"},"core":{"branch":"master","hash":"23033e3","tag":"vDev"},"ftl":{"branch":"FTL","hash":"6b7f457","tag":"vDev"},"web":{"branch":"master","hash":"2408389","tag":"vDev"}}

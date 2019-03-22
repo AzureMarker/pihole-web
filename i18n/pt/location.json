@@ -4,8 +4,12 @@
     "Blacklist": "Lista negra",
     "Dashboard": "Painel de controle",
     "Exact": "Exato",
-    "Wildcard": "Wildcard",
+    "Wildcard": "",
     "Login": "Entrar",
     "Logout": "Sair",
-    "Regex": "Regex"
+    "Regex": "",
+    "Settings": "",
+    "Networking": "",
+    "Versions": "",
+    "Preferences": ""
 }

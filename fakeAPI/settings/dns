@@ -1,1 +1,1 @@
-{"upstream_dns":["241.195.244.45","39.159.164.144","130.251.162.81"],"options":{"fqdn_required":false,"bogus_priv":true,"dnssec":false,"listening_type":"local"},"conditional_forwarding":{"enabled":false,"router_ip":"16.5.70.234","domain":"tactics"}}
+{"upstream_dns":["39.4.63.116","247.81.156.254","24.73.51.143"],"options":{"fqdn_required":true,"bogus_priv":false,"dnssec":true,"listening_type":"local"},"conditional_forwarding":{"enabled":true,"router_ip":"129.127.190.87","domain":"orchestrator"}}

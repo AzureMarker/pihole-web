@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Διευθύνσεις που αποκλείονται",
+    "Query Types": "Τύποι Ερωτημάτων",
+    "Forward Destinations": "Προορισμοί Προώθησης",
+    "Top Permitted Domains": "Κορυφαίες Διευθύνσεις",
+    "Top Blocked Domains": "Δημοφιλείς Διαφημίσεις",
+    "Top Clients": "Κορυφαίοι Πελάτες",
+    "Total Queries ({{count}} clients)": "Σύνολο ερωτημάτων (1 πελάτης)",
+    "Total Queries ({{count}} clients)_plural": "Σύνολο ερωτημάτων ({{count}} πελάτες)",
+    "Queries Blocked": "Ερωτήματα που αποκλείστηκαν",
+    "Percent Blocked": "Ποσοστό που αποκλείστηκε",
+    "Queries Answered By": "Ερωτήματα απαντήθηκαν μέσω",
+    "Queries from {{from}} to {{to}}": "Ερωτήματα από {{from}} σε {{to}}",
+    "Total Queries": "Σύνολο ερωτημάτων",
+    "Blocked Queries": "Αποκλεισμένα ερωτήματα",
+    "Client activity from {{from}} to {{to}}": "Δραστηριότητα του πελάτη από {{from}} σε {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% από {{total}}",
+    "No Clients Found": "Δε βρέθηκαν πελάτες",
+    "No Domains Found": "Δε βρέθηκαν διευθύνσεις",
+    "Queries Answered By Destination": "Ερωτήματα που απαντήθηκαν κατά προορισμό",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
+}

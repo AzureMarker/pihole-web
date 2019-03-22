@@ -1,0 +1,15 @@
+{
+    "Query Log": "Förfrågningslogg",
+    "Whitelist": "Vitlista",
+    "Blacklist": "Svartlista",
+    "Dashboard": "Kontrollpanel",
+    "Exact": "Exakt",
+    "Wildcard": "Jokertecken",
+    "Login": "Logga in",
+    "Logout": "Logga ut",
+    "Regex": "Regex",
+    "Settings": "Inställningar",
+    "Networking": "Nätverkande",
+    "Versions": "Versioner",
+    "Preferences": "Inställningar"
+}

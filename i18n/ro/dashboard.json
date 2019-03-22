@@ -1,0 +1,23 @@
+{
+    "Domains On Blocklist": "Domenii Pe Lista De Blocari",
+    "Query Types": "Tip Interogare",
+    "Forward Destinations": "Destinatii Transportate",
+    "Top Permitted Domains": "Top Domenii Permise",
+    "Top Blocked Domains": "Top Domenii Blocate",
+    "Top Clients": "Top Clienti",
+    "Total Queries ({{count}} clients)": "",
+    "Total Queries ({{count}} clients)_plural": "",
+    "Queries Blocked": "Cereri Blocate",
+    "Percent Blocked": "Procent Blocat",
+    "Queries Answered By": "Interogari Raspunse De",
+    "Queries from {{from}} to {{to}}": "Interogari de la {{from}} catre {{to}}",
+    "Total Queries": "Total Interogari",
+    "Blocked Queries": "Interogari Blocate",
+    "Client activity from {{from}} to {{to}}": "Activitate client intre {{from}} si {{to}}",
+    "{{percent}}% of {{total}}": "{{percent}}% din {{total}}",
+    "No Clients Found": "",
+    "No Domains Found": "",
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
+}
