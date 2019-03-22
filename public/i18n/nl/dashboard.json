@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "",
     "Queries Blocked": "Geblokkeerde querys",
     "Percent Blocked": "Procent geblokkeerd",
-    "Queries Over Last 24 Hours": "Queries over de laatste 24 uur",
-    "Clients Over Last 24 Hours": "",
     "Queries Answered By": "Querys beantword door",
     "Queries from {{from}} to {{to}}": "Querys van naar",
     "Total Queries": "Totaal aantal querys",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "",
     "No Clients Found": "",
     "No Domains Found": "",
-    "Queries Answered By Destination": ""
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

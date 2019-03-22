@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Общо заявки ({{count}} клиенти)",
     "Queries Blocked": "Блокирани заявки",
     "Percent Blocked": "Процент блокирани",
-    "Queries Over Last 24 Hours": "Заявки за последните 24 часа",
-    "Clients Over Last 24 Hours": "Клиенти през последните 24 часа",
     "Queries Answered By": "Заявки отговори от",
     "Queries from {{from}} to {{to}}": "Заявки от {{from}} до {{to}}",
     "Total Queries": "Общи заявки",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% от {{total}}",
     "No Clients Found": "Няма намерени клиенти",
     "No Domains Found": "Няма намерени домейни",
-    "Queries Answered By Destination": "Отговорите на заявките по дестинации"
+    "Queries Answered By Destination": "Отговорите на заявките по дестинации",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

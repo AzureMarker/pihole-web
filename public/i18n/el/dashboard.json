@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Σύνολο ερωτημάτων ({{count}} πελάτες)",
     "Queries Blocked": "Ερωτήματα που αποκλείστηκαν",
     "Percent Blocked": "Ποσοστό που αποκλείστηκε",
-    "Queries Over Last 24 Hours": "Ερωτήματα τις τελευταίες 24 ώρες",
-    "Clients Over Last 24 Hours": "Πελάτες τις τελευταίες 24 ώρες",
     "Queries Answered By": "Ερωτήματα απαντήθηκαν μέσω",
     "Queries from {{from}} to {{to}}": "Ερωτήματα από {{from}} σε {{to}}",
     "Total Queries": "Σύνολο ερωτημάτων",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% από {{total}}",
     "No Clients Found": "Δε βρέθηκαν πελάτες",
     "No Domains Found": "Δε βρέθηκαν διευθύνσεις",
-    "Queries Answered By Destination": "Ερωτήματα που απαντήθηκαν κατά προορισμό"
+    "Queries Answered By Destination": "Ερωτήματα που απαντήθηκαν κατά προορισμό",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

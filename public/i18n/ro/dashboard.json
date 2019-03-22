@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "",
     "Queries Blocked": "Cereri Blocate",
     "Percent Blocked": "Procent Blocat",
-    "Queries Over Last 24 Hours": "Interogari In Ultimele 24 De Ore",
-    "Clients Over Last 24 Hours": "Clienti In Ultimele 24 De Ore",
     "Queries Answered By": "Interogari Raspunse De",
     "Queries from {{from}} to {{to}}": "Interogari de la {{from}} catre {{to}}",
     "Total Queries": "Total Interogari",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% din {{total}}",
     "No Clients Found": "",
     "No Domains Found": "",
-    "Queries Answered By Destination": ""
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

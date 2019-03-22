@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Förfrågningar totalt ({{count}} klienter)",
     "Queries Blocked": "Förfrågningar blockerade",
     "Percent Blocked": "Procent blockerade",
-    "Queries Over Last 24 Hours": "Förfrågningar de senaste 24 timmarna",
-    "Clients Over Last 24 Hours": "Klienter de senaste 24 timmarna",
     "Queries Answered By": "Förfrågningar besvarade av",
     "Queries from {{from}} to {{to}}": "Förfrågningar från {{from}} till {{to}} ",
     "Total Queries": "Förfrågningar totalt",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% av {{total}}",
     "No Clients Found": "Inga klienter hittades",
     "No Domains Found": "Inga domäner hittades",
-    "Queries Answered By Destination": "Förfrågningar besvarade efter destination"
+    "Queries Answered By Destination": "Förfrågningar besvarade efter destination",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

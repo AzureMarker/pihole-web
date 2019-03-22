@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Total de consultas ({{count}} clients)",
     "Queries Blocked": "Consultas bloqueadas",
     "Percent Blocked": "Percentagem bloqueada",
-    "Queries Over Last 24 Hours": "Consultas nas últimas 24 horas",
-    "Clients Over Last 24 Hours": "Clientes nas últimas 24 horas",
     "Queries Answered By": "Consultas respondidas por",
     "Queries from {{from}} to {{to}}": "Consultas de {{from}} a {{to}}",
     "Total Queries": "Consultas totais",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% de {{total}}",
     "No Clients Found": "Nenhum cliente encontrado",
     "No Domains Found": "Nenhum domínio encontrado",
-    "Queries Answered By Destination": "Consultas respondidas por destino"
+    "Queries Answered By Destination": "Consultas respondidas por destino",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "",
     "Queries Blocked": "",
     "Percent Blocked": "",
-    "Queries Over Last 24 Hours": "",
-    "Clients Over Last 24 Hours": "",
     "Queries Answered By": "",
     "Queries from {{from}} to {{to}}": "",
     "Total Queries": "",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "",
     "No Clients Found": "",
     "No Domains Found": "",
-    "Queries Answered By Destination": ""
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

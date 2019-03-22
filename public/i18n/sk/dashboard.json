@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "",
     "Queries Blocked": "Blokované žiadosti",
     "Percent Blocked": "Percento blokovaných",
-    "Queries Over Last 24 Hours": "Žiadosti za posledných 24 hodín",
-    "Clients Over Last 24 Hours": "Klienti za posledných 24 hodín",
     "Queries Answered By": "Zodpovedané žiadosti",
     "Queries from {{from}} to {{to}}": "Žiadosti od {{from}} do {{to}}",
     "Total Queries": "Celkovo žiadostí",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{percent}}% z {{total}}",
     "No Clients Found": "",
     "No Domains Found": "",
-    "Queries Answered By Destination": ""
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }
