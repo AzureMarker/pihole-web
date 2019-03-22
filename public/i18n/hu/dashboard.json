@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Összes lekérdezés ({{count}} ügyfelek)",
     "Queries Blocked": "Blokkolt Kérések",
     "Percent Blocked": "Blokkolási Arány",
-    "Queries Over Last 24 Hours": "Kérések ez elmúlt 24 órában",
-    "Clients Over Last 24 Hours": "Kapcsolódások az elmúlt 24 órában",
     "Queries Answered By": "Lekérdezések",
     "Queries from {{from}} to {{to}}": "Lekérdezések {{from}} és {{to}} között",
     "Total Queries": "Összes Lekérdezés",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{total}} {{percent}}%",
     "No Clients Found": "",
     "No Domains Found": "",
-    "Queries Answered By Destination": ""
+    "Queries Answered By Destination": "",
+    "Queries Over {{range}}": "",
+    "Clients Over {{range}}": ""
 }

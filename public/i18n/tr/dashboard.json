@@ -9,8 +9,6 @@
     "Total Queries ({{count}} clients)_plural": "Toplam Sorgu  ({{count}} istemci)",
     "Queries Blocked": "Engellenen Sorgular",
     "Percent Blocked": "Engellenen Yüzde",
-    "Queries Over Last 24 Hours": "Son 24 Saat İçindeki Sorgular",
-    "Clients Over Last 24 Hours": "Son 24 Saat İçindeki İstemciler",
     "Queries Answered By": "Tarafından cevaplanan istekler",
     "Queries from {{from}} to {{to}}": "{{from}} 'dan {{to}}' a sorgular",
     "Total Queries": "Toplam Sorgular",
@@ -19,5 +17,7 @@
     "{{percent}}% of {{total}}": "{{total}}'den {{percent}}%",
     "No Clients Found": "İstemci Bulunamadı",
     "No Domains Found": "Alan Adı Bulunamadı",
-    "Queries Answered By Destination": "Hedef Tarafından Yanıtlanan Sorgular"
+    "Queries Answered By Destination": "Hedef Tarafından Yanıtlanan Sorgular",
+    "Queries Over {{range}}": "İstemciler üzerinde {{range}}",
+    "Clients Over {{range}}": "İstemciler üzerinde {{range}}"
 }
