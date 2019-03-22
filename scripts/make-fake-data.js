@@ -404,6 +404,14 @@ write("public/fakeAPI/stats/upstreams", upstreams(3));
 write("public/fakeAPI/stats/top_blocked", topBlocked(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
+write("public/fakeAPI/stats/database/overTime/history", historyOverTime(144));
+write("public/fakeAPI/stats/database/overTime/clients", clientsOverTime(144, 5));
+write("public/fakeAPI/stats/database/summary", summary());
+write("public/fakeAPI/stats/database/query_types", queryTypes());
+write("public/fakeAPI/stats/database/upstreams", upstreams(3));
+write("public/fakeAPI/stats/database/top_blocked", topBlocked(10));
+write("public/fakeAPI/stats/database/top_domains", topDomains(10));
+write("public/fakeAPI/stats/database/top_clients", topClients(10));
 write("public/fakeAPI/auth", auth());
 write("public/fakeAPI/version", getVersionInfo());
 
