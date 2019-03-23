@@ -18,9 +18,15 @@ import TopDomains from "../components/dashboard/TopDomains";
 import TopBlocked from "../components/dashboard/TopBlocked";
 import TopClients from "../components/dashboard/TopClients";
 import api from "../util/api";
+import { TimeRangeSelectorContainer } from "../components/dashboard/TimeRangeSelector";
 
 export default () => (
   <div className="animated fadeIn">
+    {api.loggedIn ? (
+      <div className="dashboard-time-selector">
+        <TimeRangeSelectorContainer size="md" />
+      </div>
+    ) : null}
     <div className="row">
       <SummaryStats />
     </div>
