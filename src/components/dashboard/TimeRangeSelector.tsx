@@ -36,6 +36,11 @@ export interface TimeRangeSelectorProps {
    * If the chosen label should be shown outside of the selector
    */
   showLabel: boolean;
+
+  /**
+   * The button size to use
+   */
+  size?: string;
 }
 
 /**
@@ -80,6 +85,7 @@ export const TimeRangeSelector = (
   const last24Hours = t("Last 24 Hours");
   const today = t("Today");
   const label = renderLabel(props);
+  const size = props.size ? props.size : "sm";
 
   return (
     <DateRangePicker
@@ -106,7 +112,7 @@ export const TimeRangeSelector = (
       showDropdowns={true}
       ranges={translatedDateRanges}
     >
-      <Button color="light" size="sm">
+      <Button color="light" size={size}>
         <i className="far fa-clock fa-lg" />
         {label ? (
           <Fragment>
@@ -123,13 +129,14 @@ export const TranslatedTimeRangeSelector = withNamespaces("time-ranges")(
   TimeRangeSelector
 );
 
-export const TimeRangeSelectorContainer = () => (
+export const TimeRangeSelectorContainer = ({ size }: { size?: string }) => (
   <TimeRangeContext.Consumer>
     {context => (
       <TranslatedTimeRangeSelector
         range={context.range}
         onSelect={context.update}
         showLabel={true}
+        size={size}
       />
     )}
   </TimeRangeContext.Consumer>

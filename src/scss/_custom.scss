@@ -203,3 +203,18 @@ body {
   // Prevent reactstrap's modal from incorrectly adjusting the padding
   padding-right: 0 !important;
 }
+
+@media (max-width: 992px) {
+  // Show the time selector when the one in the header is hidden
+  .dashboard-time-selector {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 993px) {
+  // Hide the time selector when the one in the header is showing
+  .dashboard-time-selector {
+    display: none;
+  }
+}
