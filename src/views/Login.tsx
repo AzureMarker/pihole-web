@@ -58,15 +58,6 @@ class Login extends Component<LoginProps, LoginState> {
   };
 
   /**
-   * If they clicked Enter, try to authenticate them.
-   */
-  handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      this.authenticate();
-    }
-  };
-
-  /**
    * Try to authenticate the user
    */
   authenticate = (e?: FormEvent) => {
@@ -179,7 +170,6 @@ class Login extends Component<LoginProps, LoginState> {
                   className="form-control"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
-                  onKeyDown={this.handleKeyDown}
                   placeholder={t("Password")}
                   autoFocus
                 />
