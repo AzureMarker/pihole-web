@@ -12,7 +12,7 @@ import React, { FunctionComponent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../util/api";
 import ListPage from "../components/list/ListPage";
-import { isValidDomain } from "../util/validate";
+import { isValidHostname } from "../util/validate";
 
 const Blacklist: FunctionComponent<WithNamespaces> = props => {
   const { t } = props;
@@ -24,7 +24,7 @@ const Blacklist: FunctionComponent<WithNamespaces> = props => {
       add={api.addBlacklist}
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
-      isValid={isValidDomain}
+      isValid={isValidHostname}
       validationErrorMsg={t("Not a valid domain")}
       {...props}
     />
