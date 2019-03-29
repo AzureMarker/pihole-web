@@ -12,7 +12,7 @@ import React, { FunctionComponent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
-import { isValidDomain } from "../util/validate";
+import { isValidHostname } from "../util/validate";
 
 const Whitelist: FunctionComponent<WithNamespaces> = props => {
   const { t } = props;
@@ -20,12 +20,12 @@ const Whitelist: FunctionComponent<WithNamespaces> = props => {
   return (
     <ListPage
       title={t("Whitelist")}
-      placeholder={t("Add a domain (example.com or sub.example.com)")}
+      placeholder={t("Add a domain or hostname (example.com or example)")}
       add={api.addWhitelist}
       remove={api.removeWhitelist}
       refresh={api.getWhitelist}
-      isValid={isValidDomain}
-      validationErrorMsg={t("Not a valid domain")}
+      isValid={isValidHostname}
+      validationErrorMsg={t("Not a valid hostname")}
       {...props}
     />
   );
