@@ -20,12 +20,12 @@ const Blacklist: FunctionComponent<WithNamespaces> = props => {
   return (
     <ListPage
       title={`${t("Blacklist")} (${t("Exact")})`}
-      placeholder={t("Add a domain (example.com or sub.example.com)")}
+      placeholder={t("Add a domain or hostname (example.com or example)")}
       add={api.addBlacklist}
       remove={api.removeBlacklist}
       refresh={api.getBlacklist}
       isValid={isValidHostname}
-      validationErrorMsg={t("Not a valid domain")}
+      validationErrorMsg={t("Not a valid hostname")}
       {...props}
     />
   );
