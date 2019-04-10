@@ -20,7 +20,7 @@ import i18next from "i18next";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
 import moment from "moment";
-import { padNumber } from "../../util";
+import { padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
 import { dateRanges } from "../../util/dateRanges";
 import { TranslatedTimeRangeSelector } from "../dashboard/TimeRangeSelector";
