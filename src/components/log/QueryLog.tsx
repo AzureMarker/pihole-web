@@ -20,18 +20,18 @@ import i18next from "i18next";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import debounce from "lodash.debounce";
 import moment from "moment";
-import {
-  CancelablePromise,
-  ignoreCancel,
-  makeCancelable,
-  padNumber
-} from "../../util";
+import { padNumber } from "../../util";
 import api from "../../util/api";
 import { dateRanges } from "../../util/dateRanges";
 import { TranslatedTimeRangeSelector } from "../dashboard/TimeRangeSelector";
 import { TimeRange } from "../common/context/TimeRangeContext";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 
 export interface QueryLogState {
   history: Array<ApiQuery>;

@@ -9,7 +9,11 @@
  * Please see LICENSE file for your rights under this license. */
 
 import { Component, ReactNode } from "react";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import { Err, Ok, Result } from "../../util/result";
 
 export interface WithAPIDataProps<T> {
