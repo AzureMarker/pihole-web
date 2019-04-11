@@ -100,7 +100,7 @@ export default {
  * @param response the Response from fetch
  * @return {Promise} if logged in, the response, otherwise a canceled promise
  */
-const checkIfLoggedOut = (response: Response) => {
+export const checkIfLoggedOut = (response: Response) => {
   if (api.loggedIn && response.status === 401) {
     // Clear the user's old session and refresh the page
     document.cookie =
