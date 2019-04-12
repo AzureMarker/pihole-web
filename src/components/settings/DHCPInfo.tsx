@@ -55,7 +55,7 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDhcpSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDHCPInfo = () => {
     this.loadHandler = makeCancelable(api.getDHCPInfo());

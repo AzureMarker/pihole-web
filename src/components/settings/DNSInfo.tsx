@@ -56,7 +56,7 @@ class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDnsSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDNSInfo = () => {
     this.loadHandler = makeCancelable(api.getDNSInfo());

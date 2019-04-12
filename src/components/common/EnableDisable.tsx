@@ -52,7 +52,7 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
     customMultiplier: 60
   };
 
-  private updateHandler: CancelablePromise<ApiStatus> | undefined;
+  private updateHandler: CancelablePromise<ApiSuccessResponse> | undefined;
 
   /**
    * Convert a status action into a status. ex. "enable" -> "enabled"

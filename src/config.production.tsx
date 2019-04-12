@@ -12,5 +12,6 @@ import { Config } from "./config";
 
 export default {
   developmentMode: false,
-  fakeAPI: false
+  fakeAPI: false,
+  apiPath: "/admin/api"
 } as Config;

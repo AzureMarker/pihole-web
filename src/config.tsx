@@ -14,6 +14,7 @@ import productionConfig from "./config.production";
 export interface Config {
   developmentMode: boolean;
   fakeAPI: boolean;
+  apiPath: string;
 }
 
 let config: Config;

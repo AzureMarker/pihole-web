@@ -52,7 +52,7 @@ class PreferenceSettings extends Component<
   };
 
   private loadHandler: undefined | CancelablePromise<ApiPreferences>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadPreferences = () => {
     this.loadHandler = makeCancelable(api.getPreferences());
