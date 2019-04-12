@@ -15,6 +15,7 @@ import HttpClient, {
 } from "../http";
 import api from "../api";
 import { Config } from "../../config";
+import { CanceledError } from "../CancelablePromise";
 
 const originalReload = window.location.reload;
 
@@ -114,9 +115,8 @@ describe("convertJSON", () => {
   });
 
   it("should reject with input if canceled", async () => {
-    const cancelError = {
-      isCanceled: true,
-      test: true
+    const cancelError: CanceledError = {
+      isCanceled: true
     };
 
     await expect(convertJSON(cancelError)).rejects.toEqual(cancelError);

@@ -11,6 +11,7 @@
 import api from "./api";
 import { Config } from "../config";
 import { TimeRange } from "../components/common/context/TimeRangeContext";
+import { CanceledError } from "./CancelablePromise";
 
 /**
  * A class which provides HTTP functions. Each function parses the response and
@@ -27,6 +28,7 @@ export default class HttpClient {
    * @returns A promise with the data or error returned
    */
   get = <T extends any>(url: string, options: RequestInit = {}): Promise<T> => {
+    // @ts-ignore
     return fetch(this.urlFor(url), {
       credentials: this.credentialType(),
       ...options
@@ -45,6 +47,7 @@ export default class HttpClient {
    * @returns A promise with the data or error returned
    */
   post = <T extends any>(url: string, data: object): Promise<T> => {
+    // @ts-ignore
     return fetch(this.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
@@ -65,6 +68,7 @@ export default class HttpClient {
    * @returns A promise with the data or error returned
    */
   put = <T extends any>(url: string, data: object): Promise<T> => {
+    // @ts-ignore
     return fetch(this.urlFor(url), {
       method: "PUT",
       body: JSON.stringify(data),
@@ -84,6 +88,7 @@ export default class HttpClient {
    * @returns A promise with the data or error returned
    */
   delete = <T extends any>(url: string): Promise<T> => {
+    // @ts-ignore
     return fetch(this.urlFor(url), {
       method: "DELETE",
       credentials: this.credentialType()
@@ -121,10 +126,10 @@ export default class HttpClient {
  * If the user is logged in, check if the user's session has lapsed.
  * If so, log them out and refresh the page.
  *
- * @param response the Response from fetch
- * @return {Promise} if logged in, the response, otherwise a canceled promise
+ * @param response The Response from fetch
+ * @return If logged in, the response, otherwise a canceled promise
  */
-export const checkIfLoggedOut = (response: Response) => {
+export const checkIfLoggedOut = (response: Response): Promise<Response> => {
   if (api.loggedIn && response.status === 401) {
     // Clear the user's old session and refresh the page
     document.cookie =
@@ -144,22 +149,24 @@ export const checkIfLoggedOut = (response: Response) => {
  * @param data a Response or Error
  * @returns {*} a promise with the parsed JSON, or the error
  */
-export const convertJSON = (data: any): Promise<any> => {
-  if (data.isCanceled || data instanceof Error) {
+export const convertJSON = <T extends any>(
+  data: Response | Error | CanceledError
+): Promise<T> => {
+  if ((data as CanceledError).isCanceled || data instanceof Error) {
     return Promise.reject(data);
   }
 
-  return data.json();
+  return (data as Response).json();
 };
 
 /**
  * Check for an error returned by the API
  *
  * @param data the parsed JSON body of the response
- * @returns {*} a resolving promise with the data if no error, otherwise a
+ * @returns A resolving promise with the data if no error, otherwise a
  * rejecting promise with the error
  */
-export const checkForErrors = (data: any): Promise<any> => {
+export const checkForErrors = <T extends any>(data: T): Promise<T> => {
   if (data.error) {
     return Promise.reject(data.error);
   }
@@ -171,13 +178,16 @@ export const checkForErrors = (data: any): Promise<any> => {
  * Convert an object into GET parameters. The object must be flat (only
  * key-value pairs).
  *
- * @param params the parameters object
- * @returns {string} the parameters converted into GET parameter form
+ * @param params The parameters object
+ * @returns The parameters converted into GET parameter form
  */
-export const paramsToString = (params: any) =>
-  Object.keys(params)
+export const paramsToString = (params: {
+  [key: string]: string | number;
+}): string => {
+  return Object.keys(params)
     .map(key => key + "=" + params[key])
     .join("&");
+};
 
 /**
  * Convert a time range into GET parameters
@@ -185,8 +195,9 @@ export const paramsToString = (params: any) =>
  * @param range The time range to convert
  * @return The time range as GET parameters
  */
-export const timeRangeToParams = (range: TimeRange) =>
-  paramsToString({
+export const timeRangeToParams = (range: TimeRange) => {
+  return paramsToString({
     from: range.from.unix(),
     until: range.until.unix()
   });
+};

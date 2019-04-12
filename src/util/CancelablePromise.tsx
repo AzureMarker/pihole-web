@@ -32,6 +32,13 @@ export interface CancelableOptions {
 }
 
 /**
+ * The error thrown when the {@link CancelablePromise} is canceled
+ */
+export interface CanceledError {
+  isCanceled: true;
+}
+
+/**
  * Make a promise cancelable and repeatable
  *
  * @param promise the promise
