@@ -21,6 +21,18 @@ export default class HttpClient {
   constructor(private config: Config) {}
 
   /**
+   * Check if the user is logged out, convert to JSON, and check for API errors
+   *
+   * @param response The HTTP response
+   */
+  handleResponse = <T extends any>(response: Response): Promise<T> => {
+    // @ts-ignore
+    return checkIfLoggedOut(response)
+      .then(convertJSON)
+      .then(checkForErrors);
+  };
+
+  /**
    * Perform a GET request
    *
    * @param url The URL to access
@@ -30,13 +42,10 @@ export default class HttpClient {
   get = <T extends any>(url: string, options: RequestInit = {}): Promise<T> => {
     // @ts-ignore
     return fetch(this.urlFor(url), {
+      method: "GET",
       credentials: this.credentialType(),
       ...options
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
+    }).then(this.handleResponse);
   };
 
   /**
@@ -53,11 +62,7 @@ export default class HttpClient {
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" }),
       credentials: this.credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
+    }).then(this.handleResponse);
   };
 
   /**
@@ -74,11 +79,7 @@ export default class HttpClient {
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" }),
       credentials: this.credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
+    }).then(this.handleResponse);
   };
 
   /**
@@ -92,11 +93,7 @@ export default class HttpClient {
     return fetch(this.urlFor(url), {
       method: "DELETE",
       credentials: this.credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
+    }).then(this.handleResponse);
   };
 
   /**
