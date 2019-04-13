@@ -11,11 +11,15 @@
 import HttpClient, {
   checkForErrors,
   checkIfLoggedOut,
-  convertJSON
+  convertJSON,
+  paramsToString,
+  timeRangeToParams
 } from "../http";
 import api from "../api";
 import { Config } from "../../config";
 import { CanceledError } from "../CancelablePromise";
+import { TimeRange } from "../../components/common/context/TimeRangeContext";
+import moment from "moment";
 
 const originalReload = window.location.reload;
 
@@ -140,5 +144,31 @@ describe("checkForErrors", () => {
     const data = { error: { test: true } };
 
     await expect(checkForErrors(data)).rejects.toEqual(data.error);
+  });
+});
+
+describe("paramsToString", () => {
+  it("converts an object into parameters", () => {
+    const object = {
+      test1: "1",
+      test2: "two",
+      test3: 3
+    };
+    const expectedParams = "test1=1&test2=two&test3=3";
+
+    expect(paramsToString(object)).toEqual(expectedParams);
+  });
+});
+
+describe("timeRangeToParams", () => {
+  it("converts a time range into parameters", () => {
+    const range: TimeRange = {
+      name: "Test time range",
+      from: moment("2019-04-12T01:03:17+00:00"),
+      until: moment("2019-04-13T01:03:17+00:00")
+    };
+    const expectedParams = "from=1555030997&until=1555117397";
+
+    expect(timeRangeToParams(range)).toEqual(expectedParams);
   });
 });
