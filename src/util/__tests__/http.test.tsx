@@ -20,6 +20,7 @@ import { Config } from "../../config";
 import { CanceledError } from "../CancelablePromise";
 import { TimeRange } from "../../components/common/context/TimeRangeContext";
 import moment from "moment";
+import fetchMock from "fetch-mock";
 
 const originalReload = window.location.reload;
 
@@ -46,6 +47,115 @@ const restoreLocationReload = () => {
 };
 
 describe("HttpClient", () => {
+  const testEndpoint = "test";
+  const testEndpointFull = "/api/test";
+  const data = { test: true };
+  const config: Config = {
+    developmentMode: true,
+    apiPath: "/api",
+    fakeAPI: false
+  };
+  const canceledError: CanceledError = { isCanceled: true };
+  let httpClient: HttpClient;
+
+  beforeEach(() => {
+    httpClient = new HttpClient(config);
+  });
+
+  describe("handleResponse", () => {
+    it("should make a GET request and return the parsed data", async () => {
+      const response = {
+        status: 200,
+        json: () => Promise.resolve(data)
+      } as Response;
+
+      await expect(httpClient.handleResponse(response)).resolves.toEqual(data);
+    });
+
+    it("should cancel if logged out by API", async () => {
+      const error: ApiError = {
+        key: "unauthorized",
+        message: "Unauthorized",
+        data: null
+      };
+      const response = {
+        status: 401,
+        json: () => Promise.resolve({ error })
+      } as Response;
+
+      api.loggedIn = true;
+      mockLocationReload();
+
+      await expect(httpClient.handleResponse(response)).rejects.toEqual(
+        canceledError
+      );
+      expect(window.location.reload).toHaveBeenCalled();
+      restoreLocationReload();
+    });
+
+    it("should reject with the API error if set", async () => {
+      const error: ApiError = {
+        key: "test_key",
+        message: "Test message",
+        data: null
+      };
+      const response = {
+        status: 500,
+        json: () => Promise.resolve({ error })
+      } as Response;
+
+      await expect(httpClient.handleResponse(response)).rejects.toEqual(error);
+    });
+  });
+
+  describe("HTTP functions", () => {
+    it("should make a GET request and call handleResponse", async () => {
+      fetchMock.get(testEndpointFull, { body: data });
+      httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
+
+      await expect(httpClient.get(testEndpoint)).resolves.toEqual(data);
+      const request = fetchMock.lastCall(testEndpointFull)![1]!;
+
+      expect(httpClient.handleResponse).toHaveBeenCalled();
+      expect(request.method).toEqual("GET");
+    });
+
+    it("should make a POST request and call handleResponse", async () => {
+      fetchMock.post(testEndpointFull, { body: data });
+      httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
+
+      await expect(httpClient.post(testEndpoint, data)).resolves.toEqual(data);
+      const request = fetchMock.lastCall(testEndpointFull)![1]!;
+
+      expect(httpClient.handleResponse).toHaveBeenCalled();
+      expect(request.method).toEqual("POST");
+      expect(request.body).toEqual(JSON.stringify(data));
+    });
+
+    it("should make a PUT request and call handleResponse", async () => {
+      fetchMock.put(testEndpointFull, { body: data });
+      httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
+
+      await expect(httpClient.put(testEndpoint, data)).resolves.toEqual(data);
+      const request = fetchMock.lastCall(testEndpointFull)![1]!;
+
+      expect(httpClient.handleResponse).toHaveBeenCalled();
+      expect(request.method).toEqual("PUT");
+      expect(request.body).toEqual(JSON.stringify(data));
+    });
+
+    it("should make a DELETE request and call handleResponse", async () => {
+      fetchMock.delete(testEndpointFull, { body: data });
+      httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
+
+      await expect(httpClient.delete(testEndpoint)).resolves.toEqual(data);
+      const request = fetchMock.lastCall(testEndpointFull)![1]!;
+
+      expect(httpClient.handleResponse).toHaveBeenCalled();
+      expect(request.method).toEqual("DELETE");
+    });
+  });
+
   describe("urlFor", () => {
     it("uses the fakeAPI route if configured", () => {
       const config: Config = {
