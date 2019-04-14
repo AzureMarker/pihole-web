@@ -19,7 +19,7 @@ export class ApiClient {
 
   authenticate = (key: string): Promise<ApiSuccessResponse> => {
     return this.http.get("auth", {
-      headers: new Headers({ "X-Pi-hole-Authenticate": key })
+      headers: { "X-Pi-hole-Authenticate": key }
     });
   };
 
@@ -100,7 +100,7 @@ export class ApiClient {
   getTopBlocked(): Promise<ApiTopBlocked> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
-    const url = config.fakeAPI
+    const url = this.http.config.fakeAPI
       ? "stats/top_blocked"
       : "stats/top_domains?blocked=true";
 
@@ -110,7 +110,7 @@ export class ApiClient {
   getTopBlockedDb(range: TimeRange): Promise<ApiTopBlocked> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
-    const url = config.fakeAPI
+    const url = this.http.config.fakeAPI
       ? "stats/database/top_blocked?"
       : "stats/database/top_domains?blocked=true&";
 

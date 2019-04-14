@@ -18,7 +18,7 @@ import { CanceledError } from "./CancelablePromise";
  * checks for errors
  */
 export default class HttpClient {
-  constructor(private config: Config) {}
+  constructor(public config: Config) {}
 
   /**
    * Check if the user is logged out, convert to JSON, and check for API errors
