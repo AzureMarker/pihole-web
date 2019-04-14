@@ -16,7 +16,7 @@ import { WithNamespaces } from "react-i18next";
 
 const tick = global.tick;
 
-const endpoint = "/admin/api/settings/dhcp";
+const endpoint = "/api/settings/dhcp";
 const fakeData = {
   active: true,
   ip_start: "192.168.1.50",

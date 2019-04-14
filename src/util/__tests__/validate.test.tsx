@@ -195,32 +195,36 @@ describe("Testing the validation functions", () => {
       expect(isValidIpv4OptionalPort("127.0.0.1")).toBe(true);
     });
 
-    it("passes 127.0.0.1#53", () => {
-      expect(isValidIpv4OptionalPort("127.0.0.1#53")).toBe(true);
+    it("passes 127.0.0.1:53", () => {
+      expect(isValidIpv4OptionalPort("127.0.0.1:53")).toBe(true);
     });
 
-    it("passes 8.8.8.8#5353", () => {
-      expect(isValidIpv4OptionalPort("8.8.8.8#5353")).toBe(true);
+    it("passes 8.8.8.8:5353", () => {
+      expect(isValidIpv4OptionalPort("8.8.8.8:5353")).toBe(true);
     });
 
-    it("fails 1111.1.1.1#53", () => {
-      expect(isValidIpv4OptionalPort("1111.1.1.1#53")).toBe(false);
+    it("fails 1111.1.1.1:53", () => {
+      expect(isValidIpv4OptionalPort("1111.1.1.1:53")).toBe(false);
     });
 
-    it("fails 8.8.8.8#", () => {
-      expect(isValidIpv4OptionalPort("8.8.8.8#")).toBe(false);
+    it("fails 8.8.8.8:", () => {
+      expect(isValidIpv4OptionalPort("8.8.8.8:")).toBe(false);
     });
 
-    it("fails 8.8.8.8##", () => {
-      expect(isValidIpv4OptionalPort("8.8.8.8##")).toBe(false);
+    it("fails 8.8.8.8::", () => {
+      expect(isValidIpv4OptionalPort("8.8.8.8::")).toBe(false);
     });
 
-    it("fails 8.8.8.8#53#", () => {
-      expect(isValidIpv4OptionalPort("8.8.8.8#53#")).toBe(false);
+    it("fails 8.8.8.8:53:", () => {
+      expect(isValidIpv4OptionalPort("8.8.8.8:53:")).toBe(false);
     });
 
-    it("fails 8.8.8.8#abc", () => {
-      expect(isValidIpv4OptionalPort("8.8.8.8#abc")).toBe(false);
+    it("fails 8.8.8.8:abc", () => {
+      expect(isValidIpv4OptionalPort("8.8.8.8:abc")).toBe(false);
+    });
+
+    it("fails 127.0.0.1#53", () => {
+      expect(isValidIpv4OptionalPort("127.0.0.1#53")).toBe(false);
     });
   });
 });

@@ -73,15 +73,15 @@ export function isValidIpv4(address: string) {
 
 /**
  * Check if the string is a valid IPv4 address, and it can contain an optional
- * port after the address, separated with a #.
- * Example: 127.0.0.1#5353
+ * port after the address, separated with a :.
+ * Example: 127.0.0.1:5353
  *
  * @param address {string} the address to check
  * @returns {boolean} if the address is a valid IPv4 address and the port
  * (if it exists) is valid.
  */
 export function isValidIpv4OptionalPort(address: string) {
-  const split = address.split("#");
+  const split = address.split(":");
   const ipv4 = split[0];
 
   // Check the IPv4 address
