@@ -15,8 +15,13 @@ import { reactI18nextModule } from "react-i18next";
 import config from "../config";
 import languages from "../languages.json";
 
-export function setupI18n() {
-  i18n
+/**
+ * Set up the internationalization service
+ *
+ * @param ajax An optional ajax function to use when fetching translations
+ */
+export function setupI18n(ajax?: any) {
+  return i18n
     .use(XHR)
     .use(LanguageDetector)
     .use(reactI18nextModule)
@@ -46,7 +51,8 @@ export function setupI18n() {
         escapeValue: false
       },
       backend: {
-        loadPath: process.env.PUBLIC_URL + "/i18n/{{lng}}/{{ns}}.json"
+        loadPath: process.env.PUBLIC_URL + "/i18n/{{lng}}/{{ns}}.json",
+        ajax
       },
       react: {
         // Wait until translations are loaded before rendering
