@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "development") {
 
 if (process.env.REACT_APP_FAKE_API) {
   config.fakeAPI = true;
-  config.apiPath += "/fakeAPI";
+  config.apiPath = process.env.PUBLIC_URL + "/fakeAPI";
 }
 
 export default config;
