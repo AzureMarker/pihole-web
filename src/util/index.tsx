@@ -14,10 +14,27 @@ import { TimeRange } from "../components/common/context/TimeRangeContext";
  * Pad a two digit number
  *
  * @param num the number
- * @returns {string} a padding number string
+ * @returns A padding number string
  */
-export const padNumber = (num: number) => {
+export const padNumber = (num: number): string => {
   return ("00" + num).substr(-2, 2);
+};
+
+/**
+ * Get the base path of the web interface. The API will inject a base element
+ * for this purpose, but if the web interface is not hosted by the API, it will
+ * fall back to the public URL set by Create React App.
+ *
+ * @returns The base path to use
+ */
+export const getBasePath = (): string => {
+  const baseElement = document.getElementsByTagName("base")[0];
+
+  if (baseElement) {
+    return new URL(baseElement.href).pathname;
+  } else {
+    return process.env.PUBLIC_URL;
+  }
 };
 
 /**

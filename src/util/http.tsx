@@ -155,7 +155,7 @@ const urlFor = (endpoint: string): string => {
   if (config.fakeAPI) {
     apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
   } else {
-    apiLocation = "/admin/api";
+    apiLocation = process.env.PUBLIC_URL + "/api";
   }
 
   return apiLocation + "/" + endpoint;
