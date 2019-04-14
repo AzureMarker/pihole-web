@@ -20,6 +20,9 @@ jest.mock("react-i18next", () => ({
   }
 }));
 
+// languages.json is generated during a build or run, so it may not exist yet
+jest.mock("../../languages.json", () => [], { virtual: true });
+
 it("configures i18n successfully", async () => {
   // Provide a mock ajax function to the XHR backend
   const fakeAjax = (url: any, options: any, callback: any) => callback("", {});
