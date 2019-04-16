@@ -96,7 +96,7 @@ it("starts with no alerts shown", () => {
     />
   );
 
-  expect(wrapper.find(Alert)).toHaveLength(0);
+  expect(wrapper.find(Alert)).not.toExist();
 });
 
 it("hides the alert if closed", () => {
@@ -118,12 +118,12 @@ it("hides the alert if closed", () => {
 
   // Now the alert is shown
   const alert = wrapper.find(Alert);
-  expect(alert).toHaveLength(1);
+  expect(alert).toExist();
 
   // Hide the alert
   alert.props().onClick();
 
-  expect(wrapper.find(Alert)).toHaveLength(0);
+  expect(wrapper.find(Alert)).not.toExist();
 });
 
 it("cancels requests when un-mounting", async () => {
@@ -184,7 +184,7 @@ it("shows a validation message as an error", () => {
     .onValidationError();
 
   const alert = wrapper.find(Alert);
-  expect(alert).toHaveLength(1);
+  expect(alert).toExist();
   expect(alert.props().message).toEqual(validationError);
   expect(alert.props().type).toEqual("danger");
 });
