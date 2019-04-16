@@ -32,9 +32,9 @@ it("shows the title", () => {
       title={title}
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -50,9 +50,9 @@ it("shows the placeholder", () => {
       title=""
       placeholder={placeholder}
       note=""
-      add={ignoreAPI}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -68,9 +68,9 @@ it("shows the note", () => {
       title=""
       placeholder=""
       note={note}
-      add={ignoreAPI}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -85,9 +85,9 @@ it("starts with no alerts shown", () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -103,9 +103,9 @@ it("loads domains after mounting", async () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={() => Promise.resolve(domains)}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={() => Promise.resolve(domains)}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -125,9 +125,9 @@ it("checks if the domain was already added", async () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={() => Promise.resolve(domains)}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={() => Promise.resolve(domains)}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -152,9 +152,9 @@ it("calls the add prop when adding a domain", () => {
       title=""
       placeholder=""
       note=""
-      add={add}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={add}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -173,9 +173,9 @@ it("calls onAdding when adding a domain", () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -196,9 +196,9 @@ it("calls onAdded after API request succeeds", async () => {
       title=""
       placeholder=""
       note=""
-      add={() => Promise.resolve()}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={() => Promise.resolve()}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -220,9 +220,9 @@ it("calls onAddFailed after API request fails", async () => {
       title=""
       placeholder=""
       note=""
-      add={() => Promise.reject({})}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={() => Promise.reject({})}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -243,9 +243,9 @@ it("adds the domain in onAdded", async () => {
       title=""
       placeholder=""
       note=""
-      add={() => Promise.resolve()}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={() => Promise.resolve()}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -265,9 +265,9 @@ it("resets the domains when adding failed", async () => {
       title=""
       placeholder=""
       note=""
-      add={() => Promise.reject({})}
-      refresh={ignoreAPI}
-      remove={ignoreAPI}
+      onAdd={() => Promise.reject({})}
+      onRefresh={ignoreAPI}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -288,9 +288,9 @@ it("removes the domain when onRemoved is called", async () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={() => Promise.resolve(domains)}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={() => Promise.resolve(domains)}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />
@@ -310,9 +310,9 @@ it("resets the domains when removal failed", () => {
       title=""
       placeholder=""
       note=""
-      add={ignoreAPI}
-      refresh={() => Promise.resolve(domains)}
-      remove={ignoreAPI}
+      onAdd={ignoreAPI}
+      onRefresh={() => Promise.resolve(domains)}
+      onRemove={ignoreAPI}
       isValid={jest.fn()}
       validationErrorMsg=""
     />

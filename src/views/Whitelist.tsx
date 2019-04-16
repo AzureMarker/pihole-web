@@ -21,9 +21,9 @@ const Whitelist: FunctionComponent<WithNamespaces> = props => {
     <ListPage
       title={t("Whitelist")}
       placeholder={t("Add a domain or hostname (example.com or example)")}
-      add={api.addWhitelist}
-      remove={api.removeWhitelist}
-      refresh={api.getWhitelist}
+      onAdd={api.addWhitelist}
+      onRemove={api.removeWhitelist}
+      onRefresh={api.getWhitelist}
       isValid={isValidHostname}
       validationErrorMsg={t("Not a valid hostname")}
       {...props}
