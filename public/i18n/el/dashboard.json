@@ -18,6 +18,6 @@
     "No Clients Found": "Δε βρέθηκαν πελάτες",
     "No Domains Found": "Δε βρέθηκαν διευθύνσεις",
     "Queries Answered By Destination": "Ερωτήματα που απαντήθηκαν κατά προορισμό",
-    "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Queries Over {{range}}": "Ερωτήματα μεταξύ {{range}}",
+    "Clients Over {{range}}": "Πελάτες μεταξύ {{range}}"
 }

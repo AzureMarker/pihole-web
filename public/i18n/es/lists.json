@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "Error al añadir {{domain}}",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nota: No es posible incluir en la lista blanca un subdominio de un dominio bloqueado por comodín.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nota: Solo el dominio y los subdominios del dominio bloqueado serán bloqueados.",
-    "Add a domain (example.com or sub.example.com)": "Añadir un dominio (ejemplo.com o sub.ejemplo.com)",
+    "Add a domain or hostname (example.com or example)": "Añadir un dominio o nombre de host (ejemplo.com o ejemplo)",
     "{{domain}} is already added": "{{domain}} ya está añadido",
     "Failed to remove {{domain}}": "Error al borrar {{domain}}",
     "There are no domains in this list": "No hay dominios en esta lista",
     "Input a regular expression": "Ingrese una expresión regular",
-    "Not a valid domain": "No es un dominio válido",
+    "Not a valid hostname": "No es un nombre de host válido",
     "Not a valid regular expression": "No es una expresión regular válida"
 }

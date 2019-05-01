@@ -1,11 +1,11 @@
 {
-  "Last 24 Hours": "",
-  "Today": "",
-  "Yesterday": "",
-  "Last 7 Days": "",
-  "Last 30 Days": "",
-  "This Month": "",
-  "Last Month": "",
-  "This Year": "",
-  "All Time": ""
+  "Last 24 Hours": "Senaste 24 timmarna",
+  "Today": "Idag",
+  "Yesterday": "Igår",
+  "Last 7 Days": "Senaste 7 dagarna",
+  "Last 30 Days": "Senaste 30 dagarna",
+  "This Month": "Denna månad",
+  "Last Month": "Förra månaden",
+  "This Year": "I år",
+  "All Time": "All tid"
 }
