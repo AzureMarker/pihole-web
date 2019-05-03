@@ -12,19 +12,19 @@ import React from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const FooterUpdateStatus = (props: WithNamespaces) => {
-  const { t } = props;
-  const updateAvailable = false;
-
-  if (updateAvailable) {
-    return (
-      <div className="ml-auto">
-        <Link to="/settings/versions">{t("Update Available")}</Link>
-      </div>
-    );
-  } else {
+const FooterUpdateStatus = ({
+  updateAvailable = false,
+  t
+}: { updateAvailable: boolean } & WithNamespaces) => {
+  if (!updateAvailable) {
     return null;
   }
+
+  return (
+    <div className="ml-auto">
+      <Link to="/settings/versions">{t("Update Available")}</Link>
+    </div>
+  );
 };
 
 export default withNamespaces("footer")(FooterUpdateStatus);
