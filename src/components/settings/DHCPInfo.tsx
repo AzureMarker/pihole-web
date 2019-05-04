@@ -46,7 +46,8 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
       router_ip: "",
       lease_time: 0,
       domain: "",
-      ipv6_support: false
+      ipv6_support: false,
+      rapid_commit: false
     }
   };
 
@@ -296,6 +297,17 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
               onChange={this.onChange("ipv6_support", "checked")}
             />
             {t("IPv6 Support")}
+          </Label>
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              disabled={!this.state.settings.active}
+              checked={this.state.settings.rapid_commit}
+              onChange={this.onChange("rapid_commit", "checked")}
+            />
+            {t("Rapid Commit")}
           </Label>
         </FormGroup>
         <Button

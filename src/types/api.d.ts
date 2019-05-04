@@ -67,6 +67,7 @@ interface ApiDhcpSettings {
   lease_time: number;
   domain: string;
   ipv6_support: boolean;
+  rapid_commit: boolean;
 }
 
 interface ApiFtlDbResponse {
