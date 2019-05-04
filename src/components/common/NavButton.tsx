@@ -15,7 +15,7 @@ import React, { MouseEventHandler } from "react";
 export interface NavButtonProps {
   name: string;
   icon: string;
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
 }
 
 export default ({
