@@ -85,8 +85,7 @@ describe("EnableDisable", () => {
       wrapper
         .find(NavButton)
         .at(buttonIndex)
-        .props()
-        .onClick({} as MouseEvent);
+        .props().onClick!({} as MouseEvent);
 
       // Wait for the setStatus promise to resolve
       await tick();
@@ -130,10 +129,7 @@ describe("EnableDisable", () => {
 
       wrapper.setState({ processing: true });
 
-      wrapper
-        .find(NavButton)
-        .props()
-        .onClick({} as MouseEvent);
+      wrapper.find(NavButton).props().onClick!({} as MouseEvent);
 
       expect(setStatus).not.toHaveBeenCalled();
     });
@@ -152,10 +148,7 @@ describe("EnableDisable", () => {
         />
       );
 
-      wrapper
-        .find(NavButton)
-        .props()
-        .onClick({} as MouseEvent);
+      wrapper.find(NavButton).props().onClick!({} as MouseEvent);
 
       wrapper.unmount();
 
@@ -176,10 +169,7 @@ describe("EnableDisable", () => {
         />
       );
 
-      wrapper
-        .find(NavButton)
-        .props()
-        .onClick({} as MouseEvent);
+      wrapper.find(NavButton).props().onClick!({} as MouseEvent);
 
       expect(wrapper.state().processing).toBeTruthy();
 
@@ -227,8 +217,7 @@ describe("EnableDisable", () => {
       wrapper
         .find(NavButton)
         .last()
-        .props()
-        .onClick({} as MouseEvent);
+        .props().onClick!({} as MouseEvent);
 
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
     });
