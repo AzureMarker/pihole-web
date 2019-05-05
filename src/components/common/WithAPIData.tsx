@@ -102,9 +102,7 @@ export class WithAPIData<T> extends Component<
       if (cancelOptions) {
         // If the request should be repeated, wait for the interval and then
         // refresh with data from the API
-        new Promise(resolve =>
-          setTimeout(resolve, cancelOptions.interval)
-        ).then(() => this.loadData());
+        setTimeout(() => this.loadData(), cancelOptions.interval);
       }
       return;
     }
