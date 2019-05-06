@@ -31,7 +31,10 @@ export interface ClientsGraphProps {
   datasets: Array<ChartDataSets>;
 }
 
-class ClientsGraph extends Component<ClientsGraphProps & WithTranslation, {}> {
+export class ClientsGraph extends Component<
+  ClientsGraphProps & WithTranslation,
+  {}
+> {
   private readonly graphRef: RefObject<Line>;
 
   constructor(props: ClientsGraphProps & WithTranslation) {
@@ -174,7 +177,9 @@ export const transformData = (
     "#63c2de",
     "#b0bec5"
   ];
-  const labels = overTime.map(step => new Date(1000 * step.timestamp));
+  const labels = overTime.map(step =>
+    new Date(1000 * step.timestamp).toISOString()
+  );
   const datasets: Array<ChartDataSets> = [];
 
   // Fill in dataset metadata
@@ -237,7 +242,7 @@ export const TranslatedClientsGraph = withTranslation([
   "time-ranges"
 ])(ClientsGraph);
 
-export default (props: any) => (
+export const ClientsGraphContainer = () => (
   <TimeRangeContext.Consumer>
     {context => (
       <WithAPIData
@@ -257,18 +262,11 @@ export default (props: any) => (
                 ignoreCancel: true
               }
         }
-        renderInitial={() => (
-          <TranslatedClientsGraph {...loadingProps} {...props} />
-        )}
+        renderInitial={() => <TranslatedClientsGraph {...loadingProps} />}
         renderOk={data => (
-          <TranslatedClientsGraph
-            {...transformData(data, context.range)}
-            {...props}
-          />
+          <TranslatedClientsGraph {...transformData(data, context.range)} />
         )}
-        renderErr={() => (
-          <TranslatedClientsGraph {...loadingProps} {...props} />
-        )}
+        renderErr={() => <TranslatedClientsGraph {...loadingProps} />}
       />
     )}
   </TimeRangeContext.Consumer>
