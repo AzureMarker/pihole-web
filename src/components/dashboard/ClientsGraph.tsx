@@ -45,11 +45,6 @@ class ClientsGraph extends Component<ClientsGraphProps & WithTranslation, {}> {
       tooltips: {
         enabled: false,
         mode: "x-axis",
-        custom: () => "placeholder",
-        itemSort: (a, b) => {
-          // @ts-ignore
-          return b.yLabel - a.yLabel;
-        },
         callbacks: {
           title: tooltipItem => {
             const timeStr = tooltipItem[0].xLabel! as string;
