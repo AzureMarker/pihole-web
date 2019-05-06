@@ -12,7 +12,8 @@ import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
 import { WithTranslation, withTranslation } from "react-i18next";
-import { getIntervalForRange, padNumber } from "../../util/graphUtils";
+import moment from "moment";
+import { getIntervalForRange } from "../../util/graphUtils";
 import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
@@ -47,12 +48,16 @@ class ClientsGraph extends Component<ClientsGraphProps & WithTranslation, {}> {
         mode: "x-axis",
         callbacks: {
           title: tooltipItem => {
-            const timeStr = tooltipItem[0].xLabel! as string;
-            const time = timeStr.match(/(\d?\d):?(\d?\d?)/);
-            const hour = parseInt(time![1], 10);
-            const minute = parseInt(time![2], 10) || 0;
-            const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
-            const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
+            const time = moment(tooltipItem[0].xLabel!, "HH:mm");
+
+            const fromTime = time.clone().subtract(5, "minutes");
+            const toTime = time
+              .clone()
+              .add(4, "minutes")
+              .add(59, "seconds");
+
+            const from = fromTime.format("HH:mm:ss");
+            const to = toTime.format("HH:mm:ss");
 
             return t("Client activity from {{from}} to {{to}}", { from, to });
           },
