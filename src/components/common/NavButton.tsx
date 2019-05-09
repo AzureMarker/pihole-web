@@ -15,10 +15,10 @@ import React, { MouseEventHandler } from "react";
 export interface NavButtonProps {
   name: string;
   icon: string;
-  onClick?: MouseEventHandler;
+  onClick: MouseEventHandler;
 }
 
-export default ({ name, icon, onClick = () => {} }: NavButtonProps) => (
+const NavButton = ({ name, icon, onClick }: NavButtonProps) => (
   <li className="nav-item">
     <a
       href="#"
@@ -33,3 +33,9 @@ export default ({ name, icon, onClick = () => {} }: NavButtonProps) => (
     </a>
   </li>
 );
+
+NavButton.defaultProps = {
+  onClick: () => {}
+};
+
+export default NavButton;

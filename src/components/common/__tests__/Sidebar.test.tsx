@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { MouseEvent } from "react";
 import { shallow } from "enzyme";
 import Sidebar, { NavList, PiholeNavDropdown, PiholeNavItem } from "../Sidebar";
 import api from "../../../util/api";
@@ -207,11 +207,7 @@ it("should hide the sidebar on mobile when an item is clicked", () => {
   document.body.classList.add("sidebar-show");
   expect(document.body.classList).toContain("sidebar-show");
 
-  // @ts-ignore
-  wrapper
-    .find(NavLink)
-    .props()
-    .onClick();
+  wrapper.find(NavLink).props().onClick!({} as MouseEvent<HTMLAnchorElement>);
 
   expect(document.body.classList).not.toContain("sidebar-show");
 });
