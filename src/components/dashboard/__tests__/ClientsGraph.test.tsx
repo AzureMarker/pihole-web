@@ -39,7 +39,7 @@ const fakeData: ApiClientsGraph = {
 };
 
 it("shows loading indicator correctly", () => {
-  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />);
+  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />).dive();
 
   expect(wrapper.children(".card-img-overlay")).toExist();
 });

@@ -53,6 +53,20 @@ describe("EnableDisableContainer", () => {
 });
 
 describe("EnableDisable", () => {
+  const defaultProps: EnableDisableProps = {
+    refresh: jest.fn(),
+    status: "unknown",
+    onSetStatus: jest.fn()
+  };
+
+  const renderEnableDisable = (
+    props: Partial<EnableDisableProps>
+  ): EnableDisableWrapper => {
+    return shallow(
+      <TranslatedEnableDisable {...defaultProps} {...props} />
+    ).dive() as EnableDisableWrapper;
+  };
+
   describe("API calls", () => {
     /**
      * Test clicking on a button and expecting it to call setStatus
@@ -73,13 +87,11 @@ describe("EnableDisable", () => {
       );
       const refresh = jest.fn();
 
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={refresh}
-          status={initialStatus}
-          onSetStatus={setStatus}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        refresh,
+        status: initialStatus,
+        onSetStatus: setStatus
+      });
 
       wrapper
         .find(NavButton)
@@ -119,13 +131,10 @@ describe("EnableDisable", () => {
         Promise.resolve({ status: "success" } as ApiSuccessResponse)
       );
 
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="disabled"
-          onSetStatus={setStatus}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        status: "disabled",
+        onSetStatus: setStatus
+      });
 
       wrapper.setState({ processing: true });
 
@@ -143,13 +152,11 @@ describe("EnableDisable", () => {
       );
       const refresh = jest.fn();
 
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={refresh}
-          status="disabled"
-          onSetStatus={setStatus}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        refresh,
+        status: "disabled",
+        onSetStatus: setStatus
+      });
 
       wrapper
         .find(NavButton)
@@ -167,13 +174,10 @@ describe("EnableDisable", () => {
     it("resets processing flag if a setStatus request fails", async () => {
       const setStatus = jest.fn(() => Promise.reject({ error: "test" }));
 
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="disabled"
-          onSetStatus={setStatus}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        status: "disabled",
+        onSetStatus: setStatus
+      });
 
       wrapper
         .find(NavButton)
@@ -196,13 +200,10 @@ describe("EnableDisable", () => {
         HTMLFormElement
       >;
 
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={setStatus}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        status: "enabled",
+        onSetStatus: setStatus
+      });
 
       wrapper.setState({ customModalShown: true });
       wrapper.find(Form).props().onSubmit!(event);
@@ -213,13 +214,7 @@ describe("EnableDisable", () => {
 
   describe("interactions", () => {
     it("opens the custom time modal with the corresponding button is clicked", () => {
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       expect(wrapper.find(Modal).props().isOpen).toBeFalsy();
 
@@ -233,13 +228,7 @@ describe("EnableDisable", () => {
     });
 
     it("should close the modal when clicking outside", () => {
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
@@ -248,13 +237,7 @@ describe("EnableDisable", () => {
     });
 
     it("should close the modal when the header close button is clicked", () => {
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
@@ -263,13 +246,9 @@ describe("EnableDisable", () => {
     });
 
     it("should close the modal when the cancel button is clicked", () => {
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({
+        status: "enabled"
+      });
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
@@ -282,13 +261,7 @@ describe("EnableDisable", () => {
     });
 
     it("should allow custom disable times", () => {
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       wrapper.setState({ customModalShown: true });
 
@@ -305,13 +278,7 @@ describe("EnableDisable", () => {
     });
 
     it("should allow changing the custom disable time unit", () => {
-      const wrapper: EnableDisableWrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       wrapper.setState({ customModalShown: true });
 
@@ -330,37 +297,19 @@ describe("EnableDisable", () => {
 
   describe("rendering", () => {
     it("renders null if status is unknown", () => {
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="unknown"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "unknown" });
 
       expect(wrapper).toBeEmptyRender();
     });
 
     it("shows an enable button if status is disabled", () => {
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="disabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "disabled" });
 
       expect(wrapper.find(NavButton).props().name).toEqual("Enable");
     });
 
     it("shows a dropdown with disable buttons if status is enabled", () => {
-      const wrapper = shallow(
-        <TranslatedEnableDisable
-          refresh={jest.fn()}
-          status="enabled"
-          onSetStatus={jest.fn()}
-        />
-      );
+      const wrapper = renderEnableDisable({ status: "enabled" });
 
       expect(wrapper.find(NavDropdown)).toExist();
       expect(wrapper.find(NavButton)).toHaveLength(5);

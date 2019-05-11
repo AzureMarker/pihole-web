@@ -19,13 +19,15 @@ const domains = ["domain1.com", "domain2.com", "domain3.com"];
 it("shows a list of domains", () => {
   const wrapper = shallow(
     <DomainList domains={domains} onRemove={jest.fn()} />
-  );
+  ).dive();
 
   expect(wrapper.find("li")).toHaveLength(domains.length);
 });
 
 it("shows an alert if there are no domains", () => {
-  const wrapper = shallow(<DomainList domains={[]} onRemove={jest.fn()} />);
+  const wrapper = shallow(
+    <DomainList domains={[]} onRemove={jest.fn()} />
+  ).dive();
 
   expect(wrapper.find("li")).not.toExist();
   expect(wrapper.find(Alert)).toExist();
@@ -47,7 +49,7 @@ it("has a delete button when logged in", () => {
 
   const wrapper = shallow(
     <DomainList domains={domains} onRemove={jest.fn()} />
-  );
+  ).dive();
 
   expect(
     wrapper
@@ -61,7 +63,9 @@ it("calls onRemove when a delete button is clicked", () => {
   api.loggedIn = true;
 
   const onRemove = jest.fn();
-  const wrapper = shallow(<DomainList domains={domains} onRemove={onRemove} />);
+  const wrapper = shallow(
+    <DomainList domains={domains} onRemove={onRemove} />
+  ).dive();
 
   wrapper
     .find("ul")

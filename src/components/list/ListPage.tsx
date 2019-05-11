@@ -10,7 +10,7 @@
 
 import React, { Component } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
-import DomainInput from "./DomainInput";
+import { DomainInputContainer } from "./DomainInput";
 import Alert, { AlertType } from "../common/Alert";
 import DomainList from "./DomainList";
 import {
@@ -19,7 +19,7 @@ import {
   makeCancelable
 } from "../../util/CancelablePromise";
 
-export interface ListPageProps extends WithTranslation {
+export interface ListPageProps {
   title: string;
   note?: {} | string;
   placeholder: string;
@@ -36,7 +36,10 @@ export interface ListPageState {
   messageType: AlertType;
 }
 
-export class ListPage extends Component<ListPageProps, ListPageState> {
+export class ListPage extends Component<
+  ListPageProps & WithTranslation,
+  ListPageState
+> {
   static defaultProps = {
     note: ""
   };
@@ -157,7 +160,7 @@ export class ListPage extends Component<ListPageProps, ListPageState> {
       <div style={{ marginBottom: "24px" }}>
         <h2 className="text-center">{this.props.title}</h2>
         <br />
-        <DomainInput
+        <DomainInputContainer
           placeholder={this.props.placeholder}
           onEnter={this.onEnter}
           onRefresh={this.onRefresh}

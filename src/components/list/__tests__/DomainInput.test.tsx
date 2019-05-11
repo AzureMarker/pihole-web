@@ -10,38 +10,46 @@
 
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
-import DomainInput, {
+import {
   DomainInputProps,
-  DomainInputState
+  DomainInputState,
+  DomainInput,
+  DomainInputContainer
 } from "../DomainInput";
 import api from "../../../util/api";
 import { isValidDomain } from "../../../util/validate";
 
+type DomainInputWrapper = ShallowWrapper<
+  DomainInputProps,
+  DomainInputState,
+  DomainInput
+>;
+
+const defaultProps: DomainInputProps = {
+  onEnter: jest.fn(),
+  onRefresh: jest.fn(),
+  isValid: isValidDomain,
+  onValidationError: jest.fn()
+};
+
+const renderDomainInput = (
+  props: Partial<DomainInputProps> = {}
+): DomainInputWrapper => {
+  return shallow(
+    <DomainInputContainer {...defaultProps} {...props} />
+  ).dive() as DomainInputWrapper;
+};
+
 it("has a placeholder", () => {
   const placeholder = "placeholder";
-  const wrapper = shallow(
-    <DomainInput
-      placeholder={placeholder}
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput({ placeholder });
 
   expect(wrapper.find("input")).toHaveProp("placeholder", placeholder);
 });
 
 it("sets state to input", () => {
   const domain = "domain";
-  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   wrapper.find("input").simulate("change", { target: { value: domain } });
 
@@ -49,27 +57,13 @@ it("sets state to input", () => {
 });
 
 it("only has one button when not logged in", () => {
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   expect(wrapper.find("button")).toHaveLength(1);
 });
 
 it("disables input when not logged in", () => {
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   expect(wrapper.find("input")).toBeDisabled();
 });
@@ -77,28 +71,14 @@ it("disables input when not logged in", () => {
 it("enables input when logged in", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   expect(wrapper.find("input")).not.toBeDisabled();
 });
 
 it("calls onRefresh when the refresh button is clicked", () => {
   const onRefresh = jest.fn();
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={onRefresh}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput({ onRefresh });
 
   wrapper
     .find("button")
@@ -111,14 +91,7 @@ it("calls onRefresh when the refresh button is clicked", () => {
 it("has two buttons when logged in", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   expect(wrapper.find("button")).toHaveLength(2);
 });
@@ -127,14 +100,10 @@ it("does not call onEnter when input is empty", () => {
   api.loggedIn = true;
 
   const onEnter = jest.fn();
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={onEnter}
-      onRefresh={jest.fn()}
-      isValid={() => true}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput({
+    onEnter,
+    isValid: () => true
+  });
 
   wrapper
     .find("form")
@@ -149,14 +118,7 @@ it("calls onEnter when input is not empty", () => {
 
   const domain = "domain.com";
   const onEnter = jest.fn();
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={onEnter}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput({ onEnter });
 
   wrapper.find("input").simulate("change", { target: { value: domain } });
   wrapper
@@ -170,14 +132,7 @@ it("calls onEnter when input is not empty", () => {
 it("clears input after clicking add button", () => {
   api.loggedIn = true;
 
-  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   wrapper.find("input").simulate("change", { target: { value: "domain.com" } });
   wrapper
@@ -192,14 +147,7 @@ it("clears input after clicking add button", () => {
 it("sets state.isValid to true when domain is properly formatted", () => {
   api.loggedIn = true;
 
-  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   wrapper
     .find("input")
@@ -211,14 +159,7 @@ it("sets state.isValid to true when domain is properly formatted", () => {
 it("sets state.isValid to false when domain is not properly formatted", () => {
   api.loggedIn = true;
 
-  const wrapper: ShallowWrapper<DomainInputProps, DomainInputState> = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   wrapper
     .find("input")
@@ -234,14 +175,7 @@ it("sets state.isValid to false when domain is not properly formatted", () => {
 it("sets is-invalid class to the input when domain is not properly formatted", () => {
   api.loggedIn = true;
 
-  const wrapper = shallow(
-    <DomainInput
-      onEnter={jest.fn()}
-      onRefresh={jest.fn()}
-      isValid={isValidDomain}
-      onValidationError={jest.fn()}
-    />
-  );
+  const wrapper = renderDomainInput();
 
   wrapper
     .find("input")

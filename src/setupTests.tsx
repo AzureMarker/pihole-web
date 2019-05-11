@@ -8,6 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
+import React from "react";
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import "jest-enzyme";
@@ -25,13 +26,9 @@ global.t = ((key: string) => key) as i18next.TFunction;
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
   // This mock makes sure any components using the withTranslation HoC receive the t function as a prop
-  withTranslation: () => (component: any) => {
-    component.defaultProps = {
-      ...component.defaultProps,
-      t: global.t
-    };
-    return component;
-  }
+  withTranslation: () => (Component: any) => (props: any) => (
+    <Component {...props} t={global.t} />
+  )
 }));
 
 beforeEach(() => {

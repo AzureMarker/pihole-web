@@ -32,7 +32,7 @@ import {
   ModalHeader
 } from "reactstrap";
 
-export interface EnableDisableProps extends WithTranslation {
+export interface EnableDisableProps {
   status: Status;
   refresh: (data?: ApiStatus) => void;
   onSetStatus: (
@@ -49,7 +49,7 @@ export interface EnableDisableState {
 }
 
 export class EnableDisable extends Component<
-  EnableDisableProps,
+  EnableDisableProps & WithTranslation,
   EnableDisableState
 > {
   state: EnableDisableState = {
