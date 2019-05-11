@@ -13,5 +13,5 @@ import { shallow } from "enzyme";
 import Footer from "../Footer";
 
 it("renders without crashing", () => {
-  shallow(<Footer />);
+  shallow(<Footer />).dive();
 });
