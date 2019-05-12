@@ -343,7 +343,8 @@ function getDHCPInfo() {
       .word()
       .toLowerCase()
       .split(" ", 2)[0],
-    ipv6_support: faker.random.boolean()
+    ipv6_support: faker.random.boolean(),
+    rapid_commit: faker.random.boolean()
   };
 }
 

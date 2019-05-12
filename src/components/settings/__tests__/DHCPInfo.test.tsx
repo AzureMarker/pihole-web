@@ -24,7 +24,8 @@ const fakeData = {
   router_ip: "192.168.1.1",
   lease_time: "24",
   domain: "lan",
-  ipv6_support: false
+  ipv6_support: false,
+  rapid_commit: true
 };
 
 it("retrieves settings correctly", async () => {
