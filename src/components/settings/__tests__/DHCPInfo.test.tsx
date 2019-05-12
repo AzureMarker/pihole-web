@@ -25,7 +25,7 @@ const fakeData = {
   lease_time: "24",
   domain: "lan",
   ipv6_support: false,
-  rapid_commit: false
+  rapid_commit: true
 };
 
 it("retrieves settings correctly", async () => {

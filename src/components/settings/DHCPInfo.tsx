@@ -47,7 +47,7 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
       lease_time: 0,
       domain: "",
       ipv6_support: false,
-      rapid_commit: false
+      rapid_commit: true
     }
   };
 
