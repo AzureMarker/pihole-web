@@ -10,7 +10,11 @@
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
@@ -48,7 +52,7 @@ class PreferenceSettings extends Component<
   };
 
   private loadHandler: undefined | CancelablePromise<ApiPreferences>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadPreferences = () => {
     this.loadHandler = makeCancelable(api.getPreferences());

@@ -13,7 +13,11 @@ import { WithNamespaces, withNamespaces } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert, { AlertType } from "../common/Alert";
 import DomainList from "./DomainList";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 
 export interface ListPageProps extends WithNamespaces {
   title: string;
