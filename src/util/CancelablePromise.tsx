@@ -3,55 +3,22 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Various utilities
+ * Wrap promises to make them cancelable
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { TimeRange } from "../components/common/context/TimeRangeContext";
-
 /**
- * Pad a two digit number
- *
- * @param num the number
- * @returns A padding number string
+ * A promise which can be canceled
  */
-export const padNumber = (num: number): string => {
-  return ("00" + num).substr(-2, 2);
-};
-
-/**
- * Get the base path of the web interface. The API will inject a base element
- * for this purpose, but if the web interface is not hosted by the API, it will
- * fall back to the public URL set by Create React App.
- *
- * @returns The base path to use
- */
-export const getBasePath = (): string => {
-  const baseElement = document.getElementsByTagName("base")[0];
-
-  if (baseElement) {
-    return new URL(baseElement.href).pathname;
-  } else {
-    return process.env.PUBLIC_URL;
-  }
-};
-
-/**
- * Dynamically calculate a time interval so there are always 144 data points
- * (144 so that every point represents 10 minutes when the range is 24 hours)
- *
- * @param range The range to find the interval for
- */
-export const getIntervalForRange = (range: TimeRange): number => {
-  return Math.ceil((range.until.unix() - range.from.unix()) / 144);
-};
-
 export interface CancelablePromise<T> {
   promise: Promise<T>;
   cancel: () => void;
 }
 
+/**
+ * The options given to {@link makeCancelable}
+ */
 export interface CancelableOptions {
   /**
    * The function to call to repeat the promise
@@ -65,12 +32,18 @@ export interface CancelableOptions {
 }
 
 /**
+ * The error thrown when the {@link CancelablePromise} is canceled
+ */
+export interface CanceledError {
+  isCanceled: true;
+}
+
+/**
  * Make a promise cancelable and repeatable
  *
  * @param promise the promise
  * @param options the interval repeat options
- * @returns {{promise: Promise<T>, cancel(): void}} a handle on the cancelable
- * promise
+ * @returns a cancelable promise
  */
 export function makeCancelable<T>(
   promise: Promise<T>,
@@ -80,17 +53,24 @@ export function makeCancelable<T>(
   let repeatId: NodeJS.Timeout | null = null;
 
   const handle = (
-    resolve: (value: any) => void,
+    resolve: (value: T) => void,
     reject: (error: any) => void,
     val: T,
     isError: boolean
   ) => {
-    if (hasCanceled) reject({ isCanceled: true });
-    else {
-      if (isError) reject(val);
-      else resolve(val);
+    if (hasCanceled) {
+      reject({ isCanceled: true });
+      return;
+    }
 
-      if (options) repeatId = setTimeout(options.repeat, options.interval);
+    if (isError) {
+      reject(val);
+    } else {
+      resolve(val);
+    }
+
+    if (options) {
+      repeatId = setTimeout(options.repeat, options.interval);
     }
   };
 

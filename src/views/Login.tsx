@@ -78,14 +78,7 @@ class Login extends Component<LoginProps, LoginState> {
     // Send the password to the API to authenticate the user
     api
       .authenticate(hashedPassword)
-      .then(data => {
-        // Verify status
-        if (data.status !== "success") {
-          console.log("Failed to log in:");
-          console.log(data);
-          return;
-        }
-
+      .then(() => {
         api.loggedIn = true;
 
         if (config.fakeAPI) {

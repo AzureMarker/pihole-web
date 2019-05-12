@@ -10,7 +10,11 @@
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import {
   Button,
@@ -51,7 +55,7 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDhcpSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDHCPInfo = () => {
     this.loadHandler = makeCancelable(api.getDHCPInfo());

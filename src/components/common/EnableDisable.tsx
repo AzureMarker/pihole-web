@@ -15,7 +15,10 @@ import { WithNamespaces, withNamespaces } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context/StatusContext";
-import { CancelablePromise, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import {
   Button,
@@ -49,7 +52,7 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
     customMultiplier: 60
   };
 
-  private updateHandler: CancelablePromise<ApiStatus> | undefined;
+  private updateHandler: CancelablePromise<ApiSuccessResponse> | undefined;
 
   /**
    * Convert a status action into a status. ex. "enable" -> "enabled"

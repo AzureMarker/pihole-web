@@ -10,7 +10,11 @@
 
 import React, { Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
@@ -52,7 +56,7 @@ class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDnsSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDNSInfo = () => {
     this.loadHandler = makeCancelable(api.getDNSInfo());
