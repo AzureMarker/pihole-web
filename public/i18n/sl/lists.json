@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "Domene {{domain}} ni bilo mogoče dodati",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
-    "Add a domain (example.com or sub.example.com)": "Dodaj domeno (example.com ali sub.example.com)",
+    "Add a domain or hostname (example.com or example)": "",
     "{{domain}} is already added": "Domena {{domain}} je že dodana",
     "Failed to remove {{domain}}": "Domene {{domain}} ni bilo mogoče odstraniti",
     "There are no domains in this list": "Seznam ne vsebuje nobene domene",
     "Input a regular expression": "Vnesite regularni izraz",
-    "Not a valid domain": "Domena ni veljavna",
+    "Not a valid hostname": "",
     "Not a valid regular expression": "Regularni izraz ni veljaven"
 }
