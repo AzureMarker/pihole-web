@@ -24,7 +24,14 @@ export default ({
   onClick = e => e.preventDefault()
 }: NavButtonProps) => (
   <li className="nav-item">
-    <a href="#" onClick={onClick} className="nav-link">
+    <a
+      href="#"
+      onClick={e => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      className="nav-link"
+    >
       <i className={"nav-icon " + icon} />
       {name}
     </a>
