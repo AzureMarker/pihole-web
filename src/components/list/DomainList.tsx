@@ -12,6 +12,7 @@ import React from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
 import api from "../../util/api";
 import { Button } from "reactstrap";
+import Alert from "../common/Alert";
 
 export interface DomainListProps extends WithNamespaces {
   domains: string[];
@@ -54,9 +55,11 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
     body = domains.map(mapDomainsToListItems);
   } else {
     body = (
-      <div className="alert alert-info" role="alert">
-        {t("There are no domains in this list")}
-      </div>
+      <Alert
+        type="info"
+        message={t("There are no domains in this list")}
+        dismissible={false}
+      />
     );
   }
 
