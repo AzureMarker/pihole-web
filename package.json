@@ -53,7 +53,7 @@
     "lodash.debounce": "^4.0.8",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
-    "react": "^16.8.4",
+    "react": "^16.8.6",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-bootstrap-typeahead": "^3.2.4",
     "react-chartjs-2": "^2.7.4",
