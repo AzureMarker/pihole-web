@@ -26,5 +26,6 @@
     "Processing...": "Bearbetar...",
     "Successfully saved settings": "Inställningarna sparade",
     "Detected custom upstream server": "Upptäckte anpassad uppströms server",
-    "DNS Options": "DNS alternativ"
+    "DNS Options": "DNS alternativ",
+    "Rapid Commit": ""
 }
