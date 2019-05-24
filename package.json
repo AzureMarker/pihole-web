@@ -17,7 +17,7 @@
     "@types/react-bootstrap-daterangepicker": "0.0.26",
     "@types/react-bootstrap-typeahead": "^3.4.0",
     "@types/react-dom": "^16.8.2",
-    "@types/react-router-dom": "^4.3.1",
+    "@types/react-router-dom": "^4.3.3",
     "@types/react-table": "^6.7.21",
     "@types/reactstrap": "^6.4.4",
     "@types/sha.js": "^2.4.0",
