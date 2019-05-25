@@ -9,7 +9,6 @@
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/fetch-mock": "^7.2.1",
     "@types/i18next-browser-languagedetector": "^2.0.1",
-    "@types/i18next-xhr-backend": "^1.4.1",
     "@types/jest": "^24.0.13",
     "@types/lodash.debounce": "^4.0.4",
     "@types/node": "^10.12.18",
