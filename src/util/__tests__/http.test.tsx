@@ -111,6 +111,7 @@ describe("HttpClient", () => {
   describe("HTTP functions", () => {
     it("should make a GET request and call handleResponse", async () => {
       fetchMock.get(testEndpointFull, { body: data });
+      // @ts-ignore
       httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
 
       await expect(httpClient.get(testEndpoint)).resolves.toEqual(data);
@@ -122,6 +123,7 @@ describe("HttpClient", () => {
 
     it("should make a POST request and call handleResponse", async () => {
       fetchMock.post(testEndpointFull, { body: data });
+      // @ts-ignore
       httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
 
       await expect(httpClient.post(testEndpoint, data)).resolves.toEqual(data);
@@ -134,6 +136,7 @@ describe("HttpClient", () => {
 
     it("should make a PUT request and call handleResponse", async () => {
       fetchMock.put(testEndpointFull, { body: data });
+      // @ts-ignore
       httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
 
       await expect(httpClient.put(testEndpoint, data)).resolves.toEqual(data);
@@ -146,6 +149,7 @@ describe("HttpClient", () => {
 
     it("should make a DELETE request and call handleResponse", async () => {
       fetchMock.delete(testEndpointFull, { body: data });
+      // @ts-ignore
       httpClient.handleResponse = jest.fn(() => Promise.resolve(data));
 
       await expect(httpClient.delete(testEndpoint)).resolves.toEqual(data);
