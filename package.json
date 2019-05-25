@@ -38,7 +38,7 @@
     "typescript": "^3.2.4"
   },
   "dependencies": {
-    "@coreui/coreui": "^2.1.6",
+    "@coreui/coreui": "^2.1.9",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
     "@coreui/react": "^2.1.3",
