@@ -70,7 +70,8 @@ class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
         mode: "x-axis",
         callbacks: {
           title: tooltipItem => {
-            const time = tooltipItem[0].xLabel!.match(/(\d?\d):?(\d?\d?)/);
+            const timeStr = tooltipItem[0].xLabel! as string;
+            const time = timeStr.match(/(\d?\d):?(\d?\d?)/);
             const hour = parseInt(time![1], 10);
             const minute = parseInt(time![2], 10) || 0;
             const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
