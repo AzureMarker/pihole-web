@@ -15,7 +15,7 @@ import TopTable from "./TopTable";
 import i18next from "i18next";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
-export interface TopBlockedData {
+export interface TopBlockedDomainsData {
   totalBlocked: number;
   topBlocked: Array<ApiTopDomainItem>;
 }
@@ -26,7 +26,9 @@ export interface TopBlockedData {
  * @param data the API data
  * @returns {{totalBlocked: number, topBlocked: *}} the parsed data
  */
-export const transformData = (data: ApiTopBlocked): TopBlockedData => ({
+export const transformData = (
+  data: ApiTopBlockedDomains
+): TopBlockedDomainsData => ({
   totalBlocked: data.blocked_queries,
   topBlocked: data.top_domains
 });
@@ -38,7 +40,7 @@ export const transformData = (data: ApiTopBlocked): TopBlockedData => ({
  * @returns {function(*): any[]} a function to generate rows of top blocked
  */
 export const generateRows = (t: i18next.TranslationFunction) => (
-  data: TopBlockedData
+  data: TopBlockedDomainsData
 ) => {
   return data.topBlocked.map(item => {
     const percentage = (item.count / data.totalBlocked) * 100;
@@ -66,11 +68,11 @@ export const generateRows = (t: i18next.TranslationFunction) => (
   });
 };
 
-const TopBlocked = ({
+const TopBlockedDomains = ({
   apiCall,
   t,
   ...props
-}: WithNamespaces & { apiCall: () => Promise<ApiTopBlocked> }) => (
+}: WithNamespaces & { apiCall: () => Promise<ApiTopBlockedDomains> }) => (
   <TopTable
     {...props}
     title={t("Top Blocked Domains")}
@@ -87,19 +89,21 @@ const TopBlocked = ({
   />
 );
 
-const TopBlockedContainer = (props: WithNamespaces) => (
+const TopBlockedDomainsContainer = (props: WithNamespaces) => (
   <TimeRangeContext.Consumer>
     {context => (
-      <TopBlocked
+      <TopBlockedDomains
         {...props}
         apiCall={() =>
           context.range
-            ? api.getTopBlockedDb(context.range)
-            : api.getTopBlocked()
+            ? api.getTopBlockedDomainsDb(context.range)
+            : api.getTopBlockedDomains()
         }
       />
     )}
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces(["common", "dashboard"])(TopBlockedContainer);
+export default withNamespaces(["common", "dashboard"])(
+  TopBlockedDomainsContainer
+);

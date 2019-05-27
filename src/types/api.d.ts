@@ -177,7 +177,7 @@ interface ApiTopDomainItem {
   count: number;
 }
 
-interface ApiTopBlocked {
+interface ApiTopBlockedDomains {
   top_domains: Array<ApiTopDomainItem>;
   blocked_queries: number;
 }

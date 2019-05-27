@@ -3,15 +3,15 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * TopBlocked component test
+ * TopBlockedDomains component test
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { generateRows, transformData } from "../TopBlocked";
+import { generateRows, transformData } from "../TopBlockedDomains";
 
-const fakeData: ApiTopBlocked = {
+const fakeData: ApiTopBlockedDomains = {
   top_domains: [
     { domain: "jaron.info", count: 54316 },
     { domain: "candelario.info", count: 47470 },

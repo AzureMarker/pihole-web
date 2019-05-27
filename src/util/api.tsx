@@ -97,7 +97,7 @@ export class ApiClient {
     );
   };
 
-  getTopBlocked(): Promise<ApiTopBlocked> {
+  getTopBlockedDomains(): Promise<ApiTopBlockedDomains> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
     const url = this.http.config.fakeAPI
@@ -107,7 +107,7 @@ export class ApiClient {
     return this.http.get(url);
   }
 
-  getTopBlockedDb(range: TimeRange): Promise<ApiTopBlocked> {
+  getTopBlockedDomainsDb(range: TimeRange): Promise<ApiTopBlockedDomains> {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
     const url = this.http.config.fakeAPI

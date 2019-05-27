@@ -15,7 +15,7 @@ import ClientsGraph from "../components/dashboard/ClientsGraph";
 import QueryTypesChart from "../components/dashboard/QueryTypesChart";
 import UpstreamsChart from "../components/dashboard/UpstreamsChart";
 import TopDomains from "../components/dashboard/TopDomains";
-import TopBlocked from "../components/dashboard/TopBlocked";
+import TopBlockedDomains from "../components/dashboard/TopBlockedDomains";
 import TopClients from "../components/dashboard/TopClients";
 import api from "../util/api";
 import { TimeRangeSelectorContainer } from "../components/dashboard/TimeRangeSelector";
@@ -55,7 +55,7 @@ export default () => (
             <TopDomains />
           </div>
           <div className="col-md-6 col-xl-4">
-            <TopBlocked />
+            <TopBlockedDomains />
           </div>
           <div className="col-md-6 col-xl-4">
             <TopClients />
