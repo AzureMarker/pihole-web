@@ -13,15 +13,19 @@ import { WithNamespaces, withNamespaces } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert, { AlertType } from "../common/Alert";
 import DomainList from "./DomainList";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 
 export interface ListPageProps extends WithNamespaces {
   title: string;
   note?: {} | string;
   placeholder: string;
-  add: (domain: string) => Promise<any | never>;
-  refresh: () => Promise<any | never>;
-  remove: (domain: string) => Promise<any | never>;
+  onAdd: (domain: string) => Promise<any | never>;
+  onRefresh: () => Promise<any | never>;
+  onRemove: (domain: string) => Promise<any | never>;
   isValid: (domain: string) => boolean;
   validationErrorMsg: string;
 }
@@ -56,7 +60,7 @@ export class ListPage extends Component<ListPageProps, ListPageState> {
       const prevDomains = this.state.domains.slice();
 
       // Try to add the domain
-      this.addHandler = makeCancelable(this.props.add(domain));
+      this.addHandler = makeCancelable(this.props.onAdd(domain));
       this.addHandler.promise
         .then(() => {
           this.onAdded(domain);
@@ -113,7 +117,7 @@ export class ListPage extends Component<ListPageProps, ListPageState> {
     if (this.state.domains.includes(domain)) {
       const prevDomains = this.state.domains.slice();
 
-      this.removeHandler = makeCancelable(this.props.remove(domain));
+      this.removeHandler = makeCancelable(this.props.onRemove(domain));
       this.removeHandler.promise.catch(ignoreCancel).catch(() => {
         this.onRemoveFailed(domain, prevDomains);
       });
@@ -123,7 +127,7 @@ export class ListPage extends Component<ListPageProps, ListPageState> {
   };
 
   onRefresh = () => {
-    this.refreshHandler = makeCancelable(this.props.refresh());
+    this.refreshHandler = makeCancelable(this.props.onRefresh());
     this.refreshHandler.promise
       .then(data => {
         this.setState({ domains: data });

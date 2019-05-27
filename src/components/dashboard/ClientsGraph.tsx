@@ -12,7 +12,7 @@ import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { getIntervalForRange, padNumber } from "../../util";
+import { getIntervalForRange, padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";

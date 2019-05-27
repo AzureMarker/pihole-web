@@ -21,9 +21,9 @@ const Regexlist: FunctionComponent<WithNamespaces> = props => {
     <ListPage
       title={`${t("Blacklist")} (${t("Regex")})`}
       placeholder={t("Input a regular expression")}
-      add={api.addRegexlist}
-      remove={api.removeRegexlist}
-      refresh={api.getRegexlist}
+      onAdd={api.addRegexlist}
+      onRemove={api.removeRegexlist}
+      onRefresh={api.getRegexlist}
       isValid={isValidRegex}
       validationErrorMsg={t("Not a valid regular expression")}
       {...props}

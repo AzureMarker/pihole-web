@@ -10,7 +10,11 @@
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import {
   Button,
@@ -46,12 +50,13 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
       router_ip: "",
       lease_time: 0,
       domain: "",
-      ipv6_support: false
+      ipv6_support: false,
+      rapid_commit: true
     }
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDhcpSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDHCPInfo = () => {
     this.loadHandler = makeCancelable(api.getDHCPInfo());
@@ -296,6 +301,17 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
               onChange={this.onChange("ipv6_support", "checked")}
             />
             {t("IPv6 Support")}
+          </Label>
+        </FormGroup>
+        <FormGroup check>
+          <Label check>
+            <Input
+              type="checkbox"
+              disabled={!this.state.settings.active}
+              checked={this.state.settings.rapid_commit}
+              onChange={this.onChange("rapid_commit", "checked")}
+            />
+            {t("Rapid Commit")}
           </Label>
         </FormGroup>
         <Button

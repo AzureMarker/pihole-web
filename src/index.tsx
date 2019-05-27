@@ -19,7 +19,7 @@ import "./scss/style.css";
 import Full from "./containers/Full";
 import api from "./util/api";
 import { setupI18n } from "./util/i18n";
-import { getBasePath } from "./util";
+import { getBasePath } from "./util/basePath";
 
 // Before rendering anything, check if there is a session cookie.
 // Note: the user could have an old session, so the first API call

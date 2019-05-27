@@ -8,13 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, {
-  ChangeEvent,
-  Component,
-  FormEvent,
-  Fragment,
-  KeyboardEvent
-} from "react";
+import React, { ChangeEvent, Component, FormEvent, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import sha from "sha.js";
 import api from "../util/api";
@@ -78,14 +72,7 @@ class Login extends Component<LoginProps, LoginState> {
     // Send the password to the API to authenticate the user
     api
       .authenticate(hashedPassword)
-      .then(data => {
-        // Verify status
-        if (data.status !== "success") {
-          console.log("Failed to log in:");
-          console.log(data);
-          return;
-        }
-
+      .then(() => {
         api.loggedIn = true;
 
         if (config.fakeAPI) {
