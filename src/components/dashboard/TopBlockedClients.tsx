@@ -3,7 +3,7 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Top Clients component
+ * Top Blocked Clients component
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
@@ -34,14 +34,14 @@ export const transformData = (
 });
 
 /**
- * Create a function to generate rows of top clients
+ * Generate rows of top blocked clients
  *
  * @param t The translation function
- * @returns A function to generate rows of top clients
+ * @returns Rows of top blocked clients
  */
 export const generateRows = (t: i18next.TranslationFunction) => (
   data: TopBlockedClientsData
-): Array<ReactNode> => {
+): ReactNode => {
   return data.topClients.map(item => {
     const percentage = (item.count / data.blockedQueries) * 100;
 
@@ -68,7 +68,7 @@ export const generateRows = (t: i18next.TranslationFunction) => (
   });
 };
 
-const TopClients = ({
+const TopBlockedClients = ({
   apiCall,
   t,
   ...props
@@ -89,10 +89,10 @@ const TopClients = ({
   />
 );
 
-const TopClientsContainer = (props: WithNamespaces) => (
+const TopBlockedClientsContainer = (props: WithNamespaces) => (
   <TimeRangeContext.Consumer>
     {context => (
-      <TopClients
+      <TopBlockedClients
         {...props}
         apiCall={() =>
           context.range
@@ -104,4 +104,6 @@ const TopClientsContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces(["common", "dashboard"])(TopClientsContainer);
+export default withNamespaces(["common", "dashboard"])(
+  TopBlockedClientsContainer
+);
