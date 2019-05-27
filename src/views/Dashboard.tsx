@@ -19,6 +19,7 @@ import TopBlockedDomains from "../components/dashboard/TopBlockedDomains";
 import TopClients from "../components/dashboard/TopClients";
 import api from "../util/api";
 import { TimeRangeSelectorContainer } from "../components/dashboard/TimeRangeSelector";
+import TopBlockedClients from "../components/dashboard/TopBlockedClients";
 
 export default () => (
   <div className="animated fadeIn">
@@ -43,22 +44,27 @@ export default () => (
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-lg-6 col-md-12">
             <QueryTypesChart />
           </div>
-          <div className="col-md-6">
+          <div className="col-lg-6 col-md-12">
             <UpstreamsChart />
           </div>
         </div>
         <div className="row">
-          <div className="col-md-6 col-xl-4">
+          <div className="col-lg-6 col-md-12">
             <TopDomains />
           </div>
-          <div className="col-md-6 col-xl-4">
+          <div className="col-lg-6 col-md-12">
             <TopBlockedDomains />
           </div>
-          <div className="col-md-6 col-xl-4">
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-md-12">
             <TopClients />
+          </div>
+          <div className="col-lg-6 col-md-12">
+            <TopBlockedClients />
           </div>
         </div>
       </Fragment>
