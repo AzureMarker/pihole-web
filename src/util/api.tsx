@@ -97,7 +97,7 @@ export class ApiClient {
     );
   };
 
-  getTopBlockedDomains(): Promise<ApiTopBlockedDomains> {
+  getTopBlockedDomains = (): Promise<ApiTopBlockedDomains> => {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
     const url = this.http.config.fakeAPI
@@ -105,9 +105,11 @@ export class ApiClient {
       : "stats/top_domains?blocked=true";
 
     return this.http.get(url);
-  }
+  };
 
-  getTopBlockedDomainsDb(range: TimeRange): Promise<ApiTopBlockedDomains> {
+  getTopBlockedDomainsDb = (
+    range: TimeRange
+  ): Promise<ApiTopBlockedDomains> => {
     // The API uses a GET parameter to differentiate top domains from top
     // blocked, but the fake API is not able to handle GET parameters right now.
     const url = this.http.config.fakeAPI
@@ -115,7 +117,7 @@ export class ApiClient {
       : "stats/database/top_domains?blocked=true&";
 
     return this.http.get(url + timeRangeToParams(range));
-  }
+  };
 
   getTopClients = (): Promise<ApiTopClients> => {
     return this.http.get("stats/top_clients");
@@ -125,6 +127,30 @@ export class ApiClient {
     return this.http.get(
       "stats/database/top_clients?" + timeRangeToParams(range)
     );
+  };
+
+  getTopBlockedClients = (): Promise<ApiTopBlockedClients> => {
+    // The API uses a GET parameter to differentiate top clients from top
+    // blocked clients, but the fake API is not able to handle GET parameters
+    // right now.
+    const url = this.http.config.fakeAPI
+      ? "stats/top_blocked_clients"
+      : "stats/top_clients?blocked=true";
+
+    return this.http.get(url);
+  };
+
+  getTopBlockedClientsDb = (
+    range: TimeRange
+  ): Promise<ApiTopBlockedClients> => {
+    // The API uses a GET parameter to differentiate top clients from top
+    // blocked clients, but the fake API is not able to handle GET parameters
+    // right now.
+    const url = this.http.config.fakeAPI
+      ? "stats/database/top_blocked_clients?"
+      : "stats/database/top_clients?blocked=true&";
+
+    return this.http.get(url + timeRangeToParams(range));
   };
 
   getHistory = (params: any): Promise<ApiHistoryResponse> => {

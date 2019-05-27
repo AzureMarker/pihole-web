@@ -192,6 +192,11 @@ interface ApiTopClients {
   total_queries: number;
 }
 
+interface ApiTopBlockedClients {
+  top_clients: Array<ApiClient>;
+  blocked_queries: number;
+}
+
 interface ApiClient {
   name: string;
   ip: string;

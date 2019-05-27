@@ -121,6 +121,20 @@ describe("ApiClient", () => {
       expect(httpClient.get).toHaveBeenCalledWith("stats/top_clients");
     });
 
+    it("should call top blocked clients endpoint (top_clients?blocked=true)", async () => {
+      config.fakeAPI = false;
+      await expect(api.getTopBlockedClients()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        "stats/top_clients?blocked=true"
+      );
+    });
+
+    it("should call top blocked clients endpoint (top_blocked_clients)", async () => {
+      config.fakeAPI = true;
+      await expect(api.getTopBlockedClients()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("stats/top_blocked_clients");
+    });
+
     it("should call top history endpoint with params", async () => {
       const params = { test: "params" };
       await expect(api.getHistory(params)).resolves.toEqual(getData);
@@ -198,6 +212,22 @@ describe("ApiClient", () => {
       await expect(api.getTopClientsDb(range)).resolves.toEqual(getData);
       expect(httpClient.get).toHaveBeenCalledWith(
         "stats/database/top_clients?" + rangeParams
+      );
+    });
+
+    it("should call top blocked clients DB endpoint (top_clients?blocked=true) with time range", async () => {
+      config.fakeAPI = false;
+      await expect(api.getTopBlockedClientsDb(range)).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        "stats/database/top_clients?blocked=true&" + rangeParams
+      );
+    });
+
+    it("should call top blocked clients DB endpoint (top_blocked_clients) with time range", async () => {
+      config.fakeAPI = true;
+      await expect(api.getTopBlockedClientsDb(range)).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith(
+        "stats/database/top_blocked_clients?" + rangeParams
       );
     });
   });
