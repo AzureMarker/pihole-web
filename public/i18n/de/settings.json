@@ -26,5 +26,6 @@
     "Processing...": "",
     "Successfully saved settings": "Einstellungen gespeichert",
     "Detected custom upstream server": "Eigene Upstream Server erkannt",
-    "DNS Options": "DNS Optionen"
+    "DNS Options": "DNS Optionen",
+    "Rapid Commit": ""
 }

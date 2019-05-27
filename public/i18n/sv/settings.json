@@ -1,10 +1,10 @@
 {
     "DHCP Active": "DHCP aktiv",
-    "Start IP": "Start IP",
-    "End IP": "Slut IP",
-    "Router IP": "Router IP",
+    "Start IP": "Start-IP",
+    "End IP": "Slut-IP",
+    "Router IP": "Routerns IP",
     "Lease Time": "Anslutningstid",
-    "IPv6 Support": "IPv6 stöd",
+    "IPv6 Support": "IPv6-stöd",
     "Upstream DNS Servers": "DNS-servrar uppströms",
     "Interface listening behavior": "Gränssnittets lyssningsbeteende",
     "Forward FQDNs only": "Vidarebefodra endast FQDN:er",
@@ -26,5 +26,6 @@
     "Processing...": "Bearbetar...",
     "Successfully saved settings": "Inställningarna sparade",
     "Detected custom upstream server": "Upptäckte anpassad uppströms server",
-    "DNS Options": "DNS alternativ"
+    "DNS Options": "DNS-alternativ",
+    "Rapid Commit": ""
 }
