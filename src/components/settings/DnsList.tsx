@@ -12,7 +12,10 @@ import React from "react";
 import { ListGroup } from "reactstrap";
 import DnsListItem from "./DnsListItem";
 import DnsListNewItem from "./DnsListNewItem";
-import { isValidIpv4OptionalPort } from "../../util/validate";
+import {
+  isValidIpv4OptionalPort,
+  isValidIpv6OptionalPort
+} from "../../util/validate";
 
 export interface DnsListProps {
   upstreams: Array<string>;
@@ -27,8 +30,15 @@ export interface DnsListProps {
  * @param upstreams the list of current upstreams
  * @returns {boolean} if the upstream address is unique and valid
  */
-export const isAddressValid = (address: string, upstreams: Array<string>) =>
-  !upstreams.includes(address) && isValidIpv4OptionalPort(address);
+export const isAddressValid = (
+  address: string,
+  upstreams: Array<string>
+): boolean => {
+  return (
+    !upstreams.includes(address) &&
+    (isValidIpv4OptionalPort(address) || isValidIpv6OptionalPort(address))
+  );
+};
 
 const DnsList = ({ upstreams, onAdd, onRemove }: DnsListProps) => (
   <ListGroup style={{ overflowY: "scroll", maxHeight: "350px" }}>
