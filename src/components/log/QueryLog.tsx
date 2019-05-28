@@ -528,7 +528,7 @@ const columns = (t: i18next.TranslationFunction) => [
 
       // Not explicitly blocked (or is whitelisted), but could be blocked.
       // This includes externally blocked.
-      if ([2, 3, 6].includes(data.row.status))
+      if ([2, 3, 6].includes(data.row.status)) {
         return (
           <button
             type="button"
@@ -538,6 +538,9 @@ const columns = (t: i18next.TranslationFunction) => [
             {t("Blacklist")}
           </button>
         );
+      }
+
+      return null;
     }
   }
 ];
