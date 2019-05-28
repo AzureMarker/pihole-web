@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-export function isValidHostname(hostname: string) {
+export function isValidHostname(hostname: string): boolean {
   // Must not exceed 253 characters total
   if (hostname.length > 253) return false;
   // Each segment must not exceed 63 characters
@@ -28,7 +28,7 @@ export function isValidHostname(hostname: string) {
   );
 }
 
-export function isValidDomain(domain: string) {
+export function isValidDomain(domain: string): boolean {
   // Make sure it's a fully qualified domain
   const split = domain.split(".");
   // Has to have at least 2 segments, of at least 1 character each
@@ -36,13 +36,13 @@ export function isValidDomain(domain: string) {
   return isValidHostname(domain);
 }
 
-export function isPositiveNumber(input: string) {
+export function isPositiveNumber(input: string): boolean {
   // Because parseInt has limitations, e.g. parseInt("15ex") is parsed to 15
   // Caution, does not work with negative numbers, replace with /^(\-|\+)?([0-9])$/ if needed
   return /^[0-9]+$/.test(input);
 }
 
-export function isValidRegex(regex: string) {
+export function isValidRegex(regex: string): boolean {
   try {
     new RegExp(regex);
   } catch (e) {
@@ -57,7 +57,7 @@ export function isValidRegex(regex: string) {
  * @param address {string} the address to check
  * @returns {boolean} if the address is a valid IPv4 address
  */
-export function isValidIpv4(address: string) {
+export function isValidIpv4(address: string): boolean {
   const segments = address.split(".");
 
   // Must have 4 segments
@@ -80,7 +80,7 @@ export function isValidIpv4(address: string) {
  * @returns {boolean} if the address is a valid IPv4 address and the port
  * (if it exists) is valid.
  */
-export function isValidIpv4OptionalPort(address: string) {
+export function isValidIpv4OptionalPort(address: string): boolean {
   const split = address.split(":");
   const ipv4 = split[0];
 
