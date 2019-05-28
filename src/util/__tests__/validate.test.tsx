@@ -13,6 +13,7 @@ import {
   isValidDomain,
   isValidIpv4,
   isValidIpv4OptionalPort,
+  isValidIpv6OptionalPort,
   isValidRegex
 } from "../validate";
 
@@ -225,6 +226,38 @@ describe("Testing the validation functions", () => {
 
     it("fails 127.0.0.1#53", () => {
       expect(isValidIpv4OptionalPort("127.0.0.1#53")).toBe(false);
+    });
+  });
+
+  describe("isValidIpv6OptionalPort", () => {
+    it("passes 1fff:0:a88:85a3::ac1f", () => {
+      expect(isValidIpv6OptionalPort("1fff:0:a88:85a3::ac1f")).toBe(true);
+    });
+
+    it("passes ::1", () => {
+      expect(isValidIpv6OptionalPort("::1")).toBe(true);
+    });
+
+    it("passes [::1]:5353", () => {
+      expect(isValidIpv6OptionalPort("[::1]:5353")).toBe(true);
+    });
+
+    it("passes [1fff:0:a88:85a3::ac1f]:8001", () => {
+      expect(isValidIpv6OptionalPort("[1fff:0:a88:85a3::ac1f]:8001")).toBe(
+        true
+      );
+    });
+
+    it("fails 192.168.1.1", () => {
+      expect(isValidIpv6OptionalPort("192.168.1.1")).toBe(false);
+    });
+
+    it("fails 192.168.1.1:53", () => {
+      expect(isValidIpv6OptionalPort("192.168.1.1:53")).toBe(false);
+    });
+
+    it("fails [::1]", () => {
+      expect(isValidIpv6OptionalPort("[::1]")).toBe(false);
     });
   });
 });

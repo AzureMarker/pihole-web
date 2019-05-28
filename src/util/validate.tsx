@@ -94,3 +94,17 @@ export function isValidIpv4OptionalPort(address: string): boolean {
     split.length === 1 || (split.length === 2 && isPositiveNumber(split[1]))
   );
 }
+
+/**
+ * Check if the string is a valid IPv6 address, and it can contain an optional
+ * port. This function does not do a thorough check of the IPv6 address; the
+ * backend will check it in detail.
+ * Examples:
+ * 1fff:0:a88:85a3::ac1f
+ * [1fff:0:a88:85a3::ac1f]:8001
+ *
+ * @param address The IPv6 address
+ */
+export function isValidIpv6OptionalPort(address: string): boolean {
+  return /^(\[[a-fA-F0-9:]+]:\d+|[a-fA-F0-9:]+)$/.test(address);
+}
