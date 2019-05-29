@@ -26,5 +26,6 @@
     "Processing...": "Elaborazione in corso...",
     "Successfully saved settings": "Impostazioni salvate con successo",
     "Detected custom upstream server": "Rileva server di upstream personalizzato",
-    "DNS Options": "Impostazioni del DNS"
+    "DNS Options": "Impostazioni del DNS",
+    "Rapid Commit": ""
 }
