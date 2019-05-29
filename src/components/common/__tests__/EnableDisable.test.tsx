@@ -16,7 +16,7 @@ import {
   EnableDisableState,
   TranslatedEnableDisable
 } from "../EnableDisable";
-import React, { MouseEvent } from "react";
+import React, { ChangeEvent, FormEvent, MouseEvent } from "react";
 import { StatusContext, StatusContextType } from "../context/StatusContext";
 import NavButton from "../NavButton";
 import NavDropdown from "../NavDropdown";
@@ -69,7 +69,9 @@ describe("EnableDisable", () => {
       setStatusArgs: Array<any>,
       expectedStatus: any
     ) => {
-      const setStatus = jest.fn(() => Promise.resolve({ status: "success" }));
+      const setStatus = jest.fn(() =>
+        Promise.resolve({ status: "success" } as ApiSuccessResponse)
+      );
       const refresh = jest.fn();
 
       const wrapper = shallow(
@@ -114,7 +116,9 @@ describe("EnableDisable", () => {
     });
 
     it("waits for the first call to finish before sending another", () => {
-      const setStatus = jest.fn(() => Promise.resolve({ status: "success" }));
+      const setStatus = jest.fn(() =>
+        Promise.resolve({ status: "success" } as ApiSuccessResponse)
+      );
 
       const wrapper: EnableDisableWrapper = shallow(
         <TranslatedEnableDisable
@@ -135,7 +139,9 @@ describe("EnableDisable", () => {
     });
 
     it("cancels an in-flight request when unmounting", async () => {
-      const setStatus = jest.fn(() => Promise.resolve({ status: "success" }));
+      const setStatus = jest.fn(() =>
+        Promise.resolve({ status: "success" } as ApiSuccessResponse)
+      );
       const refresh = jest.fn();
 
       const wrapper = shallow(
@@ -184,8 +190,12 @@ describe("EnableDisable", () => {
     });
 
     it("calls the API with the custom time specified via modal, and closes the modal", () => {
-      const setStatus = jest.fn(() => Promise.resolve({ status: "success" }));
-      const event = { preventDefault: jest.fn() };
+      const setStatus = jest.fn(() =>
+        Promise.resolve({ status: "success" } as ApiSuccessResponse)
+      );
+      const event = ({ preventDefault: jest.fn() } as any) as FormEvent<
+        HTMLFormElement
+      >;
 
       const wrapper: EnableDisableWrapper = shallow(
         <TranslatedEnableDisable
@@ -196,10 +206,7 @@ describe("EnableDisable", () => {
       );
 
       wrapper.setState({ customModalShown: true });
-      wrapper
-        .find(Form)
-        .props()
-        .onSubmit(event);
+      wrapper.find(Form).props().onSubmit!(event);
       expect(wrapper.find(Modal).props().isOpen).toBeFalsy();
       expect(setStatus).toHaveBeenCalledWith("disable", 60 * 60);
     });
@@ -237,10 +244,7 @@ describe("EnableDisable", () => {
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
-      wrapper
-        .find(Modal)
-        .props()
-        .toggle();
+      wrapper.find(Modal).props().toggle!();
       expect(wrapper.find(Modal).props().isOpen).toBeFalsy();
     });
 
@@ -255,10 +259,7 @@ describe("EnableDisable", () => {
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
-      wrapper
-        .find(ModalHeader)
-        .props()
-        .toggle();
+      wrapper.find(ModalHeader).props().toggle!();
       expect(wrapper.find(Modal).props().isOpen).toBeFalsy();
     });
 
@@ -296,7 +297,10 @@ describe("EnableDisable", () => {
       let timeInput = wrapper.find(Input).first();
       expect(timeInput).toHaveValue(60);
 
-      timeInput.props().onChange({ target: { value: "42" } });
+      const event = {
+        target: { value: "42" }
+      } as ChangeEvent<HTMLInputElement>;
+      timeInput.props().onChange!(event);
       timeInput = wrapper.find(Input).first();
       expect(timeInput).toHaveValue(42);
     });
@@ -316,7 +320,10 @@ describe("EnableDisable", () => {
       let timeUnit = wrapper.find(Input).last();
       expect(timeUnit).toHaveValue(60);
 
-      timeUnit.props().onChange({ target: { value: "1" } });
+      const event = {
+        target: { value: "1" }
+      } as ChangeEvent<HTMLInputElement>;
+      timeUnit.props().onChange!(event);
       timeUnit = wrapper.find(Input).last();
       expect(timeUnit).toHaveValue(1);
     });
