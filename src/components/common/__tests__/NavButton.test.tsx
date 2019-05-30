@@ -23,7 +23,7 @@ it("renders with the given icon and name", () => {
 
 it("calls onClick when clicked", () => {
   const onClick = jest.fn();
-  const event = { test: true };
+  const event = { preventDefault: jest.fn(), test: true };
   const wrapper = shallow(
     <NavButton name="name" icon="icon" onClick={onClick} />
   );

@@ -18,11 +18,7 @@ export interface NavButtonProps {
   onClick?: MouseEventHandler;
 }
 
-export default ({
-  name,
-  icon,
-  onClick = e => e.preventDefault()
-}: NavButtonProps) => (
+export default ({ name, icon, onClick = () => {} }: NavButtonProps) => (
   <li className="nav-item">
     <a
       href="#"
