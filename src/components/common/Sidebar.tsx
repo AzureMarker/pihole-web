@@ -37,7 +37,7 @@ export const PiholeNavItem = ({
   t
 }: {
   item: RouteItem;
-  t: i18next.TranslationFunction;
+  t: i18next.TFunction;
 }): ReactElement => (
   <NavItem>
     <NavLink
@@ -66,7 +66,7 @@ export const PiholeNavDropdown = ({
   location
 }: {
   item: RouteGroup;
-  t: i18next.TranslationFunction;
+  t: i18next.TFunction;
   location: Location;
 }): ReactElement => (
   <NavDropdown
@@ -92,7 +92,7 @@ export const NavList = ({
   location
 }: {
   items: Array<RouteData>;
-  t: i18next.TranslationFunction;
+  t: i18next.TFunction;
   location: Location;
 }): ReactElement => (
   <Fragment>

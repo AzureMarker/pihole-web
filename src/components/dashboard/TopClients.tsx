@@ -37,7 +37,7 @@ export const transformData = (data: ApiTopClients): TopClientsData => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top clients
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopClientsData
 ) => {
   return data.topClients.map(item => {

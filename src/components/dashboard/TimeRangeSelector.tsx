@@ -58,7 +58,7 @@ const renderLabel = (
   }
 
   if (!props.range) {
-    return t("Last 24 Hours");
+    return t<string>("Last 24 Hours");
   }
 
   if (props.range.name === "Custom Range") {

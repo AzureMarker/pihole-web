@@ -47,7 +47,7 @@ export interface QueryLogState {
  *
  * @param t The translation function
  */
-const getDefaultRange = (t: i18next.TranslationFunction): TimeRange => {
+const getDefaultRange = (t: i18next.TFunction): TimeRange => {
   const translatedDateRanges = dateRanges(t);
   const last24Hours = t("Last 24 Hours");
 
@@ -295,7 +295,7 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
  * Convert a status code to a status message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const status = (t: i18next.TranslationFunction) => [
+const status = (t: i18next.TFunction) => [
   t("Unknown"),
   t("Blocked (gravity)"),
   t("Allowed (forwarded)"),
@@ -309,7 +309,7 @@ const status = (t: i18next.TranslationFunction) => [
  * Convert a DNSSEC code to a DNSSEC message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const dnssec = (t: i18next.TranslationFunction) => [
+const dnssec = (t: i18next.TFunction) => [
   "N/A", // Unspecified, which means DNSSEC is off, so nothing should be shown
   t("Secure"),
   t("Insecure"),
@@ -331,7 +331,7 @@ const dnssecColor = [
  * Convert a reply type code to a reply type. The unknown type is translated, so
  * you must pass in the translation function before using the message array.
  */
-const replyTypes = (t: i18next.TranslationFunction) => [
+const replyTypes = (t: i18next.TFunction) => [
   t("Unknown"),
   "NODATA",
   "NXDOMAIN",
@@ -358,7 +358,7 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
  */
 const selectionFilter = (
   items: string[],
-  t: i18next.TranslationFunction,
+  t: i18next.TFunction,
   extras: Array<{ name: string; value: any }> = []
 ) => {
   return ({
@@ -392,7 +392,7 @@ const selectionFilter = (
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
-const columns = (t: i18next.TranslationFunction) => [
+const columns = (t: i18next.TFunction) => [
   {
     Header: t("Time"),
     id: "time",

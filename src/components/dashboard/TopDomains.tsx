@@ -37,7 +37,7 @@ export const transformData = (data: ApiTopDomains): TopDomainsData => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top domains
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopDomainsData
 ) => {
   return data.topDomains.map(item => {
