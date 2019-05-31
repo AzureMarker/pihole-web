@@ -9,8 +9,11 @@
  * Please see LICENSE file for your rights under this license. */
 
 namespace NodeJS {
+  import i18next from "i18next";
+
   interface Global {
     tick(): Promise<any>
     ignoreAPI(): Promise<any>
+    t: i18next.TFunction
   }
 }

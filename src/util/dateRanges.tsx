@@ -29,7 +29,7 @@ const epoch = moment(0);
  * @param t The translation function
  */
 export const dateRanges: (
-  t: i18next.TranslationFunction
+  t: i18next.TFunction
 ) => { [name: string]: [Moment, Moment] } = t => ({
   [t("Last 24 Hours")]: [oneDayAgo, now],
   [t("Today")]: [startOfDay, now],

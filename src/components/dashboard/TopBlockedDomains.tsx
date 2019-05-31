@@ -39,7 +39,7 @@ export const transformData = (
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top blocked
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopBlockedDomainsData
 ) => {
   return data.topBlocked.map(item => {

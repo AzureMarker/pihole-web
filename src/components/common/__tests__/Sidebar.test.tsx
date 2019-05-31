@@ -15,6 +15,8 @@ import api from "../../../util/api";
 import { RouteCustomItem, RouteGroup } from "../../../routes";
 import NavDropdown from "../NavDropdown";
 
+const t = global.t;
+
 it("expands active drop down items", () => {
   const item: RouteGroup = {
     name: "testName",
@@ -27,7 +29,7 @@ it("expands active drop down items", () => {
   const wrapper = shallow(
     <PiholeNavDropdown
       item={item}
-      t={key => key}
+      t={t}
       location={{ pathname: "/testRoute/page" } as Location}
     />
   );
@@ -47,7 +49,7 @@ it("does not expand inactive drop down items", () => {
   const wrapper = shallow(
     <PiholeNavDropdown
       item={item}
-      t={key => key}
+      t={t}
       location={{ pathname: "/page" } as Location}
     />
   );
@@ -63,7 +65,7 @@ it("creates nav items with correct data", () => {
     auth: false,
     component: () => <div />
   };
-  const wrapper = shallow(<PiholeNavItem item={item} t={key => key} />);
+  const wrapper = shallow(<PiholeNavItem item={item} t={t} />);
 
   expect(wrapper.childAt(0)).toHaveProp("to", item.url);
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName(item.icon);
@@ -80,7 +82,7 @@ it("creates a nav dropdown with correct data", () => {
   };
   const location = { pathname: "/blacklist/exact" } as Location;
   const wrapper = shallow(
-    <PiholeNavDropdown item={item} t={key => key} location={location} />
+    <PiholeNavDropdown item={item} t={t} location={location} />
   );
 
   expect(wrapper).toHaveProp("icon", item.icon);
@@ -99,7 +101,7 @@ it("shows auth routes when logged in", () => {
     auth: true
   };
   const wrapper = shallow(
-    <NavList items={[item]} t={key => key} location={{} as Location} />
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(1);
@@ -116,7 +118,7 @@ it("hides auth routes when not logged in", () => {
     auth: true
   };
   const wrapper = shallow(
-    <NavList items={[item]} t={key => key} location={{} as Location} />
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -134,7 +136,7 @@ it("hides strict non-auth routes when logged in", () => {
     authStrict: true
   };
   const wrapper = shallow(
-    <NavList items={[item]} t={key => key} location={{} as Location} />
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -152,7 +154,7 @@ it("hides strict auth routes when not logged in", () => {
     authStrict: true
   };
   const wrapper = shallow(
-    <NavList items={[item]} t={key => key} location={{} as Location} />
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -165,7 +167,7 @@ it("uses a custom component if given", () => {
     customComponent: () => null
   };
   const wrapper = shallow(
-    <NavList items={[item]} t={key => key} location={{} as Location} />
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(1);

@@ -35,7 +35,7 @@ it("transforms the API data correctly", async () => {
 });
 
 it("creates an appropriately sized table", async () => {
-  const rows = generateRows(key => key)(transformData(fakeData));
+  const rows = generateRows(global.t)(transformData(fakeData));
 
   expect(rows).toHaveLength(fakeData.top_domains.length);
 });

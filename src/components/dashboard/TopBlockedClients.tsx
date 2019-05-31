@@ -39,7 +39,7 @@ export const transformData = (
  * @param t The translation function
  * @returns Rows of top blocked clients
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopBlockedClientsData
 ): ReactNode => {
   return data.topClients.map(item => {
