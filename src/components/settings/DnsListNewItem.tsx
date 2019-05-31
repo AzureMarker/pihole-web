@@ -70,6 +70,7 @@ class DnsListNewItem extends Component<
       <ListGroupItem>
         <InputGroup>
           <Typeahead
+            id="dns-list-typeahead"
             onInputChange={address => this.setState({ address })}
             onChange={selected => this.setState({ selected })}
             options={preconfiguredUpstreamOptions.filter(
@@ -77,7 +78,7 @@ class DnsListNewItem extends Component<
             )}
             selected={this.state.selected}
             emptyLabel={t("Detected custom upstream server")}
-            bodyContainer
+            positionFixed
             ref={this.typeahead}
           />
 
