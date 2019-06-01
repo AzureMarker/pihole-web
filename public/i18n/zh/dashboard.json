@@ -19,5 +19,6 @@
     "No Domains Found": "找不到域名",
     "Queries Answered By Destination": "查询目的地响应",
     "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Clients Over {{range}}": "",
+    "Top Blocked Clients": ""
 }

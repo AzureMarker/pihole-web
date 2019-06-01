@@ -19,5 +19,6 @@
     "No Domains Found": "",
     "Queries Answered By Destination": "",
     "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Clients Over {{range}}": "",
+    "Top Blocked Clients": ""
 }

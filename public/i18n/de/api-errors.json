@@ -1,5 +1,5 @@
 {
-    "unknown": "unbekannt",
+    "unknown": "unbekannter Fehler",
     "gravity_error": "Erstellen der Blockierliste fehlgeschlagen",
     "ftl_connection_fail": "ftl_verbindung_fehlgeschlagen",
     "ftl_read_error": "ftl_lese_fehler",
@@ -9,17 +9,17 @@
     "invalid_domain": "ungültige_domain",
     "bad_request": "ungültige_anfrage",
     "unauthorized": "unautorisiert ",
-    "file_read": "datei_lesen",
-    "file_write": "datei_schreiben",
+    "file_read": "Fehler beim lesen von {{file}}",
+    "file_write": "Fehler beim Schreiben von {{file}}",
     "config_parsing_error": "konfig_einfügen_fehler",
     "invalid_setting_value": "ungültiger_einstellungswert",
     "restart_dns_error": "fehler_dns_neustart",
     "dnsmasq_config_write": "dnsmasq_konfig_schreiben",
-    "shared_memory_open": "",
-    "shared_memory_read": "",
-    "shared_memory_lock": "",
+    "shared_memory_open": "Shared Memory kann nicht geöffnet werden",
+    "shared_memory_read": "Lesen vom Shared Memory fehlgeschlagen",
+    "shared_memory_lock": "Sperren des Shared Memorys fehlgeschlagen",
     "API Error: {{error}}": "API Fehler: {{error}}",
     "reload_dns_error": "Der DNS Server konnte nicht neu gestartet werden",
-    "shared_memory_version": "",
-    "ftl_database": ""
+    "shared_memory_version": "Diese Shared Memory Version ist inkompatibel",
+    "ftl_database": "Während der Interaktion mit der FTL Datenbank trat ein Fehler auf"
 }
