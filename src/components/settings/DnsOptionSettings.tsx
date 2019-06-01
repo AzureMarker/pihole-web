@@ -23,7 +23,7 @@ export interface DnsOptionsObject {
 export interface DnsOptionSettingsProps {
   settings: DnsOptionsObject;
   onUpdate: (settings: DnsOptionsObject) => void;
-  t: i18next.TranslationFunction;
+  t: i18next.TFunction;
 }
 
 const DnsOptionSettings = ({

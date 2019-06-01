@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
@@ -37,7 +37,7 @@ export const transformData = (data: ApiTopDomains): TopDomainsData => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top domains
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopDomainsData
 ) => {
   return data.topDomains.map(item => {
@@ -70,7 +70,7 @@ const TopDomains = ({
   apiCall,
   t,
   ...props
-}: WithNamespaces & { apiCall: () => Promise<ApiTopDomains> }) => (
+}: WithTranslation & { apiCall: () => Promise<ApiTopDomains> }) => (
   <TopTable
     {...props}
     title={t("Top Permitted Domains")}
@@ -87,7 +87,7 @@ const TopDomains = ({
   />
 );
 
-const TopDomainsContainer = (props: WithNamespaces) => (
+const TopDomainsContainer = (props: WithTranslation) => (
   <TimeRangeContext.Consumer>
     {context => (
       <TopDomains
@@ -102,4 +102,4 @@ const TopDomainsContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces(["common", "dashboard"])(TopDomainsContainer);
+export default withTranslation(["common", "dashboard"])(TopDomainsContainer);

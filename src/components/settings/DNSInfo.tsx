@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import {
   CancelablePromise,
   ignoreCancel,
@@ -35,7 +35,7 @@ export interface DNSInfoState {
   options: DnsOptionsObject;
 }
 
-class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
+class DNSInfo extends Component<WithTranslation, DNSInfoState> {
   state: DNSInfoState = {
     alertMessage: "",
     alertType: "info",
@@ -252,4 +252,4 @@ class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
   }
 }
 
-export default withNamespaces(["common", "settings"])(DNSInfo);
+export default withTranslation(["common", "settings"])(DNSInfo);

@@ -14,17 +14,21 @@ import "jest-enzyme";
 import api from "./util/api";
 import fetchMock from "fetch-mock";
 import "jest-localstorage-mock";
+import i18next from "i18next";
 
 // Setup enzyme
 configure({ adapter: new Adapter() });
 
+// A fake translation function which returns its input as the output
+global.t = ((key: string) => key) as i18next.TFunction;
+
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
-  // This mock makes sure any components using the withNamespaces HoC receive the t function as a prop
-  withNamespaces: () => (component: any) => {
+  // This mock makes sure any components using the withTranslation HoC receive the t function as a prop
+  withTranslation: () => (component: any) => {
     component.defaultProps = {
       ...component.defaultProps,
-      t: (key: string) => key
+      t: global.t
     };
     return component;
   }

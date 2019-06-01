@@ -19,5 +19,6 @@
     "No Domains Found": "No s'ha trobat cap domini",
     "Queries Answered By Destination": "Respostes per destí",
     "Queries Over {{range}}": "Consultes entre {{range}}",
-    "Clients Over {{range}}": "Clients entre {{range}}"
+    "Clients Over {{range}}": "Clients entre {{range}}",
+    "Top Blocked Clients": ""
 }

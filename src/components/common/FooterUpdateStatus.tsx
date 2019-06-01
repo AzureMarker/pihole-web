@@ -9,13 +9,13 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const FooterUpdateStatus = ({
   updateAvailable = false,
   t
-}: { updateAvailable: boolean } & WithNamespaces) => {
+}: { updateAvailable: boolean } & WithTranslation) => {
   if (!updateAvailable) {
     return null;
   }
@@ -27,4 +27,4 @@ const FooterUpdateStatus = ({
   );
 };
 
-export default withNamespaces("footer")(FooterUpdateStatus);
+export default withTranslation("footer")(FooterUpdateStatus);

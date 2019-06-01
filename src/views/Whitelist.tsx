@@ -9,12 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { FunctionComponent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
 import { isValidHostname } from "../util/validate";
 
-const Whitelist: FunctionComponent<WithNamespaces> = props => {
+const Whitelist: FunctionComponent<WithTranslation> = props => {
   const { t } = props;
 
   return (
@@ -31,4 +31,4 @@ const Whitelist: FunctionComponent<WithNamespaces> = props => {
   );
 };
 
-export default withNamespaces(["location", "lists"])(Whitelist);
+export default withTranslation(["location", "lists"])(Whitelist);

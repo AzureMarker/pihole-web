@@ -19,5 +19,6 @@
     "No Domains Found": "Δε βρέθηκαν διευθύνσεις",
     "Queries Answered By Destination": "Ερωτήματα που απαντήθηκαν κατά προορισμό",
     "Queries Over {{range}}": "Ερωτήματα μεταξύ {{range}}",
-    "Clients Over {{range}}": "Πελάτες μεταξύ {{range}}"
+    "Clients Over {{range}}": "Πελάτες μεταξύ {{range}}",
+    "Top Blocked Clients": ""
 }

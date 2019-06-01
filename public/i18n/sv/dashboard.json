@@ -19,5 +19,6 @@
     "No Domains Found": "Inga domäner hittades",
     "Queries Answered By Destination": "Förfrågningar besvarade efter destination",
     "Queries Over {{range}}": "Förfrågningar över {{range}}",
-    "Clients Over {{range}}": "Klienter över {{range}}"
+    "Clients Over {{range}}": "Klienter över {{range}}",
+    "Top Blocked Clients": ""
 }

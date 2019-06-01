@@ -2,13 +2,13 @@
     "Adding {{domain}}...": "Füge {{domain}} hinzu...",
     "Successfully added {{domain}}": "{{domain}} wurde erfolgreich hinzugefügt",
     "Failed to add {{domain}}": "Fehler beim Hinzufügen von {{domain}}",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Info: Domains für die ein Wildcard-Eintrag vorliegt können nicht über die Weißliste freigegeben werden.",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Info: Domains für die ein Wildcard-Eintrag vorliegt können nicht über die Whitelist freigegeben werden.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Info: Nur die Domain und Subdomains der geblockten Domain werden geblockt.",
-    "Add a domain or hostname (example.com or example)": "",
+    "Add a domain or hostname (example.com or example)": "Füge eine Domain oder einen Hostnamen hinzu (example.com or example)",
     "{{domain}} is already added": "{{domain}} wurde bereits hinzugefügt",
     "Failed to remove {{domain}}": "Fehler beim entfernen von {{domain}}",
-    "There are no domains in this list": "Es sind keine Domains auf dieser Liste vorhanden",
+    "There are no domains in this list": "Es sind keine Domains in dieser Liste vorhanden",
     "Input a regular expression": "Eingabe eines reguläres Ausdrucks\n",
-    "Not a valid hostname": "",
-    "Not a valid regular expression": "Kein gültigter Regex"
+    "Not a valid hostname": "Kein gültiger Hostname",
+    "Not a valid regular expression": "Kein gültigter Regex Filter"
 }

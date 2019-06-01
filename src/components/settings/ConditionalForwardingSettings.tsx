@@ -23,7 +23,7 @@ export interface ConditionalForwardingSettingsProps {
   onUpdate: (settings: ConditionalForwardingObject) => void;
   isRouterIpValid: boolean;
   isDomainValid: boolean;
-  t: i18next.TranslationFunction;
+  t: i18next.TFunction;
 }
 
 const ConditionalForwardingSettings = ({
