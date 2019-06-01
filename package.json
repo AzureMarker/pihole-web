@@ -37,7 +37,7 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@coreui/coreui": "^2.1.9",
+    "@coreui/coreui": "^2.1.10",
     "@coreui/icons": "0.3.0",
     "@coreui/react": "^2.5.1",
     "@fortawesome/fontawesome-free": "^5.8.2",
