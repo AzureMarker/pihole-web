@@ -17,7 +17,7 @@
     "@types/react-bootstrap-typeahead": "^3.4.5",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.3",
-    "@types/react-table": "^6.8.1",
+    "@types/react-table": "^6.8.3",
     "@types/reactstrap": "^8.0.1",
     "@types/sha.js": "^2.4.0",
     "enzyme": "^3.9.0",
