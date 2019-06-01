@@ -15,11 +15,11 @@ import api from "../util/api";
 import logo from "../img/logo.svg";
 import { routes } from "../routes";
 import ForgotPassword from "../components/login/ForgotPassword";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import config from "../config";
 import { History, LocationDescriptorObject } from "history";
 
-export interface LoginProps extends WithNamespaces {
+export interface LoginProps extends WithTranslation {
   location: LocationDescriptorObject<{ from: Location }>;
   history: History;
 }
@@ -176,4 +176,4 @@ class Login extends Component<LoginProps, LoginState> {
   }
 }
 
-export default withNamespaces(["login", "location"])(Login);
+export default withTranslation(["login", "location"])(Login);

@@ -17,7 +17,7 @@ import ReactTable, {
 } from "react-table";
 import i18n from "i18next";
 import i18next from "i18next";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import debounce from "lodash.debounce";
 import moment from "moment";
 import { padNumber } from "../../util/graphUtils";
@@ -58,7 +58,7 @@ const getDefaultRange = (t: i18next.TFunction): TimeRange => {
   };
 };
 
-class QueryLog extends Component<WithNamespaces, QueryLogState> {
+class QueryLog extends Component<WithTranslation, QueryLogState> {
   private updateHandler: null | CancelablePromise<ApiHistoryResponse> = null;
 
   state: QueryLogState = {
@@ -70,7 +70,7 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
     filters: []
   };
 
-  constructor(props: WithNamespaces) {
+  constructor(props: WithTranslation) {
     super(props);
 
     const { t } = this.props;
@@ -545,4 +545,6 @@ const columns = (t: i18next.TFunction) => [
   }
 ];
 
-export default withNamespaces(["common", "query-log", "time-ranges"])(QueryLog);
+export default withTranslation(["common", "query-log", "time-ranges"])(
+  QueryLog
+);

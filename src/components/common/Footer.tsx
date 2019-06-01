@@ -8,8 +8,8 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
-import { withNamespaces } from "react-i18next";
+import React, { Suspense } from "react";
+import { withTranslation } from "react-i18next";
 import FooterUpdateStatus from "./FooterUpdateStatus";
 
 const Footer = (props: any) => {
@@ -32,4 +32,10 @@ const Footer = (props: any) => {
   );
 };
 
-export default withNamespaces(["common", "footer"])(Footer);
+const TranslatedFooter = withTranslation(["common", "footer"])(Footer);
+
+export default () => (
+  <Suspense fallback={null}>
+    <TranslatedFooter />
+  </Suspense>
+);

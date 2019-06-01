@@ -9,9 +9,9 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 
-export interface ForgotPasswordProps extends WithNamespaces {
+export interface ForgotPasswordProps extends WithTranslation {
   error: boolean;
 }
 
@@ -91,4 +91,4 @@ class ForgotPassword extends Component<
   }
 }
 
-export default withNamespaces("login")(ForgotPassword);
+export default withTranslation("login")(ForgotPassword);

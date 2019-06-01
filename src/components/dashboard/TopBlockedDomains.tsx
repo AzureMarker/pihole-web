@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
@@ -72,7 +72,7 @@ const TopBlockedDomains = ({
   apiCall,
   t,
   ...props
-}: WithNamespaces & { apiCall: () => Promise<ApiTopBlockedDomains> }) => (
+}: WithTranslation & { apiCall: () => Promise<ApiTopBlockedDomains> }) => (
   <TopTable
     {...props}
     title={t("Top Blocked Domains")}
@@ -89,7 +89,7 @@ const TopBlockedDomains = ({
   />
 );
 
-const TopBlockedDomainsContainer = (props: WithNamespaces) => (
+const TopBlockedDomainsContainer = (props: WithTranslation) => (
   <TimeRangeContext.Consumer>
     {context => (
       <TopBlockedDomains
@@ -104,6 +104,6 @@ const TopBlockedDomainsContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces(["common", "dashboard"])(
+export default withTranslation(["common", "dashboard"])(
   TopBlockedDomainsContainer
 );

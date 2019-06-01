@@ -9,10 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const FooterUpdateStatus = (props: WithNamespaces) => {
+const FooterUpdateStatus = (props: WithTranslation) => {
   const { t } = props;
   const updateAvailable = false;
 
@@ -27,4 +27,4 @@ const FooterUpdateStatus = (props: WithNamespaces) => {
   }
 };
 
-export default withNamespaces("footer")(FooterUpdateStatus);
+export default withTranslation("footer")(FooterUpdateStatus);

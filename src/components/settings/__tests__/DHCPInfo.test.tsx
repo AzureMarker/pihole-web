@@ -12,7 +12,7 @@ import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
 import DHCPInfo, { DHCPInfoState } from "../DHCPInfo";
 import fetchMock from "fetch-mock";
-import { WithNamespaces } from "react-i18next";
+import { WithTranslation } from "react-i18next";
 
 const tick = global.tick;
 
@@ -55,7 +55,7 @@ it("disables the apply button if an input is invalid", async () => {
 it("disables inputs only when DHCP is not enabled", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
   );
 
@@ -75,7 +75,7 @@ it("disables the apply button when processing setting update", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
   );
 
@@ -94,7 +94,7 @@ it("sends the correct data to the API when apply is clicked", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
   );
 

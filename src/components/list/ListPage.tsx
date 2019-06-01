@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import DomainInput from "./DomainInput";
 import Alert, { AlertType } from "../common/Alert";
 import DomainList from "./DomainList";
@@ -19,7 +19,7 @@ import {
   makeCancelable
 } from "../../util/CancelablePromise";
 
-export interface ListPageProps extends WithNamespaces {
+export interface ListPageProps extends WithTranslation {
   title: string;
   note?: {} | string;
   placeholder: string;
@@ -178,4 +178,4 @@ export class ListPage extends Component<ListPageProps, ListPageState> {
   }
 }
 
-export default withNamespaces(["common", "lists"])(ListPage);
+export default withTranslation(["common", "lists"])(ListPage);

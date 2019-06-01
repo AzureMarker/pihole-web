@@ -14,7 +14,7 @@ import { setupI18n } from "../i18n";
 // testing.
 // https://github.com/i18next/react-i18next/issues/434
 jest.mock("react-i18next", () => ({
-  reactI18nextModule: {
+  initReactI18next: {
     type: "3rdParty",
     init: () => {}
   }

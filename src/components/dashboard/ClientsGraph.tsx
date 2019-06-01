@@ -11,7 +11,7 @@
 import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { getIntervalForRange, padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
@@ -30,10 +30,10 @@ export interface ClientsGraphProps {
   datasets: Array<ChartDataSets>;
 }
 
-class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
+class ClientsGraph extends Component<ClientsGraphProps & WithTranslation, {}> {
   private readonly graphRef: RefObject<Line>;
 
-  constructor(props: ClientsGraphProps & WithNamespaces) {
+  constructor(props: ClientsGraphProps & WithTranslation) {
     super(props);
     this.graphRef = React.createRef();
   }
@@ -232,7 +232,7 @@ export const loadingProps: ClientsGraphProps = {
   datasets: []
 };
 
-export const TranslatedClientsGraph = withNamespaces([
+export const TranslatedClientsGraph = withTranslation([
   "dashboard",
   "time-ranges"
 ])(ClientsGraph);
