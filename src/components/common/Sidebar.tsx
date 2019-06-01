@@ -8,8 +8,8 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Fragment, ReactElement } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import React, { Fragment, ReactElement, Suspense } from "react";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import logo from "../../img/logo.svg";
@@ -124,7 +124,7 @@ export const NavList = ({
   </Fragment>
 );
 
-export interface SidebarProps extends WithNamespaces {
+export interface SidebarProps extends WithTranslation {
   items: Array<RouteData>;
   location: Location;
 }
@@ -172,4 +172,10 @@ const Sidebar = ({ items, t, location }: SidebarProps): ReactElement => (
   </div>
 );
 
-export default withNamespaces(["common", "location"])(Sidebar);
+const TranslatedSidebar = withTranslation(["common", "location"])(Sidebar);
+
+export default (props: any) => (
+  <Suspense fallback={null}>
+    <TranslatedSidebar {...props} />
+  </Suspense>
+);

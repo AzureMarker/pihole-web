@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import {
   CancelablePromise,
   ignoreCancel,
@@ -37,7 +37,7 @@ export interface DHCPInfoState {
   settings: ApiDhcpSettings;
 }
 
-class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
+class DHCPInfo extends Component<WithTranslation, DHCPInfoState> {
   state: DHCPInfoState = {
     alertMessage: "",
     alertType: "info",
@@ -332,4 +332,4 @@ class DHCPInfo extends Component<WithNamespaces, DHCPInfoState> {
   }
 }
 
-export default withNamespaces(["common", "settings", "api-errors"])(DHCPInfo);
+export default withTranslation(["common", "settings", "api-errors"])(DHCPInfo);

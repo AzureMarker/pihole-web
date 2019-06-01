@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 
@@ -19,7 +19,7 @@ export interface FTLInfoProps {
   sqliteVersion: string;
 }
 
-class FTLInfo extends Component<FTLInfoProps & WithNamespaces, {}> {
+class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
   render() {
     const { t } = this.props;
 
@@ -47,7 +47,7 @@ export const initialData = {
   sqliteVersion: ""
 };
 
-export const TranslatedFTLInfo = withNamespaces(["settings"])(FTLInfo);
+export const TranslatedFTLInfo = withTranslation(["settings"])(FTLInfo);
 
 export default (props: any) => (
   <WithAPIData

@@ -9,10 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { StatusContext } from "./context/StatusContext";
 
-export interface StatusBadgeProps extends WithNamespaces {
+export interface StatusBadgeProps extends WithTranslation {
   status: string;
 }
 
@@ -36,7 +36,7 @@ class StatusBadge extends Component<StatusBadgeProps, {}> {
   }
 }
 
-export const TranslatedStatusBadge = withNamespaces("common")(StatusBadge);
+export const TranslatedStatusBadge = withTranslation("common")(StatusBadge);
 
 export default () => (
   <StatusContext.Consumer>

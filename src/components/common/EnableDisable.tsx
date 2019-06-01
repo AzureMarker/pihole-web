@@ -11,7 +11,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React, { Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context/StatusContext";
@@ -32,7 +32,7 @@ import {
   ModalHeader
 } from "reactstrap";
 
-export interface EnableDisableProps extends WithNamespaces {
+export interface EnableDisableProps extends WithTranslation {
   status: Status;
   refresh: (data?: ApiStatus) => void;
   onSetStatus: (
@@ -249,7 +249,7 @@ export class EnableDisable extends Component<
   }
 }
 
-export const TranslatedEnableDisable = withNamespaces("common")(EnableDisable);
+export const TranslatedEnableDisable = withTranslation("common")(EnableDisable);
 
 export const EnableDisableContainer = () => (
   <StatusContext.Consumer>

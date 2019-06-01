@@ -9,12 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import { Button } from "reactstrap";
 import Alert from "../common/Alert";
 
-export interface DomainListProps extends WithNamespaces {
+export interface DomainListProps extends WithTranslation {
   domains: string[];
   onRemove: (domain: string) => void;
 }
@@ -66,4 +66,4 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
   return <ul className="list-group">{body}</ul>;
 };
 
-export default withNamespaces(["common", "lists"])(DomainList);
+export default withTranslation(["common", "lists"])(DomainList);

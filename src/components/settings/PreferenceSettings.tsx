@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import {
   CancelablePromise,
   ignoreCancel,
@@ -37,7 +37,7 @@ export interface PreferenceSettingsState {
 }
 
 class PreferenceSettings extends Component<
-  PreferenceSettingsProps & WithNamespaces,
+  PreferenceSettingsProps & WithTranslation,
   PreferenceSettingsState
 > {
   state: PreferenceSettingsState = {
@@ -236,7 +236,7 @@ class PreferenceSettings extends Component<
   }
 }
 
-const TranslatedPreferenceSettings = withNamespaces([
+const TranslatedPreferenceSettings = withTranslation([
   "common",
   "settings",
   "api-errors",

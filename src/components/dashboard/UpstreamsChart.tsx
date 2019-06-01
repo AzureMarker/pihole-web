@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 const UpstreamsChart = ({
   t,
   apiCall
-}: WithNamespaces & { apiCall: () => Promise<ApiUpstreams> }) => (
+}: WithTranslation & { apiCall: () => Promise<ApiUpstreams> }) => (
   <GenericDoughnutChart
     title={t("Queries Answered By Destination")}
     apiCall={apiCall}
@@ -31,7 +31,7 @@ const UpstreamsChart = ({
   />
 );
 
-export const UpstreamsChartContainer = (props: WithNamespaces) => (
+export const UpstreamsChartContainer = (props: WithTranslation) => (
   <TimeRangeContext.Consumer>
     {context => (
       <UpstreamsChart
@@ -44,4 +44,4 @@ export const UpstreamsChartContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces("dashboard")(UpstreamsChartContainer);
+export default withTranslation("dashboard")(UpstreamsChartContainer);

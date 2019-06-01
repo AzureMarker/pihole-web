@@ -184,7 +184,9 @@ it("renders the NavList in the sidebar", () => {
   };
   const location = {} as Location;
 
-  const wrapper = shallow(<Sidebar items={[item]} location={location} />);
+  const wrapper = shallow(<Sidebar items={[item]} location={location} />)
+    .dive()
+    .dive();
   const props = wrapper.find(NavList).props();
 
   expect(props.items).toEqual([item]);

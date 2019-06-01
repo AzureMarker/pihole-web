@@ -9,12 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { Subtract, WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { WithAPIData } from "../common/WithAPIData";
 
-export interface NetworkInfoProps extends WithNamespaces {
+export interface NetworkInfoProps extends WithTranslation {
   interface: string;
   ipv4Address: string;
   ipv6Address: string;
@@ -86,7 +86,7 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
 
 export const transformData = (
   data: ApiNetworkSettings
-): Subtract<NetworkInfoProps, WithNamespaces> => ({
+): Omit<NetworkInfoProps, keyof WithTranslation> => ({
   interface: data.interface,
   ipv4Address: data.ipv4_address,
   ipv6Address: data.ipv6_address,
@@ -100,7 +100,7 @@ export const initialData = () => ({
   hostname: ""
 });
 
-export const TranslatedNetworkInfo = withNamespaces(["common", "settings"])(
+export const TranslatedNetworkInfo = withTranslation(["common", "settings"])(
   NetworkInfo
 );
 

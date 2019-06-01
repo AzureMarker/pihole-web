@@ -9,12 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import VersionCard from "./VersionCard";
 import { WithAPIData } from "../common/WithAPIData";
 
-class VersionInfo extends Component<ApiVersions & WithNamespaces, {}> {
+class VersionInfo extends Component<ApiVersions & WithTranslation, {}> {
   render() {
     const { t } = this.props;
 
@@ -84,7 +84,7 @@ export const initialData: ApiVersions = {
   }
 };
 
-export const TranslatedVersionInfo = withNamespaces(["common"])(VersionInfo);
+export const TranslatedVersionInfo = withTranslation(["common"])(VersionInfo);
 
 export default (props: any) => (
   <WithAPIData

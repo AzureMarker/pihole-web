@@ -24,8 +24,8 @@ global.t = ((key: string) => key) as i18next.TFunction;
 
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
-  // This mock makes sure any components using the withNamespaces HoC receive the t function as a prop
-  withNamespaces: () => (component: any) => {
+  // This mock makes sure any components using the withTranslation HoC receive the t function as a prop
+  withTranslation: () => (component: any) => {
     component.defaultProps = {
       ...component.defaultProps,
       t: global.t

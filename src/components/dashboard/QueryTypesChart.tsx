@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import GenericDoughnutChart from "./GenericDoughnutChart";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 const QueryTypesChart = ({
   t,
   apiCall
-}: WithNamespaces & { apiCall: () => Promise<Array<ApiQueryType>> }) => (
+}: WithTranslation & { apiCall: () => Promise<Array<ApiQueryType>> }) => (
   <GenericDoughnutChart
     title={t("Query Types")}
     apiCall={apiCall}
@@ -35,7 +35,7 @@ const QueryTypesChart = ({
   />
 );
 
-export const QueryTypesChartContainer = (props: WithNamespaces) => (
+export const QueryTypesChartContainer = (props: WithTranslation) => (
   <TimeRangeContext.Consumer>
     {context => (
       <QueryTypesChart
@@ -50,4 +50,4 @@ export const QueryTypesChartContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces("dashboard")(QueryTypesChartContainer);
+export default withTranslation("dashboard")(QueryTypesChartContainer);

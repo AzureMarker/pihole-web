@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, Fragment } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { WithAPIData } from "../common/WithAPIData";
 import api from "../../util/api";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
@@ -22,7 +22,7 @@ export interface SummaryStatsProps {
   uniqueClients: number;
 }
 
-class SummaryStats extends Component<SummaryStatsProps & WithNamespaces, {}> {
+class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
   render() {
     const { t } = this.props;
 
@@ -128,7 +128,7 @@ export const initialProps: SummaryStatsProps = {
   uniqueClients: 0
 };
 
-export const TranslatedSummaryStats = withNamespaces(["common", "dashboard"])(
+export const TranslatedSummaryStats = withTranslation(["common", "dashboard"])(
   SummaryStats
 );
 
