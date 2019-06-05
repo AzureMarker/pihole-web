@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { mount, shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import {
   EnableDisable,
   EnableDisableContainer,
@@ -37,14 +37,13 @@ describe("EnableDisableContainer", () => {
       refresh: jest.fn()
     };
 
-    // Using mount here as there are issues with passing functions via context
-    // when using shallow (the passed in value is not equal to the received
-    // value)
-    const wrapper = mount(
+    const wrapper = shallow(
       <StatusContext.Provider value={context}>
         <EnableDisableContainer />
       </StatusContext.Provider>
-    );
+    )
+      .dive()
+      .dive();
 
     const props = wrapper.find(EnableDisable).props();
 
