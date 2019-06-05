@@ -19,7 +19,7 @@
     "@types/react-table": "^6.8.3",
     "@types/reactstrap": "^8.0.1",
     "@types/sha.js": "^2.4.0",
-    "enzyme": "^3.9.0",
+    "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "faker": "^4.1.0",
     "fetch-mock": "^7.3.3",
