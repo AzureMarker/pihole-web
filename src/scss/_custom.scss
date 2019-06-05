@@ -219,3 +219,9 @@ body {
     display: none;
   }
 }
+
+@media (max-width: 576px) {
+	.modal-dialog {
+		margin: 0.5rem auto;
+	}
+}
