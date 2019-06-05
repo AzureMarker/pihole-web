@@ -50,6 +50,11 @@ jobs:
           chmod +x ./FTL-client
           ./FTL-client "$FOLDER" pihole-web.tar.gz "$FTL_SECRET"
           rm ./FTL-client
+    - run:
+        name: "Upload Code Coverage"
+        command: |
+          npm install codecov -g
+          codecov
     - save_cache:
         key: v1-build-{{ checksum "package-lock.json" }}
         paths:
