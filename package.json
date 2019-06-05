@@ -74,6 +74,7 @@
     "generate-language-list": "node scripts/generate-language-list.js",
     "make-fake-data": "node scripts/make-fake-data.js",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.tsx\"",
     "check-format": "prettier --list-different \"src/**/*.tsx\""
