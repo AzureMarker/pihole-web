@@ -14,6 +14,7 @@ import Sidebar, { NavList, PiholeNavDropdown, PiholeNavItem } from "../Sidebar";
 import api from "../../../util/api";
 import { RouteCustomItem, RouteGroup } from "../../../routes";
 import NavDropdown from "../NavDropdown";
+import { NavLink } from "react-router-dom";
 
 const t = global.t;
 
@@ -191,4 +192,26 @@ it("renders the NavList in the sidebar", () => {
 
   expect(props.items).toEqual([item]);
   expect(props.location).toEqual(location);
+});
+
+it("should hide the sidebar on mobile when an item is clicked", () => {
+  const item = {
+    url: "/testUrl",
+    icon: "test-icon",
+    name: "testName",
+    auth: false,
+    component: () => <div />
+  };
+  const wrapper = shallow(<PiholeNavItem item={item} t={global.t} />);
+
+  document.body.classList.add("sidebar-show");
+  expect(document.body.classList).toContain("sidebar-show");
+
+  // @ts-ignore
+  wrapper
+    .find(NavLink)
+    .props()
+    .onClick();
+
+  expect(document.body.classList).not.toContain("sidebar-show");
 });

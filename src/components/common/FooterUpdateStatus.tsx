@@ -12,19 +12,19 @@ import React from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const FooterUpdateStatus = (props: WithTranslation) => {
-  const { t } = props;
-  const updateAvailable = false;
-
-  if (updateAvailable) {
-    return (
-      <div className="ml-auto">
-        <Link to="/settings/versions">{t("Update Available")}</Link>
-      </div>
-    );
-  } else {
+const FooterUpdateStatus = ({
+  updateAvailable = false,
+  t
+}: { updateAvailable: boolean } & WithTranslation) => {
+  if (!updateAvailable) {
     return null;
   }
+
+  return (
+    <div className="ml-auto">
+      <Link to="/settings/versions">{t("Update Available")}</Link>
+    </div>
+  );
 };
 
 export default withTranslation("footer")(FooterUpdateStatus);
