@@ -19,6 +19,7 @@ import i18n from "i18next";
 import i18next from "i18next";
 import { WithTranslation, withTranslation } from "react-i18next";
 import debounce from "lodash.debounce";
+import isEqual from "lodash.isequal";
 import moment from "moment";
 import { padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
@@ -201,17 +202,15 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
    * @param pageSize The number of queries in the page
    */
   fetchQueries = ({ page, pageSize }: { page: number; pageSize: number }) => {
-    // Check if we've reached the end of the queries, or are still waiting for
-    // the last fetch to finish
-    if (this.state.atEnd || this.state.loading) {
-      return;
-    }
-
-    // Check if the filters are the same and we already have this page and the
-    // next page.
+    // Don't fetch the queries if:
+    // - We've reached the end of the queries
+    // - We are still waiting for the last fetch to finish
+    // - Filters are the same and we already have this page and the next
     if (
-      !this.state.filtersChanged &&
-      this.state.history.length >= (page + 2) * pageSize
+      this.state.atEnd ||
+      this.state.loading ||
+      (!this.state.filtersChanged &&
+        this.state.history.length >= (page + 2) * pageSize)
     ) {
       return;
     }
@@ -255,7 +254,7 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
         data={this.state.history}
         loading={this.state.loading}
         onFetchData={state => {
-          if (state.filtered === this.state.filters) {
+          if (isEqual(state.filtered, this.state.filters)) {
             // If the filters have not changed, do not debounce the fetch.
             // This allows fetching the next page to happen without waiting for
             // the debounce.
@@ -267,6 +266,10 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
           }
         }}
         onFilteredChange={debounce(filters => {
+          if (isEqual(filters, this.state.filters)) {
+            return;
+          }
+
           this.setState({
             filters,
             filtersChanged: true,
@@ -276,6 +279,12 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
             history: []
           });
         }, 300)}
+        defaultFiltered={[
+          {
+            id: "time",
+            value: getDefaultRange(t)
+          }
+        ]}
         getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
         // Pad empty rows to have the same height as filled rows

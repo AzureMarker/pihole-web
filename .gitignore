@@ -9,6 +9,9 @@ node_modules
 build
 src/scss/style.css
 
+# Test Files
+coverage
+
 # Generated Files
 src/languages.json
 
