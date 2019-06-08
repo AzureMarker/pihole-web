@@ -12,6 +12,9 @@ import { padNumber, getIntervalForRange } from "../graphUtils";
 import { TimeRange } from "../../components/common/context/TimeRangeContext";
 import moment from "moment";
 
+// A timestamp used for testing
+const timestamp = 1559614028;
+
 describe("padNumber", () => {
   it("pads 0 to 00", () => {
     expect(padNumber(0)).toEqual("00");
@@ -30,8 +33,8 @@ describe("getIntervalForRange", () => {
   it("returns 10 minutes for 24 hours", () => {
     const range: TimeRange = {
       name: "24 Hours",
-      from: moment().subtract(1, "day"),
-      until: moment()
+      from: moment(timestamp).subtract(1, "day"),
+      until: moment(timestamp)
     };
 
     expect(getIntervalForRange(range)).toEqual(10 * 60);
@@ -42,8 +45,8 @@ describe("getIntervalForRange", () => {
       name: "144 days",
       // Use seconds instead of days to ensure the difference in epoch time is
       // equal to 144 days
-      from: moment().subtract(144 * 24 * 60 * 60, "seconds"),
-      until: moment()
+      from: moment(timestamp).subtract(144 * 24 * 60 * 60, "seconds"),
+      until: moment(timestamp)
     };
 
     expect(getIntervalForRange(range)).toEqual(24 * 60 * 60);
