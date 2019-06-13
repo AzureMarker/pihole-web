@@ -25,8 +25,8 @@ export const preconfiguredUpstreams: Array<PreconfiguredUpstream> = [
     name: "OpenDNS (ECS)",
     primaryIpv4: "208.67.222.222",
     secondaryIpv4: "208.67.220.220",
-    primaryIpv6: "2620:0:ccc::2",
-    secondaryIpv6: "2620:0:ccd::2"
+    primaryIpv6: "2620:119:35::35",
+    secondaryIpv6: "2620:119:53::53"
   },
   {
     name: "Google (ECS)",
