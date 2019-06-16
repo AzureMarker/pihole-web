@@ -27,7 +27,7 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
     return (
       <Form>
         <FormGroup row>
-          <Label className="bold" for="ipv4_address" sm={4}>
+          <Label className="bold" for="queries" sm={4}>
             {t("Queries")}
           </Label>
           <Col sm={8}>
@@ -35,7 +35,7 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="queries"
-              value={this.props.queries}
+              value={this.props.queries.toLocaleString()}
             />
           </Col>
         </FormGroup>
@@ -48,12 +48,12 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="filesize"
-              value={this.props.fileSize.toLocaleString()}
+              value={`${this.props.fileSize.toLocaleString()} B`}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="sqliteVersion" sm={4}>
+          <Label className="bold" for="sqliteversion" sm={4}>
             {t("SQLite version")}
           </Label>
           <Col sm={8}>
@@ -61,7 +61,7 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="sqliteversion"
-              value={this.props.sqliteVersion.toLocaleString()}
+              value={this.props.sqliteVersion}
             />
           </Col>
         </FormGroup>
