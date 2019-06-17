@@ -96,6 +96,16 @@ export function isValidIpv4OptionalPort(address: string): boolean {
 }
 
 /**
+ * Check if the string is a valid IPv6 address. This function does not do a
+ * thorough check of the IPv6 address; the backend will check it in detail.
+ *
+ * @param address
+ */
+export function isValidIpv6(address: string): boolean {
+  return /^[a-fA-F0-9:]+$/.test(address);
+}
+
+/**
  * Check if the string is a valid IPv6 address, and it can contain an optional
  * port. This function does not do a thorough check of the IPv6 address; the
  * backend will check it in detail.

@@ -14,8 +14,9 @@ import i18next from "i18next";
 
 export interface ConditionalForwardingObject {
   enabled: boolean;
-  routerIp: string;
+  ip: string;
   domain: string;
+  cidr: number;
 }
 
 export interface ConditionalForwardingSettingsProps {
@@ -52,8 +53,8 @@ const ConditionalForwardingSettings = ({
         <Input
           id="routerIP"
           disabled={!settings.enabled}
-          value={settings.routerIp}
-          onChange={e => onUpdate({ ...settings, routerIp: e.target.value })}
+          value={settings.ip}
+          onChange={e => onUpdate({ ...settings, ip: e.target.value })}
           invalid={!isRouterIpValid}
         />
       </Col>
