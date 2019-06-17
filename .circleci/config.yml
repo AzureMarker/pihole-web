@@ -43,13 +43,13 @@ jobs:
     - run:
         name: "Upload"
         command: |
-          [ -z "$FTL_SECRET" ] && exit 0
-          FOLDER=$([ -z "$CIRCLE_TAG" ] && echo "$CIRCLE_BRANCH" || echo "$CIRCLE_TAG")
+          [[ -z "$FTL_SECRET" || "$CIRCLE_PR_NUMBER" != "" ]] && exit 0
+          DIR="${CIRCLE_TAG:-${CIRCLE_BRANCH}}"
           tar -czvf pihole-web.tar.gz -C build .
-          wget https://ftl.pi-hole.net:8080/FTL-client
-          chmod +x ./FTL-client
-          ./FTL-client "$FOLDER" pihole-web.tar.gz "$FTL_SECRET"
-          rm ./FTL-client
+          mkdir -p ~/.ssh
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+          sftp -b - $SSH_USER@$SSH_HOST <<< "-mkdir ${DIR}
+          put pihole-web.tar.gz ${DIR}"
     - run:
         name: "Upload Code Coverage"
         command: |
