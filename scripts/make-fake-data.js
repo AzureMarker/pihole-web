@@ -377,11 +377,12 @@ function getDNSInfo() {
     },
     conditional_forwarding: {
       enabled: faker.random.boolean(),
-      router_ip: faker.internet.ip(),
+      ip: faker.internet.ip(),
       domain: faker.random
         .word()
         .toLowerCase()
-        .split(" ", 2)[0]
+        .split(" ", 2)[0],
+      cidr: faker.random.number({ min: 1, max: 32 })
     }
   };
 }
