@@ -60,6 +60,28 @@ const ConditionalForwardingSettings = ({
       </Col>
     </FormGroup>
     <FormGroup row>
+      <Label for="cidr" sm={5}>
+        {t("Prefix length (CIDR)")}
+      </Label>
+      <Col sm={7}>
+        <Input
+          id="cidr"
+          disabled={!settings.enabled}
+          value={settings.cidr}
+          onChange={e => {
+            const cidr = parseInt(e.target.value);
+
+            // Only allow numbers
+            if (isNaN(cidr)) {
+              return;
+            }
+
+            onUpdate({ ...settings, cidr });
+          }}
+        />
+      </Col>
+    </FormGroup>
+    <FormGroup row>
       <Label for="localDomain" sm={5}>
         {t("Local Domain Name")}
       </Label>
