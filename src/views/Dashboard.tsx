@@ -11,7 +11,7 @@
 import React, { Fragment } from "react";
 import SummaryStats from "../components/dashboard/SummaryStats";
 import QueriesGraph from "../components/dashboard/QueriesGraph";
-import ClientsGraph from "../components/dashboard/ClientsGraph";
+import { ClientsGraphContainer } from "../components/dashboard/ClientsGraph";
 import QueryTypesChart from "../components/dashboard/QueryTypesChart";
 import UpstreamsChart from "../components/dashboard/UpstreamsChart";
 import TopDomains from "../components/dashboard/TopDomains";
@@ -40,7 +40,7 @@ export default () => (
       <Fragment>
         <div className="row">
           <div className="col-md-12">
-            <ClientsGraph />
+            <ClientsGraphContainer />
           </div>
         </div>
         <div className="row">
