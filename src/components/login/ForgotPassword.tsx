@@ -51,10 +51,7 @@ class ForgotPassword extends Component<
           style={{ marginBottom: "0px" }}
         >
           <div
-            className={
-              "card-header--unused " +
-              (this.props.error ? "bg-danger" : "bg-white")
-            }
+            className={this.props.error ? "bg-danger" : "bg-white"}
             style={{ paddingRight: "0px" }}
           >
             <span className="pull-right">
