@@ -52,7 +52,8 @@ class ForgotPassword extends Component<
         >
           <div
             className={
-              "card-header--unused " + (this.props.error ? "bg-danger" : "bg-white")
+              "card-header--unused " +
+              (this.props.error ? "bg-danger" : "bg-white")
             }
             style={{ paddingRight: "0px" }}
           >
@@ -74,7 +75,9 @@ class ForgotPassword extends Component<
             style={{ padding: "0px" }}
           >
             {t("forgot_password_description")}
-            <pre><code>sudo pihole -a -p</code></pre>
+            <pre>
+              <code>sudo pihole -a -p</code>
+            </pre>
           </div>
         </div>
       </div>

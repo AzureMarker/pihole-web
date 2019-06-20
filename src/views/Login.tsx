@@ -162,7 +162,10 @@ class Login extends Component<LoginProps, LoginState> {
                 />
               </div>
               <br />
-              <button type="submit" className="btn btn-primary btn-lg btn-block">
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg btn-block"
+              >
                 {t("Log in")}
               </button>
               <br />
