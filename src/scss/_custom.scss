@@ -34,12 +34,15 @@
   color: rgb(248, 108, 107);
 }
 
-#loginform {
-  padding: 15px;
-}
-
 #loginform div.row {
   margin: 0;
+}
+
+#loginform .btn.disabled {
+  /* because the forgot password button becomes a title on failed login */
+  color: #fff;
+  opacity: 1;
+  cursor: auto;
 }
 
 .login-box-msg {
@@ -107,6 +110,22 @@
 
 .bold {
   font-weight: bold;
+}
+
+.p0 {
+  padding: 0;
+}
+
+.p12 {
+  padding: 12px;
+}
+
+.pr0 {
+  padding-right: 0;
+}
+
+.mb0 {
+  margin-bottom: 0;
 }
 
 .background-image {

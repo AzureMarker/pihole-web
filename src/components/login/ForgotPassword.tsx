@@ -43,22 +43,21 @@ class ForgotPassword extends Component<
     const { t } = this.props;
 
     return (
-      <div style={{ width: "100%" }}>
+      <div className="full-width">
         <div
           className={
-            "card " + (this.props.error ? "border-danger" : "border-white")
+            "card mb0 " + (this.props.error ? "border-danger" : "border-white")
           }
-          style={{ marginBottom: "0px" }}
         >
           <div
-            className={this.props.error ? "bg-danger" : "bg-white"}
-            style={{ paddingRight: "0px" }}
+            className={this.props.error ? "bg-danger" : "bg-white pr0"}
           >
-            <span className="pull-right">
+            <span className={this.props.error ? "pull-left" : "pull-right"}>
               <button
                 type="button"
-                className="btn btn-link"
-                style={{ paddingRight: "0px" }}
+                className={
+                  "pr0 " + (this.props.error ? "btn disabled" : "btn btn-link")
+                }
                 onClick={this.onClick}
               >
                 {t("Forgot Password")}
@@ -67,9 +66,8 @@ class ForgotPassword extends Component<
           </div>
           <div
             className={
-              "card-body bg-white" + (this.isExpanded() ? "" : " collapse")
+              "card-body bg-white " + (this.isExpanded() ? "" : " collapse ") + (this.props.error ? "p12" : "p0")
             }
-            style={{ padding: "0px" }}
           >
             {t("forgot_password_description")}
             <pre>
