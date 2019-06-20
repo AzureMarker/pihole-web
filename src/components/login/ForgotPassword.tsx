@@ -46,44 +46,36 @@ class ForgotPassword extends Component<
       <div style={{ width: "100%" }}>
         <div
           className={
-            "card " + (this.props.error ? "border-danger" : "border-primary")
+            "card " + (this.props.error ? "border-danger" : "border-white")
           }
+          style={{ marginBottom: "0px" }}
         >
           <div
             className={
-              "card-header " + (this.props.error ? "bg-danger" : "bg-primary")
+              "card-header--unused " + (this.props.error ? "bg-danger" : "bg-white")
             }
-            style={{ paddingRight: "10px" }}
+            style={{ paddingRight: "0px" }}
           >
-            <h3
-              className="card-title"
-              style={{ fontSize: "18px", display: "inline-block", margin: 0 }}
-            >
-              {t("Forgot Password")}
-            </h3>
-
             <span className="pull-right">
               <button
                 type="button"
-                className="btn btn-card-tool"
+                className="btn btn-link"
+                style={{ paddingRight: "0px" }}
                 onClick={this.onClick}
               >
-                <i
-                  className={
-                    "fa " + (this.isExpanded() ? "fa-minus" : "fa-plus")
-                  }
-                />
+                {t("Forgot Password")}
               </button>
             </span>
           </div>
           <div
             className={
-              "card-body bg-light" + (this.isExpanded() ? "" : " collapse")
+              "card-body bg-white" + (this.isExpanded() ? "" : " collapse")
             }
-            style={{ padding: "10px" }}
+            style={{ padding: "0px" }}
           >
             {t("forgot_password_description")}
-            <pre style={{ textAlign: "center" }}>sudo pihole -a -p</pre>
+            {/* <pre style={{ textAlign: "center" }}>sudo pihole -a -p</pre> */}
+            <pre><code>sudo pihole -a -p</code></pre>
           </div>
         </div>
       </div>
