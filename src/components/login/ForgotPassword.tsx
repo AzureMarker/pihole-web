@@ -49,9 +49,7 @@ class ForgotPassword extends Component<
             "card mb0 " + (this.props.error ? "border-danger" : "border-white")
           }
         >
-          <div
-            className={this.props.error ? "bg-danger" : "bg-white pr0"}
-          >
+          <div className={this.props.error ? "bg-danger" : "bg-white pr0"}>
             <span className={this.props.error ? "pull-left" : "pull-right"}>
               <button
                 type="button"
@@ -66,7 +64,9 @@ class ForgotPassword extends Component<
           </div>
           <div
             className={
-              "card-body bg-white " + (this.isExpanded() ? "" : " collapse ") + (this.props.error ? "p12" : "p0")
+              "card-body bg-white " +
+              (this.isExpanded() ? "" : " collapse ") +
+              (this.props.error ? "p12" : "p0")
             }
           >
             {t("forgot_password_description")}
