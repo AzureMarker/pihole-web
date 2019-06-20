@@ -160,12 +160,11 @@ class Login extends Component<LoginProps, LoginState> {
                   placeholder={t("Password")}
                   autoFocus
                 />
-                <div className="input-group-append">
-                  <button type="submit" className="btn btn-primary">
-                    {t("Log in")}
-                  </button>
-                </div>
               </div>
+              <br />
+              <button type="submit" className="btn btn-primary btn-lg btn-block">
+                {t("Log in")}
+              </button>
               <br />
               <ForgotPassword error={this.state.error} />
             </form>
