@@ -74,7 +74,6 @@ class ForgotPassword extends Component<
             style={{ padding: "0px" }}
           >
             {t("forgot_password_description")}
-            {/* <pre style={{ textAlign: "center" }}>sudo pihole -a -p</pre> */}
             <pre><code>sudo pihole -a -p</code></pre>
           </div>
         </div>
