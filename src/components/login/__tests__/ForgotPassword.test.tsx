@@ -15,8 +15,8 @@ import ForgotPassword from "../ForgotPassword";
 it("collapses and displays normal if there is no error", () => {
   const wrapper = shallow(<ForgotPassword error={false} />);
 
-  expect(wrapper.childAt(0)).toHaveClassName("border-primary");
-  expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-primary");
+  expect(wrapper.childAt(0)).toHaveClassName("border-white");
+  expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-white");
   expect(
     wrapper
       .childAt(0)
