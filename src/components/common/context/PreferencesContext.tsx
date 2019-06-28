@@ -11,6 +11,7 @@
 import React, { ReactNode } from "react";
 import { WithAPIData } from "../WithAPIData";
 import api from "../../../util/api";
+import config from "../../../config";
 
 /**
  * The data shared by the preferences context
@@ -56,18 +57,18 @@ export const loadInitialPreferences = (): ApiPreferences => {
 };
 
 /**
- * The context which will be used initially, until the API responds with the
- * real preferences. These preferences are loaded from cache if available.
+ * Load the context which will be used initially, until the API responds with
+ * the real preferences. These preferences are loaded from cache if available.
  */
-const initialContext: PreferencesContextType = {
+export const loadInitialContext = (): PreferencesContextType => ({
   settings: loadInitialPreferences(),
   refresh: () => {}
-};
+});
 
 /**
  * The React context which provides the preferences to consumers
  */
-export const PreferencesContext = React.createContext(initialContext);
+export const PreferencesContext = React.createContext(loadInitialContext());
 
 /**
  * Provide the web interface preferences via React context.
@@ -81,9 +82,13 @@ export const PreferencesProvider = ({
   children: ReactNode;
 }) => (
   <WithAPIData
-    apiCall={api.getPreferences}
+    apiCall={
+      config.fakeAPI
+        ? () => Promise.resolve(loadInitialPreferences())
+        : api.getPreferences
+    }
     renderInitial={() => (
-      <PreferencesContext.Provider value={initialContext} {...props}>
+      <PreferencesContext.Provider value={loadInitialContext()} {...props}>
         {children}
       </PreferencesContext.Provider>
     )}
