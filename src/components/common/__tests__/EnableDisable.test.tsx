@@ -43,6 +43,7 @@ describe("EnableDisableContainer", () => {
       </StatusContext.Provider>
     )
       .dive()
+      .dive()
       .dive();
 
     const props = wrapper.find(EnableDisable).props();
