@@ -8,16 +8,20 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React from "react";
+import React, { ProviderProps } from "react";
 import {
   defaultPreferences,
   loadInitialPreferences,
-  WEB_PREFERENCES_STORAGE_KEY,
+  PreferencesContextType,
   PreferencesProvider,
-  PreferencesContextType
+  WEB_PREFERENCES_STORAGE_KEY
 } from "../PreferencesContext";
 import { shallow } from "enzyme";
 import { WithAPIData } from "../../WithAPIData";
+import config from "../../../../config";
+import api from "../../../../util/api";
+
+jest.mock("../../../../util/api");
 
 it("loads the default preferences if none are cached", () => {
   const preferences = loadInitialPreferences();
@@ -57,6 +61,27 @@ it("provides the initial settings while loading", () => {
     .renderProp("renderInitial")();
 
   expect(wrapper.props().value.settings).toEqual(expectedPreferences);
+});
+
+it("should use the cached settings instead of the API when in fakeAPI mode", async () => {
+  const expectedPreferences: ApiPreferences = {
+    language: "testLang",
+    layout: "boxed"
+  };
+
+  config.fakeAPI = true;
+  localStorage.setItem(
+    WEB_PREFERENCES_STORAGE_KEY,
+    JSON.stringify(expectedPreferences)
+  );
+
+  const wrapper = shallow(
+    <PreferencesProvider>{null}</PreferencesProvider>
+  ).dive();
+
+  const props = wrapper.props() as ProviderProps<PreferencesContextType>;
+  expect(props.value.settings).toEqual(expectedPreferences);
+  expect(api.getPreferences).not.toHaveBeenCalled();
 });
 
 it("caches the settings after loading and provides the new settings", () => {
