@@ -12,8 +12,8 @@ namespace NodeJS {
   import i18next from "i18next";
 
   interface Global {
-    tick(): Promise<any>
-    ignoreAPI(): Promise<any>
-    t: i18next.TFunction
+    tick(): Promise<any>;
+    ignoreAPI(): Promise<any>;
+    t: i18next.TFunction;
   }
 }

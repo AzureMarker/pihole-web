@@ -61,7 +61,7 @@ it("transforms the API data correctly", () => {
 it("displays summary stats correctly", async () => {
   const wrapper = shallow(
     <TranslatedSummaryStats {...transformData(fakeData)} />
-  );
+  ).dive();
 
   await tick();
   wrapper.update();
@@ -73,7 +73,7 @@ it("displays summary stats correctly", async () => {
 });
 
 it("displays error message correctly", async () => {
-  const wrapper = shallow(<TranslatedSummaryStats {...errorProps} />);
+  const wrapper = shallow(<TranslatedSummaryStats {...errorProps} />).dive();
 
   await tick();
   wrapper.update();

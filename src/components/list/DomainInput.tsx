@@ -12,7 +12,7 @@ import React, { ChangeEvent, Component, FormEvent } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 
-export interface DomainInputProps extends WithTranslation {
+export interface DomainInputProps {
   placeholder?: string;
   onEnter: (domain: string) => void;
   onRefresh: () => void;
@@ -25,7 +25,10 @@ export interface DomainInputState {
   isValid: boolean;
 }
 
-class DomainInput extends Component<DomainInputProps, DomainInputState> {
+export class DomainInput extends Component<
+  DomainInputProps & WithTranslation,
+  DomainInputState
+> {
   static defaultProps = {
     placeholder: ""
   };
@@ -92,4 +95,6 @@ class DomainInput extends Component<DomainInputProps, DomainInputState> {
   }
 }
 
-export default withTranslation(["common", "lists"])(DomainInput);
+export const DomainInputContainer = withTranslation(["common", "lists"])(
+  DomainInput
+);
