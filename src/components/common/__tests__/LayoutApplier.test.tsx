@@ -9,55 +9,51 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { mount } from "enzyme";
-import LayoutApplier from "../LayoutApplier";
+import { shallow } from "enzyme";
 import {
-  PreferencesContext,
-  PreferencesContextType
-} from "../context/PreferencesContext";
+  LayoutApplier,
+  LayoutApplierProps,
+  mapStateToProps
+} from "../LayoutApplier";
+import { ReduxState } from "../../../redux/state";
 
-it("adds box layout CSS when the layout is box", () => {
-  const settings: PreferencesContextType = {
-    settings: {
-      language: "en",
-      layout: "boxed"
-    },
-    refresh: () => {}
-  };
+describe("LayoutApplier", () => {
+  describe("mapStateToProps", () => {
+    it("should get the layout from the preferences", () => {
+      const state: ReduxState = {
+        preferences: {
+          layout: "boxed",
+          language: "en"
+        }
+      };
 
-  expect(document.body.classList).not.toContain("boxcontainer");
-  expect(document.body.classList).not.toContain("background-image");
+      const expectedProps: LayoutApplierProps = {
+        layout: "boxed"
+      };
 
-  mount(
-    <PreferencesContext.Provider value={settings}>
-      <LayoutApplier />
-    </PreferencesContext.Provider>
-  );
+      expect(mapStateToProps(state)).toEqual(expectedProps);
+    });
+  });
 
-  expect(document.body.classList).toContain("boxcontainer");
-  expect(document.body.classList).toContain("background-image");
-});
+  it("adds box layout CSS when the layout is box", () => {
+    expect(document.body.classList).not.toContain("boxcontainer");
+    expect(document.body.classList).not.toContain("background-image");
 
-it("removes box layout CSS when the layout is traditional", () => {
-  const settings: PreferencesContextType = {
-    settings: {
-      language: "en",
-      layout: "traditional"
-    },
-    refresh: () => {}
-  };
+    shallow(<LayoutApplier layout="boxed" />);
 
-  document.body.classList.add("boxcontainer", "background-image");
+    expect(document.body.classList).toContain("boxcontainer");
+    expect(document.body.classList).toContain("background-image");
+  });
 
-  expect(document.body.classList).toContain("boxcontainer");
-  expect(document.body.classList).toContain("background-image");
+  it("removes box layout CSS when the layout is traditional", () => {
+    document.body.classList.add("boxcontainer", "background-image");
 
-  mount(
-    <PreferencesContext.Provider value={settings}>
-      <LayoutApplier />
-    </PreferencesContext.Provider>
-  );
+    expect(document.body.classList).toContain("boxcontainer");
+    expect(document.body.classList).toContain("background-image");
 
-  expect(document.body.classList).not.toContain("boxcontainer");
-  expect(document.body.classList).not.toContain("background-image");
+    shallow(<LayoutApplier layout="traditional" />);
+
+    expect(document.body.classList).not.toContain("boxcontainer");
+    expect(document.body.classList).not.toContain("background-image");
+  });
 });
