@@ -10,4 +10,7 @@
 
 import { createAction } from "redux-starter-kit";
 
-export const setPreferences = createAction<ApiPreferences>("PREFERENCES_SET");
+export const preferencesRequest = createAction<void>("PREFERENCES_REQUEST");
+export const preferencesSuccess = createAction<ApiPreferences>(
+  "PREFERENCES_SUCCESS"
+);

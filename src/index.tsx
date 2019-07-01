@@ -20,6 +20,8 @@ import Full from "./containers/Full";
 import api from "./util/api";
 import { setupI18n } from "./util/i18n";
 import { getBasePath } from "./util/basePath";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 // Before rendering anything, check if there is a session cookie.
 // Note: the user could have an old session, so the first API call
@@ -27,12 +29,15 @@ import { getBasePath } from "./util/basePath";
 api.loggedIn = document.cookie.includes("user_id=");
 
 setupI18n();
+store.runSaga();
 
 ReactDOM.render(
-  <BrowserRouter basename={getBasePath()}>
-    <Switch>
-      <Route path="/" name="Home" component={Full} />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter basename={getBasePath()}>
+      <Switch>
+        <Route path="/" name="Home" component={Full} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );

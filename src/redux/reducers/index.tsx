@@ -10,10 +10,10 @@
 
 import { createReducer, PayloadAction } from "redux-starter-kit";
 import { initialState } from "../state";
-import { setPreferences } from "../actions";
+import { preferencesSuccess } from "../actions";
 
 export default createReducer(initialState, {
-  [setPreferences.type]: (state, action: PayloadAction<ApiPreferences>) => {
+  [preferencesSuccess.type]: (state, action: PayloadAction<ApiPreferences>) => {
     state.preferences = action.payload;
     return state;
   }

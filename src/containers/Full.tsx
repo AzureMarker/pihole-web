@@ -10,7 +10,6 @@
 
 import React, { ComponentType, ReactNode, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
 import Header, { mobileSidebarHide } from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
 import Footer from "../components/common/Footer";
@@ -25,31 +24,28 @@ import {
 import { GlobalContextProvider } from "../components/common/context";
 import LayoutApplier from "../components/common/LayoutApplier";
 import LanguageApplier from "../components/common/LanguageApplier";
-import store from "../redux/store";
 
 export default (props: any) => (
   <div className="app">
-    <Provider store={store}>
-      <GlobalContextProvider>
-        <LayoutApplier />
-        <LanguageApplier />
-        <Header />
-        <div className="app-body">
-          <Sidebar items={nav} {...props} />
-          <main className="main" onClick={mobileSidebarHide}>
-            <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
-              <Suspense fallback={null}>
-                <Switch>
-                  <Redirect exact from="/" to="/dashboard" />
-                  {nav.map(createRoute)}
-                </Switch>
-              </Suspense>
-            </div>
-          </main>
-        </div>
-        <Footer />
-      </GlobalContextProvider>
-    </Provider>
+    <GlobalContextProvider>
+      <LayoutApplier />
+      <LanguageApplier />
+      <Header />
+      <div className="app-body">
+        <Sidebar items={nav} {...props} />
+        <main className="main" onClick={mobileSidebarHide}>
+          <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
+            <Suspense fallback={null}>
+              <Switch>
+                <Redirect exact from="/" to="/dashboard" />
+                {nav.map(createRoute)}
+              </Switch>
+            </Suspense>
+          </div>
+        </main>
+      </div>
+      <Footer />
+    </GlobalContextProvider>
   </div>
 );
 
