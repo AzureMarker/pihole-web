@@ -35,6 +35,7 @@
     "prettier": "^1.18.2",
     "react-scripts": "^3.0.1",
     "react-test-renderer": "^16.8.6",
+    "redux-saga-test-plan": "^4.0.0-beta.3",
     "typescript": "^3.5.2"
   },
   "dependencies": {

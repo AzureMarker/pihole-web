@@ -8,10 +8,23 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { call, put } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
+import { PayloadAction } from "redux-starter-kit";
+import i18n from "i18next";
 import api from "../../util/api";
-import { preferencesSuccess } from "../actions";
+import { preferencesRequest, preferencesSuccess } from "../actions";
 import { WEB_PREFERENCES_STORAGE_KEY } from "../../components/common/context/PreferencesContext";
+
+/**
+ * Sets up action listeners and triggers the initial preferences fetch
+ */
+export function* watchPreferences() {
+  yield takeEvery(preferencesRequest.type, fetchPreferences);
+  yield takeEvery(preferencesSuccess.type, applyLanguage);
+
+  // Perform initial request
+  yield put(preferencesRequest());
+}
 
 /**
  * A saga to fetch web interface preferences from the API
@@ -29,4 +42,20 @@ export function* fetchPreferences() {
 
   // Update the store
   yield put(preferencesSuccess(preferences));
+}
+
+/**
+ * Update the language in i18next when it changes
+ *
+ * @param action The action with the preferences to cache
+ */
+export function* applyLanguage(action: PayloadAction<ApiPreferences>) {
+  const language = action.payload.language;
+
+  if (i18n.language === language) {
+    // Don't change the language if it's already correctly set
+    return;
+  }
+
+  yield call([i18n, "changeLanguage"], language);
 }
