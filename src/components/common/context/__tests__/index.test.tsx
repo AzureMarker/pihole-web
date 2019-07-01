@@ -18,6 +18,5 @@ it("provides all global contexts", () => {
   );
 
   expect(wrapper).toContainMatchingElement("StatusProvider");
-  expect(wrapper).toContainMatchingElement("PreferencesProvider");
   expect(wrapper).toContainMatchingElement("TimeRangeProvider");
 });

@@ -12,18 +12,29 @@ import i18n from "i18next";
 import { call } from "redux-saga/effects";
 import { PayloadAction } from "redux-starter-kit";
 import { preferencesSuccess } from "../../actions";
-import { applyLanguage, fetchPreferences } from "../preferences";
+import {
+  applyLanguage,
+  cachePreferences,
+  fetchPreferences
+} from "../preferences";
 import { expectSaga, testSaga } from "redux-saga-test-plan";
 import api from "../../../util/api";
-import { WEB_PREFERENCES_STORAGE_KEY } from "../../../components/common/context/PreferencesContext";
+import config from "../../../config";
+import { WEB_PREFERENCES_STORAGE_KEY } from "../../state/preferences";
+import { ReduxState } from "../../state";
+
+const preferences: ApiPreferences = {
+  layout: "traditional",
+  language: "test-language"
+};
+
+const action: PayloadAction<ApiPreferences> = {
+  type: preferencesSuccess.type,
+  payload: preferences
+};
 
 describe("fetchPreferences", () => {
-  const preferences: ApiPreferences = {
-    layout: "traditional",
-    language: "test-language"
-  };
-
-  it("should retrieve the preferences from the API", () => {
+  it("should retrieve the preferences from the API when not in fakeAPI mode", () => {
     return expectSaga(fetchPreferences)
       .provide([[call(api.getPreferences), preferences]])
       .call(api.getPreferences)
@@ -31,9 +42,19 @@ describe("fetchPreferences", () => {
       .run();
   });
 
-  it("should save the preferences into local storage", () => {
+  it("should retrieve the preferences from the store when in fakeAPI mode", () => {
+    config.fakeAPI = true;
+
     return expectSaga(fetchPreferences)
-      .provide([[call(api.getPreferences), preferences]])
+      .withState<ReduxState>({ preferences })
+      .put(preferencesSuccess(preferences))
+      .run();
+  });
+});
+
+describe("cachePreferences", () => {
+  it("should save the preferences into local storage", () => {
+    return expectSaga(cachePreferences, action)
       .call(
         [localStorage, "setItem"],
         WEB_PREFERENCES_STORAGE_KEY,
@@ -44,16 +65,8 @@ describe("fetchPreferences", () => {
 });
 
 describe("applyLanguage", () => {
-  const action: PayloadAction<ApiPreferences> = {
-    type: preferencesSuccess.type,
-    payload: {
-      language: "en",
-      layout: "boxed"
-    }
-  };
-
   it("should not update i18next if the language is the same", () => {
-    i18n.language = "en";
+    i18n.language = "test-language";
 
     testSaga(applyLanguage, action)
       .next()
@@ -61,11 +74,11 @@ describe("applyLanguage", () => {
   });
 
   it("should update i18next if the language is different", () => {
-    i18n.language = "es";
+    i18n.language = "en";
 
     testSaga(applyLanguage, action)
       .next()
-      .call([i18n, "changeLanguage"], "en")
+      .call([i18n, "changeLanguage"], "test-language")
       .next()
       .isDone();
   });

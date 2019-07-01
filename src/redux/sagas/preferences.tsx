@@ -8,18 +8,20 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, select } from "redux-saga/effects";
 import { PayloadAction } from "redux-starter-kit";
 import i18n from "i18next";
 import api from "../../util/api";
 import { preferencesRequest, preferencesSuccess } from "../actions";
-import { WEB_PREFERENCES_STORAGE_KEY } from "../../components/common/context/PreferencesContext";
+import config from "../../config";
+import { WEB_PREFERENCES_STORAGE_KEY } from "../state/preferences";
 
 /**
  * Sets up action listeners and triggers the initial preferences fetch
  */
 export function* watchPreferences() {
   yield takeEvery(preferencesRequest.type, fetchPreferences);
+  yield takeEvery(preferencesSuccess.type, cachePreferences);
   yield takeEvery(preferencesSuccess.type, applyLanguage);
 
   // Perform initial request
@@ -30,18 +32,32 @@ export function* watchPreferences() {
  * A saga to fetch web interface preferences from the API
  */
 export function* fetchPreferences() {
-  // Get the preferences from the API
-  const preferences: ApiPreferences = yield call(api.getPreferences);
+  let preferences: ApiPreferences;
 
-  // Cache them in local storage
-  yield call(
-    [localStorage, "setItem"],
-    WEB_PREFERENCES_STORAGE_KEY,
-    JSON.stringify(preferences)
-  );
+  if (config.fakeAPI) {
+    // Use the existing preferences
+    preferences = yield select(state => state.preferences);
+  } else {
+    // Get the preferences from the API
+    preferences = yield call(api.getPreferences);
+  }
 
   // Update the store
   yield put(preferencesSuccess(preferences));
+}
+
+/**
+ * Cache the preferences in local storage
+ *
+ * @param action The action with the preferences to cache
+ */
+export function* cachePreferences(action: PayloadAction<ApiPreferences>) {
+  // Cache the preferences in local storage
+  yield call(
+    [localStorage, "setItem"],
+    WEB_PREFERENCES_STORAGE_KEY,
+    JSON.stringify(action.payload)
+  );
 }
 
 /**
@@ -52,10 +68,8 @@ export function* fetchPreferences() {
 export function* applyLanguage(action: PayloadAction<ApiPreferences>) {
   const language = action.payload.language;
 
-  if (i18n.language === language) {
-    // Don't change the language if it's already correctly set
-    return;
+  // Only change the language if it's different
+  if (i18n.language !== language) {
+    yield call([i18n, "changeLanguage"], language);
   }
-
-  yield call([i18n, "changeLanguage"], language);
 }
