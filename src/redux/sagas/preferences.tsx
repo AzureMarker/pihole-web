@@ -15,6 +15,7 @@ import api from "../../util/api";
 import { preferencesRequest, preferencesSuccess } from "../actions";
 import config from "../../config";
 import { WEB_PREFERENCES_STORAGE_KEY } from "../state/preferences";
+import { applyLanguage } from "./applyLanguage";
 
 /**
  * Sets up action listeners and triggers the initial preferences fetch
@@ -58,18 +59,4 @@ export function* cachePreferences(action: PayloadAction<ApiPreferences>) {
     WEB_PREFERENCES_STORAGE_KEY,
     JSON.stringify(action.payload)
   );
-}
-
-/**
- * Update the language in i18next when it changes
- *
- * @param action The action with the preferences to cache
- */
-export function* applyLanguage(action: PayloadAction<ApiPreferences>) {
-  const language = action.payload.language;
-
-  // Only change the language if it's different
-  if (i18n.language !== language) {
-    yield call([i18n, "changeLanguage"], language);
-  }
 }
