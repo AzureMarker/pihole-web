@@ -26,7 +26,7 @@ import { connect } from "react-redux";
 
 export interface PreferenceSettingsProps {
   settings: ApiPreferences;
-  onUpdate: (preferences?: ApiPreferences) => void;
+  onUpdate: (preferences: ApiPreferences) => void;
 }
 
 export interface PreferenceSettingsState {
