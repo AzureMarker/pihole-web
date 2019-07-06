@@ -22,12 +22,10 @@ import {
   RouteItem
 } from "../routes";
 import { GlobalContextProvider } from "../components/common/context";
-import LayoutApplier from "../components/common/LayoutApplier";
 
 export default (props: any) => (
   <div className="app">
     <GlobalContextProvider>
-      <LayoutApplier />
       <Header />
       <div className="app-body">
         <Sidebar items={nav} {...props} />

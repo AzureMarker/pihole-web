@@ -10,12 +10,12 @@
 
 import { call, put, takeEvery, select } from "redux-saga/effects";
 import { PayloadAction } from "redux-starter-kit";
-import i18n from "i18next";
 import api from "../../util/api";
 import { preferencesRequest, preferencesSuccess } from "../actions";
 import config from "../../config";
 import { WEB_PREFERENCES_STORAGE_KEY } from "../state/preferences";
 import { applyLanguage } from "./applyLanguage";
+import { applyLayout } from "./applyLayout";
 
 /**
  * Sets up action listeners and triggers the initial preferences fetch
@@ -24,6 +24,7 @@ export function* watchPreferences() {
   yield takeEvery(preferencesRequest.type, fetchPreferences);
   yield takeEvery(preferencesSuccess.type, cachePreferences);
   yield takeEvery(preferencesSuccess.type, applyLanguage);
+  yield takeEvery(preferencesSuccess.type, applyLayout);
 
   // Perform initial request
   yield put(preferencesRequest());
