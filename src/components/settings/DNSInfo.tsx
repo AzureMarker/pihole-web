@@ -23,7 +23,13 @@ import ConditionalForwardingSettings, {
 } from "./ConditionalForwardingSettings";
 import DnsOptionSettings, { DnsOptionsObject } from "./DnsOptionSettings";
 import Alert, { AlertType } from "../common/Alert";
-import { isValidHostname, isValidIpv4, isValidIpv6 } from "../../util/validate";
+import {
+  isValidHostname,
+  isValidIpv4,
+  isValidIpv4Cidr,
+  isValidIpv6,
+  isValidIpv6Cidr
+} from "../../util/validate";
 
 export interface DNSInfoState {
   alertMessage: string;
@@ -195,6 +201,11 @@ class DNSInfo extends Component<WithTranslation, DNSInfoState> {
       address => isValidIpv4(address) || isValidIpv6(address)
     );
 
+    const isCidrValid = this.isCFSettingValid(
+      this.state.conditionalForwarding.cidr.toString(),
+      cidr => isValidIpv4Cidr(cidr) || isValidIpv6Cidr(cidr)
+    );
+
     const isDomainValid = this.isCFSettingValid(
       this.state.conditionalForwarding.domain,
       isValidHostname
@@ -226,6 +237,7 @@ class DNSInfo extends Component<WithTranslation, DNSInfoState> {
               settings={this.state.conditionalForwarding}
               onUpdate={this.handleConditionalForwardingUpdate}
               isRouterIpValid={isRouterIpValid}
+              isCidrValid={isCidrValid}
               isDomainValid={isDomainValid}
               t={t}
             />
@@ -239,7 +251,12 @@ class DNSInfo extends Component<WithTranslation, DNSInfoState> {
         </FormGroup>
         <Button
           type="submit"
-          disabled={this.state.processing || !isRouterIpValid || !isDomainValid}
+          disabled={
+            this.state.processing ||
+            !isRouterIpValid ||
+            !isCidrValid ||
+            !isDomainValid
+          }
         >
           {t("Apply")}
         </Button>

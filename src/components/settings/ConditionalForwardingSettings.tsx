@@ -23,6 +23,7 @@ export interface ConditionalForwardingSettingsProps {
   settings: ConditionalForwardingObject;
   onUpdate: (settings: ConditionalForwardingObject) => void;
   isRouterIpValid: boolean;
+  isCidrValid: boolean;
   isDomainValid: boolean;
   t: i18next.TFunction;
 }
@@ -31,6 +32,7 @@ const ConditionalForwardingSettings = ({
   settings,
   onUpdate,
   isRouterIpValid,
+  isCidrValid,
   isDomainValid,
   t
 }: ConditionalForwardingSettingsProps) => (
@@ -67,12 +69,17 @@ const ConditionalForwardingSettings = ({
         <Input
           id="cidr"
           disabled={!settings.enabled}
-          value={settings.cidr}
+          value={settings.cidr === -1 ? "" : settings.cidr}
+          invalid={!isCidrValid}
           onChange={e => {
-            const cidr = parseInt(e.target.value);
+            let cidr = parseInt(e.target.value);
 
-            // Only allow numbers
-            if (isNaN(cidr)) {
+            if (e.target.value.length === 0) {
+              // Use -1 as an internal representation of the empty string.
+              // It will show the form as invalid and make the text field
+              // function as the user expects it to.
+              cidr = -1;
+            } else if (isNaN(cidr)) {
               return;
             }
 

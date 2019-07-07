@@ -12,8 +12,10 @@ import {
   isPositiveNumber,
   isValidDomain,
   isValidIpv4,
+  isValidIpv4Cidr,
   isValidIpv4OptionalPort,
   isValidIpv6,
+  isValidIpv6Cidr,
   isValidIpv6OptionalPort,
   isValidRegex
 } from "../validate";
@@ -230,6 +232,40 @@ describe("Testing the validation functions", () => {
     });
   });
 
+  describe("isValidIpv4Cidr", () => {
+    it("passes 8", () => {
+      expect(isValidIpv4Cidr("8")).toBe(true);
+    });
+
+    it("passes 16", () => {
+      expect(isValidIpv4Cidr("16")).toBe(true);
+    });
+
+    it("passes 24", () => {
+      expect(isValidIpv4Cidr("24")).toBe(true);
+    });
+
+    it("passes 32", () => {
+      expect(isValidIpv4Cidr("32")).toBe(true);
+    });
+
+    it("fails -1", () => {
+      expect(isValidIpv4Cidr("-1")).toBe(false);
+    });
+
+    it("fails 0", () => {
+      expect(isValidIpv4Cidr("0")).toBe(false);
+    });
+
+    it("fails 28", () => {
+      expect(isValidIpv4Cidr("28")).toBe(false);
+    });
+
+    it("fails 40", () => {
+      expect(isValidIpv4Cidr("40")).toBe(false);
+    });
+  });
+
   describe("isValidIpv6", () => {
     it("passes 1fff:0:a88:85a3::ac1f", () => {
       expect(isValidIpv6("1fff:0:a88:85a3::ac1f")).toBe(true);
@@ -289,6 +325,40 @@ describe("Testing the validation functions", () => {
 
     it("fails [::1]", () => {
       expect(isValidIpv6OptionalPort("[::1]")).toBe(false);
+    });
+  });
+
+  describe("isValidIpv6Cidr", () => {
+    it("passes 8", () => {
+      expect(isValidIpv6Cidr("8")).toBe(true);
+    });
+
+    it("passes 64", () => {
+      expect(isValidIpv6Cidr("64")).toBe(true);
+    });
+
+    it("passes 56", () => {
+      expect(isValidIpv6Cidr("56")).toBe(true);
+    });
+
+    it("passes 128", () => {
+      expect(isValidIpv6Cidr("128")).toBe(true);
+    });
+
+    it("fails -1", () => {
+      expect(isValidIpv6Cidr("-1")).toBe(false);
+    });
+
+    it("fails 0", () => {
+      expect(isValidIpv6Cidr("0")).toBe(false);
+    });
+
+    it("fails 63", () => {
+      expect(isValidIpv6Cidr("63")).toBe(false);
+    });
+
+    it("fails 150", () => {
+      expect(isValidIpv6Cidr("150")).toBe(false);
     });
   });
 });

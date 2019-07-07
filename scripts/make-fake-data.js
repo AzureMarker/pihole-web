@@ -382,7 +382,7 @@ function getDNSInfo() {
         .word()
         .toLowerCase()
         .split(" ", 2)[0],
-      cidr: faker.random.number({ min: 1, max: 32 })
+      cidr: faker.random.arrayElement([8, 16, 24, 32])
     }
   };
 }
