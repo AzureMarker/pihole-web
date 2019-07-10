@@ -14,14 +14,16 @@ import i18next from "i18next";
 
 export interface ConditionalForwardingObject {
   enabled: boolean;
-  routerIp: string;
+  ip: string;
   domain: string;
+  cidr: number;
 }
 
 export interface ConditionalForwardingSettingsProps {
   settings: ConditionalForwardingObject;
   onUpdate: (settings: ConditionalForwardingObject) => void;
   isRouterIpValid: boolean;
+  isCidrValid: boolean;
   isDomainValid: boolean;
   t: i18next.TFunction;
 }
@@ -30,6 +32,7 @@ const ConditionalForwardingSettings = ({
   settings,
   onUpdate,
   isRouterIpValid,
+  isCidrValid,
   isDomainValid,
   t
 }: ConditionalForwardingSettingsProps) => (
@@ -52,9 +55,36 @@ const ConditionalForwardingSettings = ({
         <Input
           id="routerIP"
           disabled={!settings.enabled}
-          value={settings.routerIp}
-          onChange={e => onUpdate({ ...settings, routerIp: e.target.value })}
+          value={settings.ip}
+          onChange={e => onUpdate({ ...settings, ip: e.target.value })}
           invalid={!isRouterIpValid}
+        />
+      </Col>
+    </FormGroup>
+    <FormGroup row>
+      <Label for="cidr" sm={5}>
+        {t("Prefix length (CIDR)")}
+      </Label>
+      <Col sm={7}>
+        <Input
+          id="cidr"
+          disabled={!settings.enabled}
+          value={settings.cidr === -1 ? "" : settings.cidr}
+          invalid={!isCidrValid}
+          onChange={e => {
+            let cidr = parseInt(e.target.value);
+
+            if (e.target.value.length === 0) {
+              // Use -1 as an internal representation of the empty string.
+              // It will show the form as invalid and make the text field
+              // function as the user expects it to.
+              cidr = -1;
+            } else if (isNaN(cidr)) {
+              return;
+            }
+
+            onUpdate({ ...settings, cidr });
+          }}
         />
       </Col>
     </FormGroup>

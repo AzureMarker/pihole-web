@@ -96,6 +96,25 @@ export function isValidIpv4OptionalPort(address: string): boolean {
 }
 
 /**
+ * Check if the string is a valid IPv4 CIDR number which dnsmasq accepts
+ *
+ * @param cidr The string to check
+ */
+export function isValidIpv4Cidr(cidr: string): boolean {
+  return ["8", "16", "24", "32"].includes(cidr);
+}
+
+/**
+ * Check if the string is a valid IPv6 address. This function does not do a
+ * thorough check of the IPv6 address; the backend will check it in detail.
+ *
+ * @param address
+ */
+export function isValidIpv6(address: string): boolean {
+  return /^[a-fA-F0-9:]+$/.test(address);
+}
+
+/**
  * Check if the string is a valid IPv6 address, and it can contain an optional
  * port. This function does not do a thorough check of the IPv6 address; the
  * backend will check it in detail.
@@ -107,4 +126,15 @@ export function isValidIpv4OptionalPort(address: string): boolean {
  */
 export function isValidIpv6OptionalPort(address: string): boolean {
   return /^(\[[a-fA-F0-9:]+]:\d+|[a-fA-F0-9:]+)$/.test(address);
+}
+
+/**
+ * Check if the string is a valid IPv6 CIDR number which dnsmasq accepts
+ *
+ * @param cidr The string to check
+ */
+export function isValidIpv6Cidr(cidr: string): boolean {
+  const cidrNum = parseInt(cidr);
+
+  return !isNaN(cidrNum) && cidrNum > 0 && cidrNum <= 128 && cidrNum % 4 === 0;
 }
