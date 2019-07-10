@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "Verzuimde",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Opgelet: Het whitelisten van een subdomein of wildcard van een geblokkeerd domein is niet mogelijk.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Opgelost: Alleen het domein en subdomein van het domein zullen worden geblokkeerd.",
-    "Add a domain (example.com or sub.example.com)": "Voeg domein toe (example.com of sub.example.com)",
+    "Add a domain or hostname (example.com or example)": "",
     "{{domain}} is already added": "is reeds toegevoegd",
     "Failed to remove {{domain}}": "Mislukt om te verwijderen",
     "There are no domains in this list": "Er zijn geen domeinen in deze lijst",
     "Input a regular expression": "Voer een reguliere expressie in",
-    "Not a valid domain": "",
+    "Not a valid hostname": "",
     "Not a valid regular expression": ""
 }

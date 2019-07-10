@@ -1,15 +1,15 @@
 {
     "Query Log": "Abfragenprotokoll",
-    "Whitelist": "Weißliste",
-    "Blacklist": "Schwarzliste",
-    "Dashboard": "",
+    "Whitelist": "Whitelist",
+    "Blacklist": "Blacklist",
+    "Dashboard": "Dashboard",
     "Exact": "Exakt",
-    "Wildcard": "",
+    "Wildcard": "Wildcard",
     "Login": "Anmelden",
     "Logout": "Abmelden",
     "Regex": "Regulärer Ausdruck",
     "Settings": "Einstellungen",
-    "Networking": "",
+    "Networking": "Netzwerk",
     "Versions": "Versionen",
-    "Preferences": ""
+    "Preferences": "Einstellungen"
 }

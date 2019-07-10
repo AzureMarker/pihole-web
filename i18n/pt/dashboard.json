@@ -19,5 +19,6 @@
     "No Domains Found": "Nenhum domínio encontrado",
     "Queries Answered By Destination": "Consultas respondidas por destino",
     "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Clients Over {{range}}": "",
+    "Top Blocked Clients": ""
 }

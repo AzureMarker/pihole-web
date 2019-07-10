@@ -26,5 +26,6 @@
     "Processing...": "Processant...",
     "Successfully saved settings": "Configuració guardada correctament",
     "Detected custom upstream server": "S'ha detectat un servidor extern personalitzat",
-    "DNS Options": "Opcions DNS"
+    "DNS Options": "Opcions DNS",
+    "Rapid Commit": ""
 }

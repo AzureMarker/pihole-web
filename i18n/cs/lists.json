@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "Nepodařilo se přidát",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Poznámka: Přidáni subdomény do bílej listiny již blokovanej domény s pomocou specialních znakú(wildcard) není možné.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Poznámka: Len domény a subdomény blokovaných domén budú blokované.",
-    "Add a domain (example.com or sub.example.com)": "Přidát doménu  (example.com nebo sub.example.com)",
+    "Add a domain or hostname (example.com or example)": "",
     "{{domain}} is already added": "{{domain}} je již přidaná",
     "Failed to remove {{domain}}": "Zlyhalo odstránení {{domain}}",
     "There are no domains in this list": "V tomto liste se nenachádzejí žádny domény",
     "Input a regular expression": "",
-    "Not a valid domain": "",
+    "Not a valid hostname": "",
     "Not a valid regular expression": ""
 }

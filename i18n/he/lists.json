@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "נכשל להוסיף",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
-    "Add a domain (example.com or sub.example.com)": "",
+    "Add a domain or hostname (example.com or example)": "",
     "{{domain}} is already added": "",
     "Failed to remove {{domain}}": "",
     "There are no domains in this list": "",
     "Input a regular expression": "",
-    "Not a valid domain": "",
+    "Not a valid hostname": "",
     "Not a valid regular expression": ""
 }

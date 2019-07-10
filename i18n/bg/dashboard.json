@@ -19,5 +19,6 @@
     "No Domains Found": "Няма намерени домейни",
     "Queries Answered By Destination": "Отговорите на заявките по дестинации",
     "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Clients Over {{range}}": "",
+    "Top Blocked Clients": ""
 }
