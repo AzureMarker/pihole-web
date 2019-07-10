@@ -10,13 +10,11 @@
 
 import React, { ReactNode } from "react";
 import { StatusProvider } from "./StatusContext";
-import { PreferencesProvider } from "./PreferencesContext";
 import { TimeRangeProvider } from "./TimeRangeContext";
 
 /**
  * Provide all of the necessary context needed at the root level to the
- * children. Currently, this includes status, preferences, and time range (for
- * the dashboard).
+ * children. Currently, this includes status and time range (for the dashboard).
  */
 export const GlobalContextProvider = ({
   children
@@ -24,8 +22,6 @@ export const GlobalContextProvider = ({
   children: ReactNode;
 }) => (
   <StatusProvider>
-    <PreferencesProvider>
-      <TimeRangeProvider>{children}</TimeRangeProvider>
-    </PreferencesProvider>
+    <TimeRangeProvider>{children}</TimeRangeProvider>
   </StatusProvider>
 );
