@@ -65,6 +65,11 @@ describe("ApiClient", () => {
       });
     });
 
+    it("should call auth endpoint with no headers", async () => {
+      await expect(api.checkAuthStatus()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("auth");
+    });
+
     it("should call logout endpoint", async () => {
       await expect(api.logout()).resolves.toEqual(deleteData);
       expect(httpClient.delete).toHaveBeenCalledWith("auth");
