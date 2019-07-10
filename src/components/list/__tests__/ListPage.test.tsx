@@ -16,7 +16,7 @@ import ListPage, {
   ListPageState
 } from "../ListPage";
 import Alert from "../../common/Alert";
-import DomainInput from "../DomainInput";
+import { DomainInputContainer } from "../DomainInput";
 import DomainList from "../DomainList";
 
 const ignoreAPI = global.ignoreAPI;
@@ -28,90 +28,57 @@ type ListPageWrapper = ShallowWrapper<
   ListPageType
 >;
 
+const defaultProps: ListPageProps = {
+  title: "",
+  placeholder: "",
+  note: "",
+  onAdd: ignoreAPI,
+  onRefresh: ignoreAPI,
+  onRemove: ignoreAPI,
+  isValid: jest.fn(),
+  validationErrorMsg: ""
+};
+
+const renderListPage = (
+  props: Partial<ListPageProps> = {}
+): ListPageWrapper => {
+  return shallow(
+    <ListPage {...defaultProps} {...props} />
+  ).dive() as ListPageWrapper;
+};
+
 it("shows the title", () => {
   const title = "My Title";
-  const wrapper = shallow(
-    <ListPage
-      title={title}
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({ title });
 
   expect(wrapper.find("h2")).toHaveText(title);
 });
 
 it("shows the placeholder", () => {
   const placeholder = "My Placeholder";
-  const wrapper = shallow(
-    <ListPage
-      title=""
-      placeholder={placeholder}
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({ placeholder });
 
-  expect(wrapper.find(DomainInput)).toHaveProp("placeholder", placeholder);
+  expect(wrapper.find(DomainInputContainer)).toHaveProp(
+    "placeholder",
+    placeholder
+  );
 });
 
 it("shows the note", () => {
   const note = "My Note";
-  const wrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note={note}
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({ note });
 
   expect(wrapper).toIncludeText(note);
 });
 
 it("starts with no alerts shown", () => {
-  const wrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage();
 
   expect(wrapper.find(Alert)).not.toExist();
 });
 
 it("hides the alert if closed", () => {
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage();
 
   // Show an error message
   wrapper.instance().onAlreadyAdded("domain");
@@ -127,18 +94,9 @@ it("hides the alert if closed", () => {
 });
 
 it("cancels requests when un-mounting", async () => {
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(["domain"])}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(["domain"])
+  });
 
   // Load the domains into state
   await tick();
@@ -164,45 +122,25 @@ it("cancels requests when un-mounting", async () => {
 });
 
 it("shows a validation message as an error", () => {
-  const validationError = "test message";
-  const wrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg={validationError}
-    />
-  );
+  const validationErrorMsg = "test message";
+  const wrapper = renderListPage({ validationErrorMsg });
 
   wrapper
-    .find(DomainInput)
+    .find(DomainInputContainer)
     .props()
     .onValidationError();
 
   const alert = wrapper.find(Alert);
   expect(alert).toExist();
-  expect(alert.props().message).toEqual(validationError);
+  expect(alert.props().message).toEqual(validationErrorMsg);
   expect(alert.props().type).toEqual("danger");
 });
 
 it("loads domains after mounting", async () => {
   const domains = ["domain1", "domain2.com", "domain3.net"];
-  const wrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(domains)}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(domains)
+  });
 
   await tick();
 
@@ -211,18 +149,9 @@ it("loads domains after mounting", async () => {
 
 it("checks if the domain was already added", async () => {
   const domains = ["domain1", "domain2.com", "domain3.net"];
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(domains)}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(domains)
+  });
   const onAlreadyAdded = jest.spyOn(wrapper.instance(), "onAlreadyAdded");
 
   // Setup with domains (wait for promise to resolve)
@@ -236,18 +165,7 @@ it("checks if the domain was already added", async () => {
 it("calls the add prop when adding a domain", () => {
   const domain = "domain";
   const onAdd = jest.fn(ignoreAPI);
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={onAdd}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({ onAdd });
 
   wrapper.instance().onEnter(domain);
 
@@ -256,18 +174,7 @@ it("calls the add prop when adding a domain", () => {
 
 it("calls onAdding when adding a domain", () => {
   const domain = "domain";
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage();
   const onAdding = jest.spyOn(wrapper.instance(), "onAdding");
 
   wrapper.instance().onEnter(domain);
@@ -277,18 +184,9 @@ it("calls onAdding when adding a domain", () => {
 
 it("calls onAdded after API request succeeds", async () => {
   const domain = "domain";
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={() => Promise.resolve()}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onAdd: () => Promise.resolve()
+  });
   const onAdded = jest.spyOn(wrapper.instance(), "onAdded");
 
   wrapper.instance().onEnter(domain);
@@ -299,18 +197,9 @@ it("calls onAdded after API request succeeds", async () => {
 
 it("calls onAddFailed after API request fails", async () => {
   const domain = "domain";
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={() => Promise.reject({})}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onAdd: () => Promise.reject({})
+  });
   const onAddFailed = jest.spyOn(wrapper.instance(), "onAddFailed");
 
   wrapper.instance().onEnter(domain);
@@ -321,18 +210,9 @@ it("calls onAddFailed after API request fails", async () => {
 
 it("adds the domain in onAdded", async () => {
   const domain = "domain";
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={() => Promise.resolve()}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onAdd: () => Promise.resolve()
+  });
 
   wrapper.instance().onEnter(domain);
   await tick();
@@ -342,18 +222,9 @@ it("adds the domain in onAdded", async () => {
 
 it("resets the domains when adding failed", async () => {
   const domain = "domain";
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={() => Promise.reject({})}
-      onRefresh={ignoreAPI}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onAdd: () => Promise.reject({})
+  });
 
   wrapper.instance().onEnter(domain);
   await tick();
@@ -364,18 +235,9 @@ it("resets the domains when adding failed", async () => {
 it("does not remove the domain if it is not present", async () => {
   const domain = "domain1";
   const domains = ["domain2"];
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(domains)}
-      onRemove={ignoreAPI}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(domains)
+  });
 
   await tick();
   wrapper.instance().onRemove(domain);
@@ -387,18 +249,10 @@ it("removes the domain from state when onRemove is called", async () => {
   const domain = "domain";
   const domain2 = "domain2";
   const domains = [domain, domain2];
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(domains)}
-      onRemove={() => Promise.resolve()}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(domains),
+    onRemove: () => Promise.resolve()
+  });
 
   await tick();
   wrapper.instance().onRemove(domain);
@@ -409,18 +263,10 @@ it("removes the domain from state when onRemove is called", async () => {
 it("resets the domains when removal failed", async () => {
   const domain = "domain";
   const domains = [domain];
-  const wrapper: ListPageWrapper = shallow(
-    <ListPage
-      title=""
-      placeholder=""
-      note=""
-      onAdd={ignoreAPI}
-      onRefresh={() => Promise.resolve(domains)}
-      onRemove={() => Promise.reject()}
-      isValid={jest.fn()}
-      validationErrorMsg=""
-    />
-  );
+  const wrapper = renderListPage({
+    onRefresh: () => Promise.resolve(domains),
+    onRemove: () => Promise.reject()
+  });
 
   await tick();
   wrapper.instance().onRemove(domain);

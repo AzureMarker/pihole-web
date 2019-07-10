@@ -13,7 +13,7 @@ import { shallow } from "enzyme";
 import ForgotPassword from "../ForgotPassword";
 
 it("collapses and displays normal if there is no error", () => {
-  const wrapper = shallow(<ForgotPassword error={false} />);
+  const wrapper = shallow(<ForgotPassword error={false} />).dive();
 
   expect(wrapper.childAt(0)).toHaveClassName("border-white");
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-white");
@@ -26,7 +26,7 @@ it("collapses and displays normal if there is no error", () => {
 });
 
 it("expands and displays red if there is an error", () => {
-  const wrapper = shallow(<ForgotPassword error={true} />);
+  const wrapper = shallow(<ForgotPassword error={true} />).dive();
 
   expect(wrapper.childAt(0)).toHaveClassName("border-danger");
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-danger");
@@ -39,7 +39,7 @@ it("expands and displays red if there is an error", () => {
 });
 
 it("expands and collapses if clicked without error", () => {
-  const wrapper = shallow(<ForgotPassword error={false} />);
+  const wrapper = shallow(<ForgotPassword error={false} />).dive();
 
   wrapper.find("button").simulate("click");
   expect(
@@ -59,7 +59,7 @@ it("expands and collapses if clicked without error", () => {
 });
 
 it("does not collapse if clicked with error", () => {
-  const wrapper = shallow(<ForgotPassword error={true} />);
+  const wrapper = shallow(<ForgotPassword error={true} />).dive();
 
   wrapper.find("button").simulate("click");
   expect(
