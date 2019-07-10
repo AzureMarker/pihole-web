@@ -19,5 +19,6 @@
     "No Domains Found": "Alan Adı Bulunamadı",
     "Queries Answered By Destination": "Hedef Tarafından Yanıtlanan Sorgular",
     "Queries Over {{range}}": "İstemciler üzerinde {{range}}",
-    "Clients Over {{range}}": "İstemciler üzerinde {{range}}"
+    "Clients Over {{range}}": "İstemciler üzerinde {{range}}",
+    "Top Blocked Clients": ""
 }

@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { ComponentType, ReactNode } from "react";
+import React, { ComponentType, ReactNode, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Header, { mobileSidebarHide } from "../components/common/Header";
 import Sidebar from "../components/common/Sidebar";
@@ -35,10 +35,12 @@ export default (props: any) => (
         <Sidebar items={nav} {...props} />
         <main className="main" onClick={mobileSidebarHide}>
           <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
-            <Switch>
-              <Redirect exact from="/" to="/dashboard" />
-              {nav.map(createRoute)}
-            </Switch>
+            <Suspense fallback={null}>
+              <Switch>
+                <Redirect exact from="/" to="/dashboard" />
+                {nav.map(createRoute)}
+              </Switch>
+            </Suspense>
           </div>
         </main>
       </div>
@@ -54,7 +56,7 @@ export default (props: any) => (
  * @param routeData the route data (see routes.tsx)
  */
 const createRoute = (routeData: RouteData): ReactNode => {
-  if ((routeData as RouteCustomItem).fakeRoute === true) {
+  if ((routeData as RouteCustomItem).fakeRoute) {
     return;
   }
 

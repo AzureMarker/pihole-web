@@ -8,25 +8,54 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { FunctionComponent } from "react";
+import React, { MouseEvent } from "react";
 import { shallow } from "enzyme";
-import { isDropdownOpen, navDropdown, navItem, navList } from "../Sidebar";
+import Sidebar, { NavList, PiholeNavDropdown, PiholeNavItem } from "../Sidebar";
 import api from "../../../util/api";
+import { RouteCustomItem, RouteGroup } from "../../../routes";
+import NavDropdown from "../NavDropdown";
+import { NavLink } from "react-router-dom";
+
+const t = global.t;
 
 it("expands active drop down items", () => {
-  const isOpen = isDropdownOpen("/testRoute", {
-    location: { pathname: "/testRoute/page" } as Location
-  });
+  const item: RouteGroup = {
+    name: "testName",
+    url: "/testRoute",
+    icon: "test-icon",
+    auth: false,
+    children: []
+  };
 
-  expect(isOpen).toBeTruthy();
+  const wrapper = shallow(
+    <PiholeNavDropdown
+      item={item}
+      t={t}
+      location={{ pathname: "/testRoute/page" } as Location}
+    />
+  );
+
+  expect(wrapper.find(NavDropdown).props().isOpen).toBeTruthy();
 });
 
 it("does not expand inactive drop down items", () => {
-  const isOpen = isDropdownOpen("/testRoute", {
-    location: { pathname: "/page" } as Location
-  });
+  const item: RouteGroup = {
+    name: "testName",
+    url: "/testRoute",
+    icon: "test-icon",
+    auth: false,
+    children: []
+  };
 
-  expect(isOpen).toBeFalsy();
+  const wrapper = shallow(
+    <PiholeNavDropdown
+      item={item}
+      t={t}
+      location={{ pathname: "/page" } as Location}
+    />
+  );
+
+  expect(wrapper.find(NavDropdown).props().isOpen).toBeFalsy();
 });
 
 it("creates nav items with correct data", () => {
@@ -37,13 +66,8 @@ it("creates nav items with correct data", () => {
     auth: false,
     component: () => <div />
   };
-  const key = "testKey";
-  const wrapper = shallow(
-    React.createElement((() =>
-      navItem(item, key, key => key)) as FunctionComponent<any>)
-  );
+  const wrapper = shallow(<PiholeNavItem item={item} t={t} />);
 
-  expect(wrapper.key()).toEqual(key);
   expect(wrapper.childAt(0)).toHaveProp("to", item.url);
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName(item.icon);
   expect(wrapper.childAt(0).childAt(1)).toHaveText(item.name);
@@ -57,17 +81,14 @@ it("creates a nav dropdown with correct data", () => {
     auth: false,
     children: []
   };
-  const key = "testKey";
   const location = { pathname: "/blacklist/exact" } as Location;
   const wrapper = shallow(
-    React.createElement((() =>
-      navDropdown(item, key, key => key, location)) as FunctionComponent<any>)
+    <PiholeNavDropdown item={item} t={t} location={location} />
   );
 
-  expect(wrapper.key()).toEqual(key);
   expect(wrapper).toHaveProp("icon", item.icon);
   expect(wrapper).toHaveProp("name", item.name);
-  expect(wrapper.children()).toHaveLength(0);
+  expect(wrapper.find(NavList).children()).toHaveLength(0);
 });
 
 it("shows auth routes when logged in", () => {
@@ -81,9 +102,7 @@ it("shows auth routes when logged in", () => {
     auth: true
   };
   const wrapper = shallow(
-    React.createElement(() => (
-      <ul>{navList([item], key => key, {} as Location)}</ul>
-    ))
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(1);
@@ -100,9 +119,7 @@ it("hides auth routes when not logged in", () => {
     auth: true
   };
   const wrapper = shallow(
-    React.createElement(() => (
-      <ul>{navList([item], key => key, {} as Location)}</ul>
-    ))
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -120,9 +137,7 @@ it("hides strict non-auth routes when logged in", () => {
     authStrict: true
   };
   const wrapper = shallow(
-    React.createElement(() => (
-      <ul>{navList([item], key => key, {} as Location)}</ul>
-    ))
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
@@ -140,10 +155,60 @@ it("hides strict auth routes when not logged in", () => {
     authStrict: true
   };
   const wrapper = shallow(
-    React.createElement(() => (
-      <ul>{navList([item], key => key, {} as Location)}</ul>
-    ))
+    <NavList items={[item]} t={t} location={{} as Location} />
   );
 
   expect(wrapper.children()).toHaveLength(0);
+});
+
+it("uses a custom component if given", () => {
+  const item: RouteCustomItem = {
+    auth: false,
+    fakeRoute: true,
+    customComponent: () => null
+  };
+  const wrapper = shallow(
+    <NavList items={[item]} t={t} location={{} as Location} />
+  );
+
+  expect(wrapper.children()).toHaveLength(1);
+  expect(wrapper).toContainExactlyOneMatchingElement("customComponent");
+});
+
+it("renders the NavList in the sidebar", () => {
+  const item = {
+    url: "/testUrl",
+    icon: "test-icon",
+    name: "testName",
+    auth: false,
+    component: () => <div />
+  };
+  const location = {} as Location;
+
+  const wrapper = shallow(<Sidebar items={[item]} location={location} />)
+    .dive()
+    .dive()
+    .dive();
+  const props = wrapper.find(NavList).props();
+
+  expect(props.items).toEqual([item]);
+  expect(props.location).toEqual(location);
+});
+
+it("should hide the sidebar on mobile when an item is clicked", () => {
+  const item = {
+    url: "/testUrl",
+    icon: "test-icon",
+    name: "testName",
+    auth: false,
+    component: () => <div />
+  };
+  const wrapper = shallow(<PiholeNavItem item={item} t={global.t} />);
+
+  document.body.classList.add("sidebar-show");
+  expect(document.body.classList).toContain("sidebar-show");
+
+  wrapper.find(NavLink).props().onClick!({} as MouseEvent<HTMLAnchorElement>);
+
+  expect(document.body.classList).not.toContain("sidebar-show");
 });

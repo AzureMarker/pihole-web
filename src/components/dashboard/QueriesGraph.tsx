@@ -9,8 +9,8 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
-import { getIntervalForRange, padNumber } from "../../util";
+import { WithTranslation, withTranslation } from "react-i18next";
+import { getIntervalForRange, padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 import { ChartData, ChartOptions, TimeUnit } from "chart.js";
@@ -29,7 +29,7 @@ export interface QueriesGraphProps {
   blocked_over_time: Array<number>;
 }
 
-class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
+class QueriesGraph extends Component<QueriesGraphProps & WithTranslation, {}> {
   render() {
     const { t } = this.props;
 
@@ -70,7 +70,8 @@ class QueriesGraph extends Component<QueriesGraphProps & WithNamespaces, {}> {
         mode: "x-axis",
         callbacks: {
           title: tooltipItem => {
-            const time = tooltipItem[0].xLabel!.match(/(\d?\d):?(\d?\d?)/);
+            const timeStr = tooltipItem[0].xLabel! as string;
+            const time = timeStr.match(/(\d?\d):?(\d?\d?)/);
             const hour = parseInt(time![1], 10);
             const minute = parseInt(time![2], 10) || 0;
             const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
@@ -209,7 +210,7 @@ export const loadingProps: QueriesGraphProps = {
   blocked_over_time: []
 };
 
-export const TranslatedQueriesGraph = withNamespaces([
+export const TranslatedQueriesGraph = withTranslation([
   "dashboard",
   "time-ranges"
 ])(QueriesGraph);

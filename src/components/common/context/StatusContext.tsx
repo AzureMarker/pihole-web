@@ -24,7 +24,7 @@ export interface StatusContextType {
  * The status data which will be used initially, until the API responds with the
  * real status data.
  */
-const initialContext: StatusContextType = {
+export const initialContext: StatusContextType = {
   status: "unknown",
   refresh: () => {}
 };

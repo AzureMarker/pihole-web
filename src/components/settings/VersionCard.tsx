@@ -9,10 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { Collapse } from "reactstrap";
 
-export interface VersionCardProps extends WithNamespaces {
+export interface VersionCardProps extends WithTranslation {
   branch: string;
   hash: string;
   name: string;
@@ -79,4 +79,4 @@ class VersionCard extends Component<VersionCardProps, VersionCardState> {
   }
 }
 
-export default withNamespaces(["common", "settings"])(VersionCard);
+export default withTranslation(["common", "settings"])(VersionCard);

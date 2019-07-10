@@ -9,98 +9,124 @@
  * Please see LICENSE file for your rights under this license. */
 
 import api from "./api";
-import config from "../config";
+import { Config } from "../config";
 import { TimeRange } from "../components/common/context/TimeRangeContext";
+import { CanceledError } from "./CancelablePromise";
 
 /**
- * A group of HTTP functions. Each function parses the response checks for
- * errors
+ * A class which provides HTTP functions. Each function parses the response and
+ * checks for errors
  */
-export default {
+export default class HttpClient {
+  constructor(public config: Config) {}
+
+  /**
+   * Check if the user is logged out, convert to JSON, and check for API errors
+   *
+   * @param response The HTTP response
+   */
+  handleResponse = <T extends any>(response: Response): Promise<T> => {
+    // @ts-ignore
+    return checkIfLoggedOut(response)
+      .then(convertJSON)
+      .then(checkForErrors);
+  };
+
   /**
    * Perform a GET request
    *
-   * @param url the URL to access
-   * @param options optional fetch configuration
-   * @returns {Promise<any>} a promise with the data or error returned
+   * @param url The URL to access
+   * @param options Optional fetch configuration
+   * @returns A promise with the data or error returned
    */
-  get(url: string, options = {}) {
-    return fetch(urlFor(url), {
-      credentials: credentialType(),
+  get = <T extends any>(url: string, options: RequestInit = {}): Promise<T> => {
+    // @ts-ignore
+    return fetch(this.urlFor(url), {
+      method: "GET",
+      credentials: this.credentialType(),
       ...options
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
-  },
+    }).then(this.handleResponse);
+  };
 
   /**
    * Perform a POST request
    *
-   * @param url the URL to access
-   * @param data the data to send
-   * @returns {Promise<any>} a promise with the data or error returned
+   * @param url The URL to access
+   * @param data The data to send
+   * @returns A promise with the data or error returned
    */
-  post(url: string, data: {}) {
-    return fetch(urlFor(url), {
+  post = <T extends any>(url: string, data: object): Promise<T> => {
+    // @ts-ignore
+    return fetch(this.urlFor(url), {
       method: "POST",
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" }),
-      credentials: credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
-  },
+      credentials: this.credentialType()
+    }).then(this.handleResponse);
+  };
 
   /**
    * Perform a PUT request
    *
-   * @param url the URL to access
-   * @param data the data to send
-   * @returns {Promise<any>} a promise with the data or error returned
+   * @param url The URL to access
+   * @param data The data to send
+   * @returns A promise with the data or error returned
    */
-  put(url: string, data: {}) {
-    return fetch(urlFor(url), {
+  put = <T extends any>(url: string, data: object): Promise<T> => {
+    // @ts-ignore
+    return fetch(this.urlFor(url), {
       method: "PUT",
       body: JSON.stringify(data),
       headers: new Headers({ "Content-Type": "application/json" }),
-      credentials: credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
-  },
+      credentials: this.credentialType()
+    }).then(this.handleResponse);
+  };
 
   /**
    * Perform a DELETE request
    *
-   * @param url the URL to access
-   * @returns {Promise<any>} a promise with the data or error returned
+   * @param url The URL to access
+   * @returns A promise with the data or error returned
    */
-  delete(url: string) {
-    return fetch(urlFor(url), {
+  delete = <T extends any>(url: string): Promise<T> => {
+    // @ts-ignore
+    return fetch(this.urlFor(url), {
       method: "DELETE",
-      credentials: credentialType()
-    })
-      .then(checkIfLoggedOut)
-      .then(convertJSON)
-      .catch(convertJSON)
-      .then(checkForErrors);
-  }
-};
+      credentials: this.credentialType()
+    }).then(this.handleResponse);
+  };
+
+  /**
+   * Get the URL for an endpoint
+   *
+   * @param endpoint The endpoint
+   * @returns The URL for the endpoint
+   */
+  urlFor = (endpoint: string): string => {
+    return this.config.apiPath + "/" + endpoint;
+  };
+
+  /**
+   * Get the credential type for requests
+   *
+   * @returns The credential type
+   */
+  credentialType = (): RequestCredentials => {
+    // Development API requests may use a different origin (pi.hole) since it is
+    // running off of the developer's machine. Therefore, allow credentials to
+    // be used across origins when in development mode.
+    return this.config.developmentMode ? "include" : "same-origin";
+  };
+}
 
 /**
  * If the user is logged in, check if the user's session has lapsed.
  * If so, log them out and refresh the page.
  *
- * @param response the Response from fetch
- * @return {Promise} if logged in, the response, otherwise a canceled promise
+ * @param response The Response from fetch
+ * @return If logged in, the response, otherwise a canceled promise
  */
-const checkIfLoggedOut = (response: Response) => {
+export const checkIfLoggedOut = (response: Response): Promise<Response> => {
   if (api.loggedIn && response.status === 401) {
     // Clear the user's old session and refresh the page
     document.cookie =
@@ -120,22 +146,24 @@ const checkIfLoggedOut = (response: Response) => {
  * @param data a Response or Error
  * @returns {*} a promise with the parsed JSON, or the error
  */
-const convertJSON = (data: any): Promise<any> => {
-  if (data.isCanceled || data instanceof Error) {
+export const convertJSON = <T extends any>(
+  data: Response | Error | CanceledError
+): Promise<T> => {
+  if ((data as CanceledError).isCanceled || data instanceof Error) {
     return Promise.reject(data);
   }
 
-  return data.json();
+  return (data as Response).json();
 };
 
 /**
  * Check for an error returned by the API
  *
  * @param data the parsed JSON body of the response
- * @returns {*} a resolving promise with the data if no error, otherwise a
+ * @returns A resolving promise with the data if no error, otherwise a
  * rejecting promise with the error
  */
-const checkForErrors = (data: any): Promise<any> => {
+export const checkForErrors = <T extends any>(data: T): Promise<T> => {
   if (data.error) {
     return Promise.reject(data.error);
   }
@@ -144,45 +172,19 @@ const checkForErrors = (data: any): Promise<any> => {
 };
 
 /**
- * Get the URL for an endpoint
- *
- * @param endpoint the endpoint
- * @returns {string} the URL for the endpoint
- */
-const urlFor = (endpoint: string): string => {
-  let apiLocation;
-
-  if (config.fakeAPI) {
-    apiLocation = process.env.PUBLIC_URL + "/fakeAPI";
-  } else {
-    apiLocation = "/admin/api";
-  }
-
-  return apiLocation + "/" + endpoint;
-};
-
-/**
- * Get the credential type for requests
- *
- * @returns {string} the credential type
- */
-const credentialType = () => {
-  // Development API requests use a different origin (pi.hole) since it is running off of the developer's machine.
-  // Therefore, allow credentials to be used across origins when in development mode.
-  return config.developmentMode ? "include" : "same-origin";
-};
-
-/**
  * Convert an object into GET parameters. The object must be flat (only
  * key-value pairs).
  *
- * @param params the parameters object
- * @returns {string} the parameters converted into GET parameter form
+ * @param params The parameters object
+ * @returns The parameters converted into GET parameter form
  */
-export const paramsToString = (params: any) =>
-  Object.keys(params)
+export const paramsToString = (params: {
+  [key: string]: string | number;
+}): string => {
+  return Object.keys(params)
     .map(key => key + "=" + params[key])
     .join("&");
+};
 
 /**
  * Convert a time range into GET parameters
@@ -190,8 +192,9 @@ export const paramsToString = (params: any) =>
  * @param range The time range to convert
  * @return The time range as GET parameters
  */
-export const timeRangeToParams = (range: TimeRange) =>
-  paramsToString({
+export const timeRangeToParams = (range: TimeRange) => {
+  return paramsToString({
     from: range.from.unix(),
     until: range.until.unix()
   });
+};

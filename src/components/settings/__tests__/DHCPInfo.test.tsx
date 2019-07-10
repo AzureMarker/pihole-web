@@ -12,11 +12,11 @@ import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
 import DHCPInfo, { DHCPInfoState } from "../DHCPInfo";
 import fetchMock from "fetch-mock";
-import { WithNamespaces } from "react-i18next";
+import { WithTranslation } from "react-i18next";
 
 const tick = global.tick;
 
-const endpoint = "/admin/api/settings/dhcp";
+const endpoint = "/api/settings/dhcp";
 const fakeData = {
   active: true,
   ip_start: "192.168.1.50",
@@ -24,13 +24,14 @@ const fakeData = {
   router_ip: "192.168.1.1",
   lease_time: "24",
   domain: "lan",
-  ipv6_support: false
+  ipv6_support: false,
+  rapid_commit: true
 };
 
 it("retrieves settings correctly", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper = shallow(<DHCPInfo />).dive();
 
   await tick();
 
@@ -40,7 +41,7 @@ it("retrieves settings correctly", async () => {
 it("disables the apply button if an input is invalid", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper = shallow(<DHCPInfo />).dive();
 
   await tick();
 
@@ -54,9 +55,9 @@ it("disables the apply button if an input is invalid", async () => {
 it("disables inputs only when DHCP is not enabled", async () => {
   fetchMock.mock(endpoint, { body: fakeData });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
-  );
+  ).dive();
 
   await tick();
   wrapper.update();
@@ -74,9 +75,9 @@ it("disables the apply button when processing setting update", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
-  );
+  ).dive();
 
   await tick();
 
@@ -93,9 +94,9 @@ it("sends the correct data to the API when apply is clicked", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper: ShallowWrapper<WithNamespaces, DHCPInfoState> = shallow(
+  const wrapper: ShallowWrapper<WithTranslation, DHCPInfoState> = shallow(
     <DHCPInfo />
-  );
+  ).dive();
 
   await tick();
 
@@ -117,7 +118,7 @@ it("shows a success message after successfully saving settings", async () => {
   fetchMock.get(endpoint, { body: fakeData });
   fetchMock.put(endpoint, { body: { status: "success" } });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper = shallow(<DHCPInfo />).dive();
 
   wrapper.find("Form").simulate("submit", { preventDefault: jest.fn() });
 
@@ -133,7 +134,7 @@ it("shows an API error message if an API error occurs when saving settings", asy
     body: { error: { key: "unknown", message: "Unknown", data: null } }
   });
 
-  const wrapper = shallow(<DHCPInfo />);
+  const wrapper = shallow(<DHCPInfo />).dive();
 
   wrapper.find("Form").simulate("submit", { preventDefault: jest.fn() });
 

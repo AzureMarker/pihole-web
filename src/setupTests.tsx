@@ -8,33 +8,36 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
+import React from "react";
 import { configure } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import "jest-enzyme";
 import api from "./util/api";
 import fetchMock from "fetch-mock";
 import "jest-localstorage-mock";
+import i18next from "i18next";
+import config from "./config";
 
 // Setup enzyme
 configure({ adapter: new Adapter() });
 
+// A fake translation function which returns its input as the output
+global.t = ((key: string) => key) as i18next.TFunction;
+
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({
-  // This mock makes sure any components using the withNamespaces HoC receive the t function as a prop
-  withNamespaces: () => (component: any) => {
-    component.defaultProps = {
-      ...component.defaultProps,
-      t: (key: string) => key
-    };
-    return component;
-  }
+  // This mock makes sure any components using the withTranslation HoC receive the t function as a prop
+  withTranslation: () => (Component: any) => (props: any) => (
+    <Component {...props} t={global.t} />
+  )
 }));
 
 beforeEach(() => {
-  // Temporary fix to reset logged in state for each test.
+  // Temporary fix to reset global state for each test.
   // The permanent fix would be to not use a global variable, and instead give this information to components through
   // props. Redux would be good for this, if we want to add it to the project.
   api.loggedIn = false;
+  config.fakeAPI = false;
 
   // Clear local storage mock
   localStorage.clear();

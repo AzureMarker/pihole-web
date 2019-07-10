@@ -10,7 +10,6 @@
 
 import React, { Component, ReactNode } from "react";
 import { WithAPIData } from "../common/WithAPIData";
-import { Subtract } from "react-i18next";
 
 export interface TopTableInnerProps<T> {
   loading: boolean;
@@ -87,7 +86,7 @@ export class TopTable<T> extends Component<TopTableInnerProps<T>, {}> {
 }
 
 export interface TopTableProps<T, D>
-  extends Subtract<TopTableInnerProps<T>, { loading: boolean; data: T }> {
+  extends Omit<TopTableInnerProps<T>, "loading" | "data"> {
   apiCall: () => Promise<D>;
   initialData: T;
   apiHandler: (data: D) => T;

@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
 import i18next from "i18next";
@@ -37,7 +37,7 @@ export const transformData = (data: ApiTopClients): TopClientsData => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top clients
  */
-export const generateRows = (t: i18next.TranslationFunction) => (
+export const generateRows = (t: i18next.TFunction) => (
   data: TopClientsData
 ) => {
   return data.topClients.map(item => {
@@ -70,7 +70,7 @@ const TopClients = ({
   apiCall,
   t,
   ...props
-}: WithNamespaces & { apiCall: () => Promise<ApiTopClients> }) => (
+}: WithTranslation & { apiCall: () => Promise<ApiTopClients> }) => (
   <TopTable
     {...props}
     title={t("Top Clients")}
@@ -87,7 +87,7 @@ const TopClients = ({
   />
 );
 
-const TopClientsContainer = (props: WithNamespaces) => (
+const TopClientsContainer = (props: WithTranslation) => (
   <TimeRangeContext.Consumer>
     {context => (
       <TopClients
@@ -102,4 +102,4 @@ const TopClientsContainer = (props: WithNamespaces) => (
   </TimeRangeContext.Consumer>
 );
 
-export default withNamespaces(["common", "dashboard"])(TopClientsContainer);
+export default withTranslation(["common", "dashboard"])(TopClientsContainer);

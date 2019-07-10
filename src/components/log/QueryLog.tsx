@@ -17,21 +17,22 @@ import ReactTable, {
 } from "react-table";
 import i18n from "i18next";
 import i18next from "i18next";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import debounce from "lodash.debounce";
+import isEqual from "lodash.isequal";
 import moment from "moment";
-import {
-  CancelablePromise,
-  ignoreCancel,
-  makeCancelable,
-  padNumber
-} from "../../util";
+import { padNumber } from "../../util/graphUtils";
 import api from "../../util/api";
 import { dateRanges } from "../../util/dateRanges";
 import { TranslatedTimeRangeSelector } from "../dashboard/TimeRangeSelector";
 import { TimeRange } from "../common/context/TimeRangeContext";
 import "react-table/react-table.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 
 export interface QueryLogState {
   history: Array<ApiQuery>;
@@ -47,7 +48,7 @@ export interface QueryLogState {
  *
  * @param t The translation function
  */
-const getDefaultRange = (t: i18next.TranslationFunction): TimeRange => {
+const getDefaultRange = (t: i18next.TFunction): TimeRange => {
   const translatedDateRanges = dateRanges(t);
   const last24Hours = t("Last 24 Hours");
 
@@ -58,7 +59,7 @@ const getDefaultRange = (t: i18next.TranslationFunction): TimeRange => {
   };
 };
 
-class QueryLog extends Component<WithNamespaces, QueryLogState> {
+class QueryLog extends Component<WithTranslation, QueryLogState> {
   private updateHandler: null | CancelablePromise<ApiHistoryResponse> = null;
 
   state: QueryLogState = {
@@ -70,7 +71,7 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
     filters: []
   };
 
-  constructor(props: WithNamespaces) {
+  constructor(props: WithTranslation) {
     super(props);
 
     const { t } = this.props;
@@ -201,17 +202,15 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
    * @param pageSize The number of queries in the page
    */
   fetchQueries = ({ page, pageSize }: { page: number; pageSize: number }) => {
-    // Check if we've reached the end of the queries, or are still waiting for
-    // the last fetch to finish
-    if (this.state.atEnd || this.state.loading) {
-      return;
-    }
-
-    // Check if the filters are the same and we already have this page and the
-    // next page.
+    // Don't fetch the queries if:
+    // - We've reached the end of the queries
+    // - We are still waiting for the last fetch to finish
+    // - Filters are the same and we already have this page and the next
     if (
-      !this.state.filtersChanged &&
-      this.state.history.length >= (page + 2) * pageSize
+      this.state.atEnd ||
+      this.state.loading ||
+      (!this.state.filtersChanged &&
+        this.state.history.length >= (page + 2) * pageSize)
     ) {
       return;
     }
@@ -255,7 +254,7 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
         data={this.state.history}
         loading={this.state.loading}
         onFetchData={state => {
-          if (state.filtered === this.state.filters) {
+          if (isEqual(state.filtered, this.state.filters)) {
             // If the filters have not changed, do not debounce the fetch.
             // This allows fetching the next page to happen without waiting for
             // the debounce.
@@ -267,6 +266,10 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
           }
         }}
         onFilteredChange={debounce(filters => {
+          if (isEqual(filters, this.state.filters)) {
+            return;
+          }
+
           this.setState({
             filters,
             filtersChanged: true,
@@ -276,6 +279,12 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
             history: []
           });
         }, 300)}
+        defaultFiltered={[
+          {
+            id: "time",
+            value: getDefaultRange(t)
+          }
+        ]}
         getTrProps={this.getRowProps}
         ofText={this.state.atEnd ? "of" : "of at least"}
         // Pad empty rows to have the same height as filled rows
@@ -295,7 +304,7 @@ class QueryLog extends Component<WithNamespaces, QueryLogState> {
  * Convert a status code to a status message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const status = (t: i18next.TranslationFunction) => [
+const status = (t: i18next.TFunction) => [
   t("Unknown"),
   t("Blocked (gravity)"),
   t("Allowed (forwarded)"),
@@ -309,7 +318,7 @@ const status = (t: i18next.TranslationFunction) => [
  * Convert a DNSSEC code to a DNSSEC message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const dnssec = (t: i18next.TranslationFunction) => [
+const dnssec = (t: i18next.TFunction) => [
   "N/A", // Unspecified, which means DNSSEC is off, so nothing should be shown
   t("Secure"),
   t("Insecure"),
@@ -331,7 +340,7 @@ const dnssecColor = [
  * Convert a reply type code to a reply type. The unknown type is translated, so
  * you must pass in the translation function before using the message array.
  */
-const replyTypes = (t: i18next.TranslationFunction) => [
+const replyTypes = (t: i18next.TFunction) => [
   t("Unknown"),
   "NODATA",
   "NXDOMAIN",
@@ -358,7 +367,7 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
  */
 const selectionFilter = (
   items: string[],
-  t: i18next.TranslationFunction,
+  t: i18next.TFunction,
   extras: Array<{ name: string; value: any }> = []
 ) => {
   return ({
@@ -392,7 +401,7 @@ const selectionFilter = (
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
-const columns = (t: i18next.TranslationFunction) => [
+const columns = (t: i18next.TFunction) => [
   {
     Header: t("Time"),
     id: "time",
@@ -528,7 +537,7 @@ const columns = (t: i18next.TranslationFunction) => [
 
       // Not explicitly blocked (or is whitelisted), but could be blocked.
       // This includes externally blocked.
-      if ([2, 3, 6].includes(data.row.status))
+      if ([2, 3, 6].includes(data.row.status)) {
         return (
           <button
             type="button"
@@ -538,8 +547,13 @@ const columns = (t: i18next.TranslationFunction) => [
             {t("Blacklist")}
           </button>
         );
+      }
+
+      return null;
     }
   }
 ];
 
-export default withNamespaces(["common", "query-log", "time-ranges"])(QueryLog);
+export default withTranslation(["common", "query-log", "time-ranges"])(
+  QueryLog
+);

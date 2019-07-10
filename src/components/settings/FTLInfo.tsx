@@ -9,7 +9,8 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
+import { Form, Col, Input, FormGroup, Label } from "reactstrap";
 import api from "../../util/api";
 import { WithAPIData } from "../common/WithAPIData";
 
@@ -19,18 +20,52 @@ export interface FTLInfoProps {
   sqliteVersion: string;
 }
 
-class FTLInfo extends Component<FTLInfoProps & WithNamespaces, {}> {
+class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
   render() {
     const { t } = this.props;
 
     return (
-      <pre>
-        {t("Queries")}: {this.props.queries}
-        <br />
-        {t("Filesize")}: {this.props.fileSize.toLocaleString()} B<br />
-        {t("SQLite version")}: {this.props.sqliteVersion.toLocaleString()}
-        <br />
-      </pre>
+      <Form>
+        <FormGroup row>
+          <Label className="bold" for="queries" sm={4}>
+            {t("Queries")}
+          </Label>
+          <Col sm={8}>
+            <Input
+              plaintext
+              readOnly
+              id="queries"
+              value={this.props.queries.toLocaleString()}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="bold" for="filesize" sm={4}>
+            {t("Filesize")}
+          </Label>
+          <Col sm={8}>
+            <Input
+              plaintext
+              readOnly
+              id="filesize"
+              value={`${this.props.fileSize.toLocaleString()} B`}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label className="bold" for="sqliteversion" sm={4}>
+            {t("SQLite version")}
+          </Label>
+          <Col sm={8}>
+            <Input
+              plaintext
+              readOnly
+              id="sqliteversion"
+              value={this.props.sqliteVersion}
+            />
+          </Col>
+        </FormGroup>
+      </Form>
     );
   }
 }
@@ -47,7 +82,7 @@ export const initialData = {
   sqliteVersion: ""
 };
 
-export const TranslatedFTLInfo = withNamespaces(["settings"])(FTLInfo);
+export const TranslatedFTLInfo = withTranslation(["settings"])(FTLInfo);
 
 export default (props: any) => (
   <WithAPIData

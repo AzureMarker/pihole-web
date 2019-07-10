@@ -1,5 +1,5 @@
 {
-    "unknown": "okänd",
+    "unknown": "Okänt fel",
     "gravity_error": "Det gick inte att skapa blocklistan",
     "ftl_connection_fail": "Det gick inte att ansluta till FTL",
     "ftl_read_error": "Fel vid läsning från FTL",

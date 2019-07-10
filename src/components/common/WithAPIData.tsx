@@ -9,7 +9,11 @@
  * Please see LICENSE file for your rights under this license. */
 
 import { Component, ReactNode } from "react";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import { Err, Ok, Result } from "../../util/result";
 
 export interface WithAPIDataProps<T> {
@@ -98,9 +102,7 @@ export class WithAPIData<T> extends Component<
       if (cancelOptions) {
         // If the request should be repeated, wait for the interval and then
         // refresh with data from the API
-        new Promise(resolve =>
-          setTimeout(resolve, cancelOptions.interval)
-        ).then(() => this.loadData());
+        setTimeout(() => this.loadData(), cancelOptions.interval);
       }
       return;
     }

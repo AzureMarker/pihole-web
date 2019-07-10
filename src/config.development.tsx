@@ -12,5 +12,6 @@ import { Config } from "./config";
 
 export default {
   developmentMode: true,
-  fakeAPI: false
+  fakeAPI: false,
+  apiPath: process.env.PUBLIC_URL + "/api"
 } as Config;

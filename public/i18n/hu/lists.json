@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "\nNem sikerült hozzáadni {{domain}}",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Megjegyzés: Az aldomain engedélyezése nem lehetséges.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Megjegyzés: Csak a blokkolt tartomány domainje és aldomainjei kerülnek letiltásra.",
-    "Add a domain (example.com or sub.example.com)": "Domain hozzáadás (example.com or sub.example.com)",
+    "Add a domain or hostname (example.com or example)": "",
     "{{domain}} is already added": "{{domain}} hozzáadva\n",
     "Failed to remove {{domain}}": "A(z) {{domain}} eltávolítása sikertelen",
     "There are no domains in this list": "Ebben a listában nincs domain",
     "Input a regular expression": "",
-    "Not a valid domain": "",
+    "Not a valid hostname": "",
     "Not a valid regular expression": ""
 }

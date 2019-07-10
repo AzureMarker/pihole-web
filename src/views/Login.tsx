@@ -8,24 +8,18 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, {
-  ChangeEvent,
-  Component,
-  FormEvent,
-  Fragment,
-  KeyboardEvent
-} from "react";
+import React, { ChangeEvent, Component, FormEvent, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import sha from "sha.js";
 import api from "../util/api";
 import logo from "../img/logo.svg";
 import { routes } from "../routes";
 import ForgotPassword from "../components/login/ForgotPassword";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import config from "../config";
 import { History, LocationDescriptorObject } from "history";
 
-export interface LoginProps extends WithNamespaces {
+export interface LoginProps extends WithTranslation {
   location: LocationDescriptorObject<{ from: Location }>;
   history: History;
 }
@@ -58,15 +52,6 @@ class Login extends Component<LoginProps, LoginState> {
   };
 
   /**
-   * If they clicked Enter, try to authenticate them.
-   */
-  handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      this.authenticate();
-    }
-  };
-
-  /**
    * Try to authenticate the user
    */
   authenticate = (e?: FormEvent) => {
@@ -87,14 +72,7 @@ class Login extends Component<LoginProps, LoginState> {
     // Send the password to the API to authenticate the user
     api
       .authenticate(hashedPassword)
-      .then(data => {
-        // Verify status
-        if (data.status !== "success") {
-          console.log("Failed to log in:");
-          console.log(data);
-          return;
-        }
-
+      .then(() => {
         api.loggedIn = true;
 
         if (config.fakeAPI) {
@@ -179,16 +157,17 @@ class Login extends Component<LoginProps, LoginState> {
                   className="form-control"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
-                  onKeyDown={this.handleKeyDown}
                   placeholder={t("Password")}
                   autoFocus
                 />
-                <div className="input-group-append">
-                  <button type="submit" className="btn btn-primary">
-                    {t("Log in")}
-                  </button>
-                </div>
               </div>
+              <br />
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg btn-block"
+              >
+                {t("Log in")}
+              </button>
               <br />
               <ForgotPassword error={this.state.error} />
             </form>
@@ -199,4 +178,4 @@ class Login extends Component<LoginProps, LoginState> {
   }
 }
 
-export default withNamespaces(["login", "location"])(Login);
+export default withTranslation(["login", "location"])(Login);

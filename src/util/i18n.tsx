@@ -11,15 +11,20 @@
 import i18n from "i18next";
 import XHR from "i18next-xhr-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { reactI18nextModule } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import config from "../config";
 import languages from "../languages.json";
 
-export function setupI18n() {
-  i18n
+/**
+ * Set up the internationalization service
+ *
+ * @param ajax An optional ajax function to use when fetching translations
+ */
+export function setupI18n(ajax?: any) {
+  return i18n
     .use(XHR)
     .use(LanguageDetector)
-    .use(reactI18nextModule)
+    .use(initReactI18next)
     .init({
       fallbackLng: "en",
       whitelist: languages,
@@ -46,11 +51,8 @@ export function setupI18n() {
         escapeValue: false
       },
       backend: {
-        loadPath: process.env.PUBLIC_URL + "/i18n/{{lng}}/{{ns}}.json"
-      },
-      react: {
-        // Wait until translations are loaded before rendering
-        wait: true
+        loadPath: process.env.PUBLIC_URL + "/i18n/{{lng}}/{{ns}}.json",
+        ajax
       }
     });
 }

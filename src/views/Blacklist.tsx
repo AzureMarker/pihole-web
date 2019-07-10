@@ -9,26 +9,26 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { FunctionComponent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../util/api";
 import ListPage from "../components/list/ListPage";
-import { isValidDomain } from "../util/validate";
+import { isValidHostname } from "../util/validate";
 
-const Blacklist: FunctionComponent<WithNamespaces> = props => {
+const Blacklist: FunctionComponent<WithTranslation> = props => {
   const { t } = props;
 
   return (
     <ListPage
       title={`${t("Blacklist")} (${t("Exact")})`}
-      placeholder={t("Add a domain (example.com or sub.example.com)")}
-      add={api.addBlacklist}
-      remove={api.removeBlacklist}
-      refresh={api.getBlacklist}
-      isValid={isValidDomain}
-      validationErrorMsg={t("Not a valid domain")}
+      placeholder={t("Add a domain or hostname (example.com or example)")}
+      onAdd={api.addBlacklist}
+      onRemove={api.removeBlacklist}
+      onRefresh={api.getBlacklist}
+      isValid={isValidHostname}
+      validationErrorMsg={t("Not a valid hostname")}
       {...props}
     />
   );
 };
 
-export default withNamespaces(["location", "lists"])(Blacklist);
+export default withTranslation(["location", "lists"])(Blacklist);

@@ -9,13 +9,18 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import { WithTranslation, withTranslation } from "react-i18next";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { PreferencesContext } from "../common/context/PreferencesContext";
 import languages from "../../languages.json";
+import config from "../../config";
 
 export interface PreferenceSettingsProps {
   settings: ApiPreferences;
@@ -33,7 +38,7 @@ export interface PreferenceSettingsState {
 }
 
 class PreferenceSettings extends Component<
-  PreferenceSettingsProps & WithNamespaces,
+  PreferenceSettingsProps & WithTranslation,
   PreferenceSettingsState
 > {
   state: PreferenceSettingsState = {
@@ -47,27 +52,9 @@ class PreferenceSettings extends Component<
     settings: this.props.settings
   };
 
-  private loadHandler: undefined | CancelablePromise<ApiPreferences>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
-
-  loadPreferences = () => {
-    this.loadHandler = makeCancelable(api.getPreferences());
-    this.loadHandler.promise
-      .then(res => {
-        this.setState({ settings: res });
-      })
-      .catch(ignoreCancel);
-  };
-
-  componentDidMount() {
-    this.loadPreferences();
-  }
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   componentWillUnmount() {
-    if (this.loadHandler) {
-      this.loadHandler.cancel();
-    }
-
     if (this.updateHandler) {
       this.updateHandler.cancel();
     }
@@ -112,9 +99,12 @@ class PreferenceSettings extends Component<
       translateMessage: true
     });
 
-    this.updateHandler = makeCancelable(
-      api.updatePreferences(this.state.settings)
-    );
+    // Allow preference changes when using the fake API
+    const apiPromise = config.fakeAPI
+      ? Promise.resolve({ status: "success" } as ApiSuccessResponse)
+      : api.updatePreferences(this.state.settings);
+
+    this.updateHandler = makeCancelable(apiPromise);
     this.updateHandler.promise
       .then(() => {
         this.setState({
@@ -232,7 +222,7 @@ class PreferenceSettings extends Component<
   }
 }
 
-const TranslatedPreferenceSettings = withNamespaces([
+const TranslatedPreferenceSettings = withTranslation([
   "common",
   "settings",
   "api-errors",

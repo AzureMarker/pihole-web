@@ -11,8 +11,9 @@
 import React, { Component, RefObject } from "react";
 import ReactDOM from "react-dom";
 import { Line } from "react-chartjs-2";
-import { WithNamespaces, withNamespaces } from "react-i18next";
-import { getIntervalForRange, padNumber } from "../../util";
+import { WithTranslation, withTranslation } from "react-i18next";
+import moment from "moment";
+import { getIntervalForRange } from "../../util/graphUtils";
 import api from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
@@ -30,10 +31,13 @@ export interface ClientsGraphProps {
   datasets: Array<ChartDataSets>;
 }
 
-class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
+export class ClientsGraph extends Component<
+  ClientsGraphProps & WithTranslation,
+  {}
+> {
   private readonly graphRef: RefObject<Line>;
 
-  constructor(props: ClientsGraphProps & WithNamespaces) {
+  constructor(props: ClientsGraphProps & WithTranslation) {
     super(props);
     this.graphRef = React.createRef();
   }
@@ -45,18 +49,18 @@ class ClientsGraph extends Component<ClientsGraphProps & WithNamespaces, {}> {
       tooltips: {
         enabled: false,
         mode: "x-axis",
-        custom: () => "placeholder",
-        itemSort: (a, b) => {
-          // @ts-ignore
-          return b.yLabel - a.yLabel;
-        },
         callbacks: {
           title: tooltipItem => {
-            const time = tooltipItem[0].xLabel!.match(/(\d?\d):?(\d?\d?)/);
-            const hour = parseInt(time![1], 10);
-            const minute = parseInt(time![2], 10) || 0;
-            const from = padNumber(hour) + ":" + padNumber(minute - 5) + ":00";
-            const to = padNumber(hour) + ":" + padNumber(minute + 4) + ":59";
+            const time = moment(tooltipItem[0].xLabel!, "HH:mm");
+
+            const fromTime = time.clone().subtract(5, "minutes");
+            const toTime = time
+              .clone()
+              .add(4, "minutes")
+              .add(59, "seconds");
+
+            const from = fromTime.format("HH:mm:ss");
+            const to = toTime.format("HH:mm:ss");
 
             return t("Client activity from {{from}} to {{to}}", { from, to });
           },
@@ -173,7 +177,9 @@ export const transformData = (
     "#63c2de",
     "#b0bec5"
   ];
-  const labels = overTime.map(step => new Date(1000 * step.timestamp));
+  const labels = overTime.map(step =>
+    new Date(1000 * step.timestamp).toISOString()
+  );
   const datasets: Array<ChartDataSets> = [];
 
   // Fill in dataset metadata
@@ -231,12 +237,12 @@ export const loadingProps: ClientsGraphProps = {
   datasets: []
 };
 
-export const TranslatedClientsGraph = withNamespaces([
+export const TranslatedClientsGraph = withTranslation([
   "dashboard",
   "time-ranges"
 ])(ClientsGraph);
 
-export default (props: any) => (
+export const ClientsGraphContainer = () => (
   <TimeRangeContext.Consumer>
     {context => (
       <WithAPIData
@@ -256,18 +262,11 @@ export default (props: any) => (
                 ignoreCancel: true
               }
         }
-        renderInitial={() => (
-          <TranslatedClientsGraph {...loadingProps} {...props} />
-        )}
+        renderInitial={() => <TranslatedClientsGraph {...loadingProps} />}
         renderOk={data => (
-          <TranslatedClientsGraph
-            {...transformData(data, context.range)}
-            {...props}
-          />
+          <TranslatedClientsGraph {...transformData(data, context.range)} />
         )}
-        renderErr={() => (
-          <TranslatedClientsGraph {...loadingProps} {...props} />
-        )}
+        renderErr={() => <TranslatedClientsGraph {...loadingProps} />}
       />
     )}
   </TimeRangeContext.Consumer>

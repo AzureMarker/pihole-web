@@ -39,7 +39,7 @@ const fakeData: ApiClientsGraph = {
 };
 
 it("shows loading indicator correctly", () => {
-  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />);
+  const wrapper = shallow(<TranslatedClientsGraph {...loadingProps} />).dive();
 
   expect(wrapper.children(".card-img-overlay")).toExist();
 });
@@ -53,12 +53,12 @@ it("hides loading indicator correctly", async () => {
 });
 
 it("loads API data correctly", async () => {
-  const data = transformData(fakeData, null);
+  const props = transformData(fakeData, null);
 
-  expect(data.labels[0]).toEqual(
-    new Date(1000 * fakeData.over_time[0].timestamp)
+  expect(props.labels[0]).toEqual(
+    new Date(1000 * fakeData.over_time[0].timestamp).toISOString()
   );
-  expect(data.datasets[2].label).toEqual(fakeData.clients[2].name);
-  expect(data.datasets[1].label).toEqual(fakeData.clients[1].ip);
-  expect(data.datasets[0].data!.length).toEqual(fakeData.over_time.length - 1);
+  expect(props.datasets[2].label).toEqual(fakeData.clients[2].name);
+  expect(props.datasets[1].label).toEqual(fakeData.clients[1].ip);
+  expect(props.datasets[0].data!.length).toEqual(fakeData.over_time.length - 1);
 });

@@ -30,24 +30,19 @@
   width: 100%;
 }
 
-.btn-card-tool {
-  background: transparent;
-  color: white;
-  border: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 .has-error {
   color: rgb(248, 108, 107);
 }
 
-#loginform {
-  padding: 15px;
-}
-
 #loginform div.row {
   margin: 0;
+}
+
+#loginform .btn.disabled {
+  /* because the forgot password button becomes a title on failed login */
+  color: #fff;
+  opacity: 1;
+  cursor: auto;
 }
 
 .login-box-msg {
@@ -117,6 +112,22 @@
   font-weight: bold;
 }
 
+.p0 {
+  padding: 0;
+}
+
+.p12 {
+  padding: 12px;
+}
+
+.pr0 {
+  padding-right: 0;
+}
+
+.mb0 {
+  margin-bottom: 0;
+}
+
 .background-image {
   background: url("../img/backgroundLight.png") repeat fixed;
 }
@@ -154,6 +165,7 @@
 
 .boxcontainer .app-header {
   max-width: 1250px;
+  border-bottom-color: #3c8dbc;
 }
 
 .card-icon {
@@ -199,7 +211,39 @@
   cursor: pointer;
 }
 
+.btn {
+  font-weight: 600;
+}
+
+pre {
+  color: darkgrey;
+  background-color: black;
+  padding: 10px;
+  margin: 10px 0;
+}
+
 body {
   // Prevent reactstrap's modal from incorrectly adjusting the padding
   padding-right: 0 !important;
+}
+
+@media (max-width: 992px) {
+  // Show the time selector when the one in the header is hidden
+  .dashboard-time-selector {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 993px) {
+  // Hide the time selector when the one in the header is showing
+  .dashboard-time-selector {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+	.modal-dialog {
+		margin: 0.5rem auto;
+	}
 }

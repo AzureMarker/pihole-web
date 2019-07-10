@@ -11,11 +11,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import React, { Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import NavButton from "./NavButton";
 import NavDropdown from "./NavDropdown";
 import { StatusContext } from "./context/StatusContext";
-import { CancelablePromise, makeCancelable } from "../../util";
+import {
+  CancelablePromise,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import {
   Button,
@@ -29,9 +32,13 @@ import {
   ModalHeader
 } from "reactstrap";
 
-export interface EnableDisableProps extends WithNamespaces {
+export interface EnableDisableProps {
   status: Status;
   refresh: (data?: ApiStatus) => void;
+  onSetStatus: (
+    action: StatusAction,
+    time?: number
+  ) => Promise<ApiSuccessResponse>;
 }
 
 export interface EnableDisableState {
@@ -41,7 +48,10 @@ export interface EnableDisableState {
   customMultiplier: number;
 }
 
-class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
+export class EnableDisable extends Component<
+  EnableDisableProps & WithTranslation,
+  EnableDisableState
+> {
   state: EnableDisableState = {
     processing: false,
     customModalShown: false,
@@ -49,7 +59,7 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
     customMultiplier: 60
   };
 
-  private updateHandler: CancelablePromise<ApiStatus> | undefined;
+  private updateHandler: CancelablePromise<ApiSuccessResponse> | undefined;
 
   /**
    * Convert a status action into a status. ex. "enable" -> "enabled"
@@ -79,17 +89,26 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
     }
 
     // Only allow one status update at a time
-    this.setState({ processing: true });
+    this.toggleProcessing();
 
     // Send the status change request
-    this.updateHandler = makeCancelable(api.setStatus(action, time));
+    this.updateHandler = makeCancelable(this.props.onSetStatus(action, time));
     this.updateHandler.promise
       // Refresh once we get a good response
       .then(() =>
         this.props.refresh({ status: this.getStatusFromAction(action) })
       )
-      // Even if it failed, allow new status changes
-      .finally(() => this.setState({ processing: false }));
+      // Allow new status changes when finished
+      .then(this.toggleProcessing)
+      .catch(e => {
+        // Ignore canceled requests
+        if (e.isCanceled) {
+          return;
+        }
+
+        // Even if it failed, allow new status changes
+        this.toggleProcessing();
+      });
   };
 
   componentWillUnmount() {
@@ -103,6 +122,13 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
    */
   toggleModal = () => {
     this.setState({ customModalShown: !this.state.customModalShown });
+  };
+
+  /**
+   * Toggle the processing flag
+   */
+  toggleProcessing = () => {
+    this.setState(prevState => ({ processing: !prevState.processing }));
   };
 
   /**
@@ -223,12 +249,16 @@ class EnableDisable extends Component<EnableDisableProps, EnableDisableState> {
   }
 }
 
-export const TranslatedEnableDisable = withNamespaces("common")(EnableDisable);
+export const TranslatedEnableDisable = withTranslation("common")(EnableDisable);
 
-export default () => (
+export const EnableDisableContainer = () => (
   <StatusContext.Consumer>
     {({ status, refresh }) => (
-      <TranslatedEnableDisable status={status} refresh={refresh} />
+      <TranslatedEnableDisable
+        status={status}
+        refresh={refresh}
+        onSetStatus={api.setStatus}
+      />
     )}
   </StatusContext.Consumer>
 );

@@ -9,8 +9,12 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
-import { CancelablePromise, ignoreCancel, makeCancelable } from "../../util";
+import { WithTranslation, withTranslation } from "react-i18next";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import api from "../../util/api";
 import DnsList from "./DnsList";
 import { Button, Col, Form, FormGroup } from "reactstrap";
@@ -31,7 +35,7 @@ export interface DNSInfoState {
   options: DnsOptionsObject;
 }
 
-class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
+class DNSInfo extends Component<WithTranslation, DNSInfoState> {
   state: DNSInfoState = {
     alertMessage: "",
     alertType: "info",
@@ -52,7 +56,7 @@ class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
   };
 
   private loadHandler: undefined | CancelablePromise<ApiDnsSettings>;
-  private updateHandler: undefined | CancelablePromise<ApiResultResponse>;
+  private updateHandler: undefined | CancelablePromise<ApiSuccessResponse>;
 
   loadDNSInfo = () => {
     this.loadHandler = makeCancelable(api.getDNSInfo());
@@ -248,4 +252,4 @@ class DNSInfo extends Component<WithNamespaces, DNSInfoState> {
   }
 }
 
-export default withNamespaces(["common", "settings"])(DNSInfo);
+export default withTranslation(["common", "settings"])(DNSInfo);

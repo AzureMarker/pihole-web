@@ -9,10 +9,10 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { ChangeEvent, Component, FormEvent } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 
-export interface DomainInputProps extends WithNamespaces {
+export interface DomainInputProps {
   placeholder?: string;
   onEnter: (domain: string) => void;
   onRefresh: () => void;
@@ -25,7 +25,10 @@ export interface DomainInputState {
   isValid: boolean;
 }
 
-class DomainInput extends Component<DomainInputProps, DomainInputState> {
+export class DomainInput extends Component<
+  DomainInputProps & WithTranslation,
+  DomainInputState
+> {
   static defaultProps = {
     placeholder: ""
   };
@@ -92,4 +95,6 @@ class DomainInput extends Component<DomainInputProps, DomainInputState> {
   }
 }
 
-export default withNamespaces(["common", "lists"])(DomainInput);
+export const DomainInputContainer = withTranslation(["common", "lists"])(
+  DomainInput
+);

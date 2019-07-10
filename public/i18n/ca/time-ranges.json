@@ -1,11 +1,11 @@
 {
-  "Last 24 Hours": "",
-  "Today": "",
-  "Yesterday": "",
-  "Last 7 Days": "",
-  "Last 30 Days": "",
-  "This Month": "",
-  "Last Month": "",
-  "This Year": "",
-  "All Time": ""
+  "Last 24 Hours": "Últimes 24 hores",
+  "Today": "Avui",
+  "Yesterday": "Ahir",
+  "Last 7 Days": "Últims 7 dies",
+  "Last 30 Days": "Últims 30 dies",
+  "This Month": "Aquest mes",
+  "Last Month": "Mes passat",
+  "This Year": "Aquest any",
+  "All Time": "Tots els temps"
 }

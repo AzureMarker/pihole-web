@@ -11,7 +11,7 @@
 import React, { Component, RefObject } from "react";
 import { Button, InputGroup, InputGroupAddon, ListGroupItem } from "reactstrap";
 import { Typeahead } from "react-bootstrap-typeahead";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import {
   PreconfiguredUpstreamOption,
   preconfiguredUpstreamOptions
@@ -33,7 +33,7 @@ export interface DnsListNewItemState {
  * a list of preconfigured upstreams, or custom servers can be input.
  */
 class DnsListNewItem extends Component<
-  DnsListNewItemProps & WithNamespaces,
+  DnsListNewItemProps & WithTranslation,
   DnsListNewItemState
 > {
   state: DnsListNewItemState = {
@@ -43,7 +43,7 @@ class DnsListNewItem extends Component<
 
   private readonly typeahead: RefObject<any>;
 
-  constructor(props: DnsListNewItemProps & WithNamespaces) {
+  constructor(props: DnsListNewItemProps & WithTranslation) {
     super(props);
     this.typeahead = React.createRef();
   }
@@ -70,6 +70,7 @@ class DnsListNewItem extends Component<
       <ListGroupItem>
         <InputGroup>
           <Typeahead
+            id="dns-list-typeahead"
             onInputChange={address => this.setState({ address })}
             onChange={selected => this.setState({ selected })}
             options={preconfiguredUpstreamOptions.filter(
@@ -77,7 +78,7 @@ class DnsListNewItem extends Component<
             )}
             selected={this.state.selected}
             emptyLabel={t("Detected custom upstream server")}
-            bodyContainer
+            positionFixed
             ref={this.typeahead}
           />
 
@@ -104,4 +105,4 @@ class DnsListNewItem extends Component<
   }
 }
 
-export default withNamespaces("settings")(DnsListNewItem);
+export default withTranslation("settings")(DnsListNewItem);

@@ -5,8 +5,8 @@
     "Top Permitted Domains": "Top erlaubte Domains",
     "Top Blocked Domains": "Top blockierte Domains",
     "Top Clients": "Top Geräte",
-    "Total Queries ({{count}} clients)": "Anzahl der Anfragen (1 Gerät)",
-    "Total Queries ({{count}} clients)_plural": "Anzahl der Anfragen ({{count}} Geräte)",
+    "Total Queries ({{count}} clients)": "Anzahl der gesamten Anfragen (1 Gerät)",
+    "Total Queries ({{count}} clients)_plural": "Anzahl der gesamten Anfragen ({{count}} Geräte)",
     "Queries Blocked": "Anfragen geblockt",
     "Percent Blocked": "Prozent geblockt",
     "Queries Answered By": "Anfragen beantwortet von",
@@ -15,9 +15,10 @@
     "Blocked Queries": "Geblockte Anfragen",
     "Client activity from {{from}} to {{to}}": "Geräteaktivität von {{from}} bis {{to}}",
     "{{percent}}% of {{total}}": "{{percent}}% von {{total}}",
-    "No Clients Found": "Keine Clients gefunden",
-    "No Domains Found": "Keine Domänen gefunden",
+    "No Clients Found": "Keine Geräte gefunden",
+    "No Domains Found": "Keine Domains gefunden",
     "Queries Answered By Destination": "Beantwortete Abfragen nach Ziel",
-    "Queries Over {{range}}": "",
-    "Clients Over {{range}}": ""
+    "Queries Over {{range}}": "Anfragen über {{range}}",
+    "Clients Over {{range}}": "Geräte über {{range}}",
+    "Top Blocked Clients": "Top Blockierte Geräte"
 }

@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "{{domain}} eklenemedi",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Not: Wildcard engellenmiş bir alanın alt alan adını beyaz listeleme mümkün değildir.",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Not: Yalnızca engellenen alan adının etki alanı ve alt alanları engellenir.\n",
-    "Add a domain (example.com or sub.example.com)": "Bir alan adı ekleyin (ornek.com veya sub.ornek.com)",
+    "Add a domain or hostname (example.com or example)": "Bir etki alanı veya ana bilgisayar adı (ornek.com veya örnek) eklemek",
     "{{domain}} is already added": "{{domain}} zaten eklenmiş",
     "Failed to remove {{domain}}": "{{Domain}} kaldırılamadı",
     "There are no domains in this list": "Bu listede hiçbir alan adı yok",
     "Input a regular expression": "Düzenli bir ifade girin",
-    "Not a valid domain": "Geçerli bir alan adı değil",
+    "Not a valid hostname": "Geçerli bir bilgisayar adı değil",
     "Not a valid regular expression": "Geçerli bir normal ifade değil"
 }

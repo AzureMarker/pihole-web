@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component, ReactNode } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import DHCPInfo from "../components/settings/DHCPInfo";
 import DNSInfo from "../components/settings/DNSInfo";
@@ -20,7 +20,7 @@ export interface NetworkingState {
   activeTab: string;
 }
 
-class Networking extends Component<WithNamespaces, NetworkingState> {
+class Networking extends Component<WithTranslation, NetworkingState> {
   state = {
     activeTab: "network"
   };
@@ -89,4 +89,4 @@ class Networking extends Component<WithNamespaces, NetworkingState> {
   }
 }
 
-export default withNamespaces(["common", "settings"])(Networking);
+export default withTranslation(["common", "settings"])(Networking);

@@ -156,10 +156,10 @@ function upstreams(length) {
   };
 }
 
-function topList(length, max, fakeData) {
+function topDomainList(length, max) {
   const result = [];
   const numbers = [];
-  const domains = unique(fakeData, length);
+  const domains = unique(faker.internet.domainName, length);
 
   for (let i = 0; i < length; i++)
     numbers.push(faker.random.number({ max: max }));
@@ -176,11 +176,11 @@ function topList(length, max, fakeData) {
   return result;
 }
 
-function topBlocked(length) {
+function topBlockedDomains(length) {
   const totalQueries = faker.random.number();
 
   return {
-    top_domains: topList(length, totalQueries, faker.internet.domainName),
+    top_domains: topDomainList(length, totalQueries),
     blocked_queries: totalQueries
   };
 }
@@ -189,13 +189,12 @@ function topDomains(length) {
   const totalQueries = faker.random.number();
 
   return {
-    top_domains: topList(length, totalQueries, faker.internet.domainName),
+    top_domains: topDomainList(length, totalQueries),
     total_queries: totalQueries
   };
 }
 
-function topClients(length) {
-  const totalQueries = faker.random.number();
+function topClientList(length, totalQueries) {
   const top_clients = [];
   const numbers = [];
   const clients = unique(faker.internet.ip, length);
@@ -213,9 +212,24 @@ function topClients(length) {
     });
   }
 
+  return top_clients;
+}
+
+function topClients(length) {
+  const totalQueries = faker.random.number();
+
   return {
-    top_clients: top_clients,
+    top_clients: topClientList(length, totalQueries),
     total_queries: totalQueries
+  };
+}
+
+function topBlockedClients(length) {
+  const totalQueries = faker.random.number();
+
+  return {
+    top_clients: topClientList(length, totalQueries),
+    blocked_queries: totalQueries
   };
 }
 
@@ -343,7 +357,8 @@ function getDHCPInfo() {
       .word()
       .toLowerCase()
       .split(" ", 2)[0],
-    ipv6_support: faker.random.boolean()
+    ipv6_support: faker.random.boolean(),
+    rapid_commit: faker.random.boolean()
   };
 }
 
@@ -401,17 +416,19 @@ write("public/fakeAPI/stats/summary", summary());
 write("public/fakeAPI/stats/history", history(5000));
 write("public/fakeAPI/stats/query_types", queryTypes());
 write("public/fakeAPI/stats/upstreams", upstreams(3));
-write("public/fakeAPI/stats/top_blocked", topBlocked(10));
+write("public/fakeAPI/stats/top_blocked", topBlockedDomains(10));
 write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
+write("public/fakeAPI/stats/top_blocked_clients", topBlockedClients(10));
 write("public/fakeAPI/stats/database/overTime/history", historyOverTime(144));
 write("public/fakeAPI/stats/database/overTime/clients", clientsOverTime(144, 5));
 write("public/fakeAPI/stats/database/summary", summary());
 write("public/fakeAPI/stats/database/query_types", queryTypes());
 write("public/fakeAPI/stats/database/upstreams", upstreams(3));
-write("public/fakeAPI/stats/database/top_blocked", topBlocked(10));
+write("public/fakeAPI/stats/database/top_blocked", topBlockedDomains(10));
 write("public/fakeAPI/stats/database/top_domains", topDomains(10));
 write("public/fakeAPI/stats/database/top_clients", topClients(10));
+write("public/fakeAPI/stats/database/top_blocked_clients", topBlockedClients(10));
 write("public/fakeAPI/auth", auth());
 write("public/fakeAPI/version", getVersionInfo());
 

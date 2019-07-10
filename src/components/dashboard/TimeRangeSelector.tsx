@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Fragment } from "react";
+import React, { Fragment, Suspense } from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Button } from "reactstrap";
 import {
@@ -16,7 +16,7 @@ import {
   TimeRangeContext
 } from "../common/context/TimeRangeContext";
 import "bootstrap-daterangepicker/daterangepicker.css";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import { dateRanges } from "../../util/dateRanges";
 
 export interface TimeRangeSelectorProps {
@@ -36,6 +36,11 @@ export interface TimeRangeSelectorProps {
    * If the chosen label should be shown outside of the selector
    */
   showLabel: boolean;
+
+  /**
+   * The button size to use
+   */
+  size?: string;
 }
 
 /**
@@ -44,7 +49,7 @@ export interface TimeRangeSelectorProps {
  * @param props The selector props
  */
 const renderLabel = (
-  props: TimeRangeSelectorProps & WithNamespaces
+  props: TimeRangeSelectorProps & WithTranslation
 ): string | null => {
   const { t } = props;
 
@@ -53,7 +58,7 @@ const renderLabel = (
   }
 
   if (!props.range) {
-    return t("Last 24 Hours");
+    return t<string>("Last 24 Hours");
   }
 
   if (props.range.name === "Custom Range") {
@@ -72,7 +77,7 @@ const renderLabel = (
  * predefined, or time range if custom)
  */
 export const TimeRangeSelector = (
-  props: TimeRangeSelectorProps & WithNamespaces
+  props: TimeRangeSelectorProps & WithTranslation
 ) => {
   const { range, onSelect, t } = props;
 
@@ -80,6 +85,7 @@ export const TimeRangeSelector = (
   const last24Hours = t("Last 24 Hours");
   const today = t("Today");
   const label = renderLabel(props);
+  const size = props.size ? props.size : "sm";
 
   return (
     <DateRangePicker
@@ -106,7 +112,7 @@ export const TimeRangeSelector = (
       showDropdowns={true}
       ranges={translatedDateRanges}
     >
-      <Button color="light" size="sm">
+      <Button color="light" size={size}>
         <i className="far fa-clock fa-lg" />
         {label ? (
           <Fragment>
@@ -119,18 +125,21 @@ export const TimeRangeSelector = (
   );
 };
 
-export const TranslatedTimeRangeSelector = withNamespaces("time-ranges")(
+export const TranslatedTimeRangeSelector = withTranslation("time-ranges")(
   TimeRangeSelector
 );
 
-export const TimeRangeSelectorContainer = () => (
+export const TimeRangeSelectorContainer = ({ size }: { size?: string }) => (
   <TimeRangeContext.Consumer>
     {context => (
-      <TranslatedTimeRangeSelector
-        range={context.range}
-        onSelect={context.update}
-        showLabel={true}
-      />
+      <Suspense fallback={null}>
+        <TranslatedTimeRangeSelector
+          range={context.range}
+          onSelect={context.update}
+          showLabel={true}
+          size={size}
+        />
+      </Suspense>
     )}
   </TimeRangeContext.Consumer>
 );

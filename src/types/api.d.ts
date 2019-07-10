@@ -67,6 +67,7 @@ interface ApiDhcpSettings {
   lease_time: number;
   domain: string;
   ipv6_support: boolean;
+  rapid_commit: boolean;
 }
 
 interface ApiFtlDbResponse {
@@ -176,7 +177,7 @@ interface ApiTopDomainItem {
   count: number;
 }
 
-interface ApiTopBlocked {
+interface ApiTopBlockedDomains {
   top_domains: Array<ApiTopDomainItem>;
   blocked_queries: number;
 }
@@ -189,6 +190,11 @@ interface ApiTopDomains {
 interface ApiTopClients {
   top_clients: Array<ApiClient>;
   total_queries: number;
+}
+
+interface ApiTopBlockedClients {
+  top_clients: Array<ApiClient>;
+  blocked_queries: number;
 }
 
 interface ApiClient {

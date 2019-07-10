@@ -9,9 +9,9 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
-import { WithNamespaces, withNamespaces } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 
-export interface ForgotPasswordProps extends WithNamespaces {
+export interface ForgotPasswordProps extends WithTranslation {
   error: boolean;
 }
 
@@ -43,47 +43,36 @@ class ForgotPassword extends Component<
     const { t } = this.props;
 
     return (
-      <div style={{ width: "100%" }}>
+      <div className="full-width">
         <div
           className={
-            "card " + (this.props.error ? "border-danger" : "border-primary")
+            "card mb0 " + (this.props.error ? "border-danger" : "border-white")
           }
         >
-          <div
-            className={
-              "card-header " + (this.props.error ? "bg-danger" : "bg-primary")
-            }
-            style={{ paddingRight: "10px" }}
-          >
-            <h3
-              className="card-title"
-              style={{ fontSize: "18px", display: "inline-block", margin: 0 }}
-            >
-              {t("Forgot Password")}
-            </h3>
-
-            <span className="pull-right">
+          <div className={this.props.error ? "bg-danger" : "bg-white pr0"}>
+            <span className={this.props.error ? "pull-left" : "pull-right"}>
               <button
                 type="button"
-                className="btn btn-card-tool"
+                className={
+                  "pr0 " + (this.props.error ? "btn disabled" : "btn btn-link")
+                }
                 onClick={this.onClick}
               >
-                <i
-                  className={
-                    "fa " + (this.isExpanded() ? "fa-minus" : "fa-plus")
-                  }
-                />
+                {t("Forgot Password")}
               </button>
             </span>
           </div>
           <div
             className={
-              "card-body bg-light" + (this.isExpanded() ? "" : " collapse")
+              "card-body bg-white " +
+              (this.isExpanded() ? "" : " collapse ") +
+              (this.props.error ? "p12" : "p0")
             }
-            style={{ padding: "10px" }}
           >
             {t("forgot_password_description")}
-            <pre style={{ textAlign: "center" }}>sudo pihole -a -p</pre>
+            <pre>
+              <code>sudo pihole -a -p</code>
+            </pre>
           </div>
         </div>
       </div>
@@ -91,4 +80,4 @@ class ForgotPassword extends Component<
   }
 }
 
-export default withNamespaces("login")(ForgotPassword);
+export default withTranslation("login")(ForgotPassword);

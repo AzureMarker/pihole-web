@@ -17,14 +17,12 @@ import Versions from "./views/Versions";
 import Networking from "./views/Networking";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
-import EnableDisable from "./components/common/EnableDisable";
+import { EnableDisableContainer } from "./components/common/EnableDisable";
 import Preferences from "./views/Preferences";
 import i18next from "i18next";
 import { ComponentType } from "react";
 
-export const routes = (
-  t: i18next.TranslationFunction
-): { [key: string]: string } => ({
+export const routes = (t: i18next.TFunction): { [key: string]: string } => ({
   "/dashboard": t("Dashboard"),
   "/query-log": t("Query Log"),
   "/whitelist": t("Whitelist"),
@@ -109,7 +107,7 @@ export const nav: Array<RouteData> = [
     ]
   },
   {
-    customComponent: EnableDisable,
+    customComponent: EnableDisableContainer,
     fakeRoute: true,
     auth: true
   },

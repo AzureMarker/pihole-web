@@ -1,11 +1,11 @@
 {
-  "Last 24 Hours": "",
-  "Today": "",
-  "Yesterday": "",
-  "Last 7 Days": "",
-  "Last 30 Days": "",
-  "This Month": "",
-  "Last Month": "",
-  "This Year": "",
-  "All Time": ""
+  "Last 24 Hours": "Τελευταίες 24 ώρες",
+  "Today": "Σήμερα",
+  "Yesterday": "Χθες",
+  "Last 7 Days": "Τελευταίες 7 ημέρες",
+  "Last 30 Days": "Τελευταίες 30 ημέρες",
+  "This Month": "Αυτό το μήνα",
+  "Last Month": "Τον περασμένο μήνα",
+  "This Year": "Αυτό το έτος",
+  "All Time": "Συνολικά"
 }

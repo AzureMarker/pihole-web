@@ -12,23 +12,28 @@ import React from "react";
 import { shallow } from "enzyme";
 import DomainList from "../DomainList";
 import api from "../../../util/api";
+import Alert from "../../common/Alert";
 
 const domains = ["domain1.com", "domain2.com", "domain3.com"];
 
 it("shows a list of domains", () => {
   const wrapper = shallow(
     <DomainList domains={domains} onRemove={jest.fn()} />
-  );
+  ).dive();
 
   expect(wrapper.find("li")).toHaveLength(domains.length);
 });
 
 it("shows an alert if there are no domains", () => {
-  const wrapper = shallow(<DomainList domains={[]} onRemove={jest.fn()} />);
+  const wrapper = shallow(
+    <DomainList domains={[]} onRemove={jest.fn()} />
+  ).dive();
 
-  expect(wrapper.find("li")).toHaveLength(0);
-  expect(wrapper.find("ul").childAt(0)).toHaveClassName("alert-info");
-  expect(wrapper).toIncludeText("There are no domains in this list");
+  expect(wrapper.find("li")).not.toExist();
+  expect(wrapper.find(Alert)).toExist();
+  expect(wrapper.find(Alert).props().message).toEqual(
+    "There are no domains in this list"
+  );
 });
 
 it("does not have a delete button when not logged in", () => {
@@ -36,12 +41,7 @@ it("does not have a delete button when not logged in", () => {
     <DomainList domains={domains} onRemove={jest.fn()} />
   );
 
-  expect(
-    wrapper
-      .find("ul")
-      .childAt(0)
-      .find("button")
-  ).not.toExist();
+  expect(wrapper.find("Button")).not.toExist();
 });
 
 it("has a delete button when logged in", () => {
@@ -49,7 +49,7 @@ it("has a delete button when logged in", () => {
 
   const wrapper = shallow(
     <DomainList domains={domains} onRemove={jest.fn()} />
-  );
+  ).dive();
 
   expect(
     wrapper
@@ -63,7 +63,9 @@ it("calls onRemove when a delete button is clicked", () => {
   api.loggedIn = true;
 
   const onRemove = jest.fn();
-  const wrapper = shallow(<DomainList domains={domains} onRemove={onRemove} />);
+  const wrapper = shallow(
+    <DomainList domains={domains} onRemove={onRemove} />
+  ).dive();
 
   wrapper
     .find("ul")
