@@ -27,5 +27,6 @@
     "Successfully saved settings": "Οι προτιμήσεις αποθηκεύτηκαν επιτυχώς",
     "Detected custom upstream server": "Ανιχνεύθηκε προσαρμοσμένος διακομιστής Dns",
     "DNS Options": "Επιλογές DNS",
-    "Rapid Commit": ""
+    "Rapid Commit": "",
+    "Prefix length (CIDR)": ""
 }

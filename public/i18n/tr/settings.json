@@ -27,5 +27,6 @@
     "Successfully saved settings": "Ayarlar başarıyla kaydedildi",
     "Detected custom upstream server": "Algılanan özel giriş sunucusu",
     "DNS Options": "DNS Seçenekleri",
-    "Rapid Commit": "Hızlı Taahhüt"
+    "Rapid Commit": "Hızlı Taahhüt",
+    "Prefix length (CIDR)": ""
 }
