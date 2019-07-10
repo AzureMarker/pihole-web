@@ -189,7 +189,7 @@ interface ApiTopDomains {
 }
 
 interface ApiTopClients {
-  top_clients: Array<ApiClient>;
+  top_clients: Array<ApiClientData>;
   total_queries: number;
 }
 
@@ -198,7 +198,7 @@ interface ApiTopBlockedClients {
   blocked_queries: number;
 }
 
-interface ApiClient {
+interface ApiClientData {
   name: string;
   ip: string;
   count: number;
