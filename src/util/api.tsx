@@ -23,6 +23,10 @@ export class ApiClient {
     });
   };
 
+  checkAuthStatus = (): Promise<ApiSuccessResponse> => {
+    return this.http.get("auth");
+  };
+
   logout = (): Promise<ApiSuccessResponse> => {
     return this.http.delete("auth");
   };

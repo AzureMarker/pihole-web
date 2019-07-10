@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopClientsData {
   totalQueries: number;
-  topClients: Array<ApiClient>;
+  topClients: Array<ApiClientData>;
 }
 
 /**
