@@ -54,8 +54,9 @@ interface ApiDnsSettings {
   };
   conditional_forwarding: {
     enabled: boolean;
-    router_ip: string;
+    ip: string;
     domain: string;
+    cidr: number;
   };
 }
 
