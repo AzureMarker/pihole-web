@@ -10,10 +10,12 @@
 
 import { spawn } from "redux-saga/effects";
 import { watchPreferences } from "./preferences";
+import { autoLogin } from "./autoLogin";
 
 /**
  * The root saga which sets up all other sagas
  */
 export function* rootSaga() {
   yield spawn(watchPreferences);
+  yield spawn(autoLogin);
 }
