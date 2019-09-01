@@ -11,17 +11,65 @@
 import React, { Component } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
-import { WithAPIData } from "../common/WithAPIData";
 
 export interface NetworkInfoProps extends WithTranslation {
+  interface?: string;
+  ipv4Address?: string;
+  ipv6Address?: string;
+  hostname?: string;
+}
+
+export interface NetworkInfoState {
   interface: string;
   ipv4Address: string;
   ipv6Address: string;
   hostname: string;
 }
 
-class NetworkInfo extends Component<NetworkInfoProps, {}> {
+class NetworkInfo extends Component<NetworkInfoProps, NetworkInfoState> {
+  state: NetworkInfoState = {
+    interface: "",
+    ipv4Address: "",
+    ipv6Address: "",
+    hostname: ""
+  };
+
+  private loadHandler: undefined | CancelablePromise<ApiNetworkSettings>;
+
+  loadNetworkInfo = () => {
+    this.loadHandler = makeCancelable(api.getNetworkInfo());
+    this.loadHandler.promise
+      .then(res => {
+        const transformData = (
+          res: ApiNetworkSettings
+        ): Omit<NetworkInfoState, keyof WithTranslation> => ({
+          interface: res.interface,
+          ipv4Address: res.ipv4_address,
+          ipv6Address: res.ipv6_address,
+          hostname: res.hostname
+        });
+
+        this.setState({ ...transformData(res) });
+      })
+      .catch(ignoreCancel);
+  };
+
+  componentDidMount() {
+    this.loadNetworkInfo();
+  }
+
+  componentWillUnmount() {
+    if (this.loadHandler) {
+      this.loadHandler.cancel();
+    }
+  }
+
   render() {
     const { t } = this.props;
 
@@ -36,7 +84,7 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
               plaintext
               readOnly
               id="interface"
-              value={this.props.interface}
+              value={this.state.interface}
             />
           </Col>
         </FormGroup>
@@ -49,7 +97,7 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
               plaintext
               readOnly
               id="ipv4_address"
-              value={this.props.ipv4Address}
+              value={this.state.ipv4Address}
             />
           </Col>
         </FormGroup>
@@ -62,7 +110,7 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
               plaintext
               readOnly
               id="ipv6_address"
-              value={this.props.ipv6Address}
+              value={this.state.ipv6Address}
             />
           </Col>
         </FormGroup>
@@ -75,7 +123,7 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
               plaintext
               readOnly
               id="hostname"
-              value={this.props.hostname}
+              value={this.state.hostname}
             />
           </Col>
         </FormGroup>
@@ -84,39 +132,37 @@ class NetworkInfo extends Component<NetworkInfoProps, {}> {
   }
 }
 
-export const transformData = (
-  data: ApiNetworkSettings
-): Omit<NetworkInfoProps, keyof WithTranslation> => ({
-  interface: data.interface,
-  ipv4Address: data.ipv4_address,
-  ipv6Address: data.ipv6_address,
-  hostname: data.hostname
-});
+// export const transformData = (
+//   data: ApiNetworkSettings
+// ): Omit<NetworkInfoProps, keyof WithTranslation> => ({
+//   interface: data.interface,
+//   ipv4Address: data.ipv4_address,
+//   ipv6Address: data.ipv6_address,
+//   hostname: data.hostname
+// });
 
-export const initialData = () => ({
-  interface: "",
-  ipv4Address: "",
-  ipv6Address: "",
-  hostname: ""
-});
+// export const initialData = () => ({
+//   interface: "",
+//   ipv4Address: "",
+//   ipv6Address: "",
+//   hostname: ""
+// });
 
-export const TranslatedNetworkInfo = withTranslation(["common", "settings"])(
-  NetworkInfo
-);
+export default withTranslation(["common", "settings"])(NetworkInfo);
 
-export default (props: any) => (
-  <WithAPIData
-    apiCall={api.getNetworkInfo}
-    repeatOptions={{
-      interval: 600000,
-      ignoreCancel: true
-    }}
-    renderInitial={() => (
-      <TranslatedNetworkInfo {...initialData()} {...props} />
-    )}
-    renderOk={data => (
-      <TranslatedNetworkInfo {...transformData(data)} {...props} />
-    )}
-    renderErr={() => <TranslatedNetworkInfo {...initialData()} {...props} />}
-  />
-);
+// export default (props: any) => (
+//   <WithAPIData
+//     apiCall={api.getNetworkInfo}
+//     repeatOptions={{
+//       interval: 600000,
+//       ignoreCancel: true
+//     }}
+//     renderInitial={() => (
+//       <TranslatedNetworkInfo {...initialData()} {...props} />
+//     )}
+//     renderOk={data => (
+//       <TranslatedNetworkInfo {...transformData(data)} {...props} />
+//     )}
+//     renderErr={() => <TranslatedNetworkInfo {...initialData()} {...props} />}
+//   />
+// );
