@@ -132,37 +132,4 @@ class NetworkInfo extends Component<NetworkInfoProps, NetworkInfoState> {
   }
 }
 
-// export const transformData = (
-//   data: ApiNetworkSettings
-// ): Omit<NetworkInfoProps, keyof WithTranslation> => ({
-//   interface: data.interface,
-//   ipv4Address: data.ipv4_address,
-//   ipv6Address: data.ipv6_address,
-//   hostname: data.hostname
-// });
-
-// export const initialData = () => ({
-//   interface: "",
-//   ipv4Address: "",
-//   ipv6Address: "",
-//   hostname: ""
-// });
-
 export default withTranslation(["common", "settings"])(NetworkInfo);
-
-// export default (props: any) => (
-//   <WithAPIData
-//     apiCall={api.getNetworkInfo}
-//     repeatOptions={{
-//       interval: 600000,
-//       ignoreCancel: true
-//     }}
-//     renderInitial={() => (
-//       <TranslatedNetworkInfo {...initialData()} {...props} />
-//     )}
-//     renderOk={data => (
-//       <TranslatedNetworkInfo {...transformData(data)} {...props} />
-//     )}
-//     renderErr={() => <TranslatedNetworkInfo {...initialData()} {...props} />}
-//   />
-// );
