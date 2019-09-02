@@ -20,7 +20,12 @@ const Footer = (props: any) => {
       <div>
         <i className="fab fa-paypal" />
         <strong>
-          <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3J2L3Z4DHW9UY">
+          <a
+            id="paypalDonation"
+            href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3J2L3Z4DHW9UY"
+            target="_blank"
+            rel="noopenner noreferrer"
+          >
             &nbsp;
             {t("Donate")}
           </a>
