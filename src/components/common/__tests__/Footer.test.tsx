@@ -13,9 +13,5 @@ import { shallow } from "enzyme";
 import Footer from "../Footer";
 
 it("renders without crashing", () => {
-  const wrapper = shallow(<Footer />)
-    .dive()
-    .dive()
-    .dive();
-  expect(wrapper.find("#paypalDonation").prop("target")).toBe("_blank");
+  shallow(<Footer />);
 });
