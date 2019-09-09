@@ -18,19 +18,13 @@ import {
   makeCancelable
 } from "../../util/CancelablePromise";
 
-export interface FTLInfoProps {
-  fileSize?: number;
-  queries?: number;
-  sqliteVersion?: string;
-}
-
 export interface FTLInfoState {
   fileSize: number;
   queries: number;
   sqliteVersion: string;
 }
 
-class FTLInfo extends Component<FTLInfoProps & WithTranslation, FTLInfoState> {
+class FTLInfo extends Component<WithTranslation, FTLInfoState> {
   state: FTLInfoState = {
     fileSize: 0,
     queries: 0,
@@ -53,13 +47,11 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, FTLInfoState> {
     this.loadHandler = makeCancelable(api.getFTLdb());
     this.loadHandler.promise
       .then(res => {
-        const transformData = (data: ApiFtlDbResponse): FTLInfoState => ({
-          fileSize: data.filesize,
-          queries: data.queries,
-          sqliteVersion: data.sqlite_version
+        this.setState({
+          fileSize: res.filesize,
+          queries: res.queries,
+          sqliteVersion: res.sqlite_version
         });
-
-        this.setState({ ...transformData(res) });
       })
       .catch(ignoreCancel);
   };

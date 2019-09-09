@@ -18,13 +18,6 @@ import {
 } from "../../util/CancelablePromise";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
 
-export interface NetworkInfoProps extends WithTranslation {
-  interface?: string;
-  ipv4Address?: string;
-  ipv6Address?: string;
-  hostname?: string;
-}
-
 export interface NetworkInfoState {
   interface: string;
   ipv4Address: string;
@@ -32,7 +25,7 @@ export interface NetworkInfoState {
   hostname: string;
 }
 
-class NetworkInfo extends Component<NetworkInfoProps, NetworkInfoState> {
+class NetworkInfo extends Component<WithTranslation, NetworkInfoState> {
   state: NetworkInfoState = {
     interface: "",
     ipv4Address: "",
@@ -46,16 +39,12 @@ class NetworkInfo extends Component<NetworkInfoProps, NetworkInfoState> {
     this.loadHandler = makeCancelable(api.getNetworkInfo());
     this.loadHandler.promise
       .then(res => {
-        const transformData = (
-          res: ApiNetworkSettings
-        ): Omit<NetworkInfoState, keyof WithTranslation> => ({
+        this.setState({
           interface: res.interface,
           ipv4Address: res.ipv4_address,
           ipv6Address: res.ipv6_address,
           hostname: res.hostname
         });
-
-        this.setState({ ...transformData(res) });
       })
       .catch(ignoreCancel);
   };
