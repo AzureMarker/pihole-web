@@ -12,10 +12,6 @@ import React from "react";
 import { shallow } from "enzyme";
 import FooterDonateLink from "../FooterDonateLink";
 
-it("renders without crashing", () => {
-  shallow(<FooterDonateLink t={(text: string) => text} />);
-});
-
 it("opens a new tab", () => {
   expect(
     shallow(<FooterDonateLink t={(text: string) => text} />).prop("target")
@@ -25,5 +21,5 @@ it("opens a new tab", () => {
 it("opens new tab securely", () => {
   expect(
     shallow(<FooterDonateLink t={(text: string) => text} />).prop("rel")
-  ).toBe("noopener noreferrer");
+  ).toEqual("noopener noreferrer");
 });
