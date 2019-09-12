@@ -15,7 +15,7 @@ import FooterDonateLink from "../FooterDonateLink";
 it("opens a new tab", () => {
   expect(
     shallow(<FooterDonateLink t={(text: string) => text} />).prop("target")
-  ).toBe("_blank");
+  ).toEqual("_blank");
 });
 
 it("opens new tab securely", () => {
