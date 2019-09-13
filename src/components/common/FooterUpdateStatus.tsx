@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React from "react";
-import { WithTranslation, withTranslation } from "react-i18next";
+import { WithTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const FooterUpdateStatus = ({
@@ -27,4 +27,4 @@ const FooterUpdateStatus = ({
   );
 };
 
-export default withTranslation("footer")(FooterUpdateStatus);
+export default FooterUpdateStatus;
