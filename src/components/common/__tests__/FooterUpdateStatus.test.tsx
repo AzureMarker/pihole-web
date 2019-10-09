@@ -14,15 +14,15 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 it("renders as null if no update is available", () => {
-  const wrapper = shallow(
-    <FooterUpdateStatus updateAvailable={false} />
-  ).dive();
+  const wrapper = shallow(<FooterUpdateStatus updateAvailable={false} />);
 
   expect(wrapper).toBeEmptyRender();
 });
 
 it("renders a link to the versions page if there is an update", () => {
-  const wrapper = shallow(<FooterUpdateStatus updateAvailable={true} />).dive();
+  const wrapper = shallow(
+    <FooterUpdateStatus t={(text: string) => text} updateAvailable={true} />
+  );
 
   expect(wrapper.find(Link).props().to).toEqual("/settings/versions");
 });
