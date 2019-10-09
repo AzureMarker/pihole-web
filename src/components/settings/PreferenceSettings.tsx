@@ -208,7 +208,7 @@ class PreferenceSettings extends Component<
               value={this.state.settings.language}
               onChange={this.onChange("language", "value")}
             >
-              {languages.map((language: any) => (
+              {languages.map(language => (
                 <option key={language.code} value={language.code}>
                   {language.name}
                 </option>
