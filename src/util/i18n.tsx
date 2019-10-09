@@ -27,7 +27,7 @@ export function setupI18n(ajax?: any) {
     .use(initReactI18next)
     .init({
       fallbackLng: "en",
-      whitelist: languages,
+      whitelist: languages.map(lang => lang.code),
       ns: ["common"],
       defaultNS: "common",
       fallbackNS: [
