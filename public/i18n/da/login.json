@@ -1,10 +1,10 @@
 {
     "Password": "Adgangskode",
-    "Sign in to start your session": "",
+    "Sign in to start your session": "Log ind for at starte din session",
     "Log in": "Log på",
     "Forgot Password": "Glemt Adgangskode",
-    "forgot_password_description": "",
+    "forgot_password_description": "Efter installation af Pi-hole første gang genereres en adgangskode og vises for brugeren. Adgangskoden kan ikke hentes senere, men det er muligt at indstille en ny adgangskode (eller eksplicit deaktivere adgangskoden ved at indstille en tom adgangskode) ved hjælp af kommandoen:",
     "Wrong Password!": "Forkert Adgangskode!",
-    "You will be transferred to the \"{{page}}\" page": "",
-    "Verify that cookies are allowed for {{host}}": ""
+    "You will be transferred to the \"{{page}}\" page": "Du overføres til {{page}} side",
+    "Verify that cookies are allowed for {{host}}": "Kontroller, at cookies er tilladt {{host}}"
 }
