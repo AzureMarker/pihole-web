@@ -3,7 +3,7 @@
 View stats and control your Pi-hole via this web interface. For the previous PHP-based web interface,
 see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 
-### Web [Preview](https://web.pi-hole.io)
+### Web [Preview](https://web.pi-hole.net)
 
 ## Changes compared to the AdminLTE interface
 - Eliminates the reliance on server-side rendering scripts
