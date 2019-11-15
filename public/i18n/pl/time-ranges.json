@@ -1,11 +1,11 @@
 {
-  "Last 24 Hours": "",
-  "Today": "",
-  "Yesterday": "",
-  "Last 7 Days": "",
-  "Last 30 Days": "",
-  "This Month": "",
-  "Last Month": "",
-  "This Year": "",
-  "All Time": ""
+  "Last 24 Hours": "Ostatnie 24 godziny",
+  "Today": "Dzisiaj",
+  "Yesterday": "Wczoraj",
+  "Last 7 Days": "Ostatnie 7 dni",
+  "Last 30 Days": "Ostatnie 30 dni",
+  "This Month": "Ten miesiąc",
+  "Last Month": "Ostatni miesiąc",
+  "This Year": "Ten rok",
+  "All Time": "Cały okres czasu"
 }

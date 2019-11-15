@@ -28,5 +28,5 @@
     "Detected custom upstream server": "Servidor de subida personalizado detectado",
     "DNS Options": "Opciones del DNS",
     "Rapid Commit": "Asignación rápida",
-    "Prefix length (CIDR)": ""
+    "Prefix length (CIDR)": "Longitud del prefijo (CIDR)"
 }

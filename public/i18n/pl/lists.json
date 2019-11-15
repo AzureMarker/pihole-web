@@ -1,14 +1,14 @@
 {
-    "Adding {{domain}}...": "Dodano do",
-    "Successfully added {{domain}}": "Dodano do listy",
-    "Failed to add {{domain}}": "Błąd dodawania ",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
-    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
-    "Add a domain or hostname (example.com or example)": "",
-    "{{domain}} is already added": "",
-    "Failed to remove {{domain}}": "",
-    "There are no domains in this list": "",
-    "Input a regular expression": "",
-    "Not a valid hostname": "",
-    "Not a valid regular expression": ""
+    "Adding {{domain}}...": "Dodawanie {{domain}}...",
+    "Successfully added {{domain}}": "Dodano do listy {{domain}}",
+    "Failed to add {{domain}}": "Błąd dodawania {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Uwaga: Dodanie subdomeny do białej listy już zablokowanej domeny nie jest możliwe przy użyciu symboli wieloznacznych.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Uwaga: blokowana będzie tylko domena i poddomeny zablokowanej domeny.",
+    "Add a domain or hostname (example.com or example)": "Dodaj domenę lub nazwę hosta (example.com lub example)",
+    "{{domain}} is already added": "{{domain}} już jest dodane",
+    "Failed to remove {{domain}}": "Nie udało się usunąć {{domain}}",
+    "There are no domains in this list": "Nie ma domen na tej liście",
+    "Input a regular expression": "Wprowadź wyrażenie regularne",
+    "Not a valid hostname": "Nieprawidłowa nazwa hosta",
+    "Not a valid regular expression": "Niepoprawne wyrażenie regularne"
 }

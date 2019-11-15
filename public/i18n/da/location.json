@@ -1,15 +1,15 @@
 {
     "Query Log": "Forespørgselslog",
-    "Whitelist": "Tillade",
-    "Blacklist": "Blokere",
-    "Dashboard": "",
-    "Exact": "",
-    "Wildcard": "",
-    "Login": "",
-    "Logout": "",
-    "Regex": "",
-    "Settings": "",
-    "Networking": "",
-    "Versions": "",
-    "Preferences": ""
+    "Whitelist": "Hvidliste",
+    "Blacklist": "Sortliste",
+    "Dashboard": "Kontrolpanel",
+    "Exact": "Præcis",
+    "Wildcard": "Wildcard",
+    "Login": "Log på",
+    "Logout": "Log ud",
+    "Regex": "Regex",
+    "Settings": "Indstillinger",
+    "Networking": "Netværk",
+    "Versions": "Versioner",
+    "Preferences": "Indstillinger"
 }
