@@ -1,10 +1,10 @@
 {
-    "Password": "",
-    "Sign in to start your session": "",
-    "Log in": "",
+    "Password": "Hasło",
+    "Sign in to start your session": "Zaloguj się, aby rozpocząć sesję",
+    "Log in": "Zaloguj się",
     "Forgot Password": "",
     "forgot_password_description": "",
-    "Wrong Password!": "",
+    "Wrong Password!": "Złe hasło!",
     "You will be transferred to the \"{{page}}\" page": "",
     "Verify that cookies are allowed for {{host}}": ""
 }
