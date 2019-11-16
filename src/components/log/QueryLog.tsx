@@ -528,7 +528,7 @@ const columns = (t: i18next.TFunction) => [
           <button
             type="button"
             className="btn btn-success full-width"
-            onClick={() => api.addWhitelist(data.row.domain)}
+            onClick={() => api.addExactWhitelist(data.row.domain)}
           >
             {t("Whitelist")}
           </button>
@@ -542,7 +542,7 @@ const columns = (t: i18next.TFunction) => [
           <button
             type="button"
             className="btn btn-danger full-width"
-            onClick={() => api.addBlacklist(data.row.domain)}
+            onClick={() => api.addExactBlacklist(data.row.domain)}
           >
             {t("Blacklist")}
           </button>

@@ -21,9 +21,9 @@ const Blacklist: FunctionComponent<WithTranslation> = props => {
     <ListPage
       title={`${t("Blacklist")} (${t("Exact")})`}
       placeholder={t("Add a domain or hostname (example.com or example)")}
-      onAdd={api.addBlacklist}
-      onRemove={api.removeBlacklist}
-      onRefresh={api.getBlacklist}
+      onAdd={api.addExactBlacklist}
+      onRemove={api.removeExactBlacklist}
+      onRefresh={api.getExactBlacklist}
       isValid={isValidHostname}
       validationErrorMsg={t("Not a valid hostname")}
       {...props}
