@@ -10,8 +10,17 @@
 
 import { Config } from "./config";
 
+let apiUrlBase;
+
+if (process.env.REACT_APP_CUSTOM_API_URL) {
+  apiUrlBase = process.env.REACT_APP_CUSTOM_API_URL;
+}
+else {
+  apiUrlBase = process.env.PUBLIC_URL;
+}
+
 export default {
   developmentMode: true,
   fakeAPI: false,
-  apiPath: process.env.PUBLIC_URL + "/api"
+  apiPath: apiUrlBase + "/api"
 } as Config;
