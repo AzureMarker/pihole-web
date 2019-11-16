@@ -14,8 +14,7 @@ let apiUrlBase;
 
 if (process.env.REACT_APP_CUSTOM_API_URL) {
   apiUrlBase = process.env.REACT_APP_CUSTOM_API_URL;
-}
-else {
+} else {
   apiUrlBase = process.env.PUBLIC_URL;
 }
 
