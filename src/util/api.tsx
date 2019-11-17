@@ -202,11 +202,15 @@ export class ApiClient {
   };
 
   removeRegexWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.delete("dns/whitelist/regex/" + encodeURIComponent(domain));
+    return this.http.delete(
+      "dns/whitelist/regex/" + encodeURIComponent(domain)
+    );
   };
 
   removeRegexBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.delete("dns/blacklist/regex/" + encodeURIComponent(domain));
+    return this.http.delete(
+      "dns/blacklist/regex/" + encodeURIComponent(domain)
+    );
   };
 
   getStatus = (): Promise<ApiStatus> => {
