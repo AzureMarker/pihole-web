@@ -299,17 +299,6 @@ function getFTLdb() {
 
 function getVersionInfo() {
   return {
-    api: {
-      branch: faker.random.arrayElement([
-        "master",
-        "development",
-        "FTL",
-        "beta",
-        "test"
-      ]),
-      hash: faker.internet.color().substring(1) + faker.random.number(9),
-      tag: "vDev"
-    },
     core: {
       branch: faker.random.arrayElement([
         "master",
