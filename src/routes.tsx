@@ -82,27 +82,27 @@ export const nav: Array<RouteData> = [
     url: "/whitelist",
     component: Whitelist,
     icon: "far fa-check-circle",
-    auth: false
+    auth: true
   },
   {
     name: "Blacklist",
     url: "/blacklist",
     icon: "fa fa-ban",
-    auth: false,
+    auth: true,
     children: [
       {
         name: "Exact",
         url: "/blacklist/exact",
         component: Blacklist,
         icon: "fa fa-ban",
-        auth: false
+        auth: true
       },
       {
         name: "Regex",
         url: "/blacklist/regex",
         component: Regexlist,
         icon: "fa fa-ban",
-        auth: false
+        auth: true
       }
     ]
   },
