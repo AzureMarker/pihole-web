@@ -53,11 +53,6 @@ class VersionInfo extends Component<ApiVersions & WithTranslation, {}> {
 }
 
 export const initialData: ApiVersions = {
-  api: {
-    branch: "unknown",
-    hash: "unknown",
-    tag: "unknown"
-  },
   core: {
     branch: "unknown",
     hash: "unknown",

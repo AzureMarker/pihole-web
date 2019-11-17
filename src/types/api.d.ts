@@ -38,7 +38,6 @@ interface ApiVersion {
 }
 
 interface ApiVersions {
-  api: ApiVersion;
   core: ApiVersion;
   ftl: ApiVersion;
   web: ApiVersion;
