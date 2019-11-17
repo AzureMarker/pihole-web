@@ -3,7 +3,7 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Whitelist page
+ * Regexlist page
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
@@ -12,23 +12,23 @@ import React, { FunctionComponent } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
-import { isValidHostname } from "../util/validate";
+import { isValidRegex } from "../util/validate";
 
-const Whitelist: FunctionComponent<WithTranslation> = props => {
+const Regexlist: FunctionComponent<WithTranslation> = props => {
   const { t } = props;
 
   return (
     <ListPage
-      title={t("Whitelist")}
-      placeholder={t("Add a domain or hostname (example.com or example)")}
-      onAdd={api.addWhitelist}
-      onRemove={api.removeWhitelist}
-      onRefresh={api.getWhitelist}
-      isValid={isValidHostname}
-      validationErrorMsg={t("Not a valid hostname")}
+      title={`${t("Whitelist")} (${t("Regex")})`}
+      placeholder={t("Input a regular expression")}
+      onAdd={api.addRegexWhitelist}
+      onRemove={api.removeRegexWhitelist}
+      onRefresh={api.getRegexWhitelist}
+      isValid={isValidRegex}
+      validationErrorMsg={t("Not a valid regular expression")}
       {...props}
     />
   );
 };
 
-export default withTranslation(["location", "lists"])(Whitelist);
+export default withTranslation(["location", "lists"])(Regexlist);

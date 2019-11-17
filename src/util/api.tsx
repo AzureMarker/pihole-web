@@ -161,40 +161,56 @@ export class ApiClient {
     return this.http.get("stats/history?" + paramsToString(params));
   };
 
-  getWhitelist = (): Promise<Array<string>> => {
-    return this.http.get("dns/whitelist");
+  getExactWhitelist = (): Promise<Array<string>> => {
+    return this.http.get("dns/whitelist/exact");
   };
 
-  getBlacklist = (): Promise<Array<string>> => {
-    return this.http.get("dns/blacklist");
+  getExactBlacklist = (): Promise<Array<string>> => {
+    return this.http.get("dns/blacklist/exact");
   };
 
-  getRegexlist = (): Promise<Array<string>> => {
-    return this.http.get("dns/regexlist");
+  getRegexWhitelist = (): Promise<Array<string>> => {
+    return this.http.get("dns/whitelist/regex");
   };
 
-  addWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.post("dns/whitelist", { domain: domain });
+  getRegexBlacklist = (): Promise<Array<string>> => {
+    return this.http.get("dns/blacklist/regex");
   };
 
-  addBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.post("dns/blacklist", { domain: domain });
+  addExactWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.post("dns/whitelist/exact", { domain: domain });
   };
 
-  addRegexlist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.post("dns/regexlist", { domain: domain });
+  addExactBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.post("dns/blacklist/exact", { domain: domain });
   };
 
-  removeWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.delete("dns/whitelist/" + domain);
+  addRegexWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.post("dns/whitelist/regex", { domain: domain });
   };
 
-  removeBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.delete("dns/blacklist/" + domain);
+  addRegexBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.post("dns/blacklist/regex", { domain: domain });
   };
 
-  removeRegexlist = (domain: string): Promise<ApiSuccessResponse> => {
-    return this.http.delete("dns/regexlist/" + encodeURIComponent(domain));
+  removeExactWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.delete("dns/whitelist/exact/" + domain);
+  };
+
+  removeExactBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.delete("dns/blacklist/exact/" + domain);
+  };
+
+  removeRegexWhitelist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.delete(
+      "dns/whitelist/regex/" + encodeURIComponent(domain)
+    );
+  };
+
+  removeRegexBlacklist = (domain: string): Promise<ApiSuccessResponse> => {
+    return this.http.delete(
+      "dns/blacklist/regex/" + encodeURIComponent(domain)
+    );
   };
 
   getStatus = (): Promise<ApiStatus> => {
