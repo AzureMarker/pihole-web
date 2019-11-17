@@ -56,6 +56,7 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
+    "react-app-polyfill": "^1.0.4",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-bootstrap-typeahead": "^3.4.6",
     "react-chartjs-2": "^2.7.6",
