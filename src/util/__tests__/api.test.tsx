@@ -238,56 +238,95 @@ describe("ApiClient", () => {
   });
 
   describe("dns calls", () => {
-    it("should call get whitelist endpoint", async () => {
-      await expect(api.getWhitelist()).resolves.toEqual(getData);
-      expect(httpClient.get).toHaveBeenCalledWith("dns/whitelist");
+    it("should call get whitelist/exact endpoint", async () => {
+      await expect(api.getExactWhitelist()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("dns/whitelist/exact");
     });
 
-    it("should call get blacklist endpoint", async () => {
-      await expect(api.getBlacklist()).resolves.toEqual(getData);
-      expect(httpClient.get).toHaveBeenCalledWith("dns/blacklist");
+    it("should call get blacklist/exact endpoint", async () => {
+      await expect(api.getExactBlacklist()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("dns/blacklist/exact");
     });
 
-    it("should call get regexlist endpoint", async () => {
-      await expect(api.getRegexlist()).resolves.toEqual(getData);
-      expect(httpClient.get).toHaveBeenCalledWith("dns/regexlist");
+    it("should call get whitelist/regex endpoint", async () => {
+      await expect(api.getRegexWhitelist()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("dns/whitelist/regex");
     });
 
-    it("should call add whitelist endpoint with domain", async () => {
+    it("should call get blacklist/regex endpoint", async () => {
+      await expect(api.getRegexBlacklist()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("dns/blacklist/regex");
+    });
+
+    it("should call add whitelist/exact endpoint with domain", async () => {
       const domain = "test.com";
-      await expect(api.addWhitelist(domain)).resolves.toEqual(postData);
-      expect(httpClient.post).toHaveBeenCalledWith("dns/whitelist", { domain });
+      await expect(api.addExactWhitelist(domain)).resolves.toEqual(postData);
+      expect(httpClient.post).toHaveBeenCalledWith("dns/whitelist/exact", {
+        domain
+      });
     });
 
-    it("should call add blacklist endpoint with domain", async () => {
+    it("should call add blacklist/exact endpoint with domain", async () => {
       const domain = "test.com";
-      await expect(api.addBlacklist(domain)).resolves.toEqual(postData);
-      expect(httpClient.post).toHaveBeenCalledWith("dns/blacklist", { domain });
+      await expect(api.addExactBlacklist(domain)).resolves.toEqual(postData);
+      expect(httpClient.post).toHaveBeenCalledWith("dns/blacklist/exact", {
+        domain
+      });
     });
 
-    it("should call add regexlist endpoint with domain", async () => {
+    it("should call add whitelist/regex endpoint with domain", async () => {
       const domain = "test.com";
-      await expect(api.addRegexlist(domain)).resolves.toEqual(postData);
-      expect(httpClient.post).toHaveBeenCalledWith("dns/regexlist", { domain });
+      await expect(api.addRegexWhitelist(domain)).resolves.toEqual(postData);
+      expect(httpClient.post).toHaveBeenCalledWith("dns/whitelist/regex", {
+        domain
+      });
     });
 
-    it("should call remove whitelist endpoint with domain", async () => {
+    it("should call add blacklist/regex endpoint with domain", async () => {
       const domain = "test.com";
-      await expect(api.removeWhitelist(domain)).resolves.toEqual(deleteData);
-      expect(httpClient.delete).toHaveBeenCalledWith("dns/whitelist/" + domain);
+      await expect(api.addRegexBlacklist(domain)).resolves.toEqual(postData);
+      expect(httpClient.post).toHaveBeenCalledWith("dns/blacklist/regex", {
+        domain
+      });
     });
 
-    it("should call remove blacklist endpoint with domain", async () => {
+    it("should call remove whitelist/exact endpoint with domain", async () => {
       const domain = "test.com";
-      await expect(api.removeBlacklist(domain)).resolves.toEqual(deleteData);
-      expect(httpClient.delete).toHaveBeenCalledWith("dns/blacklist/" + domain);
-    });
-
-    it("should call remove regexlist endpoint with encoded domain", async () => {
-      const regex = "^test\\.com$";
-      await expect(api.removeRegexlist(regex)).resolves.toEqual(deleteData);
+      await expect(api.removeExactWhitelist(domain)).resolves.toEqual(
+        deleteData
+      );
       expect(httpClient.delete).toHaveBeenCalledWith(
-        "dns/regexlist/%5Etest%5C.com%24"
+        "dns/whitelist/exact/" + domain
+      );
+    });
+
+    it("should call remove blacklist/exact endpoint with domain", async () => {
+      const domain = "test.com";
+      await expect(api.removeExactBlacklist(domain)).resolves.toEqual(
+        deleteData
+      );
+      expect(httpClient.delete).toHaveBeenCalledWith(
+        "dns/blacklist/exact/" + domain
+      );
+    });
+
+    it("should call remove whitelist/regex endpoint with encoded domain", async () => {
+      const regex = "^test\\.com$";
+      await expect(api.removeRegexWhitelist(regex)).resolves.toEqual(
+        deleteData
+      );
+      expect(httpClient.delete).toHaveBeenCalledWith(
+        "dns/whitelist/regex/%5Etest%5C.com%24"
+      );
+    });
+
+    it("should call remove black/regex endpoint with encoded domain", async () => {
+      const regex = "^test\\.com$";
+      await expect(api.removeRegexBlacklist(regex)).resolves.toEqual(
+        deleteData
+      );
+      expect(httpClient.delete).toHaveBeenCalledWith(
+        "dns/blacklist/regex/%5Etest%5C.com%24"
       );
     });
 
