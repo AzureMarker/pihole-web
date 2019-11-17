@@ -20,7 +20,7 @@ class VersionInfo extends Component<ApiVersions & WithTranslation, {}> {
 
     return (
       <div className="row">
-        <div className="col-xl-3 col-md-6 col-xs-12">
+        <div className="col-xl-4 col-md-4 col-xs-12">
           <VersionCard
             name={t("Core")}
             icon="far fa-dot-circle fa-2x"
@@ -29,7 +29,7 @@ class VersionInfo extends Component<ApiVersions & WithTranslation, {}> {
             tag={this.props.core.tag}
           />
         </div>
-        <div className="col-xl-3 col-md-6 col-xs-12">
+        <div className="col-xl-4 col-md-4 col-xs-12">
           <VersionCard
             name={t("FTL")}
             icon="fa fa-industry fa-2x"
@@ -38,16 +38,7 @@ class VersionInfo extends Component<ApiVersions & WithTranslation, {}> {
             tag={this.props.ftl.tag}
           />
         </div>
-        <div className="col-xl-3 col-md-6 col-xs-12">
-          <VersionCard
-            name={t("API")}
-            icon="fa fa-bullseye fa-2x"
-            branch={this.props.api.branch}
-            hash={this.props.api.hash}
-            tag={this.props.api.tag}
-          />
-        </div>
-        <div className="col-xl-3 col-md-6 col-xs-12">
+        <div className="col-xl-4 col-md-4 col-xs-12">
           <VersionCard
             name={t("Web")}
             icon="far fa-list-alt fa-2x"
