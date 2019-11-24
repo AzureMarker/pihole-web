@@ -13,6 +13,6 @@ import LiveLog from "../components/log/LiveLog";
 
 export default () => (
   <div className="animated fadeIn">
-    <LiveLog/>
+    <LiveLog />
   </div>
 );
