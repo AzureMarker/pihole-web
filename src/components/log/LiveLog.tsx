@@ -21,10 +21,15 @@ export interface LiveLogProps {
 }
 
 let next = 0;
+let logHistory = new Array<string>();
 
 class LiveLog extends Component<LiveLogProps, {}> {
   render() {
     next = this.props.nextID;
+
+    this.props.log.map(item =>
+      logHistory.push(humanTimestamp(item.timestamp) + " " + item.message)
+    );
 
     const outputStyle = {
       width: "100%",
@@ -48,10 +53,8 @@ class LiveLog extends Component<LiveLogProps, {}> {
     return (
       <Fragment>
         <pre id="output" style={outputStyle}>
-          {this.props.log.map(item =>
-            item.message.includes("pi.hole") ? null : (
-              <div> {humanTimestamp(item.timestamp) + " " + item.message} </div>
-            )
+          {logHistory.map(item =>
+            item.includes("pi.hole") ? null : <div> {item} </div>
           )}
         </pre>
       </Fragment>
@@ -73,9 +76,9 @@ export const transformData = (data: ApiLiveLogData): LiveLogProps => ({
 export default (props: any) => (
   <WithAPIData
     apiCall={() => api.getLiveLog({ nextID: next })}
-    repeatOptions={{ interval: 1000, ignoreCancel: true }}
+    repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
-    renderOk={data => <LiveLog {...transformData(data)} {...props} />}
+    renderOk={data => <LiveLog {...data} {...props} />}
     renderErr={() => null}
   />
 );
