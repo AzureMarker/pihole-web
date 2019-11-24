@@ -81,11 +81,19 @@ export const nav: Array<RouteData> = [
     auth: true
   },
   {
-    name: "Live Log",
-    url: "/live-log",
-    component: LiveLog,
-    icon: "fa fa-file",
-    auth: true
+    name: "Tools",
+    url: "/Tools",
+    icon: "fa fa-toolbox",
+    auth: true,
+    children: [
+      {
+        name: "Live Log",
+        url: "/live-log",
+        component: LiveLog,
+        icon: "fa fa-file",
+        auth: true
+      }
+    ]
   },
   {
     name: "Whitelist",

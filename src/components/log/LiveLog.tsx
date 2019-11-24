@@ -11,6 +11,7 @@
 import React, { Component } from "react";
 import { animateScroll } from "react-scroll";
 import { WithAPIData } from "../common/WithAPIData";
+import { humanTimestamp } from "../../util/helpers";
 import api from "../../util/api";
 
 export interface LiveLogProps {
@@ -21,7 +22,7 @@ export interface LiveLogProps {
   nextID: number;
 }
 
-let next = 0;
+let nextId = 0;
 let logHistory = new Array<string>();
 
 class LiveLog extends Component<LiveLogProps, {}> {
@@ -40,7 +41,7 @@ class LiveLog extends Component<LiveLogProps, {}> {
   render() {
     const { log } = this.props;
 
-    next = this.props.nextID;
+    nextId = this.props.nextID;
 
     log.map(item =>
       logHistory.push(humanTimestamp(item.timestamp) + " " + item.message)
@@ -49,45 +50,22 @@ class LiveLog extends Component<LiveLogProps, {}> {
     const outputStyle = {
       width: "100%",
       height: "100%",
-      "max-height": "648px"
+      maxHeight: "648px"
     };
-
-    function humanTimestamp(input: number) {
-      var date = new Date(input * 1000);
-      var hours = date.getHours();
-      var minutes = "0" + date.getMinutes();
-      var seconds = "0" + date.getSeconds();
-      // Will display time in 10:30:23 format
-      var formattedTime =
-        hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
-
-      return formattedTime;
-    }
 
     return (
       <pre id="output" style={outputStyle}>
         {logHistory.map(item => (
-          <div> {item} </div>
+          <div>{item}</div>
         ))}
       </pre>
     );
   }
 }
 
-/**
- * Transform the API data into props for the component
- *
- * @param data the API data
- * @returns {*} the transformed props
- */
-export const transformData = (data: ApiLiveLogData): LiveLogProps => ({
-  log: data.log,
-  nextID: data.nextID
-});
-
 export default (props: any) => (
   <WithAPIData
-    apiCall={() => api.getLiveLog({ nextID: next })}
+    apiCall={() => api.getLiveLog(nextId)}
     repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
     renderOk={data => <LiveLog {...data} {...props} />}
