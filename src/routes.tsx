@@ -10,6 +10,7 @@
 
 import Dashboard from "./views/Dashboard";
 import QueryLog from "./components/log/QueryLog";
+import LiveLog from "./views/LiveLog";
 import ExactWhitelist from "./views/ExactWhitelist";
 import ExactBlacklist from "./views/ExactBlacklist";
 import RegexWhitelist from "./views/RegexWhitelist";
@@ -77,6 +78,13 @@ export const nav: Array<RouteData> = [
     url: "/query-log",
     component: QueryLog,
     icon: "fa fa-database",
+    auth: true
+  },
+  {
+    name: "Live Log",
+    url: "/live-log",
+    component: LiveLog,
+    icon: "fa fa-file",
     auth: true
   },
   {
