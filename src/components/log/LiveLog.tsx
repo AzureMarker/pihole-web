@@ -9,6 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Component } from "react";
+import { animateScroll } from "react-scroll";
 import { WithAPIData } from "../common/WithAPIData";
 import api from "../../util/api";
 
@@ -24,18 +25,31 @@ let next = 0;
 let logHistory = new Array<string>();
 
 class LiveLog extends Component<LiveLogProps, {}> {
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+  scrollToBottom() {
+    animateScroll.scrollToBottom({
+      containerId: "output",
+      duration: 250,
+      delay: 0,
+      isDynamic: true
+    });
+  }
+
   render() {
+    const { log } = this.props;
+
     next = this.props.nextID;
 
-    this.props.log.map(item =>
+    log.map(item =>
       logHistory.push(humanTimestamp(item.timestamp) + " " + item.message)
     );
 
     const outputStyle = {
       width: "100%",
       height: "100%",
-      "max-height": "1000px",
-      "overflow-y": "scroll"
+      "max-height": "648px"
     };
 
     function humanTimestamp(input: number) {
@@ -51,11 +65,11 @@ class LiveLog extends Component<LiveLogProps, {}> {
     }
 
     return (
-        <pre id="output" style={outputStyle}>
-          {logHistory.map(item => (
-            <div> {item} </div>
-          ))}
-        </pre>
+      <pre id="output" style={outputStyle}>
+        {logHistory.map(item => (
+          <div> {item} </div>
+        ))}
+      </pre>
     );
   }
 }
