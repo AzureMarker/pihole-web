@@ -10,7 +10,7 @@
 
 import Dashboard from "./views/Dashboard";
 import QueryLog from "./components/log/QueryLog";
-import LiveLog from "./views/LiveLog";
+import LiveLog from "./components/log/LiveLog";
 import ExactWhitelist from "./views/ExactWhitelist";
 import ExactBlacklist from "./views/ExactBlacklist";
 import RegexWhitelist from "./views/RegexWhitelist";

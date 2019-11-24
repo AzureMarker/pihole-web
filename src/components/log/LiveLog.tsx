@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { WithAPIData } from "../common/WithAPIData";
 import api from "../../util/api";
 
@@ -34,7 +34,7 @@ class LiveLog extends Component<LiveLogProps, {}> {
     const outputStyle = {
       width: "100%",
       height: "100%",
-      "max-height": "650px",
+      "max-height": "1000px",
       "overflow-y": "scroll"
     };
 
@@ -51,13 +51,11 @@ class LiveLog extends Component<LiveLogProps, {}> {
     }
 
     return (
-      <Fragment>
         <pre id="output" style={outputStyle}>
-          {logHistory.map(item =>
-            item.includes("pi.hole") ? null : <div> {item} </div>
-          )}
+          {logHistory.map(item => (
+            <div> {item} </div>
+          ))}
         </pre>
-      </Fragment>
     );
   }
 }
