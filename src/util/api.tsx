@@ -264,6 +264,10 @@ export class ApiClient {
   ): Promise<ApiSuccessResponse> => {
     return this.http.put("settings/web", settings);
   };
+
+  getLiveLog = (params: any): Promise<ApiLiveLogData> => {
+    return this.http.get("ftl/dnsmasq_log?" + paramsToString(params));
+  };
 }
 
 export default new ApiClient(new HttpClient(config));

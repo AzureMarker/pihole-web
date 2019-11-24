@@ -202,3 +202,11 @@ interface ApiClientData {
   ip: string;
   count: number;
 }
+
+interface ApiLiveLogData {
+  log: Array<{
+    timestamp: number;
+    message: string;
+  }>;
+  nextID: number;
+}
