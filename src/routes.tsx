@@ -81,21 +81,6 @@ export const nav: Array<RouteData> = [
     auth: true
   },
   {
-    name: "Tools",
-    url: "/tools",
-    icon: "fa fa-toolbox",
-    auth: true,
-    children: [
-      {
-        name: "Live Log",
-        url: "/live-log",
-        component: LiveLog,
-        icon: "fa fa-file",
-        auth: true
-      }
-    ]
-  },
-  {
     name: "Whitelist",
     url: "/whitelist",
     icon: "far fa-check-circle",
@@ -135,6 +120,21 @@ export const nav: Array<RouteData> = [
         url: "/blacklist/regex",
         component: RegexBlacklist,
         icon: "fa fa-ban",
+        auth: true
+      }
+    ]
+  },
+  {
+    name: "Tools",
+    url: "/tools",
+    icon: "fa fa-toolbox",
+    auth: true,
+    children: [
+      {
+        name: "Live Log",
+        url: "/tools/live-log",
+        component: LiveLog,
+        icon: "fa fa-file",
         auth: true
       }
     ]
