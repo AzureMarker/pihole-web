@@ -395,4 +395,11 @@ describe("ApiClient", () => {
       expect(httpClient.put).toHaveBeenCalledWith("settings/web", settings);
     });
   });
+
+  describe("utility calls", () => {
+    it("should get the dnsmasq log output from FTL", async () => {
+      await expect(api.getLiveLog(0)).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("ftl/dnsmasq_log?nextId=0");
+    });
+  });
 });
