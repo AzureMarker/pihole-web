@@ -22,13 +22,31 @@ export interface LiveLogProps {
   nextID: number;
 }
 
-let nextId = 0;
-let logHistory = new Array<string>();
+interface LiveLogState {
+  log: Array<{
+    timestamp: number;
+    message: string;
+  }>;
+}
 
-class LiveLog extends Component<LiveLogProps, {}> {
+let nextId = 0;
+
+class LiveLog extends Component<LiveLogProps, LiveLogState> {
+  static getDerivedStateFromProps(
+    state: LiveLogState,
+    props: LiveLogProps
+  ): LiveLogState {
+    return {
+      log: [...state.log, ...props.log]
+    };
+  }
+
+  state: LiveLogState = { log: [] };
+
   componentDidUpdate() {
     this.scrollToBottom();
   }
+
   scrollToBottom() {
     animateScroll.scrollToBottom({
       containerId: "output",
@@ -39,14 +57,6 @@ class LiveLog extends Component<LiveLogProps, {}> {
   }
 
   render() {
-    const { log } = this.props;
-
-    nextId = this.props.nextID;
-
-    log.map(item =>
-      logHistory.push(getTimeFromTimestamp(item.timestamp) + " " + item.message)
-    );
-
     const outputStyle = {
       width: "100%",
       height: "100%",
@@ -55,8 +65,8 @@ class LiveLog extends Component<LiveLogProps, {}> {
 
     return (
       <pre id="output" style={outputStyle}>
-        {logHistory.map(item => (
-          <div>{item}</div>
+        {this.state.log.map(item => (
+          <div>{getTimeFromTimestamp(item.timestamp) + " " + item.message}</div>
         ))}
       </pre>
     );
@@ -65,7 +75,12 @@ class LiveLog extends Component<LiveLogProps, {}> {
 
 export default (props: any) => (
   <WithAPIData
-    apiCall={() => api.getLiveLog(nextId)}
+    apiCall={() => {
+      return api.getLiveLog(nextId).then(response => {
+        nextId = response.nextID;
+        return response;
+      });
+    }}
     repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
     renderOk={data => <LiveLog {...data} {...props} />}
