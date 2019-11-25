@@ -82,7 +82,7 @@ export const nav: Array<RouteData> = [
   },
   {
     name: "Tools",
-    url: "/Tools",
+    url: "/tools",
     icon: "fa fa-toolbox",
     auth: true,
     children: [
