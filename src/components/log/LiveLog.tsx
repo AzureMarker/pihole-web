@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import { animateScroll } from "react-scroll";
 import { WithAPIData } from "../common/WithAPIData";
-import { humanTimestamp } from "../../util/helpers";
+import { humanTimestamp } from "../../util/dateUtils";
 import api from "../../util/api";
 
 export interface LiveLogProps {
