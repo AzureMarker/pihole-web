@@ -11,7 +11,7 @@
 import React, { Component } from "react";
 import { animateScroll } from "react-scroll";
 import { WithAPIData } from "../common/WithAPIData";
-import { humanTimestamp } from "../../util/dateUtils";
+import { getTimeFromTimestamp } from "../../util/dateUtils";
 import api from "../../util/api";
 
 export interface LiveLogProps {
@@ -44,7 +44,7 @@ class LiveLog extends Component<LiveLogProps, {}> {
     nextId = this.props.nextID;
 
     log.map(item =>
-      logHistory.push(humanTimestamp(item.timestamp) + " " + item.message)
+      logHistory.push(getTimeFromTimestamp(item.timestamp) + " " + item.message)
     );
 
     const outputStyle = {

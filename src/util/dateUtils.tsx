@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-export function humanTimestamp(input: number) {
+export function getTimeFromTimestamp(input: number) {
   var date = new Date(input * 1000);
   var hours = date.getHours();
   var minutes = "0" + date.getMinutes();
