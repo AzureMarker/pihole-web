@@ -40,7 +40,7 @@ export const mobileSidebarHide = () => {
 export default () => (
   <header className="app-header navbar">
     <button
-      className="navbar-toggler d-lg-none"
+      className="navbar-toggler d-lg-none text-white"
       style={{ marginLeft: "16px" }}
       onClick={mobileSidebarToggle}
       type="button"
@@ -65,7 +65,7 @@ export default () => (
     <ul className="nav navbar-nav d-md-down-none mr-auto">
       <li className="nav-item">
         <button
-          className="nav-link navbar-toggler sidebar-toggler"
+          className="nav-link navbar-toggler text-white sidebar-toggler"
           type="button"
           onClick={sidebarMinimize}
         >
