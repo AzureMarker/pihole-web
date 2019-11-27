@@ -43,10 +43,11 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   }
 
   state: LiveLogState = { log: [] };
-  checked: boolean = true;
+  scrollEnabled: boolean = true;
+  filterEnabled: boolean = false;
 
   componentDidUpdate() {
-    if (this.checked) {
+    if (this.scrollEnabled) {
       this.scrollToBottom();
     }
   }
@@ -63,8 +64,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   render() {
     const outputStyle = {
       width: "100%",
-      height: "100%",
-      maxHeight: "648px"
+      height: "648px"
     };
 
     const { t } = this.props;
@@ -76,15 +76,25 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
     return (
       <Container>
         <Row>
-          <Col>
+          <Col md="6">
             <Input
               type="checkbox"
-              checked={this.checked}
+              checked={this.scrollEnabled}
               onChange={() => {
-                return (this.checked = !this.checked);
+                return (this.scrollEnabled = !this.scrollEnabled);
               }}
             />
             {t("Automatic scrolling on update")}
+          </Col>
+          <Col md="6">
+            <Input
+              type="checkbox"
+              checked={this.filterEnabled}
+              onChange={() => {
+                return (this.filterEnabled = !this.filterEnabled);
+              }}
+            />
+            {t('Filter "pi.hole"')}
           </Col>
         </Row>
         <Row>
@@ -92,7 +102,13 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
             <pre id="output" style={outputStyle}>
               {this.state.log.map(item => (
                 <div key={uniqueKey++}>
-                  {getTimeFromTimestamp(item.timestamp) + " " + item.message}
+                  {this.filterEnabled
+                    ? item.message.includes("pi.hole")
+                      ? ""
+                      : getTimeFromTimestamp(item.timestamp) +
+                        " " +
+                        item.message
+                    : getTimeFromTimestamp(item.timestamp) + " " + item.message}
                 </div>
               ))}
             </pre>
@@ -102,9 +118,9 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
           <Col>
             <Input
               type="checkbox"
-              checked={this.checked}
+              checked={this.scrollEnabled}
               onChange={() => {
-                return (this.checked = !this.checked);
+                return (this.scrollEnabled = !this.scrollEnabled);
               }}
             />
             {t("Automatic scrolling on update")}
