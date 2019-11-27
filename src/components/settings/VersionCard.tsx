@@ -53,10 +53,7 @@ class VersionCard extends Component<VersionCardProps, VersionCardState> {
             {t("Details")}
           </button>
           <Collapse isOpen={!this.state.collapsed}>
-            <table
-              className="table table-borderless table-sm table-condensed"
-              style={{ marginTop: "1rem", marginBottom: "0" }}
-            >
+            <table className="table table-borderless table-sm table-condensed mt-3 mb-0">
               <tbody>
                 <tr>
                   <td>{t("Branch")}</td>

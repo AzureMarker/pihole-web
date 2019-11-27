@@ -157,7 +157,7 @@ export class ListPage extends Component<
 
   render() {
     return (
-      <div style={{ marginBottom: "24px" }}>
+      <div className="mb-4">
         <h2 className="text-center">{this.props.title}</h2>
         <br />
         <DomainInputContainer

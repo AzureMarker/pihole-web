@@ -49,7 +49,7 @@ export const generateRows = (t: i18next.TFunction) => (
       <tr key={item.name + "|" + item.ip}>
         <td>{item.name !== "" ? item.name : item.ip}</td>
         <td>{item.count.toLocaleString()}</td>
-        <td style={{ verticalAlign: "middle" }}>
+        <td className="align-middle">
           <div
             className="progress"
             title={t("{{percent}}% of {{total}}", {
