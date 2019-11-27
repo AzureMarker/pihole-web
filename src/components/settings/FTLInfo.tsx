@@ -62,7 +62,7 @@ class FTLInfo extends Component<WithTranslation, FTLInfoState> {
     return (
       <Form>
         <FormGroup row>
-          <Label className="bold" for="queries" sm={4}>
+          <Label className="font-weight-bold" for="queries" sm={4}>
             {t("Queries")}
           </Label>
           <Col sm={8}>
@@ -75,7 +75,7 @@ class FTLInfo extends Component<WithTranslation, FTLInfoState> {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="filesize" sm={4}>
+          <Label className="font-weight-bold" for="filesize" sm={4}>
             {t("Filesize")}
           </Label>
           <Col sm={8}>
@@ -88,7 +88,7 @@ class FTLInfo extends Component<WithTranslation, FTLInfoState> {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="sqliteversion" sm={4}>
+          <Label className="font-weight-bold" for="sqliteversion" sm={4}>
             {t("SQLite version")}
           </Label>
           <Col sm={8}>

@@ -25,7 +25,7 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
     <Button
       color="danger"
       size="sm"
-      className="pull-right"
+      className="float-right"
       style={{ marginTop: "2px" }}
       onClick={() => onRemove(item)}
     >
@@ -37,13 +37,7 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
   const mapDomainsToListItems = (domain: string) => (
     <li key={domain} className="list-group-item">
       {api.loggedIn ? removeButton(domain) : null}
-      <span
-        style={{
-          display: "table-cell",
-          verticalAlign: "middle",
-          height: "32px"
-        }}
-      >
+      <span className="d-table-cell align-middle" style={{ height: "32px" }}>
         {domain}
       </span>
     </li>

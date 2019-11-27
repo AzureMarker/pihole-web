@@ -40,19 +40,14 @@ export const mobileSidebarHide = () => {
 export default () => (
   <header className="app-header navbar">
     <button
-      className="navbar-toggler d-lg-none text-white"
-      style={{ marginLeft: "16px" }}
+      className="navbar-toggler d-lg-none text-white ml-3"
       onClick={mobileSidebarToggle}
       type="button"
     >
       &#9776;
     </button>
-    <Link
-      to="/dashboard"
-      className="navbar-brand"
-      style={{ textAlign: "center" }}
-    >
-      <span style={{ color: "white", lineHeight: "40px" }}>
+    <Link to="/dashboard" className="navbar-brand text-center">
+      <span className="text-white" style={{ lineHeight: "40px" }}>
         <span className="navbar-brand-full">
           Pi-
           <b>hole</b>

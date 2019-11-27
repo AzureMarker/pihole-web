@@ -65,7 +65,7 @@ class NetworkInfo extends Component<WithTranslation, NetworkInfoState> {
     return (
       <Form>
         <FormGroup row>
-          <Label className="bold" for="interface" sm={4}>
+          <Label className="font-weight-bold" for="interface" sm={4}>
             {t("Interface")}
           </Label>
           <Col sm={8}>
@@ -78,7 +78,7 @@ class NetworkInfo extends Component<WithTranslation, NetworkInfoState> {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="ipv4_address" sm={4}>
+          <Label className="font-weight-bold" for="ipv4_address" sm={4}>
             {t("IPv4 address")}
           </Label>
           <Col sm={8}>
@@ -91,7 +91,7 @@ class NetworkInfo extends Component<WithTranslation, NetworkInfoState> {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="ipv6_address" sm={4}>
+          <Label className="font-weight-bold" for="ipv6_address" sm={4}>
             {t("IPv6 address")}
           </Label>
           <Col sm={8}>
@@ -104,7 +104,7 @@ class NetworkInfo extends Component<WithTranslation, NetworkInfoState> {
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="hostname" sm={4}>
+          <Label className="font-weight-bold" for="hostname" sm={4}>
             {t("Hostname")}
           </Label>
           <Col sm={8}>

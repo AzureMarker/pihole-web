@@ -244,8 +244,8 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
 
     return (
       <ReactTable
-        className="-striped"
-        style={{ background: "white", marginBottom: "24px", lineHeight: 1 }}
+        className="-striped bg-white mb-4"
+        style={{ lineHeight: 1 }}
         columns={columns(t)}
         showPaginationTop={true}
         sortable={false}
