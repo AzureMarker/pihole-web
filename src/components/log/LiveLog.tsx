@@ -37,7 +37,7 @@ class LiveLog extends Component<LiveLogProps, LiveLogState> {
     props: LiveLogProps
   ): LiveLogState {
     return {
-      log: [...state.log, ...props.log]
+      log: [...props.log, ...state.log]
     };
   }
 
@@ -59,14 +59,19 @@ class LiveLog extends Component<LiveLogProps, LiveLogState> {
   render() {
     const outputStyle = {
       width: "100%",
-      height: "100%",
-      maxHeight: "648px"
+      height: "500px"
     };
+
+    // variable for containing an autonumber to assign to the `key` property of each item in the log output.
+    // see https://reactjs.org/docs/lists-and-keys.html#keys
+    let uniqueKey: number = 0;
 
     return (
       <pre id="output" style={outputStyle}>
         {this.state.log.map(item => (
-          <div>{getTimeFromTimestamp(item.timestamp) + " " + item.message}</div>
+          <div key={uniqueKey++}>
+            {getTimeFromTimestamp(item.timestamp) + " " + item.message}
+          </div>
         ))}
       </pre>
     );
