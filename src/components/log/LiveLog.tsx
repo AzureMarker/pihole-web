@@ -13,6 +13,8 @@ import { animateScroll } from "react-scroll";
 import { WithAPIData } from "../common/WithAPIData";
 import { getTimeFromTimestamp } from "../../util/dateUtils";
 import api from "../../util/api";
+import { Input, Container, Row, Col } from "reactstrap";
+import { WithTranslation, withTranslation } from "react-i18next";
 
 export interface LiveLogProps {
   log: Array<{
@@ -30,8 +32,7 @@ interface LiveLogState {
 }
 
 let nextId = 0;
-
-class LiveLog extends Component<LiveLogProps, LiveLogState> {
+class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   static getDerivedStateFromProps(
     state: LiveLogState,
     props: LiveLogProps
@@ -42,9 +43,12 @@ class LiveLog extends Component<LiveLogProps, LiveLogState> {
   }
 
   state: LiveLogState = { log: [] };
+  checked: boolean = true;
 
   componentDidUpdate() {
-    this.scrollToBottom();
+    if (this.checked) {
+      this.scrollToBottom();
+    }
   }
 
   scrollToBottom() {
@@ -59,24 +63,59 @@ class LiveLog extends Component<LiveLogProps, LiveLogState> {
   render() {
     const outputStyle = {
       width: "100%",
-      height: "500px"
+      height: "100%",
+      maxHeight: "648px"
     };
+
+    const { t } = this.props;
 
     // variable for containing an autonumber to assign to the `key` property of each item in the log output.
     // see https://reactjs.org/docs/lists-and-keys.html#keys
     let uniqueKey: number = 0;
 
     return (
-      <pre id="output" style={outputStyle}>
-        {this.state.log.map(item => (
-          <div key={uniqueKey++}>
-            {getTimeFromTimestamp(item.timestamp) + " " + item.message}
-          </div>
-        ))}
-      </pre>
+      <Container>
+        <Row>
+          <Col>
+            <Input
+              type="checkbox"
+              checked={this.checked}
+              onChange={() => {
+                return (this.checked = !this.checked);
+              }}
+            />
+            {t("Automatic scrolling on update")}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <pre id="output" style={outputStyle}>
+              {this.state.log.map(item => (
+                <div key={uniqueKey++}>
+                  {getTimeFromTimestamp(item.timestamp) + " " + item.message}
+                </div>
+              ))}
+            </pre>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Input
+              type="checkbox"
+              checked={this.checked}
+              onChange={() => {
+                return (this.checked = !this.checked);
+              }}
+            />
+            {t("Automatic scrolling on update")}
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
+
+export const TranslatedLiveLog = withTranslation(["live-log"])(LiveLog);
 
 export default (props: any) => (
   <WithAPIData
@@ -88,7 +127,7 @@ export default (props: any) => (
     }}
     repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
-    renderOk={data => <LiveLog {...data} {...props} />}
+    renderOk={data => <TranslatedLiveLog {...data} {...props} />}
     renderErr={() => null}
   />
 );
