@@ -18,7 +18,7 @@
 }
 
 .app-body {
-  background: #ecf0f5;
+  background-color: #ecf0f5;
 }
 
 .ReactTable .rt-td.horizontal-scroll {
@@ -31,7 +31,7 @@
 }
 
 .has-error {
-  color: rgb(248, 108, 107);
+  color: #f86c6b;
 }
 
 #loginform div.row {
@@ -48,7 +48,7 @@
 .login-box-msg {
   margin: 0;
   text-align: center;
-  padding: 0 20px 20px 20px;
+  padding: 0 20px 20px;
 }
 
 .stat-height-lock {
@@ -66,8 +66,8 @@
 .chartjs-tooltip {
   opacity: 1;
   position: absolute;
-  background: rgba(0, 0, 0, .7);
-  color: white;
+  background-color: rgba(0, 0, 0, .7);
+  color: #fff;
   border-radius: 3px;
   -webkit-transition: all .1s ease;
   transition: all .1s ease;
@@ -136,7 +136,7 @@
   position: absolute;
   right: 0;
   top: 10;
-  padding: 0.25rem 0.75rem;
+  padding: .25rem .75rem;
   visibility: hidden;
 }
 
@@ -153,14 +153,15 @@
   border: 1px solid transparent;
 }
 
-.container-toggler-button:focus, .container-toggler-button:hover {
+.container-toggler-button:focus,
+.container-toggler-button:hover {
   text-decoration: none;
 }
 
 .boxcontainer {
   max-width: 1250px;
   margin: auto;
-  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+  box-shadow: 0 0 8px rgba(0, 0, 0, .5);
 }
 
 .boxcontainer .app-header {
@@ -172,8 +173,8 @@
   position: absolute;
   right: 5%;
   top: 10%;
-  color: black;
-  opacity: 0.15;
+  color: #000;
+  opacity: .15;
   font-size: 3em;
 }
 
@@ -196,7 +197,7 @@
 }
 
 .form-check-input {
-  margin-top: 0.2rem;
+  margin-top: .2rem;
 }
 
 .pull-left {
@@ -216,8 +217,8 @@
 }
 
 pre {
-  color: darkgrey;
-  background-color: black;
+  color: #a9a9a9;
+  background-color: #000;
   padding: 10px;
   margin: 10px 0;
 }
@@ -243,7 +244,7 @@ body {
 }
 
 @media (max-width: 576px) {
-	.modal-dialog {
-		margin: 0.5rem auto;
-	}
+  .modal-dialog {
+    margin: .5rem auto;
+  }
 }
