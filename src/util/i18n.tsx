@@ -40,7 +40,8 @@ export function setupI18n(ajax?: any) {
         "settings",
         "api-errors",
         "preferences",
-        "time-ranges"
+        "time-ranges",
+        "live-log"
       ],
       nsSeparator: false,
       keySeparator: false,

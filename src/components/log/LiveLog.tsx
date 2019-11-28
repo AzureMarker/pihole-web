@@ -21,7 +21,6 @@ export interface LiveLogProps {
     timestamp: number;
     message: string;
   }>;
-  nextID: number;
 }
 
 interface LiveLogState {
@@ -44,7 +43,6 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
 
   state: LiveLogState = { log: [] };
   scrollEnabled: boolean = true;
-  filterEnabled: boolean = false;
 
   componentDidUpdate() {
     if (this.scrollEnabled) {
@@ -69,14 +67,10 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
 
     const { t } = this.props;
 
-    // variable for containing an autonumber to assign to the `key` property of each item in the log output.
-    // see https://reactjs.org/docs/lists-and-keys.html#keys
-    let uniqueKey: number = 0;
-
     return (
       <Container>
         <Row>
-          <Col md="6">
+          <Col>
             <Input
               type="checkbox"
               checked={this.scrollEnabled}
@@ -86,29 +80,13 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
             />
             {t("Automatic scrolling on update")}
           </Col>
-          <Col md="6">
-            <Input
-              type="checkbox"
-              checked={this.filterEnabled}
-              onChange={() => {
-                return (this.filterEnabled = !this.filterEnabled);
-              }}
-            />
-            {t('Filter "pi.hole"')}
-          </Col>
         </Row>
         <Row>
           <Col>
             <pre id="output" style={outputStyle}>
-              {this.state.log.map(item => (
-                <div key={uniqueKey++}>
-                  {this.filterEnabled
-                    ? item.message.includes("pi.hole")
-                      ? ""
-                      : getTimeFromTimestamp(item.timestamp) +
-                        " " +
-                        item.message
-                    : getTimeFromTimestamp(item.timestamp) + " " + item.message}
+              {this.state.log.map((item, index) => (
+                <div key={index}>
+                  {getTimeFromTimestamp(item.timestamp) + " " + item.message}
                 </div>
               ))}
             </pre>
@@ -143,7 +121,7 @@ export default (props: any) => (
     }}
     repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
-    renderOk={data => <TranslatedLiveLog {...data} {...props} />}
+    renderOk={data => <TranslatedLiveLog log={data.log} {...props} />}
     renderErr={() => null}
   />
 );
