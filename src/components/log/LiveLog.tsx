@@ -59,6 +59,11 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
     });
   }
 
+  checkBoxChange() {
+    this.scrollEnabled = !this.scrollEnabled;
+    this.scrollToBottom();
+  }
+
   render() {
     const outputStyle = {
       width: "100%",
@@ -74,9 +79,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
             <Input
               type="checkbox"
               checked={this.scrollEnabled}
-              onChange={() => {
-                return (this.scrollEnabled = !this.scrollEnabled);
-              }}
+              onChange={() => this.checkBoxChange()}
             />
             {t("Automatic scrolling on update")}
           </Col>
@@ -97,9 +100,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
             <Input
               type="checkbox"
               checked={this.scrollEnabled}
-              onChange={() => {
-                return (this.scrollEnabled = !this.scrollEnabled);
-              }}
+              onChange={() => this.checkBoxChange()}
             />
             {t("Automatic scrolling on update")}
           </Col>
