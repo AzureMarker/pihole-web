@@ -7,10 +7,11 @@
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
+import i18n from "i18next";
 
 export function getTimeFromTimestamp(input: number) {
   const date = new Date(input * 1000);
-  var language = window.navigator.language;
+
   const options = {
     month: "short",
     day: "numeric",
@@ -20,7 +21,7 @@ export function getTimeFromTimestamp(input: number) {
     second: "2-digit"
   };
 
-  const formattedString = date.toLocaleTimeString(language, options);
+  const formattedString = date.toLocaleTimeString(i18n.language, options);
 
   return formattedString;
 }
