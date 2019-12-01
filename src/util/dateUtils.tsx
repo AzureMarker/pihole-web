@@ -10,12 +10,17 @@
 
 export function getTimeFromTimestamp(input: number) {
   const date = new Date(input * 1000);
-  const hours = date.getHours();
-  const minutes = "0" + date.getMinutes();
-  const seconds = "0" + date.getSeconds();
-  // Will display time in 10:30:23 format
-  const formattedTime =
-    hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  var language = window.navigator.language;
+  const options = {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    hourCycle: "h24",
+    minute: "2-digit",
+    second: "2-digit"
+  };
 
-  return formattedTime;
+  const formattedString = date.toLocaleTimeString(language, options);
+
+  return formattedString;
 }

@@ -89,7 +89,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
             <pre id="output" style={outputStyle}>
               {this.state.log.map((item, index) => (
                 <div key={index}>
-                  {getTimeFromTimestamp(item.timestamp) + " " + item.message}
+                  {getTimeFromTimestamp(item.timestamp) + " : " + item.message}
                 </div>
               ))}
             </pre>
