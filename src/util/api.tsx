@@ -161,19 +161,19 @@ export class ApiClient {
     return this.http.get("stats/history?" + paramsToString(params));
   };
 
-  getExactWhitelist = (): Promise<Array<string>> => {
+  getExactWhitelist = (): Promise<Array<ApiDomainListItem>> => {
     return this.http.get("dns/whitelist/exact");
   };
 
-  getExactBlacklist = (): Promise<Array<string>> => {
+  getExactBlacklist = (): Promise<Array<ApiDomainListItem>> => {
     return this.http.get("dns/blacklist/exact");
   };
 
-  getRegexWhitelist = (): Promise<Array<string>> => {
+  getRegexWhitelist = (): Promise<Array<ApiDomainListItem>> => {
     return this.http.get("dns/whitelist/regex");
   };
 
-  getRegexBlacklist = (): Promise<Array<string>> => {
+  getRegexBlacklist = (): Promise<Array<ApiDomainListItem>> => {
     return this.http.get("dns/blacklist/regex");
   };
 

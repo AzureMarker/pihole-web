@@ -202,3 +202,11 @@ interface ApiClientData {
   ip: string;
   count: number;
 }
+
+interface ApiDomainListItem {
+  domain: string;
+  date_added: number;
+  date_modified: number;
+  comment: string;
+  enabled: boolean;
+}
