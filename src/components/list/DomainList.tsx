@@ -15,7 +15,7 @@ import { Button } from "reactstrap";
 import Alert from "../common/Alert";
 
 export interface DomainListProps extends WithTranslation {
-  domains: string[];
+  domains: Array<ApiDomainListItem>;
   onRemove: (domain: string) => void;
 }
 
@@ -34,9 +34,9 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
   );
 
   // Map a domain string to a list item
-  const mapDomainsToListItems = (domain: string) => (
-    <li key={domain} className="list-group-item">
-      {api.loggedIn ? removeButton(domain) : null}
+  const mapDomainsToListItems = (domain: ApiDomainListItem) => (
+    <li key={domain.domain} className="list-group-item">
+      {api.loggedIn ? removeButton(domain.domain) : null}
       <span className="d-table-cell align-middle" style={{ height: "32px" }}>
         {domain}
       </span>

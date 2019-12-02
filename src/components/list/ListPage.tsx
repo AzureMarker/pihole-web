@@ -31,7 +31,7 @@ export interface ListPageProps {
 }
 
 export interface ListPageState {
-  domains: string[];
+  domains: Array<ApiDomainListItem>;
   message: string;
   messageType: AlertType;
 }
@@ -56,7 +56,8 @@ export class ListPage extends Component<
 
   onEnter = (domain: string) => {
     // Check if the domain was already added
-    if (this.state.domains.includes(domain)) {
+    const domainStrings = this.state.domains.map(domain => domain.domain);
+    if (domainStrings.includes(domain)) {
       this.onAlreadyAdded(domain);
     } else {
       // Store the domains before adding the new domain, for a possible rollback
@@ -66,7 +67,8 @@ export class ListPage extends Component<
       this.addHandler = makeCancelable(this.props.onAdd(domain));
       this.addHandler.promise
         .then(() => {
-          this.onAdded(domain);
+          const item = {domain: domain, date_added: 0, date_modified: 0, enabled: false, comment: ""};
+          this.onAdded(item);
         })
         .catch(ignoreCancel)
         .catch(() => {
@@ -90,14 +92,14 @@ export class ListPage extends Component<
       messageType: "danger"
     });
 
-  onAdded = (domain: string) =>
+  onAdded = (domain: ApiDomainListItem) =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
-      message: this.props.t("Successfully added {{domain}}", { domain }),
+      message: this.props.t("Successfully added {{domain}}", { domain}),
       messageType: "success"
     }));
 
-  onAddFailed = (domain: string, prevDomains: string[]) =>
+  onAddFailed = (domain: string, prevDomains: Array<ApiDomainListItem>) =>
     this.setState({
       domains: prevDomains,
       message: this.props.t("Failed to add {{domain}}", { domain }),
@@ -106,10 +108,10 @@ export class ListPage extends Component<
 
   onRemoved = (domain: string) =>
     this.setState(prevState => ({
-      domains: prevState.domains.filter(item => item !== domain)
+      domains: prevState.domains.filter(item => item.domain !== domain)
     }));
 
-  onRemoveFailed = (domain: string, prevDomains: string[]) =>
+  onRemoveFailed = (domain: string, prevDomains: Array<ApiDomainListItem>) =>
     this.setState({
       domains: prevDomains,
       message: this.props.t("Failed to remove {{domain}}", { domain }),
@@ -117,7 +119,8 @@ export class ListPage extends Component<
     });
 
   onRemove = (domain: string) => {
-    if (this.state.domains.includes(domain)) {
+    const domainStrings = this.state.domains.map(domain => domain.domain);
+    if (domainStrings.includes(domain)) {
       const prevDomains = this.state.domains.slice();
 
       this.removeHandler = makeCancelable(this.props.onRemove(domain));
