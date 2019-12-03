@@ -31,11 +31,13 @@ interface LiveLogState {
 }
 
 let nextId = 0;
+let newdata = false;
 class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   static getDerivedStateFromProps(
     state: LiveLogState,
     props: LiveLogProps
   ): LiveLogState {
+    newdata = state.log.length > 0;
     return {
       log: [...props.log, ...state.log]
     };
@@ -45,7 +47,8 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   scrollEnabled: boolean = true;
 
   componentDidUpdate() {
-    if (this.scrollEnabled) {
+    if (this.scrollEnabled && newdata) {
+      newdata = false;
       this.scrollToBottom();
     }
   }
