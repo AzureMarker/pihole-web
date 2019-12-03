@@ -77,6 +77,10 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
     }
   }
 
+  componentDidMount() {
+    nextId = 0;
+  }
+
   scrollToBottom() {
     animateScroll.scrollToBottom({
       containerId: "output",
