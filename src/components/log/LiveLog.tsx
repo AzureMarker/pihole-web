@@ -30,6 +30,30 @@ interface LiveLogState {
   }>;
 }
 
+const refreshingInverval = 500;
+class BlinkingCursor extends Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = { showText: true };
+
+    // Change the state every second
+    setInterval(
+      () => {
+        this.setState((previousState: any) => {
+          return { showText: !previousState.showText };
+        });
+      },
+      // Define blinking time.
+      refreshingInverval
+    );
+  }
+
+  render() {
+    let display = this.state.showText ? "_" : " ";
+    return <div style={{ marginBottom: 10 }}>{display}</div>;
+  }
+}
+
 let nextId = 0;
 let newdata = false;
 class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
@@ -95,6 +119,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
                   {getTimeFromTimestamp(item.timestamp) + " : " + item.message}
                 </div>
               ))}
+              <BlinkingCursor />
             </pre>
           </Col>
         </Row>
@@ -123,7 +148,7 @@ export default (props: any) => (
         return response;
       });
     }}
-    repeatOptions={{ interval: 500, ignoreCancel: true }}
+    repeatOptions={{ interval: refreshingInverval, ignoreCancel: true }}
     renderInitial={() => null}
     renderOk={data => <TranslatedLiveLog log={data.log} {...props} />}
     renderErr={() => null}
