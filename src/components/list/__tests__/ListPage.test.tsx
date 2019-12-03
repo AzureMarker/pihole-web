@@ -94,8 +94,17 @@ it("hides the alert if closed", () => {
 });
 
 it("cancels requests when un-mounting", async () => {
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
-    onRefresh: () => Promise.resolve(["domain"])
+    onRefresh: () => Promise.resolve(domains)
   });
 
   // Load the domains into state
@@ -137,7 +146,29 @@ it("shows a validation message as an error", () => {
 });
 
 it("loads domains after mounting", async () => {
-  const domains = ["domain1", "domain2.com", "domain3.net"];
+  const domains = [
+    {
+      domain: "domain1",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    },
+    {
+      domain: "domain2.com",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    },
+    {
+      domain: "domain3.net",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onRefresh: () => Promise.resolve(domains)
   });
@@ -148,7 +179,29 @@ it("loads domains after mounting", async () => {
 });
 
 it("checks if the domain was already added", async () => {
-  const domains = ["domain1", "domain2.com", "domain3.net"];
+  const domains = [
+    {
+      domain: "domain1",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    },
+    {
+      domain: "domain2.com",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    },
+    {
+      domain: "domain3.net",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onRefresh: () => Promise.resolve(domains)
   });
@@ -157,42 +210,66 @@ it("checks if the domain was already added", async () => {
   // Setup with domains (wait for promise to resolve)
   await tick();
 
-  wrapper.instance().onEnter(domains[0]);
+  wrapper.instance().onEnter(domains[0].domain);
 
-  expect(onAlreadyAdded).toHaveBeenCalledWith(domains[0]);
+  expect(onAlreadyAdded).toHaveBeenCalledWith(domains[0].domain);
 });
 
 it("calls the add prop when adding a domain", () => {
-  const domain = "domain";
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const onAdd = jest.fn(ignoreAPI);
   const wrapper = renderListPage({ onAdd });
 
-  wrapper.instance().onEnter(domain);
+  wrapper.instance().onEnter(domains[0].domain);
 
-  expect(onAdd).toHaveBeenCalledWith(domain);
+  expect(onAdd).toHaveBeenCalledWith(domains[0].domain);
 });
 
 it("calls onAdding when adding a domain", () => {
-  const domain = "domain";
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage();
   const onAdding = jest.spyOn(wrapper.instance(), "onAdding");
 
-  wrapper.instance().onEnter(domain);
+  wrapper.instance().onEnter(domains[0].domain);
 
-  expect(onAdding).toHaveBeenCalledWith(domain);
+  expect(onAdding).toHaveBeenCalledWith(domains[0].domain);
 });
 
 it("calls onAdded after API request succeeds", async () => {
-  const domain = "domain";
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onAdd: () => Promise.resolve()
   });
   const onAdded = jest.spyOn(wrapper.instance(), "onAdded");
 
-  wrapper.instance().onEnter(domain);
+  wrapper.instance().onEnter(domains[0].domain);
   await tick();
 
-  expect(onAdded).toHaveBeenCalledWith(domain);
+  expect(onAdded).toHaveBeenCalledWith(domains[0]);
 });
 
 it("calls onAddFailed after API request fails", async () => {
@@ -209,15 +286,23 @@ it("calls onAddFailed after API request fails", async () => {
 });
 
 it("adds the domain in onAdded", async () => {
-  const domain = "domain";
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onAdd: () => Promise.resolve()
   });
 
-  wrapper.instance().onEnter(domain);
+  wrapper.instance().onEnter(domains[0].domain);
   await tick();
 
-  expect(wrapper.state().domains).toEqual([domain]);
+  expect(wrapper.state().domains).toEqual(domains);
 });
 
 it("resets the domains when adding failed", async () => {
@@ -234,7 +319,15 @@ it("resets the domains when adding failed", async () => {
 
 it("does not remove the domain if it is not present", async () => {
   const domain = "domain1";
-  const domains = ["domain2"];
+  const domains = [
+    {
+      domain: "domain2",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onRefresh: () => Promise.resolve(domains)
   });
@@ -246,30 +339,50 @@ it("does not remove the domain if it is not present", async () => {
 });
 
 it("removes the domain from state when onRemove is called", async () => {
-  const domain = "domain";
-  const domain2 = "domain2";
-  const domains = [domain, domain2];
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    },
+    {
+      domain: "domain2",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onRefresh: () => Promise.resolve(domains),
     onRemove: () => Promise.resolve()
   });
 
   await tick();
-  wrapper.instance().onRemove(domain);
+  wrapper.instance().onRemove(domains[0].domain);
 
-  expect(wrapper.state().domains).toEqual([domain2]);
+  expect(wrapper.state().domains).toEqual([domains[1]]);
 });
 
 it("resets the domains when removal failed", async () => {
-  const domain = "domain";
-  const domains = [domain];
+  const domains = [
+    {
+      domain: "domain",
+      enabled: false,
+      date_added: 0,
+      date_modified: 0,
+      comment: ""
+    }
+  ];
   const wrapper = renderListPage({
     onRefresh: () => Promise.resolve(domains),
     onRemove: () => Promise.reject()
   });
 
   await tick();
-  wrapper.instance().onRemove(domain);
+  wrapper.instance().onRemove(domains[0].domain);
   await tick();
 
   expect(wrapper.state().domains).toEqual(domains);
