@@ -67,7 +67,13 @@ export class ListPage extends Component<
       this.addHandler = makeCancelable(this.props.onAdd(domain));
       this.addHandler.promise
         .then(() => {
-          const item = {domain: domain, date_added: 0, date_modified: 0, enabled: false, comment: ""};
+          const item = {
+            domain: domain,
+            date_added: 0,
+            date_modified: 0,
+            enabled: false,
+            comment: ""
+          };
           this.onAdded(item);
         })
         .catch(ignoreCancel)
@@ -95,7 +101,7 @@ export class ListPage extends Component<
   onAdded = (domain: ApiDomainListItem) =>
     this.setState(prevState => ({
       domains: [...prevState.domains, domain],
-      message: this.props.t("Successfully added {{domain}}", { domain}),
+      message: this.props.t("Successfully added {{domain}}", { domain }),
       messageType: "success"
     }));
 
