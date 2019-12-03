@@ -63,7 +63,7 @@
     "react-i18next": "^10.12.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
-    "react-table": "^6.10.0",
+    "react-table": "^6.11.2",
     "reactstrap": "^8.0.1",
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
