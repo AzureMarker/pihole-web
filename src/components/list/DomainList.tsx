@@ -38,7 +38,7 @@ const DomainList = ({ domains, onRemove, t }: DomainListProps) => {
     <li key={domain.domain} className="list-group-item">
       {api.loggedIn ? removeButton(domain.domain) : null}
       <span className="d-table-cell align-middle" style={{ height: "32px" }}>
-        {domain}
+        {domain.domain}
       </span>
     </li>
   );
