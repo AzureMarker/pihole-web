@@ -13,7 +13,7 @@ import { getTimeFromTimestamp } from "../dateUtils";
 const timestamp = 1574713854;
 
 describe("humanTimestamp", () => {
-  it("returns the time Nov 25, 20:30:54 from the input 1574713854", () => {
+  it("returns the time \"Nov 25, 20:30:54\" from the input 1574713854", () => {
     expect(getTimeFromTimestamp(timestamp)).toEqual("Nov 25, 20:30:54");
   });
 });

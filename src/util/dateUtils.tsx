@@ -7,7 +7,6 @@
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
-import i18n from "i18next";
 
 export function getTimeFromTimestamp(input: number) {
   const date = new Date(input * 1000);
@@ -21,7 +20,7 @@ export function getTimeFromTimestamp(input: number) {
     second: "2-digit"
   };
 
-  const formattedString = date.toLocaleTimeString(i18n.language, options);
+  const formattedString = date.toLocaleTimeString("en-US", options);
 
   return formattedString;
 }
