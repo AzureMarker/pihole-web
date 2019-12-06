@@ -96,7 +96,7 @@ class CacheInfo extends Component<WithTranslation, CacheInfoState> {
               plaintext
               readOnly
               id="cache_inserted"
-              value={this.state.cache_inserted}
+              value={this.state.cache_inserted.toLocaleString()}
             />
           </Col>
         </FormGroup>
