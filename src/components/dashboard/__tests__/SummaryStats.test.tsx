@@ -20,6 +20,7 @@ const tick = global.tick;
 
 const fakeData: ApiSummary = {
   active_clients: 2,
+  sum_queries: 22813,
   blocked_queries: 2281,
   cached_queries: 3573,
   forwarded_queries: 19154,
