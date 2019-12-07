@@ -1,15 +1,3 @@
-@include media-breakpoint-down(xs) {
-  .hidden-xs-down {
-    display: none;
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .hidden-sm-up {
-    display: none;
-  }
-}
-
 @media (max-width: 992px) and (min-width: 576px) {
   .sidebar-show.sidebar-fixed.sidebar-minimized .main,
   .sidebar-show.sidebar-fixed.sidebar-minimized .app-footer {
@@ -26,29 +14,15 @@
   text-overflow: clip;
 }
 
-.full-width {
-  width: 100%;
-}
-
 .has-error {
   color: #f86c6b;
 }
 
-#loginform div.row {
-  margin: 0;
-}
-
 #loginform .btn.disabled {
   /* because the forgot password button becomes a title on failed login */
-  color: #fff;
+  color: $white;
   opacity: 1;
   cursor: auto;
-}
-
-.login-box-msg {
-  margin: 0;
-  text-align: center;
-  padding: 0 20px 20px;
 }
 
 .stat-height-lock {
@@ -67,12 +41,10 @@
   opacity: 1;
   position: absolute;
   background-color: rgba(0, 0, 0, .7);
-  color: #fff;
+  color: $white;
   border-radius: 3px;
-  -webkit-transition: all .1s ease;
   transition: all .1s ease;
   pointer-events: none;
-  -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
 }
 
@@ -150,14 +122,14 @@
 
 .boxcontainer .app-header {
   max-width: 1250px;
-  border-bottom-color: #3c8dbc;
+  border-bottom-color: $navbar-bg;
 }
 
 .card-icon {
   position: absolute;
   right: 5%;
   top: 10%;
-  color: #000;
+  color: $black;
   opacity: .15;
   font-size: 3em;
 }
@@ -194,7 +166,7 @@
 
 pre {
   color: #a9a9a9;
-  background-color: #000;
+  background-color: $black;
   padding: 10px;
   margin: 10px 0;
 }

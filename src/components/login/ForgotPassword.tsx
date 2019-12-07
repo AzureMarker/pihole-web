@@ -43,7 +43,7 @@ class ForgotPassword extends Component<
     const { t } = this.props;
 
     return (
-      <div className="full-width">
+      <div className="w-100">
         <div
           className={
             "card mb-0 " + (this.props.error ? "border-danger" : "border-white")
