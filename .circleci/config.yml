@@ -21,7 +21,7 @@ version: 2
 jobs:
   build:
     docker:
-    - image: pihole/web-build:latest
+    - image: pihole/web-build:12
     steps:
     - checkout
     - restore_cache:
@@ -64,7 +64,7 @@ jobs:
     environment:
       PUBLIC_URL: /
     docker:
-    - image: node:8
+    - image: node:12
     steps:
     - checkout
     - *install_packages
