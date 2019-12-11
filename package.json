@@ -86,8 +86,8 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"src/**/*.tsx\"",
-    "check-format": "prettier --list-different \"src/**/*.tsx\""
+    "format": "prettier --write \"**/*.{js,tsx}\"",
+    "check-format": "prettier --list-different \"**/*.{js,tsx}\""
   },
   "browserslist": [
     "defaults",
