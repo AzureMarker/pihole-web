@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import { call, put, takeEvery, select } from "redux-saga/effects";
-import { PayloadAction } from "redux-starter-kit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import api from "../../util/api";
 import { preferencesRequest, preferencesSuccess } from "../actions";
 import config from "../../config";
