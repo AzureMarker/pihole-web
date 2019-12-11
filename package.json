@@ -90,9 +90,11 @@
     "check-format": "prettier --list-different \"src/**/*.tsx\""
   },
   "browserslist": [
+    "defaults",
     ">0.2%",
     "not dead",
-    "not ie <= 11",
+    "Explorer 11",
+    "not ExplorerMobile <= 11",
     "not op_mini all"
   ]
 }
