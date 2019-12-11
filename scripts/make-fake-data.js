@@ -87,6 +87,7 @@ function summary() {
 
   return {
     gravity_size: faker.random.number(),
+    sum_queries: total,
     total_queries: {
       A: queryTypeTotals[0],
       AAAA: queryTypeTotals[1],
