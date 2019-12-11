@@ -96,9 +96,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
  * @returns {*} the transformed props
  */
 export const transformData = (data: ApiSummary): SummaryStatsProps => ({
-  totalQueries: Object.keys(data.total_queries)
-    .reduce((total, queryType) => total + data.total_queries[queryType], 0)
-    .toLocaleString(),
+  totalQueries: data.sum_queries.toLocaleString(),
   blockedQueries: data.blocked_queries.toLocaleString(),
   percentBlocked: data.percent_blocked.toFixed(2).toLocaleString() + "%",
   gravityDomains: data.gravity_size.toLocaleString(),
