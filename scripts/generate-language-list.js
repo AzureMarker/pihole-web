@@ -15,9 +15,9 @@ const ISO6391 = require("iso-639-1");
 const languages = fs.readdirSync("public/i18n");
 const languageMap = languages.map(lang => {
   return {
-    "code": lang,
-    "name": ISO6391.getName(lang)
-  }
+    code: lang,
+    name: ISO6391.getName(lang)
+  };
 });
 
 // Save the language list so the web interface knows what's available
