@@ -17,7 +17,7 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 ## Getting Started (Development)
 
 - Install Node + NPM (usually installed together): https://nodejs.org/
-    - Install at least 8.x.x
+    - Install at least 10.x.x
     - You should either install it via your package manager or one of the curl | bash scripts they provide:
       https://nodejs.org/en/download/package-manager/
 - You should also install your distro's build tools just in case
