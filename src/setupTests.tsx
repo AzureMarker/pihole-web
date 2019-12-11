@@ -15,14 +15,14 @@ import "jest-enzyme";
 import api from "./util/api";
 import fetchMock from "fetch-mock";
 import "jest-localstorage-mock";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import config from "./config";
 
 // Setup enzyme
 configure({ adapter: new Adapter() });
 
 // A fake translation function which returns its input as the output
-global.t = ((key: string) => key) as i18next.TFunction;
+global.t = ((key: string) => key) as TFunction;
 
 // Mock out react-i18next
 jest.mock("react-i18next", () => ({

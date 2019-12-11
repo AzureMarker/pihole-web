@@ -11,7 +11,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Col, FormGroup, Input, Label } from "reactstrap";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 
 export interface DnsOptionsObject {
   fqdnRequired: boolean;
@@ -23,7 +23,7 @@ export interface DnsOptionsObject {
 export interface DnsOptionSettingsProps {
   settings: DnsOptionsObject;
   onUpdate: (settings: DnsOptionsObject) => void;
-  t: i18next.TFunction;
+  t: TFunction;
 }
 
 const DnsOptionSettings = ({

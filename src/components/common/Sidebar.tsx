@@ -23,7 +23,7 @@ import {
   RouteGroup,
   RouteItem
 } from "../../routes";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 
 /**
  * A nav item constructed from the given {@link RouteItem}
@@ -37,7 +37,7 @@ export const PiholeNavItem = ({
   t
 }: {
   item: RouteItem;
-  t: i18next.TFunction;
+  t: TFunction;
 }): ReactElement => (
   <NavItem>
     <NavLink
@@ -66,7 +66,7 @@ export const PiholeNavDropdown = ({
   location
 }: {
   item: RouteGroup;
-  t: i18next.TFunction;
+  t: TFunction;
   location: Location;
 }): ReactElement => (
   <NavDropdown
@@ -92,7 +92,7 @@ export const NavList = ({
   location
 }: {
   items: Array<RouteData>;
-  t: i18next.TFunction;
+  t: TFunction;
   location: Location;
 }): ReactElement => (
   <Fragment>
