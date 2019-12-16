@@ -14,7 +14,7 @@ import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-bootstrap-typeahead/css/Typeahead.css";
-import "./scss/style.css";
+import "./scss/style.scss";
 import Full from "./containers/Full";
 import api from "./util/api";
 import { setupI18n } from "./util/i18n";
