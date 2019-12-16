@@ -77,6 +77,7 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "codecov": "codecov",
+    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx .",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.{js,tsx}\"",
     "check-format": "prettier --list-different \"**/*.{js,tsx}\""
@@ -92,5 +93,16 @@
   "prettier": {
     "arrowParens": "avoid",
     "trailingComma": "none"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "react-app",
+      "plugin:react/recommended"
+    ],
+    "rules": {
+      "react/display-name": "off"
+    }
   }
 }
