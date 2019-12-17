@@ -384,6 +384,14 @@ function getPreferences() {
   };
 }
 
+function cacheinfo() {
+  return {
+    cache_size: faker.random.number(),
+    cache_evicted: faker.random.number(),
+    cache_inserted: faker.random.number()
+  };
+}
+
 function getDnsmasqLog() {
   return {
     log: [
@@ -408,6 +416,7 @@ write("public/fakeAPI/dns/whitelist", list());
 write("public/fakeAPI/dns/blacklist", list());
 write("public/fakeAPI/dns/regexlist", list());
 write("public/fakeAPI/dns/status", status());
+write("public/fakeAPI/dns/cacheinfo", cacheinfo());
 write("public/fakeAPI/settings/dhcp", getDHCPInfo());
 write("public/fakeAPI/settings/dns", getDNSInfo());
 write("public/fakeAPI/settings/network", getNetworkInfo());

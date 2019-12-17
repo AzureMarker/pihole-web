@@ -76,6 +76,12 @@ interface ApiFtlDbResponse {
   sqlite_version: string;
 }
 
+interface ApiCacheResponse {
+  cache_size: number;
+  cache_evicted: number;
+  cache_inserted: number;
+}
+
 interface ApiSuccessResponse {
   status: "success";
 }
