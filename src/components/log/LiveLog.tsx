@@ -15,12 +15,14 @@ import { getTimeFromTimestamp } from "../../util/dateUtils";
 import api from "../../util/api";
 import { Input, Container, Row, Col } from "reactstrap";
 import { WithTranslation, withTranslation } from "react-i18next";
+import { BlinkingCursor } from "./BlinkingCursor";
 
 export interface LiveLogProps {
   log: Array<{
     timestamp: number;
     message: string;
   }>;
+  refreshInterval: number;
 }
 
 interface LiveLogState {
@@ -28,51 +30,28 @@ interface LiveLogState {
     timestamp: number;
     message: string;
   }>;
-}
-
-const refreshingInverval = 500;
-class BlinkingCursor extends Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = { showText: true };
-
-    // Change the state every second
-    setInterval(
-      () => {
-        this.setState((previousState: any) => {
-          return { showText: !previousState.showText };
-        });
-      },
-      // Define blinking time.
-      refreshingInverval
-    );
-  }
-
-  render() {
-    let display = this.state.showText ? "_" : " ";
-    return <div style={{ marginBottom: 10 }}>{display}</div>;
-  }
+  scrollEnabled: boolean;
 }
 
 let nextId = 0;
-let newdata = false;
 class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   static getDerivedStateFromProps(
-    state: LiveLogState,
-    props: LiveLogProps
+    props: LiveLogProps,
+    state: LiveLogState
   ): LiveLogState {
-    newdata = state.log.length > 0;
     return {
-      log: [...props.log, ...state.log]
+      ...state,
+      log: [...state.log, ...props.log]
     };
   }
 
-  state: LiveLogState = { log: [] };
-  scrollEnabled: boolean = true;
+  state: LiveLogState = {
+    log: [],
+    scrollEnabled: true
+  };
 
   componentDidUpdate() {
-    if (this.scrollEnabled && newdata) {
-      newdata = false;
+    if (this.state.scrollEnabled && this.props.log.length > 0) {
       this.scrollToBottom();
     }
   }
@@ -90,9 +69,10 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
     });
   }
 
-  checkBoxChange() {
-    this.scrollEnabled = !this.scrollEnabled;
-    this.scrollToBottom();
+  toggleScroll() {
+    this.setState(prevState => ({
+      scrollEnabled: !prevState.scrollEnabled
+    }));
   }
 
   render() {
@@ -109,8 +89,8 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
           <Col>
             <Input
               type="checkbox"
-              checked={this.scrollEnabled}
-              onChange={() => this.checkBoxChange()}
+              checked={this.state.scrollEnabled}
+              onChange={() => this.toggleScroll()}
             />
             {t("Automatic scrolling on update")}
           </Col>
@@ -123,7 +103,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
                   {getTimeFromTimestamp(item.timestamp) + " :: " + item.message}
                 </div>
               ))}
-              <BlinkingCursor />
+              <BlinkingCursor refreshInterval={this.props.refreshInterval} />
             </pre>
           </Col>
         </Row>
@@ -131,8 +111,8 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
           <Col>
             <Input
               type="checkbox"
-              checked={this.scrollEnabled}
-              onChange={() => this.checkBoxChange()}
+              checked={this.state.scrollEnabled}
+              onChange={() => this.toggleScroll()}
             />
             {t("Automatic scrolling on update")}
           </Col>
@@ -144,7 +124,7 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
 
 export const TranslatedLiveLog = withTranslation(["live-log"])(LiveLog);
 
-export default (props: any) => (
+export default () => (
   <WithAPIData
     apiCall={() => {
       return api.getLiveLog(nextId).then(response => {
@@ -152,9 +132,11 @@ export default (props: any) => (
         return response;
       });
     }}
-    repeatOptions={{ interval: refreshingInverval, ignoreCancel: true }}
+    repeatOptions={{ interval: 500, ignoreCancel: true }}
     renderInitial={() => null}
-    renderOk={data => <TranslatedLiveLog log={data.log} {...props} />}
+    renderOk={data => (
+      <TranslatedLiveLog log={data.log} refreshInterval={500} />
+    )}
     renderErr={() => null}
   />
 );
