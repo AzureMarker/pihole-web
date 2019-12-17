@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-export function getTimeFromTimestamp(input: number) {
+export function getTimeFromTimestamp(input: number): string {
   const date = new Date(input * 1000);
 
   const options = {
@@ -20,7 +20,5 @@ export function getTimeFromTimestamp(input: number) {
     second: "2-digit"
   };
 
-  const formattedString = date.toLocaleTimeString("en-US", options);
-
-  return formattedString;
+  return date.toLocaleTimeString("en-US", options);
 }
