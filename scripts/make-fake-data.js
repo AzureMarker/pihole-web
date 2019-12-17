@@ -383,6 +383,18 @@ function getPreferences() {
   }
 }
 
+function getDnsmasqLog() {
+  return {
+    log: [
+      {
+        timestamp: pastDate(),
+        message: faker.random.words()
+      }
+    ],
+    nextID: 0
+  };
+}
+
 console.log("Deleting old fake API data...");
 fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
@@ -419,6 +431,7 @@ write("public/fakeAPI/stats/database/top_blocked", topBlockedDomains(10));
 write("public/fakeAPI/stats/database/top_domains", topDomains(10));
 write("public/fakeAPI/stats/database/top_clients", topClients(10));
 write("public/fakeAPI/stats/database/top_blocked_clients", topBlockedClients(10));
+write("public/fakeAPI/ftl/dnsmasq_log", getDnsmasqLog());
 write("public/fakeAPI/auth", auth());
 write("public/fakeAPI/version", getVersionInfo());
 
