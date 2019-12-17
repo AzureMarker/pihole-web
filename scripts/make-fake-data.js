@@ -408,6 +408,7 @@ console.log("Deleting old fake API data...");
 fs.emptyDirSync("public/fakeAPI/dns");
 fs.emptyDirSync("public/fakeAPI/stats");
 fs.emptyDirSync("public/fakeAPI/settings");
+fs.emptyDirSync("public/fakeAPI/ftl");
 fs.removeSync("public/fakeAPI/auth");
 fs.removeSync("public/fakeAPI/version");
 
