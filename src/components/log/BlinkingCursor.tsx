@@ -26,19 +26,25 @@ export class BlinkingCursor extends Component<
     showText: true
   };
 
-  constructor(props: BlinkingCursorProps) {
-    super(props);
+  private blinkInterval: undefined | NodeJS.Timeout;
 
+  componentDidMount() {
     // Change the state every second
-    setInterval(
+    this.blinkInterval = setInterval(
       () => {
         this.setState(previousState => ({
           showText: !previousState.showText
         }));
       },
       // Define blinking time.
-      props.refreshInterval
+      this.props.refreshInterval
     );
+  }
+
+  componentWillUnmount() {
+    if (this.blinkInterval) {
+      clearInterval(this.blinkInterval);
+    }
   }
 
   render() {
