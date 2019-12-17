@@ -394,5 +394,10 @@ describe("ApiClient", () => {
       await expect(api.updatePreferences(settings)).resolves.toEqual(putData);
       expect(httpClient.put).toHaveBeenCalledWith("settings/web", settings);
     });
+
+    it("should call get dns cache endpoint", async () => {
+      await expect(api.getCacheInfo()).resolves.toEqual(getData);
+      expect(httpClient.get).toHaveBeenCalledWith("dns/cacheinfo");
+    });
   });
 });
