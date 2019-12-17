@@ -33,7 +33,6 @@ interface LiveLogState {
   scrollEnabled: boolean;
 }
 
-let nextId = 0;
 class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
   static getDerivedStateFromProps(
     props: LiveLogProps,
@@ -54,10 +53,6 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
     if (this.state.scrollEnabled && this.props.log.length > 0) {
       this.scrollToBottom();
     }
-  }
-
-  componentDidMount() {
-    nextId = 0;
   }
 
   scrollToBottom() {
@@ -124,19 +119,23 @@ class LiveLog extends Component<LiveLogProps & WithTranslation, LiveLogState> {
 
 export const TranslatedLiveLog = withTranslation(["live-log"])(LiveLog);
 
-export default () => (
-  <WithAPIData
-    apiCall={() => {
-      return api.getLiveLog(nextId).then(response => {
-        nextId = response.nextID;
-        return response;
-      });
-    }}
-    repeatOptions={{ interval: 500, ignoreCancel: true }}
-    renderInitial={() => null}
-    renderOk={data => (
-      <TranslatedLiveLog log={data.log} refreshInterval={500} />
-    )}
-    renderErr={() => null}
-  />
-);
+export default () => {
+  let nextId = 0;
+
+  return (
+    <WithAPIData
+      apiCall={() => {
+        return api.getLiveLog(nextId).then(response => {
+          nextId = response.nextID;
+          return response;
+        });
+      }}
+      repeatOptions={{ interval: 500, ignoreCancel: true }}
+      renderInitial={() => null}
+      renderOk={data => (
+        <TranslatedLiveLog log={data.log} refreshInterval={500} />
+      )}
+      renderErr={() => null}
+    />
+  );
+};
