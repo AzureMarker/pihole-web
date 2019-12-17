@@ -30,7 +30,7 @@ export default (props: any) => (
       <div className="app-body">
         <Sidebar items={nav} {...props} />
         <main className="main" onClick={mobileSidebarHide}>
-          <div className="container-fluid" style={{ marginTop: "1.5rem" }}>
+          <div className="container-fluid mt-4">
             <Suspense fallback={null}>
               <Switch>
                 <Redirect exact from="/" to="/dashboard" />

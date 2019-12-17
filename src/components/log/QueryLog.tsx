@@ -135,8 +135,7 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
             break;
           }
 
-          // Query Types start at 1
-          filters.query_type = parseInt(filter.value) + 1;
+          filters.query_type = parseInt(filter.value);
           break;
         case "domain":
           if (filter.value.length === 0) {
@@ -245,8 +244,8 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
 
     return (
       <ReactTable
-        className="-striped"
-        style={{ background: "white", marginBottom: "24px", lineHeight: 1 }}
+        className="-striped bg-white mb-4"
+        style={{ lineHeight: 1 }}
         columns={columns(t)}
         showPaginationTop={true}
         sortable={false}
@@ -450,7 +449,7 @@ const columns = (t: i18next.TFunction) => [
   {
     Header: t("Type"),
     id: "queryType",
-    accessor: (r: ApiQuery) => queryTypes[r.type - 1],
+    accessor: (r: ApiQuery) => queryTypes[r.type],
     width: 50,
     filterable: true,
     filterMethod: () => true, // Don't filter client side

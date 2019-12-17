@@ -97,18 +97,15 @@ class Login extends Component<LoginProps, LoginState> {
     const { t } = this.props;
 
     return (
-      <div
-        className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3"
-        style={{ float: "none" }}
-      >
+      <div className="mainbox col-md-8 offset-md-2 col-lg-6 offset-lg-3 float-none">
         <div className="card">
           <div className="card-header">
-            <div style={{ textAlign: "center" }}>
+            <div className="text-center">
               <img src={logo} alt="Logo" width="30%" />
             </div>
             <br />
 
-            <div className="card-title text-center" style={{ marginBottom: 0 }}>
+            <div className="card-title text-center mb-0">
               <span className="logo-lg" style={{ fontSize: "25px" }}>
                 Pi-
                 <b>hole</b>
@@ -129,7 +126,7 @@ class Login extends Component<LoginProps, LoginState> {
               ) : null}
               {// If cookies are not enabled (or detected), show a warning
               !this.state.cookiesEnabled ? (
-                <div className="text-center" style={{ color: "#F00" }}>
+                <div className="text-center text-danger">
                   {t("Verify that cookies are allowed for {{host}}", {
                     host: window.location.host
                   })}

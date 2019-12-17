@@ -19,7 +19,7 @@ export interface DnsListItemProps {
 const DnsListItem = ({ address, onRemove }: DnsListItemProps) => (
   <ListGroupItem>
     {address}
-    <Button color="danger" size="sm" className="pull-right" onClick={onRemove}>
+    <Button color="danger" size="sm" className="float-right" onClick={onRemove}>
       <span className="far fa-trash-alt" />
     </Button>
   </ListGroupItem>

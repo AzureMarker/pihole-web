@@ -134,6 +134,7 @@ interface ApiQueryType {
 
 interface ApiSummary {
   gravity_size: number;
+  sum_queries: number;
   total_queries: {
     A: number;
     AAAA: number;
