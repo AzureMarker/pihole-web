@@ -56,8 +56,8 @@ function history(length) {
         client: isHostname
           ? faker.internet.domainWord() + ".local"
           : isIPv4
-            ? faker.internet.ip()
-            : faker.internet.ipv6(),
+          ? faker.internet.ip()
+          : faker.internet.ipv6(),
         dnssec: Math.floor(Math.random() * 5.9),
         reply: Math.floor(Math.random() * 7.9),
         response_time: Math.floor(Math.random() * 100.9)
@@ -381,7 +381,15 @@ function getPreferences() {
   return {
     layout: "boxed",
     language: "en"
-  }
+  };
+}
+
+function cacheinfo() {
+  return {
+    cache_size: faker.random.number(),
+    cache_evicted: faker.random.number(),
+    cache_inserted: faker.random.number()
+  };
 }
 
 console.log("Deleting old fake API data...");
@@ -396,6 +404,7 @@ write("public/fakeAPI/dns/whitelist", list());
 write("public/fakeAPI/dns/blacklist", list());
 write("public/fakeAPI/dns/regexlist", list());
 write("public/fakeAPI/dns/status", status());
+write("public/fakeAPI/dns/cacheinfo", cacheinfo());
 write("public/fakeAPI/settings/dhcp", getDHCPInfo());
 write("public/fakeAPI/settings/dns", getDNSInfo());
 write("public/fakeAPI/settings/network", getNetworkInfo());
@@ -412,14 +421,20 @@ write("public/fakeAPI/stats/top_domains", topDomains(10));
 write("public/fakeAPI/stats/top_clients", topClients(10));
 write("public/fakeAPI/stats/top_blocked_clients", topBlockedClients(10));
 write("public/fakeAPI/stats/database/overTime/history", historyOverTime(144));
-write("public/fakeAPI/stats/database/overTime/clients", clientsOverTime(144, 5));
+write(
+  "public/fakeAPI/stats/database/overTime/clients",
+  clientsOverTime(144, 5)
+);
 write("public/fakeAPI/stats/database/summary", summary());
 write("public/fakeAPI/stats/database/query_types", queryTypes());
 write("public/fakeAPI/stats/database/upstreams", upstreams(3));
 write("public/fakeAPI/stats/database/top_blocked", topBlockedDomains(10));
 write("public/fakeAPI/stats/database/top_domains", topDomains(10));
 write("public/fakeAPI/stats/database/top_clients", topClients(10));
-write("public/fakeAPI/stats/database/top_blocked_clients", topBlockedClients(10));
+write(
+  "public/fakeAPI/stats/database/top_blocked_clients",
+  topBlockedClients(10)
+);
 write("public/fakeAPI/auth", auth());
 write("public/fakeAPI/version", getVersionInfo());
 

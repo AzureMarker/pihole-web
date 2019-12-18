@@ -239,6 +239,10 @@ export class ApiClient {
     return this.http.get("settings/ftldb");
   };
 
+  getCacheInfo = (): Promise<ApiCacheResponse> => {
+    return this.http.get("dns/cacheinfo");
+  };
+
   getDNSInfo = (): Promise<ApiDnsSettings> => {
     return this.http.get("settings/dns");
   };
