@@ -12,7 +12,7 @@ import {
   configureStore,
   createSerializableStateInvariantMiddleware,
   EnhancedStore
-} from "redux-starter-kit";
+} from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers";
 import { ReduxState } from "./state";

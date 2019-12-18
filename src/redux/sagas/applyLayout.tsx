@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { PayloadAction } from "redux-starter-kit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { call } from "redux-saga/effects";
 
 /**

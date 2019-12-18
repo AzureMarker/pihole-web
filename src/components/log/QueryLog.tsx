@@ -15,8 +15,7 @@ import ReactTable, {
   RowInfo,
   RowRenderProps
 } from "react-table";
-import i18n from "i18next";
-import i18next from "i18next";
+import i18n, { TFunction } from "i18next";
 import { WithTranslation, withTranslation } from "react-i18next";
 import debounce from "lodash.debounce";
 import isEqual from "lodash.isequal";
@@ -48,7 +47,7 @@ export interface QueryLogState {
  *
  * @param t The translation function
  */
-const getDefaultRange = (t: i18next.TFunction): TimeRange => {
+const getDefaultRange = (t: TFunction): TimeRange => {
   const translatedDateRanges = dateRanges(t);
   const last24Hours = t("Last 24 Hours");
 
@@ -303,7 +302,7 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
  * Convert a status code to a status message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const status = (t: i18next.TFunction) => [
+const status = (t: TFunction) => [
   t("Unknown"),
   t("Blocked (gravity)"),
   t("Allowed (forwarded)"),
@@ -317,7 +316,7 @@ const status = (t: i18next.TFunction) => [
  * Convert a DNSSEC code to a DNSSEC message. The messages are translated, so
  * you must pass in the translation function before using the message array.
  */
-const dnssec = (t: i18next.TFunction) => [
+const dnssec = (t: TFunction) => [
   "N/A", // Unspecified, which means DNSSEC is off, so nothing should be shown
   t("Secure"),
   t("Insecure"),
@@ -339,7 +338,7 @@ const dnssecColor = [
  * Convert a reply type code to a reply type. The unknown type is translated, so
  * you must pass in the translation function before using the message array.
  */
-const replyTypes = (t: i18next.TFunction) => [
+const replyTypes = (t: TFunction) => [
   t("Unknown"),
   "NODATA",
   "NXDOMAIN",
@@ -366,7 +365,7 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
  */
 const selectionFilter = (
   items: string[],
-  t: i18next.TFunction,
+  t: TFunction,
   extras: Array<{ name: string; value: any }> = []
 ) => {
   return ({
@@ -400,7 +399,7 @@ const selectionFilter = (
  * The columns of the Query Log. Some pieces are translated, so you must pass in
  * the translation function before using the columns.
  */
-const columns = (t: i18next.TFunction) => [
+const columns = (t: TFunction) => [
   {
     Header: t("Time"),
     id: "time",

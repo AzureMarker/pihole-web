@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { PayloadAction } from "redux-starter-kit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { preferencesSuccess } from "../../actions";
 import { testSaga } from "redux-saga-test-plan";
 import { applyLayout } from "../applyLayout";

@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { createReducer, PayloadAction } from "redux-starter-kit";
+import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "../state";
 import { preferencesSuccess } from "../actions";
 

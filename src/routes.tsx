@@ -20,10 +20,10 @@ import Login from "./views/Login";
 import Logout from "./views/Logout";
 import { EnableDisableContainer } from "./components/common/EnableDisable";
 import Preferences from "./views/Preferences";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import { ComponentType } from "react";
 
-export const routes = (t: i18next.TFunction): { [key: string]: string } => ({
+export const routes = (t: TFunction): { [key: string]: string } => ({
   "/dashboard": t("Dashboard"),
   "/query-log": t("Query Log"),
   "/whitelist/exact": `${t("Whitelist")} (${t("Exact")})`,

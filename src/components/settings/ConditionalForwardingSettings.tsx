@@ -10,7 +10,7 @@
 
 import React, { Fragment } from "react";
 import { Col, FormGroup, Input, Label } from "reactstrap";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 
 export interface ConditionalForwardingObject {
   enabled: boolean;
@@ -25,7 +25,7 @@ export interface ConditionalForwardingSettingsProps {
   isRouterIpValid: boolean;
   isCidrValid: boolean;
   isDomainValid: boolean;
-  t: i18next.TFunction;
+  t: TFunction;
 }
 
 const ConditionalForwardingSettings = ({

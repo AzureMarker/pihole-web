@@ -31,8 +31,7 @@ jobs:
     - *install_packages
     - run:
         name: "Check Formatting"
-        command: |
-          npm run check-format
+        command: npm run check-format
     - *test
     - run:
         name: "Build"
@@ -52,9 +51,7 @@ jobs:
           put pihole-web.tar.gz ${DIR}"
     - run:
         name: "Upload Code Coverage"
-        command: |
-          npm install codecov -g
-          codecov
+        command: npm run codecov
     - save_cache:
         key: npm-deps-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "package-lock.json" }}
         paths:

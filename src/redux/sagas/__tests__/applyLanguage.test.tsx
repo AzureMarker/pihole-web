@@ -11,7 +11,7 @@
 import i18n from "i18next";
 import { testSaga } from "redux-saga-test-plan";
 import { applyLanguage } from "../applyLanguage";
-import { PayloadAction } from "redux-starter-kit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { preferencesSuccess } from "../../actions";
 
 describe("applyLanguage", () => {

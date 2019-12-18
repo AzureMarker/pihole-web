@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import { createAction } from "redux-starter-kit";
+import { createAction } from "@reduxjs/toolkit";
 
 export const preferencesRequest = createAction<void>("PREFERENCES_REQUEST");
 export const preferencesSuccess = createAction<ApiPreferences>(

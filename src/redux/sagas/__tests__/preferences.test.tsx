@@ -9,7 +9,7 @@
  * Please see LICENSE file for your rights under this license. */
 
 import { call } from "redux-saga/effects";
-import { PayloadAction } from "redux-starter-kit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { preferencesSuccess } from "../../actions";
 import { cachePreferences, fetchPreferences } from "../preferences";
 import { expectSaga } from "redux-saga-test-plan";

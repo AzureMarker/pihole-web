@@ -12,7 +12,7 @@ import React from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopBlockedDomainsData {
@@ -39,9 +39,7 @@ export const transformData = (
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top blocked
  */
-export const generateRows = (t: i18next.TFunction) => (
-  data: TopBlockedDomainsData
-) => {
+export const generateRows = (t: TFunction) => (data: TopBlockedDomainsData) => {
   return data.topBlocked.map(item => {
     const percentage = (item.count / data.totalBlocked) * 100;
 
