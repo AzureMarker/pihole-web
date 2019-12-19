@@ -43,7 +43,7 @@
   background-color: rgba(0, 0, 0, .7);
   color: $white;
   border-radius: 3px;
-  transition: all .1s ease;
+  transition: opacity .1s ease, transform .1s ease;
   pointer-events: none;
   transform: translate(-50%, 0);
 }
