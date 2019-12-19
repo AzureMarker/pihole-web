@@ -1,3 +1,4 @@
+// TODO: change media queries to use the official breakpoints
 @media (max-width: 992px) and (min-width: 576px) {
   .sidebar-show.sidebar-fixed.sidebar-minimized .main,
   .sidebar-show.sidebar-fixed.sidebar-minimized .app-footer {
@@ -5,8 +6,19 @@
   }
 }
 
+body {
+  // Prevent reactstrap's modal from incorrectly adjusting the padding
+  padding-right: 0 !important;
+}
+
+// this could probably be merged with body or use the `$body-bg` variable
 .app-body {
   background-color: #ecf0f5;
+}
+
+// this could probably be merged with body too
+.background-image {
+  background: url("../img/backgroundLight.png") repeat fixed;
 }
 
 .ReactTable .rt-td.horizontal-scroll {
@@ -80,14 +92,12 @@
   text-decoration: line-through !important;
 }
 
+// maybe drop this and use p-2 or p-3
 .p12 {
   padding: 12px;
 }
 
-.background-image {
-  background: url("../img/backgroundLight.png") repeat fixed;
-}
-
+// is this used?
 .container-toggler {
   position: absolute;
   right: 0;
@@ -96,12 +106,14 @@
   visibility: hidden;
 }
 
+// is this used?
 @media (min-width: 1250px) {
   .container-toggler {
     visibility: visible;
   }
 }
 
+// is this used?
 .container-toggler-button {
   font-size: 1.25rem;
   line-height: 1;
@@ -109,6 +121,7 @@
   border: 1px solid transparent;
 }
 
+// is this used?
 .container-toggler-button:focus,
 .container-toggler-button:hover {
   text-decoration: none;
@@ -134,10 +147,12 @@
   font-size: 3em;
 }
 
+// revisit this
 .app-header .navbar-toggler {
   min-width: initial;
 }
 
+// this seems useless
 .sidebar .nav-item {
   cursor: pointer;
 }
@@ -156,10 +171,12 @@
   margin-top: .2rem;
 }
 
+// this seems unused?
 .nav-item button {
   cursor: pointer;
 }
 
+// replace this with `$btn-font-weight`
 .btn {
   font-weight: 600;
 }
@@ -171,11 +188,7 @@ pre {
   margin: 10px 0;
 }
 
-body {
-  // Prevent reactstrap's modal from incorrectly adjusting the padding
-  padding-right: 0 !important;
-}
-
+// use the responsive utilities here later
 @media (max-width: 992px) {
   // Show the time selector when the one in the header is hidden
   .dashboard-time-selector {
@@ -184,6 +197,7 @@ body {
   }
 }
 
+// use the display classes later
 @media (min-width: 993px) {
   // Hide the time selector when the one in the header is showing
   .dashboard-time-selector {
@@ -191,6 +205,7 @@ body {
   }
 }
 
+// where is this used?
 @media (max-width: 576px) {
   .modal-dialog {
     margin: .5rem auto;
