@@ -22,7 +22,7 @@
     "@types/reactstrap": "^8.2.0",
     "@types/sha.js": "^2.4.0",
     "codecov": "^3.6.1",
-    "enzyme": "^3.10.0",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "faker": "^4.1.0",
     "fetch-mock": "^8.1.0",
