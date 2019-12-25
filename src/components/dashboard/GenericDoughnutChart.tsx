@@ -104,7 +104,7 @@ export class GenericDoughnutChart extends Component<
             <ul className="chart-legend">
               {this.props.labels
                 // Zip label and color together
-                .map((label, i) => [label, this.props.colors[i]])
+                .map((label, i) => [label.split(' ')[0], this.props.colors[i]])
                 // Create the list items
                 .map(([label, color], i) => (
                   <li
@@ -144,6 +144,8 @@ export interface ChartItem {
   name: string;
   ip?: string;
   percent: number;
+  responsetime?: number;
+  uncertainty?: number;
 }
 
 /**
@@ -170,7 +172,13 @@ export const transformData = (apiData: Array<ChartItem>) => {
   let i = 0;
   for (let entry of apiData) {
     data.push(entry.percent);
-    labels.push(entry.name.length !== 0 ? entry.name : entry.ip!);
+    let label = entry.name.length !== 0 ? entry.name : entry.ip!;
+    if(entry.responsetime !== undefined && entry.uncertainty !== undefined)
+    {
+      let rtime = (1e3*entry.responsetime).toFixed(1) + ' \u00B1 ' + (1e3*entry.uncertainty as number).toFixed(1);
+      label += ' (' + rtime + ' ms)';
+    }
+    labels.push(label);
     usedColors.push(
       // If we ran out of colors, make a random one
       i < colors.length

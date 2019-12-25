@@ -25,6 +25,8 @@ const UpstreamsChart = ({
       data.upstreams.map(upstream => ({
         name: upstream.name,
         ip: upstream.ip,
+        responsetime: upstream.responsetime,
+        uncertainty: upstream.uncertainty,
         percent: (upstream.count * 100) / data.total_queries
       }))
     }

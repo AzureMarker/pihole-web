@@ -174,6 +174,8 @@ interface ApiUpstreams {
     name: string;
     ip: string;
     count: number;
+    responsetime: number;
+    uncertainty: number;
   }>;
   forwarded_queries: number;
   total_queries: number;
