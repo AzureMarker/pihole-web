@@ -525,7 +525,7 @@ const columns = (t: TFunction) => [
         return (
           <button
             type="button"
-            className="btn btn-success full-width"
+            className="btn btn-success btn-block"
             onClick={() => api.addExactWhitelist(data.row.domain)}
           >
             {t("Whitelist")}
@@ -539,7 +539,7 @@ const columns = (t: TFunction) => [
         return (
           <button
             type="button"
-            className="btn btn-danger full-width"
+            className="btn btn-danger btn-block"
             onClick={() => api.addExactBlacklist(data.row.domain)}
           >
             {t("Blacklist")}
