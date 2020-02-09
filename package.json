@@ -5,7 +5,7 @@
   "homepage": ".",
   "devDependencies": {
     "@types/chart.js": "^2.9.13",
-    "@types/enzyme": "^3.10.4",
+    "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/fetch-mock": "^7.3.2",
     "@types/jest": "^25.1.2",
