@@ -58,7 +58,7 @@
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.12.0",
     "react-i18next": "^11.3.2",
-    "react-redux": "^7.1.3",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-table": "^6.11.5",
     "reactstrap": "^8.4.1",
