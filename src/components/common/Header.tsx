@@ -9,7 +9,6 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { MouseEvent } from "react";
-import { Link } from "react-router-dom";
 import { TimeRangeSelectorContainer } from "../dashboard/TimeRangeSelector";
 import api from "../../util/api";
 
@@ -32,35 +31,19 @@ export const mobileSidebarHide = () => {
   document.body.classList.remove("sidebar-show");
 };
 
-//const asideToggle = e => {
-//  e.preventDefault();
-//  document.body.classList.toggle('aside-menu-hidden');
-//};
-
 export default () => (
-  <header className="app-header navbar">
+  <header className="c-header c-header-light c-header-fixed">
     <button
-      className="navbar-toggler d-lg-none text-white ml-3"
+      className="c-header-toggler d-lg-none text-dark ml-3"
       onClick={mobileSidebarToggle}
       type="button"
     >
       &#9776;
     </button>
-    <Link to="/dashboard" className="navbar-brand text-center">
-      <span className="text-white" style={{ lineHeight: "40px" }}>
-        <span className="navbar-brand-full">
-          Pi-
-          <b>hole</b>
-        </span>
-        <span className="navbar-brand-minimized">
-          P<b>h</b>
-        </span>
-      </span>
-    </Link>
-    <ul className="nav navbar-nav d-md-down-none mr-auto">
-      <li className="nav-item">
+    <ul className="c-header-nav navbar-nav d-md-down-none mr-auto">
+      <li className="c-header-nav-item">
         <button
-          className="nav-link navbar-toggler text-white sidebar-toggler"
+          className="c-header-nav-link c-header-toggler text-white sidebar-toggler"
           type="button"
           onClick={sidebarMinimize}
         >

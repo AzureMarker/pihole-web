@@ -61,7 +61,7 @@ it("toggle the sidebar on mobile when clicked", () => {
   expect(document.body.classList).not.toContain("sidebar-show");
 
   wrapper
-    .find(".navbar-toggler")
+    .find(".c-header-toggler")
     .first()
     .simulate("click", { preventDefault: () => {} });
 

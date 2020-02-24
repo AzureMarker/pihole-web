@@ -20,15 +20,19 @@ export interface NavDropdownProps {
 }
 
 export default ({ name, icon, isOpen, children }: NavDropdownProps) => (
-  <li className={"nav-item nav-dropdown" + (isOpen ? " open" : "")}>
+  <li
+    className={
+      "c-sidebar-nav-item c-sidebar-nav-dropdown" + (isOpen ? " open" : "")
+    }
+  >
     <button
-      className="nav-link nav-dropdown-toggle"
+      className="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle"
       onClick={handleDropdownClick}
     >
       <i className={"nav-icon " + icon} />
       {name}
     </button>
-    <ul className="nav-dropdown-items">{children}</ul>
+    <ul className="c-sidebar-nav-dropdown-items">{children}</ul>
   </li>
 );
 

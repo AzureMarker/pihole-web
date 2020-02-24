@@ -10,7 +10,7 @@
 
 import React, { Fragment, ReactElement, Suspense } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import logo from "../../img/logo.svg";
 import { mobileSidebarHide } from "./Header";
@@ -43,7 +43,7 @@ export const PiholeNavItem = ({
     <NavLink
       to={item.url}
       onClick={mobileSidebarHide}
-      className="nav-link"
+      className="c-sidebar-nav-link"
       activeClassName="active"
     >
       <i className={"nav-icon " + item.icon} />
@@ -138,10 +138,21 @@ export interface SidebarProps extends WithTranslation {
  * @constructor
  */
 const Sidebar = ({ items, t, location }: SidebarProps): ReactElement => (
-  <div className="sidebar">
-    <nav className="sidebar-nav">
+  <div className="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show">
+    <div className="c-sidebar-brand d-md-down-none">
+      <Link to="/dashboard" className="c-sidebar-brand">
+        <span className="c-header-brand-full">
+          Pi-
+          <b>hole</b>
+        </span>
+        <span className="c-header-brand-minimized">
+          P<b>h</b>
+        </span>
+      </Link>
+    </div>
+    <nav className="c-sidebar-nav ps ps--active-y">
       <Nav>
-        <li className="nav-title" style={{ textTransform: "none" }}>
+        <li className="c-sidebar-nav-title" style={{ textTransform: "none" }}>
           <img
             src={logo}
             className="img-responsive float-left"

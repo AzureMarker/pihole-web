@@ -19,14 +19,14 @@ export interface NavButtonProps {
 }
 
 const NavButton = ({ name, icon, onClick }: NavButtonProps) => (
-  <li className="nav-item">
+  <li className="c-header-nav-item">
     <a
       href="#"
       onClick={e => {
         e.preventDefault();
         onClick(e);
       }}
-      className="nav-link"
+      className="c-header-nav-link"
     >
       <i className={"nav-icon " + icon} />
       {name}

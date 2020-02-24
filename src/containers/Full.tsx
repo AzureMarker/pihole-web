@@ -24,12 +24,12 @@ import {
 import { GlobalContextProvider } from "../components/common/context";
 
 export default (props: any) => (
-  <div className="app">
+  <div className="c-wrapper">
     <GlobalContextProvider>
       <Header />
-      <div className="app-body">
+      <div className="c-body">
         <Sidebar items={nav} {...props} />
-        <main className="main" onClick={mobileSidebarHide}>
+        <main className="c-main" onClick={mobileSidebarHide}>
           <div className="container-fluid mt-4">
             <Suspense fallback={null}>
               <Switch>

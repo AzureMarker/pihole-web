@@ -17,7 +17,7 @@ const Footer = (props: any) => {
   const { t } = props;
 
   return (
-    <footer className="app-footer">
+    <footer className="c-footer">
       <div>
         <i className="fab fa-paypal" />
         <strong>
