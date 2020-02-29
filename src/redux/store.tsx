@@ -36,7 +36,7 @@ middleware.push(sagaMiddleware);
 
 // Add middleware to assert invariants in development
 if (process.env.NODE_ENV !== "production") {
-  middleware.concat([
+  middleware = middleware.concat([
     // Assert that the state is immutable
     require("redux-immutable-state-invariant").default(),
     // Assert that the state is serializable
