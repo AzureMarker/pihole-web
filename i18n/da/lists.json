@@ -1,14 +1,14 @@
 {
-    "Adding {{domain}}...": "Tilføj til",
-    "Successfully added {{domain}}": "Tilføjet til listen",
-    "Failed to add {{domain}}": "Fejl ved tilføjelse",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "",
-    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "",
-    "Add a domain or hostname (example.com or example)": "",
-    "{{domain}} is already added": "",
-    "Failed to remove {{domain}}": "",
-    "There are no domains in this list": "",
-    "Input a regular expression": "",
-    "Not a valid hostname": "",
-    "Not a valid regular expression": ""
+    "Adding {{domain}}...": "Tilføjet {{domain}}...",
+    "Successfully added {{domain}}": "Tilføjet med succes {{domain}}",
+    "Failed to add {{domain}}": "Kunne ikke tilføje {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Bemærk: Hvidliste til et underdomæne til et wildcard-blokeret domæne er ikke muligt.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Bemærk: Kun domænet og underdomænerne på det blokerede domæne blokeres.",
+    "Add a domain or hostname (example.com or example)": "Tilføj et domæne eller værtsnavn (eksempel.com eller eksempel)",
+    "{{domain}} is already added": "{{domain}} er allerede tilføjet",
+    "Failed to remove {{domain}}": "Kunne ikke fjerne {{domain}}",
+    "There are no domains in this list": "Der er ingen domæner på denne liste",
+    "Input a regular expression": "Indtast et regelmæssigt udtryk",
+    "Not a valid hostname": "Ikke et gyldigt værtsnavn",
+    "Not a valid regular expression": "Ikke et gyldigt regulært udtryk"
 }

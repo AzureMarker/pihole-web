@@ -1,0 +1,10 @@
+{
+    "Password": "Senhal",
+    "Sign in to start your session": "Connectatz-vos per començar la session",
+    "Log in": "Connexion",
+    "Forgot Password": "Senhal oblidat",
+    "forgot_password_description": "Aprèp l’installation de Pi-Hole pel primièr còp, un senhal serà generat e mostrat a l’utilizaire. Lo senhal pòt pas èsser recuperat mai tard, mas es possible de ne definir un nòu (o desactivar lo senhal en causir un senhal void) en utilizar la comanda :",
+    "Wrong Password!": "Senhal invalid !",
+    "You will be transferred to the \"{{page}}\" page": "Seretz enviat a la pagina « {{page}} »",
+    "Verify that cookies are allowed for {{host}}": "Verificatz que los cookies son autorizats per {{host}}"
+}

@@ -1,0 +1,18 @@
+{
+    "Blocked": "Blocat",
+    "Allowed (forwarded)": "Autorizat (renviat)",
+    "Allowed (cached)": "Autorizat (en cache)",
+    "Blocked (regex/wildcard)": "Blocar (regex/wildcard)",
+    "Blocked (blacklist)": "Blocat (lista negra)",
+    "Unknown": "Desconegut",
+    "Blocked (external)": "Blocat (extèrn)",
+    "Blocked (gravity)": "Blocat (gravity)",
+    "Unspecified": "Pas especificat",
+    "Secure": "Segur",
+    "Insecure": "Malsegur",
+    "Bogus": "Fals",
+    "Abandoned": "Abandonat",
+    "Reply": "Responsa",
+    "All": "Totes",
+    "Allowed": "Autorizat"
+}
