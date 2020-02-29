@@ -1,0 +1,14 @@
+{
+    "Adding {{domain}}...": "Apondon de {{domain}}...",
+    "Successfully added {{domain}}": "Corrèctament ajustat {{domain}}",
+    "Failed to add {{domain}}": "Apondon impossible de {{domain}}",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "Nòta : lo plaçament en lista blanca d’un jos-domeni d’un domeni blocat en wildcard es pas possible.",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "Nòta : solament lo domeni e los jos-domenis del domeni blocat seràn blocats.",
+    "Add a domain or hostname (example.com or example)": "Ajustar un domeni o un nom d’òst (exemple.com o exemple)",
+    "{{domain}} is already added": "{{domain}} es ja ajustat",
+    "Failed to remove {{domain}}": "Impossible de levar {{domain}}",
+    "There are no domains in this list": "I a pas cap de domeni dins aquesta lista",
+    "Input a regular expression": "Picatz una expression regulara",
+    "Not a valid hostname": "Pas un nom d’òst valid",
+    "Not a valid regular expression": "Pas una expression regulara valida"
+}

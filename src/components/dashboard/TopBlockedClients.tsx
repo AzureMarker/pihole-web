@@ -12,12 +12,12 @@ import React, { ReactNode } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopBlockedClientsData {
   blockedQueries: number;
-  topClients: Array<ApiClient>;
+  topClients: Array<ApiClientData>;
 }
 
 /**
@@ -39,7 +39,7 @@ export const transformData = (
  * @param t The translation function
  * @returns Rows of top blocked clients
  */
-export const generateRows = (t: i18next.TFunction) => (
+export const generateRows = (t: TFunction) => (
   data: TopBlockedClientsData
 ): ReactNode => {
   return data.topClients.map(item => {
@@ -49,7 +49,7 @@ export const generateRows = (t: i18next.TFunction) => (
       <tr key={item.name + "|" + item.ip}>
         <td>{item.name !== "" ? item.name : item.ip}</td>
         <td>{item.count.toLocaleString()}</td>
-        <td style={{ verticalAlign: "middle" }}>
+        <td className="align-middle">
           <div
             className="progress"
             title={t("{{percent}}% of {{total}}", {

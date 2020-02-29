@@ -1,10 +1,10 @@
 {
-    "Password": "",
-    "Sign in to start your session": "",
-    "Log in": "",
-    "Forgot Password": "",
-    "forgot_password_description": "",
-    "Wrong Password!": "",
-    "You will be transferred to the \"{{page}}\" page": "",
-    "Verify that cookies are allowed for {{host}}": ""
+    "Password": "Hasło",
+    "Sign in to start your session": "Zaloguj się, aby rozpocząć sesję",
+    "Log in": "Zaloguj się",
+    "Forgot Password": "Zapomniane hasło",
+    "forgot_password_description": "Po zainstalowaniu Pi-hole, hasło jest generowane i wyświetlane dla użytkownika. Hasło nie może być później odzyskane, ale możliwe jest ustawienie nowego hasła (lub wyraźne wyłączenie hasła poprzez ustawienie pustego hasła) za pomocą polecenia:",
+    "Wrong Password!": "Złe hasło!",
+    "You will be transferred to the \"{{page}}\" page": "Zostaniesz przeniesiony do strony \"{{page}}\"",
+    "Verify that cookies are allowed for {{host}}": "Sprawdź czy pliki cookies są dozwolone dla {{host}}"
 }

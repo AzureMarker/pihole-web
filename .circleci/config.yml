@@ -3,7 +3,7 @@ version: 2
 .install_packages: &install_packages
   run:
     name: "Install Packages"
-    command: npm install
+    command: npm ci
 
 .test: &test
   run:
@@ -21,18 +21,17 @@ version: 2
 jobs:
   build:
     docker:
-    - image: pihole/web-build:latest
+    - image: pihole/web-build:12
     steps:
     - checkout
     - restore_cache:
         keys:
-        - v1-build-{{ checksum "package-lock.json" }}
-        - v1-build-
+          - npm-deps-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "package-lock.json" }}
+          - npm-deps-{{ checksum ".circleci/config.yml" }}-{{ checksum "package-lock.json" }}
     - *install_packages
     - run:
         name: "Check Formatting"
-        command: |
-          npm run check-format
+        command: npm run check-format
     - *test
     - run:
         name: "Build"
@@ -52,19 +51,17 @@ jobs:
           put pihole-web.tar.gz ${DIR}"
     - run:
         name: "Upload Code Coverage"
-        command: |
-          npm install codecov -g
-          codecov
+        command: npm run codecov
     - save_cache:
-        key: v1-build-{{ checksum "package-lock.json" }}
+        key: npm-deps-{{ .Branch }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "package-lock.json" }}
         paths:
-        - node_modules
+          - ~/.npm/
 
   deploy:
     environment:
       PUBLIC_URL: /
     docker:
-    - image: node:8
+    - image: node:12
     steps:
     - checkout
     - *install_packages
@@ -74,7 +71,7 @@ jobs:
         command: |
           rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
           npm run build-fake
-          echo "web.pi-hole.io" > build/CNAME
+          echo "web.pi-hole.net" > build/CNAME
     - *store_version
     - run:
         name: "Deploy"
@@ -87,7 +84,7 @@ jobs:
           git config user.email "36384445+pralor@users.noreply.github.com"
           git config user.name "pralor"
           git add -A
-          git commit -m "Deploy pi-hole/web to web.pi-hole.io"
+          git commit -m "Deploy pi-hole/web to web.pi-hole.net"
           git push --quiet
 
 workflows:

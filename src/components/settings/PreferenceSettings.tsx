@@ -18,13 +18,15 @@ import {
 import api from "../../util/api";
 import Alert, { AlertType } from "../common/Alert";
 import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
-import { PreferencesContext } from "../common/context/PreferencesContext";
 import languages from "../../languages.json";
 import config from "../../config";
+import { ReduxState } from "../../redux/state";
+import { preferencesSuccess } from "../../redux/actions";
+import { connect } from "react-redux";
 
 export interface PreferenceSettingsProps {
   settings: ApiPreferences;
-  refresh: (preferences?: ApiPreferences) => void;
+  onUpdate: (preferences: ApiPreferences) => void;
 }
 
 export interface PreferenceSettingsState {
@@ -116,7 +118,7 @@ class PreferenceSettings extends Component<
         });
 
         // Update anyone using the preferences
-        this.props.refresh(this.state.settings);
+        this.props.onUpdate(this.state.settings);
       })
       .catch(ignoreCancel)
       .catch(error => {
@@ -206,9 +208,9 @@ class PreferenceSettings extends Component<
               value={this.state.settings.language}
               onChange={this.onChange("language", "value")}
             >
-              {languages.map((language: string) => (
-                <option key={language} value={language}>
-                  {language}
+              {languages.map(language => (
+                <option key={language.code} value={language.code}>
+                  {language.name}
                 </option>
               ))}
             </Input>
@@ -229,10 +231,15 @@ const TranslatedPreferenceSettings = withTranslation([
   "preferences"
 ])(PreferenceSettings);
 
-export default () => (
-  <PreferencesContext.Consumer>
-    {({ settings, refresh }) => (
-      <TranslatedPreferenceSettings settings={settings} refresh={refresh} />
-    )}
-  </PreferencesContext.Consumer>
-);
+const mapStateToProps = (state: ReduxState) => ({
+  settings: state.preferences
+});
+
+const mapActionsToProps = {
+  onUpdate: preferencesSuccess
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(TranslatedPreferenceSettings);

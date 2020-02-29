@@ -23,7 +23,7 @@ import {
   RouteGroup,
   RouteItem
 } from "../../routes";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 
 /**
  * A nav item constructed from the given {@link RouteItem}
@@ -37,7 +37,7 @@ export const PiholeNavItem = ({
   t
 }: {
   item: RouteItem;
-  t: i18next.TFunction;
+  t: TFunction;
 }): ReactElement => (
   <NavItem>
     <NavLink
@@ -66,7 +66,7 @@ export const PiholeNavDropdown = ({
   location
 }: {
   item: RouteGroup;
-  t: i18next.TFunction;
+  t: TFunction;
   location: Location;
 }): ReactElement => (
   <NavDropdown
@@ -92,7 +92,7 @@ export const NavList = ({
   location
 }: {
   items: Array<RouteData>;
-  t: i18next.TFunction;
+  t: TFunction;
   location: Location;
 }): ReactElement => (
   <Fragment>
@@ -141,28 +141,24 @@ const Sidebar = ({ items, t, location }: SidebarProps): ReactElement => (
   <div className="sidebar">
     <nav className="sidebar-nav">
       <Nav>
-        <li className="nav-title">
+        <li className="nav-title" style={{ textTransform: "none" }}>
           <img
             src={logo}
-            className="img-responsive pull-left"
+            className="img-responsive float-left"
             style={{ height: "67px" }}
             alt=""
           />
           <p
-            className="pull-left"
+            className="float-left pl-3 text-white mb-0"
             style={{
-              paddingLeft: "15px",
-              textTransform: "initial",
-              fontSize: "14px",
-              marginBottom: "initial",
-              lineHeight: "14px",
-              color: "white"
+              fontSize: "0.875rem",
+              lineHeight: "1"
             }}
           >
             {t("Status")}
           </p>
           <br />
-          <span style={{ textTransform: "initial", paddingLeft: "15px" }}>
+          <span className="pl-3">
             <StatusBadge />
           </span>
         </li>

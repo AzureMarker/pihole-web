@@ -14,7 +14,7 @@ import { Line } from "react-chartjs-2";
 import { WithTranslation, withTranslation } from "react-i18next";
 import moment from "moment";
 import { getIntervalForRange } from "../../util/graphUtils";
-import api from "../../util/api";
+import api, { ApiClient } from "../../util/api";
 import ChartTooltip from "./ChartTooltip";
 import { WithAPIData } from "../common/WithAPIData";
 import { ChartDataSets, ChartOptions, TimeUnit } from "chart.js";
@@ -242,17 +242,23 @@ export const TranslatedClientsGraph = withTranslation([
   "time-ranges"
 ])(ClientsGraph);
 
-export const ClientsGraphContainer = () => (
+export interface ClientsGraphContainerProps {
+  apiClient: ApiClient;
+}
+
+export const ClientsGraphContainer = ({
+  apiClient
+}: ClientsGraphContainerProps) => (
   <TimeRangeContext.Consumer>
     {context => (
       <WithAPIData
         apiCall={() =>
           context.range
-            ? api.getClientsGraphDb(
+            ? apiClient.getClientsGraphDb(
                 context.range,
                 getIntervalForRange(context.range)
               )
-            : api.getClientsGraph()
+            : apiClient.getClientsGraph()
         }
         repeatOptions={
           context.range
@@ -271,3 +277,7 @@ export const ClientsGraphContainer = () => (
     )}
   </TimeRangeContext.Consumer>
 );
+
+ClientsGraphContainer.defaultProps = {
+  apiClient: api
+};

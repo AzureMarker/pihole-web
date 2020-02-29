@@ -38,7 +38,6 @@ interface ApiVersion {
 }
 
 interface ApiVersions {
-  api: ApiVersion;
   core: ApiVersion;
   ftl: ApiVersion;
   web: ApiVersion;
@@ -54,8 +53,9 @@ interface ApiDnsSettings {
   };
   conditional_forwarding: {
     enabled: boolean;
-    router_ip: string;
+    ip: string;
     domain: string;
+    cidr: number;
   };
 }
 
@@ -74,6 +74,12 @@ interface ApiFtlDbResponse {
   filesize: number;
   queries: number;
   sqlite_version: string;
+}
+
+interface ApiCacheResponse {
+  cache_size: number;
+  cache_evicted: number;
+  cache_inserted: number;
 }
 
 interface ApiSuccessResponse {
@@ -134,6 +140,7 @@ interface ApiQueryType {
 
 interface ApiSummary {
   gravity_size: number;
+  sum_queries: number;
   total_queries: {
     A: number;
     AAAA: number;
@@ -188,7 +195,7 @@ interface ApiTopDomains {
 }
 
 interface ApiTopClients {
-  top_clients: Array<ApiClient>;
+  top_clients: Array<ApiClientData>;
   total_queries: number;
 }
 
@@ -197,7 +204,7 @@ interface ApiTopBlockedClients {
   blocked_queries: number;
 }
 
-interface ApiClient {
+interface ApiClientData {
   name: string;
   ip: string;
   count: number;

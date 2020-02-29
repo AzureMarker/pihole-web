@@ -12,12 +12,12 @@ import React from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import api from "../../util/api";
 import TopTable from "./TopTable";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopClientsData {
   totalQueries: number;
-  topClients: Array<ApiClient>;
+  topClients: Array<ApiClientData>;
 }
 
 /**
@@ -37,9 +37,7 @@ export const transformData = (data: ApiTopClients): TopClientsData => ({
  * @param t the translation function
  * @returns {function(*): any[]} a function to generate rows of top clients
  */
-export const generateRows = (t: i18next.TFunction) => (
-  data: TopClientsData
-) => {
+export const generateRows = (t: TFunction) => (data: TopClientsData) => {
   return data.topClients.map(item => {
     const percentage = (item.count / data.totalQueries) * 100;
 
@@ -47,7 +45,7 @@ export const generateRows = (t: i18next.TFunction) => (
       <tr key={item.name + "|" + item.ip}>
         <td>{item.name !== "" ? item.name : item.ip}</td>
         <td>{item.count.toLocaleString()}</td>
-        <td style={{ verticalAlign: "middle" }}>
+        <td className="align-middle">
           <div
             className="progress"
             title={t("{{percent}}% of {{total}}", {

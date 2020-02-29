@@ -27,5 +27,6 @@
     "Successfully saved settings": "",
     "Detected custom upstream server": "",
     "DNS Options": "",
-    "Rapid Commit": ""
+    "Rapid Commit": "",
+    "Prefix length (CIDR)": ""
 }

@@ -43,18 +43,18 @@ class ForgotPassword extends Component<
     const { t } = this.props;
 
     return (
-      <div className="full-width">
+      <div className="w-100">
         <div
           className={
-            "card mb0 " + (this.props.error ? "border-danger" : "border-white")
+            "card mb-0 " + (this.props.error ? "border-danger" : "border-white")
           }
         >
-          <div className={this.props.error ? "bg-danger" : "bg-white pr0"}>
-            <span className={this.props.error ? "pull-left" : "pull-right"}>
+          <div className={this.props.error ? "bg-danger" : "bg-white pr-0"}>
+            <span className={this.props.error ? "float-left" : "float-right"}>
               <button
                 type="button"
                 className={
-                  "pr0 " + (this.props.error ? "btn disabled" : "btn btn-link")
+                  "pr-0 " + (this.props.error ? "btn disabled" : "btn btn-link")
                 }
                 onClick={this.onClick}
               >
@@ -66,7 +66,7 @@ class ForgotPassword extends Component<
             className={
               "card-body bg-white " +
               (this.isExpanded() ? "" : " collapse ") +
-              (this.props.error ? "p12" : "p0")
+              (this.props.error ? "p12" : "p-0")
             }
           >
             {t("forgot_password_description")}

@@ -11,6 +11,7 @@
 import React, { Suspense } from "react";
 import { withTranslation } from "react-i18next";
 import FooterUpdateStatus from "./FooterUpdateStatus";
+import FooterDonateLink from "./FooterDonateLink";
 
 const Footer = (props: any) => {
   const { t } = props;
@@ -20,10 +21,7 @@ const Footer = (props: any) => {
       <div>
         <i className="fab fa-paypal" />
         <strong>
-          <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3J2L3Z4DHW9UY">
-            &nbsp;
-            {t("Donate")}
-          </a>
+          <FooterDonateLink t={t} />
         </strong>{" "}
         {t("if you found this useful")}
       </div>

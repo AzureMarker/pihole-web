@@ -27,5 +27,6 @@
     "Successfully saved settings": "Paramètres enregistrés avec succès",
     "Detected custom upstream server": "Serveur personnalisé personnalisé détecté",
     "DNS Options": "Options de DNS",
-    "Rapid Commit": ""
+    "Rapid Commit": "",
+    "Prefix length (CIDR)": ""
 }

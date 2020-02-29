@@ -27,5 +27,9 @@
     "Successfully saved settings": "Successfully saved settings",
     "Detected custom upstream server": "Detected custom upstream server",
     "DNS Options": "DNS Options",
-    "Rapid Commit": "Rapid Commit"
+    "Rapid Commit": "Rapid Commit",
+    "Prefix length (CIDR)": "Prefix length (CIDR)",
+    "DNS cache size": "DNS cache size",
+    "DNS cache evictions": "DNS cache evictions",
+    "DNS cache insertions": "DNS cache insertions"
 }

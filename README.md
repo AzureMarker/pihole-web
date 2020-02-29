@@ -3,7 +3,7 @@
 View stats and control your Pi-hole via this web interface. For the previous PHP-based web interface,
 see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 
-### Web [Preview](https://web.pi-hole.io)
+### Web [Preview](https://web.pi-hole.net)
 
 ## Changes compared to the AdminLTE interface
 - Eliminates the reliance on server-side rendering scripts
@@ -17,7 +17,7 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 ## Getting Started (Development)
 
 - Install Node + NPM (usually installed together): https://nodejs.org/
-    - Install at least 8.x.x
+    - Install at least 10.x.x
     - You should either install it via your package manager or one of the curl | bash scripts they provide:
       https://nodejs.org/en/download/package-manager/
 - You should also install your distro's build tools just in case
@@ -27,7 +27,7 @@ see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 - Open the folder in the terminal
 - Run `npm install`
     - This will install all the packages listed in `package.json` and will let you build/run the web interface
-- Run `npm start-fake` to make sure that it is working
+- Run `npm run start-fake` to make sure that it is working
     - This will launch the web interface on port 3000 in debug mode
     - If it crashes/has a compile error it will show you the code and the error
     - Changes will be automatically applied and the web interface will reload

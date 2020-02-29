@@ -3,27 +3,27 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Whitelist page
+ * Blacklist page
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
 import React, { FunctionComponent } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
-import ListPage from "../components/list/ListPage";
 import api from "../util/api";
+import ListPage from "../components/list/ListPage";
 import { isValidHostname } from "../util/validate";
 
-const Whitelist: FunctionComponent<WithTranslation> = props => {
+const Blacklist: FunctionComponent<WithTranslation> = props => {
   const { t } = props;
 
   return (
     <ListPage
-      title={t("Whitelist")}
+      title={`${t("Blacklist")} (${t("Exact")})`}
       placeholder={t("Add a domain or hostname (example.com or example)")}
-      onAdd={api.addWhitelist}
-      onRemove={api.removeWhitelist}
-      onRefresh={api.getWhitelist}
+      onAdd={api.addExactBlacklist}
+      onRemove={api.removeExactBlacklist}
+      onRefresh={api.getExactBlacklist}
       isValid={isValidHostname}
       validationErrorMsg={t("Not a valid hostname")}
       {...props}
@@ -31,4 +31,4 @@ const Whitelist: FunctionComponent<WithTranslation> = props => {
   );
 };
 
-export default withTranslation(["location", "lists"])(Whitelist);
+export default withTranslation(["location", "lists"])(Blacklist);

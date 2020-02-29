@@ -13,6 +13,7 @@ import { WithTranslation, withTranslation } from "react-i18next";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
 import DHCPInfo from "../components/settings/DHCPInfo";
 import DNSInfo from "../components/settings/DNSInfo";
+import CacheInfo from "../components/settings/CacheInfo";
 import NetworkInfo from "../components/settings/NetworkInfo";
 import FTLInfo from "../components/settings/FTLInfo";
 
@@ -77,12 +78,14 @@ class Networking extends Component<WithTranslation, NetworkingState> {
           {this.tab("dhcp", t("DHCP"))}
           {this.tab("dns", t("DNS"))}
           {this.tab("ftl", t("FTL"))}
+          {this.tab("cache", t("Cache"))}
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           {this.tabContent("network", <NetworkInfo />)}
           {this.tabContent("dhcp", <DHCPInfo />)}
           {this.tabContent("dns", <DNSInfo />)}
           {this.tabContent("ftl", <FTLInfo />)}
+          {this.tabContent("cache", <CacheInfo />)}
         </TabContent>
       </div>
     );

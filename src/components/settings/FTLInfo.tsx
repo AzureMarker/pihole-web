@@ -12,22 +12,57 @@ import React, { Component } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import { Form, Col, Input, FormGroup, Label } from "reactstrap";
 import api from "../../util/api";
-import { WithAPIData } from "../common/WithAPIData";
+import {
+  CancelablePromise,
+  ignoreCancel,
+  makeCancelable
+} from "../../util/CancelablePromise";
 
-export interface FTLInfoProps {
+export interface FTLInfoState {
   fileSize: number;
   queries: number;
   sqliteVersion: string;
 }
 
-class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
+class FTLInfo extends Component<WithTranslation, FTLInfoState> {
+  state: FTLInfoState = {
+    fileSize: 0,
+    queries: 0,
+    sqliteVersion: ""
+  };
+
+  componentDidMount() {
+    this.loadFTLInfo();
+  }
+
+  componentWillUnmount() {
+    if (this.loadHandler) {
+      this.loadHandler.cancel();
+    }
+  }
+
+  private loadHandler: undefined | CancelablePromise<ApiFtlDbResponse>;
+
+  loadFTLInfo = () => {
+    this.loadHandler = makeCancelable(api.getFTLdb());
+    this.loadHandler.promise
+      .then(res => {
+        this.setState({
+          fileSize: res.filesize,
+          queries: res.queries,
+          sqliteVersion: res.sqlite_version
+        });
+      })
+      .catch(ignoreCancel);
+  };
+
   render() {
     const { t } = this.props;
 
     return (
       <Form>
         <FormGroup row>
-          <Label className="bold" for="queries" sm={4}>
+          <Label className="font-weight-bold" for="queries" sm={4}>
             {t("Queries")}
           </Label>
           <Col sm={8}>
@@ -35,12 +70,12 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="queries"
-              value={this.props.queries.toLocaleString()}
+              value={this.state.queries.toLocaleString()}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="filesize" sm={4}>
+          <Label className="font-weight-bold" for="filesize" sm={4}>
             {t("Filesize")}
           </Label>
           <Col sm={8}>
@@ -48,12 +83,12 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="filesize"
-              value={`${this.props.fileSize.toLocaleString()} B`}
+              value={`${this.state.fileSize.toLocaleString()} B`}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label className="bold" for="sqliteversion" sm={4}>
+          <Label className="font-weight-bold" for="sqliteversion" sm={4}>
             {t("SQLite version")}
           </Label>
           <Col sm={8}>
@@ -61,7 +96,7 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
               plaintext
               readOnly
               id="sqliteversion"
-              value={this.props.sqliteVersion}
+              value={this.state.sqliteVersion}
             />
           </Col>
         </FormGroup>
@@ -70,29 +105,4 @@ class FTLInfo extends Component<FTLInfoProps & WithTranslation, {}> {
   }
 }
 
-export const transformData = (data: ApiFtlDbResponse): FTLInfoProps => ({
-  fileSize: data.filesize,
-  queries: data.queries,
-  sqliteVersion: data.sqlite_version
-});
-
-export const initialData = {
-  fileSize: 0,
-  queries: 0,
-  sqliteVersion: ""
-};
-
-export const TranslatedFTLInfo = withTranslation(["settings"])(FTLInfo);
-
-export default (props: any) => (
-  <WithAPIData
-    apiCall={api.getFTLdb}
-    repeatOptions={{
-      interval: 600000,
-      ignoreCancel: true
-    }}
-    renderInitial={() => <TranslatedFTLInfo {...initialData} {...props} />}
-    renderOk={data => <TranslatedFTLInfo {...transformData(data)} {...props} />}
-    renderErr={() => <TranslatedFTLInfo {...initialData} {...props} />}
-  />
-);
+export default withTranslation(["settings"])(FTLInfo);

@@ -3,7 +3,7 @@
  * Network-wide ad blocking via your own hardware.
  *
  * Web Interface
- * Regexlist page
+ * RegexWhitelist page
  *
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
@@ -14,16 +14,16 @@ import ListPage from "../components/list/ListPage";
 import api from "../util/api";
 import { isValidRegex } from "../util/validate";
 
-const Regexlist: FunctionComponent<WithTranslation> = props => {
+const RegexWhitelist: FunctionComponent<WithTranslation> = props => {
   const { t } = props;
 
   return (
     <ListPage
-      title={`${t("Blacklist")} (${t("Regex")})`}
+      title={`${t("Whitelist")} (${t("Regex")})`}
       placeholder={t("Input a regular expression")}
-      onAdd={api.addRegexlist}
-      onRemove={api.removeRegexlist}
-      onRefresh={api.getRegexlist}
+      onAdd={api.addRegexWhitelist}
+      onRemove={api.removeRegexWhitelist}
+      onRefresh={api.getRegexWhitelist}
       isValid={isValidRegex}
       validationErrorMsg={t("Not a valid regular expression")}
       {...props}
@@ -31,4 +31,4 @@ const Regexlist: FunctionComponent<WithTranslation> = props => {
   );
 };
 
-export default withTranslation(["location", "lists"])(Regexlist);
+export default withTranslation(["location", "lists"])(RegexWhitelist);

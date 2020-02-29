@@ -7,7 +7,6 @@ node_modules
 
 # Compiled Files
 build
-src/scss/style.css
 
 # Test Files
 coverage

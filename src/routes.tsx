@@ -10,22 +10,24 @@
 
 import Dashboard from "./views/Dashboard";
 import QueryLog from "./components/log/QueryLog";
-import Whitelist from "./views/Whitelist";
-import Blacklist from "./views/Blacklist";
-import Regexlist from "./views/Regexlist";
+import ExactWhitelist from "./views/ExactWhitelist";
+import ExactBlacklist from "./views/ExactBlacklist";
+import RegexWhitelist from "./views/RegexWhitelist";
+import RegexBlacklist from "./views/RegexBlacklist";
 import Versions from "./views/Versions";
 import Networking from "./views/Networking";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
 import { EnableDisableContainer } from "./components/common/EnableDisable";
 import Preferences from "./views/Preferences";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 import { ComponentType } from "react";
 
-export const routes = (t: i18next.TFunction): { [key: string]: string } => ({
+export const routes = (t: TFunction): { [key: string]: string } => ({
   "/dashboard": t("Dashboard"),
   "/query-log": t("Query Log"),
-  "/whitelist": t("Whitelist"),
+  "/whitelist/exact": `${t("Whitelist")} (${t("Exact")})`,
+  "/whitelist/regex": `${t("Whitelist")} (${t("Regex")})`,
   "/blacklist/exact": `${t("Blacklist")} (${t("Exact")})`,
   "/blacklist/regex": `${t("Blacklist")} (${t("Regex")})`,
   "/settings/versions": t("Versions"),
@@ -80,29 +82,44 @@ export const nav: Array<RouteData> = [
   {
     name: "Whitelist",
     url: "/whitelist",
-    component: Whitelist,
     icon: "far fa-check-circle",
-    auth: false
+    auth: true,
+    children: [
+      {
+        name: "Exact whitelist",
+        url: "/whitelist/exact",
+        component: ExactWhitelist,
+        icon: "fa fa-check-circle",
+        auth: true
+      },
+      {
+        name: "Regex whitelist",
+        url: "/whitelist/regex",
+        component: RegexWhitelist,
+        icon: "fa fa-check-circle",
+        auth: true
+      }
+    ]
   },
   {
     name: "Blacklist",
     url: "/blacklist",
     icon: "fa fa-ban",
-    auth: false,
+    auth: true,
     children: [
       {
-        name: "Exact",
+        name: "Exact blacklist",
         url: "/blacklist/exact",
-        component: Blacklist,
+        component: ExactBlacklist,
         icon: "fa fa-ban",
-        auth: false
+        auth: true
       },
       {
-        name: "Regex",
+        name: "Regex blacklist",
         url: "/blacklist/regex",
-        component: Regexlist,
+        component: RegexBlacklist,
         icon: "fa fa-ban",
-        auth: false
+        auth: true
       }
     ]
   },

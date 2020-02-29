@@ -37,7 +37,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
             </div>
             <div className="card-img-overlay">
               <h3>{this.props.totalQueries}</h3>
-              <p style={{ marginBottom: "0px" }}>
+              <p className="mb-0">
                 {t("Total Queries ({{count}} clients)", {
                   count: this.props.uniqueClients
                 })}
@@ -54,7 +54,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
             </div>
             <div className="card-img-overlay">
               <h3>{this.props.blockedQueries}</h3>
-              <p style={{ marginBottom: "0px" }}>{t("Queries Blocked")}</p>
+              <p className="mb-0">{t("Queries Blocked")}</p>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
             </div>
             <div className="card-img-overlay">
               <h3>{this.props.percentBlocked}</h3>
-              <p style={{ marginBottom: "0px" }}>{t("Percent Blocked")}</p>
+              <p className="mb-0">{t("Percent Blocked")}</p>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
             </div>
             <div className="card-img-overlay">
               <h3>{this.props.gravityDomains}</h3>
-              <p style={{ marginBottom: "0px" }}>{t("Domains On Blocklist")}</p>
+              <p className="mb-0">{t("Domains On Blocklist")}</p>
             </div>
           </div>
         </div>
@@ -96,9 +96,7 @@ class SummaryStats extends Component<SummaryStatsProps & WithTranslation, {}> {
  * @returns {*} the transformed props
  */
 export const transformData = (data: ApiSummary): SummaryStatsProps => ({
-  totalQueries: Object.keys(data.total_queries)
-    .reduce((total, queryType) => total + data.total_queries[queryType], 0)
-    .toLocaleString(),
+  totalQueries: data.sum_queries.toLocaleString(),
   blockedQueries: data.blocked_queries.toLocaleString(),
   percentBlocked: data.percent_blocked.toFixed(2).toLocaleString() + "%",
   gravityDomains: data.gravity_size.toLocaleString(),

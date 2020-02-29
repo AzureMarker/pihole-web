@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment";
-import i18next from "i18next";
+import { TFunction } from "i18next";
 
 const now = moment();
 const oneDayAgo = moment().subtract(1, "day");
@@ -29,7 +29,7 @@ const epoch = moment(0);
  * @param t The translation function
  */
 export const dateRanges: (
-  t: i18next.TFunction
+  t: TFunction
 ) => { [name: string]: [Moment, Moment] } = t => ({
   [t("Last 24 Hours")]: [oneDayAgo, now],
   [t("Today")]: [startOfDay, now],

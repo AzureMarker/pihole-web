@@ -27,5 +27,6 @@
     "Successfully saved settings": "Успешно запаметени настройки",
     "Detected custom upstream server": "Открити потребителски upstream сървър",
     "DNS Options": "DNS опции",
-    "Rapid Commit": ""
+    "Rapid Commit": "",
+    "Prefix length (CIDR)": ""
 }
