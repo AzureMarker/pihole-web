@@ -101,15 +101,15 @@ class DNSInfo extends Component<WithTranslation, DNSInfoState> {
   }
 
   handleUpstreamAdd = (upstream: string) => {
-    this.setState({
-      upstreamDns: this.state.upstreamDns.concat(upstream)
-    });
+    this.setState(prevState => ({
+      upstreamDns: prevState.upstreamDns.concat(upstream)
+    }));
   };
 
   handleUpstreamRemove = (upstream: string) => {
-    this.setState({
-      upstreamDns: this.state.upstreamDns.filter(item => item !== upstream)
-    });
+    this.setState(prevState => ({
+      upstreamDns: prevState.upstreamDns.filter(item => item !== upstream)
+    }));
   };
 
   handleConditionalForwardingUpdate = (
