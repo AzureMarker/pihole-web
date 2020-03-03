@@ -1,10 +1,10 @@
 {
-    "Password": "Palavra passe",
+    "Password": "Senha",
     "Sign in to start your session": "Entre para iniciar sua sessão",
     "Log in": "Entrar",
-    "Forgot Password": "Esqueceu a palavra passe",
-    "forgot_password_description": "Esqueceu a palavra passe descrição",
-    "Wrong Password!": "Palavra passe incorreta!",
-    "You will be transferred to the \"{{page}}\" page": "Você será transferido para a {{página}}",
+    "Forgot Password": "Esqueci a senha",
+    "forgot_password_description": "Após a instalação do Pi-hole pela primeira vez, uma senha é gerada e exibida ao usuário. A senha não pode ser recuperada posteriormente, mas é possível definir uma nova senha (ou desabilitar explicitamente a senha definindo uma senha vazia) usando o comando:",
+    "Wrong Password!": "Senha errada!",
+    "You will be transferred to the \"{{page}}\" page": "Você será transferido para a {{page}}",
     "Verify that cookies are allowed for {{host}}": "Verifique se os cookies são permitidos para {{host}}"
 }
