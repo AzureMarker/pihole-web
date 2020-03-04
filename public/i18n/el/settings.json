@@ -28,5 +28,8 @@
     "Detected custom upstream server": "Ανιχνεύθηκε προσαρμοσμένος διακομιστής Dns",
     "DNS Options": "Επιλογές DNS",
     "Rapid Commit": "",
-    "Prefix length (CIDR)": ""
+    "Prefix length (CIDR)": "",
+    "DNS cache size": "",
+    "DNS cache evictions": "",
+    "DNS cache insertions": ""
 }

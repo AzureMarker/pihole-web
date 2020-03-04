@@ -4,11 +4,11 @@
     "Failed to add {{domain}}": "添加 {{domain}} 失败",
     "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "注意：白名单添加通配符子域名，阻止是不可以的。",
     "Note: Only the domain and subdomains of the blocked domain will be blocked.": "注意：只有域名和子域名，才会被阻止域名阻止。",
-    "Add a domain or hostname (example.com or example)": "",
+    "Add a domain or hostname (example.com or example)": "添加域名或主机名（example.com或example）",
     "{{domain}} is already added": "{{domain}} 已被添加",
     "Failed to remove {{domain}}": "无法移除 {{domain}}",
     "There are no domains in this list": "此列表中没有域名",
     "Input a regular expression": "输入正则表达式",
-    "Not a valid hostname": "",
-    "Not a valid regular expression": ""
+    "Not a valid hostname": "无效的主机名",
+    "Not a valid regular expression": "不是有效的正则表达式"
 }

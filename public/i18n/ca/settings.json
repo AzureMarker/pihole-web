@@ -27,6 +27,9 @@
     "Successfully saved settings": "Configuració guardada correctament",
     "Detected custom upstream server": "S'ha detectat un servidor extern personalitzat",
     "DNS Options": "Opcions DNS",
-    "Rapid Commit": "",
-    "Prefix length (CIDR)": ""
+    "Rapid Commit": "Transacciò ràpida",
+    "Prefix length (CIDR)": "Llargada prefix (CIDR)",
+    "DNS cache size": "Tamany cache DNS",
+    "DNS cache evictions": "Esborrats del cache DNS",
+    "DNS cache insertions": "Insercions al cache DNS"
 }

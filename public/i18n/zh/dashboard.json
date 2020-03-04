@@ -5,8 +5,8 @@
     "Top Permitted Domains": "域名排行",
     "Top Blocked Domains": "阻止域名排行",
     "Top Clients": "用户排行",
-    "Total Queries ({{count}} clients)": "",
-    "Total Queries ({{count}} clients)_plural": "",
+    "Total Queries ({{count}} clients)": "查询总数（1个客户端）",
+    "Total Queries ({{count}} clients)_plural": "查询总数（{{count}}客户端）",
     "Queries Blocked": "阻止查询",
     "Percent Blocked": "阻止百分比",
     "Queries Answered By": "响应者查询",
@@ -18,7 +18,7 @@
     "No Clients Found": "找不到用户",
     "No Domains Found": "找不到域名",
     "Queries Answered By Destination": "查询目的地响应",
-    "Queries Over {{range}}": "",
-    "Clients Over {{range}}": "",
-    "Top Blocked Clients": ""
+    "Queries Over {{range}}": "查询范围{{range}}",
+    "Clients Over {{range}}": "客户端范围{{range}}",
+    "Top Blocked Clients": "客户端排名黑名单"
 }

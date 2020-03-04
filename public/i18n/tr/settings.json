@@ -28,5 +28,8 @@
     "Detected custom upstream server": "Algılanan özel giriş sunucusu",
     "DNS Options": "DNS Seçenekleri",
     "Rapid Commit": "Hızlı Taahhüt",
-    "Prefix length (CIDR)": "Ön ek uzunluğu (CIDR)"
+    "Prefix length (CIDR)": "Ön ek uzunluğu (CIDR)",
+    "DNS cache size": "DNS bellek boyutu",
+    "DNS cache evictions": "DNS bellek temizlemeleri",
+    "DNS cache insertions": "DNS bellek kayıtları"
 }

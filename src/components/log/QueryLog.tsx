@@ -227,13 +227,13 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
     this.updateHandler.promise
       .then(data => {
         // Update the log with the new queries
-        this.setState({
+        this.setState(prevState => ({
           loading: false,
           atEnd: data.cursor === null,
           cursor: data.cursor,
-          history: this.state.history.concat(data.history),
+          history: prevState.history.concat(data.history),
           filtersChanged: false
-        });
+        }));
       })
       .catch(ignoreCancel);
   };

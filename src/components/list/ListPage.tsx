@@ -79,16 +79,16 @@ export class ListPage extends Component<
   };
 
   onAdding = (domain: string) =>
-    this.setState({
-      message: this.props.t("Adding {{domain}}...", { domain }),
+    this.setState((prevState, prevProps) => ({
+      message: prevProps.t("Adding {{domain}}...", { domain }),
       messageType: "info"
-    });
+    }));
 
   onAlreadyAdded = (domain: string) =>
-    this.setState({
-      message: this.props.t("{{domain}} is already added", { domain }),
+    this.setState((prevState, prevProps) => ({
+      message: prevProps.t("{{domain}} is already added", { domain }),
       messageType: "danger"
-    });
+    }));
 
   onAdded = (domain: string) =>
     this.setState(prevState => ({
@@ -98,11 +98,11 @@ export class ListPage extends Component<
     }));
 
   onAddFailed = (domain: string, prevDomains: string[]) =>
-    this.setState({
+    this.setState((prevState, prevProps) => ({
       domains: prevDomains,
-      message: this.props.t("Failed to add {{domain}}", { domain }),
+      message: prevProps.t("Failed to add {{domain}}", { domain }),
       messageType: "danger"
-    });
+    }));
 
   onRemoved = (domain: string) =>
     this.setState(prevState => ({
@@ -110,11 +110,11 @@ export class ListPage extends Component<
     }));
 
   onRemoveFailed = (domain: string, prevDomains: string[]) =>
-    this.setState({
+    this.setState((prevState, prevProps) => ({
       domains: prevDomains,
-      message: this.props.t("Failed to remove {{domain}}", { domain }),
+      message: prevProps.t("Failed to remove {{domain}}", { domain }),
       messageType: "danger"
-    });
+    }));
 
   onRemove = (domain: string) => {
     if (this.state.domains.includes(domain)) {
@@ -139,10 +139,10 @@ export class ListPage extends Component<
   };
 
   handleValidationError = () => {
-    this.setState({
-      message: this.props.validationErrorMsg,
+    this.setState((prevState, prevProps) => ({
+      message: prevProps.validationErrorMsg,
       messageType: "danger"
-    });
+    }));
   };
 
   componentDidMount() {

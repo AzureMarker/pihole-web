@@ -121,7 +121,9 @@ export class EnableDisable extends Component<
    * Toggle the custom time modal
    */
   toggleModal = () => {
-    this.setState({ customModalShown: !this.state.customModalShown });
+    this.setState(prevState => ({
+      customModalShown: !prevState.customModalShown
+    }));
   };
 
   /**
