@@ -1,10 +1,10 @@
 {
     "Domains On Blocklist": "Domeny blokowane",
-    "Query Types": "Rodzaj zapytania ",
-    "Forward Destinations": "",
+    "Query Types": "Rodzaj zapytania",
+    "Forward Destinations": "Przekazuj miejsca docelowe",
     "Top Permitted Domains": "Najczęściej dozwolone domeny",
     "Top Blocked Domains": "Najczęściej blokowane domeny",
-    "Top Clients": "Top klienci",
+    "Top Clients": "Ranking klientów",
     "Total Queries ({{count}} clients)": "Wszystkie zapytania (1 klient)",
     "Total Queries ({{count}} clients)_plural": "Wszystkie zapytania ({{count}} klientów)",
     "Queries Blocked": "Zapytania zablokowane",
@@ -20,5 +20,5 @@
     "Queries Answered By Destination": "Zapytania odpowiedziane przez cel",
     "Queries Over {{range}}": "Zapytania przez {{range}}",
     "Clients Over {{range}}": "Klienci przez {{range}}",
-    "Top Blocked Clients": "Najczęściej blokowani klienci"
+    "Top Blocked Clients": "Najczęściej blokowane na kliencie"
 }

@@ -28,5 +28,8 @@
     "Detected custom upstream server": "Rileva server di upstream personalizzato",
     "DNS Options": "Impostazioni del DNS",
     "Rapid Commit": "",
-    "Prefix length (CIDR)": ""
+    "Prefix length (CIDR)": "",
+    "DNS cache size": "",
+    "DNS cache evictions": "",
+    "DNS cache insertions": ""
 }

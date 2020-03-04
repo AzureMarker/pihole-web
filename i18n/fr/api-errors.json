@@ -1,12 +1,12 @@
 {
-    "unknown": "inconnu",
-    "gravity_error": "",
-    "ftl_connection_fail": "",
-    "ftl_read_error": "",
+    "unknown": "Erreur inconnue",
+    "gravity_error": "Échec de la création de la liste de blocage",
+    "ftl_connection_fail": "Échec de la connexion à FTL",
+    "ftl_read_error": "Erreur de lecture depuis FTL",
     "ftl_eom_error": "",
     "not_found": "Pas trouvé",
-    "already_exists": "",
-    "invalid_domain": "",
+    "already_exists": "Cette entrée existe déjà",
+    "invalid_domain": "Domaine invalide",
     "bad_request": "Demande incorrecte",
     "unauthorized": "non autorisé",
     "file_read": "",
@@ -20,6 +20,6 @@
     "shared_memory_lock": "",
     "API Error: {{error}}": "",
     "reload_dns_error": "",
-    "shared_memory_version": "",
+    "shared_memory_version": "Détection d'une version incompatible de la mémoire partagée",
     "ftl_database": ""
 }

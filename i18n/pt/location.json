@@ -4,12 +4,16 @@
     "Blacklist": "Lista negra",
     "Dashboard": "Painel de controle",
     "Exact": "Exato",
+    "Regex": "",
     "Wildcard": "",
     "Login": "Entrar",
     "Logout": "Sair",
-    "Regex": "",
-    "Settings": "",
-    "Networking": "",
-    "Versions": "",
-    "Preferences": ""
+    "Exact whitelist": "Lista branca exata",
+    "Exact blacklist": "Exata lista negra",
+    "Regex whitelist": "",
+    "Regex blacklist": "",
+    "Settings": "Ajustes",
+    "Networking": "Rede",
+    "Versions": "Versão",
+    "Preferences": "Preferências"
 }

@@ -1,11 +1,11 @@
 {
-  "Last 24 Hours": "",
-  "Today": "",
-  "Yesterday": "",
-  "Last 7 Days": "",
-  "Last 30 Days": "",
-  "This Month": "",
-  "Last Month": "",
-  "This Year": "",
-  "All Time": ""
+  "Last 24 Hours": "最近24小时",
+  "Today": "今天",
+  "Yesterday": "昨天",
+  "Last 7 Days": "最近7天",
+  "Last 30 Days": "最近30天",
+  "This Month": "这个月",
+  "Last Month": "上个月",
+  "This Year": "今年",
+  "All Time": "所有时间"
 }

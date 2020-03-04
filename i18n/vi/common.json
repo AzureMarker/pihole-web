@@ -26,9 +26,9 @@
     "Permanently": "Vĩnh viễn",
     "For {{time}} seconds": "Trong {{time}} giây",
     "For {{time}} minutes": "Trong {{time}} phút",
-    "Custom time": "",
-    "Enable": "",
-    "Cancel": "",
-    "Seconds": "",
-    "Minutes": ""
+    "Custom time": "Tùy chỉnh thời gian",
+    "Enable": "Kích hoạt",
+    "Cancel": "Hủy bỏ",
+    "Seconds": "Giây",
+    "Minutes": "Phút"
 }

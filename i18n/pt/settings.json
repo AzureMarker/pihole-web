@@ -15,7 +15,7 @@
     "Queries": "Consultas",
     "Filesize": "Tamanho do arquivo",
     "SQLite version": "Versão do SQLite",
-    "Interface": "",
+    "Interface": "Interface",
     "IPv4 address": "Endereço IPv4",
     "IPv6 address": "Endereço IPv6",
     "Hostname": "Nome de anfitrião",
@@ -23,10 +23,13 @@
     "Hash": "",
     "Tag": "etiqueta",
     "Only forward public reverse lookups": "Somente encaminhar pesquisas reversas públicas",
-    "Processing...": "",
-    "Successfully saved settings": "",
-    "Detected custom upstream server": "",
-    "DNS Options": "",
+    "Processing...": "Processando...",
+    "Successfully saved settings": "Configurações salvas",
+    "Detected custom upstream server": "Servidor upstream personalizado detectado",
+    "DNS Options": "Opções de DNS",
     "Rapid Commit": "",
-    "Prefix length (CIDR)": ""
+    "Prefix length (CIDR)": "Tamanho do prefixo (CIDR)",
+    "DNS cache size": "Tamanho do cache DNS",
+    "DNS cache evictions": "Ativações do cache DNS",
+    "DNS cache insertions": ""
 }
