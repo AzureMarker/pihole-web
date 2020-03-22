@@ -8,7 +8,7 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-import React, { MouseEvent } from "react";
+import React from "react";
 import api from "../../../util/api";
 import { shallow } from "enzyme";
 import Header from "../Header";
@@ -16,7 +16,7 @@ import { TimeRangeSelectorContainer } from "../../dashboard/TimeRangeSelector";
 
 it("shows the time range selector on the dashboard", () => {
   api.loggedIn = true;
-  history.pushState({}, "", "/dashboard");
+  window.history.pushState({}, "", "/dashboard");
 
   const wrapper = shallow(<Header />);
 
@@ -25,7 +25,7 @@ it("shows the time range selector on the dashboard", () => {
 
 it("does not show the time range selector when not logged in", () => {
   api.loggedIn = false;
-  history.pushState({}, "", "/dashboard");
+  window.history.pushState({}, "", "/dashboard");
 
   const wrapper = shallow(<Header />);
 
@@ -34,7 +34,7 @@ it("does not show the time range selector when not logged in", () => {
 
 it("does not show the time range selector on non-dashboard pages", () => {
   api.loggedIn = true;
-  history.pushState({}, "", "/whitelist");
+  window.history.pushState({}, "", "/whitelist");
 
   const wrapper = shallow(<Header />);
 

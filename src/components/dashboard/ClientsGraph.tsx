@@ -207,7 +207,7 @@ export const transformData = (
   // Fill in data & labels
   for (let step of overTime) {
     for (let destination in datasets) {
-      if (datasets.hasOwnProperty(destination))
+      if (Object.prototype.hasOwnProperty.call(datasets, destination))
         (datasets[destination].data as Array<number>).push(
           step.data[destination]
         );
