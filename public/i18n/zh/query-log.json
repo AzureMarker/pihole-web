@@ -1,11 +1,11 @@
 {
-    "Blocked": "阻止",
-    "Allowed (forwarded)": "允许（转发）",
-    "Allowed (cached)": "允许（缓存）",
-    "Blocked (regex/wildcard)": "被阻止（正则）",
-    "Blocked (blacklist)": "被阻止（黑名单）",
+    "Blocked": "已屏蔽",
+    "Allowed (forwarded)": "已放行 (转发)",
+    "Allowed (cached)": "已放行 (缓存)",
+    "Blocked (regex/wildcard)": "已屏蔽 (正则/通配符)",
+    "Blocked (blacklist)": "已屏蔽 (黑名单)",
     "Unknown": "未知的",
-    "Blocked (external)": "阻止（外来）",
+    "Blocked (external)": "已屏蔽 (外部)",
     "Blocked (gravity)": "阻止（严格）",
     "Unspecified": "未指定",
     "Secure": "安全",
@@ -14,5 +14,5 @@
     "Abandoned": "遗弃",
     "Reply": "回复",
     "All": "全部",
-    "Allowed": "允许"
+    "Allowed": "已放行"
 }

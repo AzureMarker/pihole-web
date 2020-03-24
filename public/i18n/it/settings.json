@@ -4,7 +4,7 @@
     "End IP": "IP finale",
     "Router IP": "IP del router",
     "Lease Time": "Tempo del lease",
-    "IPv6 Support": "Supporto a IPv6",
+    "IPv6 Support": "Supporto ad IPv6",
     "Upstream DNS Servers": "Server DNS di Upstream",
     "Interface listening behavior": "Comportamento dell'interfaccia di ascolto",
     "Forward FQDNs only": "Invia solo FQDNs",
@@ -27,9 +27,9 @@
     "Successfully saved settings": "Impostazioni salvate con successo",
     "Detected custom upstream server": "Rileva server di upstream personalizzato",
     "DNS Options": "Impostazioni del DNS",
-    "Rapid Commit": "",
-    "Prefix length (CIDR)": "",
-    "DNS cache size": "",
-    "DNS cache evictions": "",
-    "DNS cache insertions": ""
+    "Rapid Commit": "Conferma rapida",
+    "Prefix length (CIDR)": "Lunghezza prefisso (CIDR)",
+    "DNS cache size": "Grandezza cache DNS",
+    "DNS cache evictions": "Eliminazioni dalla cache DNS",
+    "DNS cache insertions": "Inserimenti nella cache DNS"
 }

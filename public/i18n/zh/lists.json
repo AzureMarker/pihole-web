@@ -1,14 +1,14 @@
 {
-    "Adding {{domain}}...": "添加 {{domain}} 中...",
-    "Successfully added {{domain}}": "添加 {{domain}} 成功",
-    "Failed to add {{domain}}": "添加 {{domain}} 失败",
-    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "注意：白名单添加通配符子域名，阻止是不可以的。",
-    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "注意：只有域名和子域名，才会被阻止域名阻止。",
-    "Add a domain or hostname (example.com or example)": "添加域名或主机名（example.com或example）",
-    "{{domain}} is already added": "{{domain}} 已被添加",
+    "Adding {{domain}}...": "正在添加 {{domain}} ···",
+    "Successfully added {{domain}}": "已成功添加 {{domain}}...",
+    "Failed to add {{domain}}": "无法添加 {{domain}}...",
+    "Note: Whitelisting a subdomain of a wildcard blocked domain is not possible.": "注：已使用通配符屏蔽的域名的子域名将无法被添加至白名单。",
+    "Note: Only the domain and subdomains of the blocked domain will be blocked.": "注：仅域名及其子域名会被屏蔽。",
+    "Add a domain or hostname (example.com or example)": "添加域名或主机名 (如 example.com 或 example)",
+    "{{domain}} is already added": "已添加过 {{domain}}",
     "Failed to remove {{domain}}": "无法移除 {{domain}}",
     "There are no domains in this list": "此列表中没有域名",
     "Input a regular expression": "输入正则表达式",
-    "Not a valid hostname": "无效的主机名",
-    "Not a valid regular expression": "不是有效的正则表达式"
+    "Not a valid hostname": "主机名无效",
+    "Not a valid regular expression": "正则表达式无效"
 }
