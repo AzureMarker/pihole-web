@@ -10,8 +10,8 @@
 
 import {
   configureStore,
-  createSerializableStateInvariantMiddleware,
-  EnhancedStore
+  EnhancedStore,
+  getDefaultMiddleware
 } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
 import reducer from "./reducers";
@@ -28,21 +28,14 @@ export interface SagaStore extends EnhancedStore<ReduxState> {
   runSaga: () => void;
 }
 
-let middleware = [];
-
-// Add Redux Saga middleware
 const sagaMiddleware = createSagaMiddleware();
-middleware.push(sagaMiddleware);
-
-// Add middleware to assert invariants in development
-if (process.env.NODE_ENV !== "production") {
-  middleware = middleware.concat([
-    // Assert that the state is immutable
-    require("redux-immutable-state-invariant").default(),
-    // Assert that the state is serializable
-    createSerializableStateInvariantMiddleware()
-  ]);
-}
+const middleware = [
+  sagaMiddleware,
+  // In development, this will include middleware for verifying immutable and
+  // serializable state. The thunk middleware is excluded because we are using
+  // sagas instead.
+  ...getDefaultMiddleware({ thunk: false })
+];
 
 const store = configureStore({
   reducer,
