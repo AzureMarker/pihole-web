@@ -53,7 +53,7 @@
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-bootstrap-daterangepicker": "^4.1.0",
-    "react-bootstrap-typeahead": "^3.4.7",
+    "react-bootstrap-typeahead": "^4.1.0",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
