@@ -253,11 +253,7 @@ describe("EnableDisable", () => {
 
       wrapper.setState({ customModalShown: true });
       expect(wrapper.find(Modal).props().isOpen).toBeTruthy();
-      wrapper
-        .find(ModalFooter)
-        .childAt(1)
-        .props()
-        .onClick();
+      wrapper.find(ModalFooter).childAt(1).props().onClick();
       expect(wrapper.find(Modal).props().isOpen).toBeFalsy();
     });
 

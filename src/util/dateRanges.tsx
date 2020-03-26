@@ -4,21 +4,13 @@ import { TFunction } from "i18next";
 const now = moment();
 const oneDayAgo = moment().subtract(1, "day");
 const startOfDay = moment().startOf("day");
-const startOfYesterday = moment()
-  .subtract(1, "days")
-  .startOf("day");
-const endOfYesterday = moment()
-  .subtract(1, "days")
-  .endOf("day");
+const startOfYesterday = moment().subtract(1, "days").startOf("day");
+const endOfYesterday = moment().subtract(1, "days").endOf("day");
 const lastWeek = moment().subtract(7, "days");
 const lastMonth = moment().subtract(30, "days");
 const startOfMonth = moment().startOf("month");
-const startOfLastMonth = moment()
-  .subtract(1, "month")
-  .startOf("month");
-const endOfLastMonth = moment()
-  .subtract(1, "month")
-  .endOf("month");
+const startOfLastMonth = moment().subtract(1, "month").startOf("month");
+const endOfLastMonth = moment().subtract(1, "month").endOf("month");
 const startOfYear = moment().startOf("year");
 const epoch = moment(0);
 

@@ -283,10 +283,7 @@ function getNetworkInfo() {
     interface: faker.random.arrayElement(["eth0", "eth1", "wlan0", "wlan1"]),
     ipv4_address: faker.internet.ip(),
     ipv6_address: faker.internet.ipv6(),
-    hostname: faker.random
-      .word()
-      .toLowerCase()
-      .split(" ", 2)[0]
+    hostname: faker.random.word().toLowerCase().split(" ", 2)[0]
   };
 }
 
@@ -343,10 +340,7 @@ function getDHCPInfo() {
     ip_end: faker.internet.ip(),
     router_ip: faker.internet.ip(),
     lease_time: faker.random.number({ min: 1, max: 99 }),
-    domain: faker.random
-      .word()
-      .toLowerCase()
-      .split(" ", 2)[0],
+    domain: faker.random.word().toLowerCase().split(" ", 2)[0],
     ipv6_support: faker.random.boolean(),
     rapid_commit: faker.random.boolean()
   };
@@ -368,10 +362,7 @@ function getDNSInfo() {
     conditional_forwarding: {
       enabled: faker.random.boolean(),
       ip: faker.internet.ip(),
-      domain: faker.random
-        .word()
-        .toLowerCase()
-        .split(" ", 2)[0],
+      domain: faker.random.word().toLowerCase().split(" ", 2)[0],
       cidr: faker.random.arrayElement([8, 16, 24, 32])
     }
   };

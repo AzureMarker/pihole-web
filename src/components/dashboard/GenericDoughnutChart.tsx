@@ -202,7 +202,7 @@ export const loadingProps = {
   labels: []
 };
 
-export default function<T>({
+export default function <T>({
   apiCall,
   title,
   apiHandler,

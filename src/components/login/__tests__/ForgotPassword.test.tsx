@@ -17,12 +17,7 @@ it("collapses and displays normal if there is no error", () => {
 
   expect(wrapper.childAt(0)).toHaveClassName("border-white");
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-white");
-  expect(
-    wrapper
-      .childAt(0)
-      .children()
-      .last()
-  ).toHaveClassName("collapse");
+  expect(wrapper.childAt(0).children().last()).toHaveClassName("collapse");
 });
 
 it("expands and displays red if there is an error", () => {
@@ -30,42 +25,22 @@ it("expands and displays red if there is an error", () => {
 
   expect(wrapper.childAt(0)).toHaveClassName("border-danger");
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-danger");
-  expect(
-    wrapper
-      .childAt(0)
-      .children()
-      .last()
-  ).not.toHaveClassName("collapse");
+  expect(wrapper.childAt(0).children().last()).not.toHaveClassName("collapse");
 });
 
 it("expands and collapses if clicked without error", () => {
   const wrapper = shallow(<ForgotPassword error={false} />).dive();
 
   wrapper.find("button").simulate("click");
-  expect(
-    wrapper
-      .childAt(0)
-      .children()
-      .last()
-  ).not.toHaveClassName("collapse");
+  expect(wrapper.childAt(0).children().last()).not.toHaveClassName("collapse");
 
   wrapper.find("button").simulate("click");
-  expect(
-    wrapper
-      .childAt(0)
-      .children()
-      .last()
-  ).toHaveClassName("collapse");
+  expect(wrapper.childAt(0).children().last()).toHaveClassName("collapse");
 });
 
 it("does not collapse if clicked with error", () => {
   const wrapper = shallow(<ForgotPassword error={true} />).dive();
 
   wrapper.find("button").simulate("click");
-  expect(
-    wrapper
-      .childAt(0)
-      .children()
-      .last()
-  ).not.toHaveClassName("collapse");
+  expect(wrapper.childAt(0).children().last()).not.toHaveClassName("collapse");
 });

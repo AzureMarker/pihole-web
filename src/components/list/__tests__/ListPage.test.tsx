@@ -125,10 +125,7 @@ it("shows a validation message as an error", () => {
   const validationErrorMsg = "test message";
   const wrapper = renderListPage({ validationErrorMsg });
 
-  wrapper
-    .find(DomainInputContainer)
-    .props()
-    .onValidationError();
+  wrapper.find(DomainInputContainer).props().onValidationError();
 
   const alert = wrapper.find(Alert);
   expect(alert).toExist();

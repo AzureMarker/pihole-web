@@ -26,9 +26,7 @@ describe("applyLanguage", () => {
   it("should not update i18next if the language is the same", () => {
     i18n.language = "test-language";
 
-    testSaga(applyLanguage, action)
-      .next()
-      .isDone();
+    testSaga(applyLanguage, action).next().isDone();
   });
 
   it("should update i18next if the language is different", () => {

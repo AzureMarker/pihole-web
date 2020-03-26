@@ -33,10 +33,7 @@ it("updates the range with the provided value", () => {
   };
 
   const wrapper = shallow(<TimeRangeProvider>{null}</TimeRangeProvider>);
-  wrapper
-    .find(TimeRangeContext.Provider)
-    .props()
-    .value.update(updatedRange);
+  wrapper.find(TimeRangeContext.Provider).props().value.update(updatedRange);
 
   expect(wrapper.find(TimeRangeContext.Provider).props().value.range).toEqual(
     updatedRange

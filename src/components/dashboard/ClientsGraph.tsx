@@ -54,10 +54,7 @@ export class ClientsGraph extends Component<
             const time = moment(tooltipItem[0].xLabel!, "HH:mm");
 
             const fromTime = time.clone().subtract(5, "minutes");
-            const toTime = time
-              .clone()
-              .add(4, "minutes")
-              .add(59, "seconds");
+            const toTime = time.clone().add(4, "minutes").add(59, "seconds");
 
             const from = fromTime.format("HH:mm:ss");
             const to = toTime.format("HH:mm:ss");
