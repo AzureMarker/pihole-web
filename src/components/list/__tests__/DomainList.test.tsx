@@ -51,12 +51,7 @@ it("has a delete button when logged in", () => {
     <DomainList domains={domains} onRemove={jest.fn()} />
   ).dive();
 
-  expect(
-    wrapper
-      .find("ul")
-      .childAt(0)
-      .find("Button")
-  ).toExist();
+  expect(wrapper.find("ul").childAt(0).find("Button")).toExist();
 });
 
 it("calls onRemove when a delete button is clicked", () => {
@@ -67,11 +62,7 @@ it("calls onRemove when a delete button is clicked", () => {
     <DomainList domains={domains} onRemove={onRemove} />
   ).dive();
 
-  wrapper
-    .find("ul")
-    .childAt(0)
-    .find("Button")
-    .simulate("click");
+  wrapper.find("ul").childAt(0).find("Button").simulate("click");
 
   expect(onRemove).toHaveBeenCalled();
 });

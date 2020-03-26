@@ -62,9 +62,7 @@ class Login extends Component<LoginProps, LoginState> {
     let hashedPassword = sha("sha256")
       .update(this.state.password)
       .digest("hex");
-    hashedPassword = sha("sha256")
-      .update(hashedPassword)
-      .digest("hex");
+    hashedPassword = sha("sha256").update(hashedPassword).digest("hex");
 
     // Clear the state
     this.setState({ password: "", error: false });

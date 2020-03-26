@@ -80,10 +80,7 @@ it("calls onRefresh when the refresh button is clicked", () => {
   const onRefresh = jest.fn();
   const wrapper = renderDomainInput({ onRefresh });
 
-  wrapper
-    .find("button")
-    .last()
-    .simulate("click");
+  wrapper.find("button").last().simulate("click");
 
   expect(onRefresh).toHaveBeenCalled();
 });

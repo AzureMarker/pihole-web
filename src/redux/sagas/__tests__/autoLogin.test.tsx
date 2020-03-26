@@ -68,10 +68,7 @@ describe("autoLogin", () => {
 
   it("should throw unexpected exceptions from the API", () => {
     expect(() =>
-      testSaga(autoLogin)
-        .next()
-        .call(api.checkAuthStatus)
-        .throw(unknownError)
+      testSaga(autoLogin).next().call(api.checkAuthStatus).throw(unknownError)
     ).toThrow(unknownError);
 
     // Below code is commented out until the testing library supports catching

@@ -27,9 +27,7 @@ export default class HttpClient {
    */
   handleResponse = <T extends any>(response: Response): Promise<T> => {
     // @ts-ignore
-    return checkIfLoggedOut(response)
-      .then(convertJSON)
-      .then(checkForErrors);
+    return checkIfLoggedOut(response).then(convertJSON).then(checkForErrors);
   };
 
   /**

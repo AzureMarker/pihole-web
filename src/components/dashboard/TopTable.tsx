@@ -92,7 +92,7 @@ export interface TopTableProps<T, D>
   apiHandler: (data: D) => T;
 }
 
-export default function<T, D>({
+export default function <T, D>({
   title,
   apiCall,
   initialData,
