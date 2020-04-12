@@ -34,7 +34,7 @@
     "jest-localstorage-mock": "^2.4.0",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.13.1",
-    "prettier": "^2.0.2",
+    "prettier": "^2.0.4",
     "react-scripts": "^3.4.1",
     "redux-saga-test-plan": "^4.0.0-rc.3",
     "typescript": "^3.8.3"
