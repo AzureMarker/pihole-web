@@ -78,8 +78,8 @@
     "codecov": "codecov",
     "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx .",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"**/*.{js,tsx}\"",
-    "check-format": "prettier --list-different \"**/*.{js,tsx}\""
+    "format": "prettier --write \"**/*.{js,tsx}\" --ignore-path .gitignore",
+    "check-format": "prettier --list-different \"**/*.{js,tsx}\" --ignore-path .gitignore"
   },
   "browserslist": [
     "defaults",
