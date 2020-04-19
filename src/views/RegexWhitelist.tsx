@@ -9,7 +9,6 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { FunctionComponent } from "react";
-import PropTypes from "prop-types";
 import { WithTranslation, withTranslation } from "react-i18next";
 import ListPage from "../components/list/ListPage";
 import api from "../util/api";
@@ -30,10 +29,6 @@ const RegexWhitelist: FunctionComponent<WithTranslation> = props => {
       {...props}
     />
   );
-};
-
-RegexWhitelist.propTypes = {
-  t: PropTypes.func.isRequired
 };
 
 export default withTranslation(["location", "lists"])(RegexWhitelist);
