@@ -95,11 +95,7 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": [
-      "eslint:recommended",
-      "react-app",
-      "plugin:react/recommended"
-    ],
+    "extends": ["react-app"],
     "rules": {
       "react/display-name": "off",
       "react/prop-types": "off"
