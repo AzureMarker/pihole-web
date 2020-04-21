@@ -46,7 +46,7 @@
     "bootstrap-daterangepicker": "^3.0.5",
     "chart.js": "^2.9.3",
     "cross-env": "^7.0.2",
-    "i18next": "^19.4.2",
+    "i18next": "^19.4.3",
     "i18next-browser-languagedetector": "^4.1.1",
     "i18next-xhr-backend": "^3.2.2",
     "lodash.debounce": "^4.0.8",
