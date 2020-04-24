@@ -85,9 +85,10 @@
     "defaults",
     ">0.2%",
     "not dead",
+    "not Android < 6",
     "Explorer 11",
     "not ExplorerMobile <= 11",
-    "not op_mini all"
+    "not OperaMini all"
   ],
   "prettier": {
     "arrowParens": "avoid",
