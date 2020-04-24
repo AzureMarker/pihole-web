@@ -9,7 +9,6 @@
  * Please see LICENSE file for your rights under this license. */
 
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { Col, FormGroup, Input, Label } from "reactstrap";
 import { TFunction } from "i18next";
 
@@ -85,11 +84,5 @@ const DnsOptionSettings = ({
     </FormGroup>
   </Fragment>
 );
-
-DnsOptionSettings.propTypes = {
-  settings: PropTypes.object.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
-};
 
 export default DnsOptionSettings;

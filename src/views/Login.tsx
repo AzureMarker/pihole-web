@@ -37,7 +37,7 @@ class Login extends Component<LoginProps, LoginState> {
     cookiesEnabled: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     // Check if cookies are enabled
     if (navigator.cookieEnabled) this.setState({ cookiesEnabled: true });
   }

@@ -52,7 +52,6 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "moment": "^2.24.0",
-    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-bootstrap-daterangepicker": "^4.1.0",
@@ -77,9 +76,10 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "codecov": "codecov",
+    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx .",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"**/*.{js,tsx}\"",
-    "check-format": "prettier --list-different \"**/*.{js,tsx}\""
+    "format": "prettier --write \"**/*.{js,tsx}\" --ignore-path .gitignore",
+    "check-format": "prettier --list-different \"**/*.{js,tsx}\" --ignore-path .gitignore"
   },
   "browserslist": [
     "defaults",
@@ -92,5 +92,13 @@
   "prettier": {
     "arrowParens": "avoid",
     "trailingComma": "none"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": ["react-app"],
+    "rules": {
+      "react/display-name": "off",
+      "react/prop-types": "off"
+    }
   }
 }

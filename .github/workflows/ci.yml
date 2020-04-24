@@ -35,6 +35,9 @@ jobs:
       - name: Check Formatting
         run: npm run check-format
 
+      - name: Lint
+        run: npm run lint
+
       - name: Test
         run: npm run coverage
 

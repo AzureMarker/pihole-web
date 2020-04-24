@@ -14,7 +14,7 @@ import api from "../util/api";
 import config from "../config";
 
 export default class Logout extends Component {
-  componentWillMount() {
+  componentDidMount() {
     api.loggedIn = false;
 
     if (config.fakeAPI) {
