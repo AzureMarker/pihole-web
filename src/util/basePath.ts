@@ -20,7 +20,7 @@ export const getBasePath = (): string => {
 
   if (baseElement) {
     return new URL(baseElement.href).pathname;
-  } else {
-    return process.env.PUBLIC_URL;
   }
+
+  return process.env.PUBLIC_URL;
 };

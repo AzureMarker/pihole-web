@@ -22,11 +22,11 @@ import {
 
 export interface QueriesGraphProps {
   loading: boolean;
-  labels: Array<Date>;
+  labels: Date[];
   timeUnit: TimeUnit;
   rangeName?: string;
-  domains_over_time: Array<number>;
-  blocked_over_time: Array<number>;
+  domains_over_time: number[];
+  blocked_over_time: number[];
 }
 
 class QueriesGraph extends Component<QueriesGraphProps & WithTranslation, {}> {
@@ -99,12 +99,13 @@ class QueriesGraph extends Component<QueriesGraphProps & WithTranslation, {}> {
                 percentage.toFixed(1) +
                 "%)"
               );
-            } else
-              return (
-                data.datasets![tooltipItems.datasetIndex!].label +
-                ": " +
-                tooltipItems.yLabel
-              );
+            }
+
+            return (
+              data.datasets![tooltipItems.datasetIndex!].label +
+              ": " +
+              tooltipItems.yLabel
+            );
           }
         }
       },
@@ -170,7 +171,7 @@ class QueriesGraph extends Component<QueriesGraphProps & WithTranslation, {}> {
  * @returns QueriesGraphProps QueriesGraph props
  */
 export const transformData = (
-  data: Array<ApiHistoryGraphItem>,
+  data: ApiHistoryGraphItem[],
   range: TimeRange | null
 ): QueriesGraphProps => {
   let timeUnit: TimeUnit = "hour";

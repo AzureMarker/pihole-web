@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 const QueryTypesChart = ({
   t,
   apiCall
-}: WithTranslation & { apiCall: () => Promise<Array<ApiQueryType>> }) => (
+}: WithTranslation & { apiCall: () => Promise<ApiQueryType[]> }) => (
   <GenericDoughnutChart
     title={t("Query Types")}
     apiCall={apiCall}

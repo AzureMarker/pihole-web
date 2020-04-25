@@ -21,7 +21,7 @@ it("renders as null if no update is available", () => {
 
 it("renders a link to the versions page if there is an update", () => {
   const wrapper = shallow(
-    <FooterUpdateStatus t={(text: string) => text} updateAvailable={true} />
+    <FooterUpdateStatus t={(text: string) => text} updateAvailable />
   );
 
   expect(wrapper.find(Link).props().to).toEqual("/settings/versions");

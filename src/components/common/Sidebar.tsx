@@ -91,7 +91,7 @@ export const NavList = ({
   t,
   location
 }: {
-  items: Array<RouteData>;
+  items: RouteData[];
   t: TFunction;
   location: Location;
 }): ReactElement => (
@@ -125,7 +125,7 @@ export const NavList = ({
 );
 
 export interface SidebarProps extends WithTranslation {
-  items: Array<RouteData>;
+  items: RouteData[];
   location: Location;
 }
 

@@ -80,7 +80,7 @@ describe("EnableDisable", () => {
     const testCall = async (
       initialStatus: Status,
       buttonIndex: number,
-      setStatusArgs: Array<any>,
+      setStatusArgs: any[],
       expectedStatus: any
     ) => {
       const setStatus = jest.fn(() =>

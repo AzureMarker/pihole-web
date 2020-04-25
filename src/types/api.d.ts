@@ -21,7 +21,7 @@ interface ApiQuery {
 
 interface ApiHistoryResponse {
   cursor: null | string;
-  history: Array<ApiQuery>;
+  history: ApiQuery[];
 }
 
 interface ApiNetworkSettings {
@@ -44,7 +44,7 @@ interface ApiVersions {
 }
 
 interface ApiDnsSettings {
-  upstream_dns: Array<string>;
+  upstream_dns: string[];
   options: {
     fqdn_required: boolean;
     bogus_priv: boolean;
@@ -113,13 +113,13 @@ interface ApiStatus {
 }
 
 interface ApiClientsGraph {
-  over_time: Array<ApiClientOverTime>;
-  clients: Array<ApiClientGraphInfo>;
+  over_time: ApiClientOverTime[];
+  clients: ApiClientGraphInfo[];
 }
 
 interface ApiClientOverTime {
   timestamp: number;
-  data: Array<number>;
+  data: number[];
 }
 
 interface ApiClientGraphInfo {
@@ -170,11 +170,11 @@ interface ApiSummary {
 }
 
 interface ApiUpstreams {
-  upstreams: Array<{
+  upstreams: {
     name: string;
     ip: string;
     count: number;
-  }>;
+  }[];
   forwarded_queries: number;
   total_queries: number;
 }
@@ -185,22 +185,22 @@ interface ApiTopDomainItem {
 }
 
 interface ApiTopBlockedDomains {
-  top_domains: Array<ApiTopDomainItem>;
+  top_domains: ApiTopDomainItem[];
   blocked_queries: number;
 }
 
 interface ApiTopDomains {
-  top_domains: Array<ApiTopDomainItem>;
+  top_domains: ApiTopDomainItem[];
   total_queries: number;
 }
 
 interface ApiTopClients {
-  top_clients: Array<ApiClientData>;
+  top_clients: ApiClientData[];
   total_queries: number;
 }
 
 interface ApiTopBlockedClients {
-  top_clients: Array<ApiClient>;
+  top_clients: ApiClient[];
   blocked_queries: number;
 }
 

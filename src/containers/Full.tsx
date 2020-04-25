@@ -60,7 +60,7 @@ const createRoute = (routeData: RouteData): ReactNode => {
     return (routeData as RouteGroup).children.map(createRoute);
   }
 
-  let navItem: RouteItem = routeData as RouteItem;
+  const navItem: RouteItem = routeData as RouteItem;
 
   return navItem.auth ? (
     <AuthRoute

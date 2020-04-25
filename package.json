@@ -102,8 +102,17 @@
       "react-app"
     ],
     "rules": {
+      "@typescript-eslint/array-type": "error",
+      "no-else-return": "error",
+      "no-implicit-coercion": "error",
+      "no-lonely-if": "error",
+      "prefer-const": "error",
+      "react/button-has-type": "error",
       "react/display-name": "off",
+      "react/jsx-boolean-value": "error",
+      "react/jsx-curly-brace-presence": "error",
       "react/no-access-state-in-setstate": "error",
+      "react/no-did-update-set-state": "error",
       "react/prop-types": "off"
     }
   }
