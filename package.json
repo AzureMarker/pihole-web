@@ -103,6 +103,7 @@
     ],
     "rules": {
       "@typescript-eslint/array-type": "error",
+      "@typescript-eslint/no-for-in-array": "error",
       "no-else-return": "error",
       "no-implicit-coercion": "error",
       "no-lonely-if": "error",

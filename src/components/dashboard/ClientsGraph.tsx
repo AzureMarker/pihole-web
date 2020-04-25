@@ -206,9 +206,8 @@ export const transformData = (
 
   // Fill in data & labels
   for (const step of overTime) {
-    for (const destination in datasets) {
-      if (Object.prototype.hasOwnProperty.call(datasets, destination))
-        (datasets[destination].data as number[]).push(step.data[destination]);
+    for (const [index, value] of datasets.entries()) {
+      (value.data as number[]).push(step.data[index]);
     }
   }
 
