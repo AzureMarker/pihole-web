@@ -96,9 +96,12 @@
   },
   "eslintConfig": {
     "root": true,
-    "extends": ["react-app"],
+    "extends": [
+      "react-app"
+    ],
     "rules": {
       "react/display-name": "off",
+      "react/no-access-state-in-setstate": "error",
       "react/prop-types": "off"
     }
   }

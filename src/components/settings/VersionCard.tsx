@@ -48,7 +48,9 @@ class VersionCard extends Component<VersionCardProps, VersionCardState> {
           <button
             className="btn btn-secondary"
             type="button"
-            onClick={() => this.setState({ collapsed: !this.state.collapsed })}
+            onClick={() =>
+              this.setState(prevState => ({ collapsed: !prevState.collapsed }))
+            }
           >
             {t("Details")}
           </button>
