@@ -43,7 +43,6 @@ it("toggles the dropdown when clicked", () => {
   expect(wrapper.find("li")).toHaveClassName("open");
 
   wrapper.find("button").simulate("click", {
-    preventDefault: () => {},
     target: {
       parentElement: {
         classList: {
