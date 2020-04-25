@@ -31,7 +31,7 @@ class ForgotPassword extends Component<
    * Handle collapsing the body when clicked
    */
   onClick = () => {
-    this.setState({ collapsed: !this.state.collapsed });
+    this.setState(prevState => ({ collapsed: !prevState.collapsed }));
   };
 
   /**

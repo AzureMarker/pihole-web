@@ -37,7 +37,7 @@ class Login extends Component<LoginProps, LoginState> {
     cookiesEnabled: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     // Check if cookies are enabled
     if (navigator.cookieEnabled) this.setState({ cookiesEnabled: true });
   }
@@ -111,25 +111,29 @@ class Login extends Component<LoginProps, LoginState> {
             </div>
             <div className="m-0 text-center pt-0 pr-3 pb-3 pl-3">
               {t("Sign in to start your session")}
-              {// If the user tried to go to a protected page and is not logged in,
-              // tell them they will be redirected once login is successful
-              this.props.location.state &&
-              this.props.location.state.from.pathname in routes(t) ? (
-                <Fragment>
-                  <br />
-                  {t('You will be transferred to the "{{page}}" page', {
-                    page: routes(t)[this.props.location.state.from.pathname]
-                  })}
-                </Fragment>
-              ) : null}
-              {// If cookies are not enabled (or detected), show a warning
-              !this.state.cookiesEnabled ? (
-                <div className="text-center text-danger">
-                  {t("Verify that cookies are allowed for {{host}}", {
-                    host: window.location.host
-                  })}
-                </div>
-              ) : null}
+              {
+                // If the user tried to go to a protected page and is not logged in,
+                // tell them they will be redirected once login is successful
+                this.props.location.state &&
+                this.props.location.state.from.pathname in routes(t) ? (
+                  <Fragment>
+                    <br />
+                    {t('You will be transferred to the "{{page}}" page', {
+                      page: routes(t)[this.props.location.state.from.pathname]
+                    })}
+                  </Fragment>
+                ) : null
+              }
+              {
+                // If cookies are not enabled (or detected), show a warning
+                !this.state.cookiesEnabled ? (
+                  <div className="text-center text-danger">
+                    {t("Verify that cookies are allowed for {{host}}", {
+                      host: window.location.host
+                    })}
+                  </div>
+                ) : null
+              }
             </div>
             {this.state.error ? (
               <div className="form-group has-error m-0 text-center pt-0 pr-3 pb-3 pl-3">
