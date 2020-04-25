@@ -78,7 +78,7 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "codecov": "codecov",
-    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx .",
+    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx --report-unused-disable-directives .",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.{js,tsx}\" --ignore-path .gitignore",
     "check-format": "prettier --list-different \"**/*.{js,tsx}\" --ignore-path .gitignore"
