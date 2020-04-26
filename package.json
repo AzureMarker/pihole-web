@@ -64,6 +64,7 @@
     "prettier": "^2.0.5",
     "react-scripts": "^3.4.1",
     "redux-saga-test-plan": "^4.0.0-rc.3",
+    "rimraf": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "scripts": {
@@ -73,6 +74,7 @@
     "build-fake": "npm run make-fake-data && cross-env REACT_APP_FAKE_API=1 npm run build",
     "generate-language-list": "node scripts/generate-language-list.js",
     "make-fake-data": "node scripts/make-fake-data.js",
+    "production": "rimraf public/fakeAPI/.gitignore && npm run build-fake",
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "codecov": "codecov",
