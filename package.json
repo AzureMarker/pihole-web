@@ -33,7 +33,7 @@
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.9.19",
+    "@types/chart.js": "^2.9.20",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/fetch-mock": "^7.3.2",
