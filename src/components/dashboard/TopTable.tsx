@@ -33,27 +33,33 @@ export class TopTable<T> extends Component<TopTableInnerProps<T>, {}> {
   };
 
   /**
-   * Generate the table
+   * Generate the card containing the table
    *
-   * @returns {*} a React element for the table, or an empty message
+   * @returns {*} a React element for the card
    */
-  generateTable = () => {
+  generateCard = () => {
     // If there is no data, just show a message
     if (this.props.isEmpty(this.props.data)) {
-      return this.props.emptyMessage;
+      return <div className="card-body">{this.props.emptyMessage}</div>;
     }
 
     return (
-      <table className="table table-bordered">
-        <tbody>
-          <tr>
-            {this.props.headers.map((header, i) => (
-              <th key={i}>{header}</th>
-            ))}
-          </tr>
-          {this.props.generateRows(this.props.data)}
-        </tbody>
-      </table>
+      <div className="card-body p-0">
+        <div style={{ overflowX: "auto" }}>
+          <table className="table m-0">
+            <tbody>
+              <tr>
+                {this.props.headers.map((header, i) => (
+                  <th className="border-top-0" key={i}>
+                    {header}
+                  </th>
+                ))}
+              </tr>
+              {this.props.generateRows(this.props.data)}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   };
 
@@ -61,9 +67,7 @@ export class TopTable<T> extends Component<TopTableInnerProps<T>, {}> {
     return (
       <div className="card">
         <div className="card-header">{this.props.title}</div>
-        <div className="card-body">
-          <div style={{ overflowX: "auto" }}>{this.generateTable()}</div>
-        </div>
+        {this.generateCard()}
         {this.props.loading ? (
           <div
             className="card-img-overlay"
