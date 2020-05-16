@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopDomainsData {
   totalQueries: number;
-  topDomains: Array<ApiTopDomainItem>;
+  topDomains: ApiTopDomainItem[];
 }
 
 /**

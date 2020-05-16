@@ -18,7 +18,7 @@ import {
 } from "../../util/validate";
 
 export interface DnsListProps {
-  upstreams: Array<string>;
+  upstreams: string[];
   onAdd: (upstream: string) => void;
   onRemove: (upstream: string) => void;
 }
@@ -32,7 +32,7 @@ export interface DnsListProps {
  */
 export const isAddressValid = (
   address: string,
-  upstreams: Array<string>
+  upstreams: string[]
 ): boolean => {
   return (
     !upstreams.includes(address) &&

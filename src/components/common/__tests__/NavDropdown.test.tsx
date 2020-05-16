@@ -14,7 +14,7 @@ import NavDropdown from "../NavDropdown";
 
 it("renders as open when isOpen is true", () => {
   const wrapper = shallow(
-    <NavDropdown name="test" icon="test" isOpen={true}>
+    <NavDropdown name="test" icon="test" isOpen>
       {}
     </NavDropdown>
   );
@@ -35,7 +35,7 @@ it("renders as closed when isOpen is false", () => {
 it("toggles the dropdown when clicked", () => {
   const toggle = jest.fn();
   const wrapper = shallow(
-    <NavDropdown name="test" icon="test" isOpen={true}>
+    <NavDropdown name="test" icon="test" isOpen>
       {}
     </NavDropdown>
   );
@@ -43,7 +43,6 @@ it("toggles the dropdown when clicked", () => {
   expect(wrapper.find("li")).toHaveClassName("open");
 
   wrapper.find("button").simulate("click", {
-    preventDefault: () => {},
     target: {
       parentElement: {
         classList: {

@@ -36,7 +36,7 @@ export interface DNSInfoState {
   alertType: AlertType;
   showAlert: boolean;
   processing: boolean;
-  upstreamDns: Array<string>;
+  upstreamDns: string[];
   conditionalForwarding: ConditionalForwardingObject;
   options: DnsOptionsObject;
 }

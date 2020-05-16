@@ -108,8 +108,8 @@ export const TimeRangeSelector = (
           });
         }
       }}
-      timePicker={true}
-      showDropdowns={true}
+      timePicker
+      showDropdowns
       ranges={translatedDateRanges}
     >
       <Button color="light" size={size}>
@@ -136,7 +136,7 @@ export const TimeRangeSelectorContainer = ({ size }: { size?: string }) => (
         <TranslatedTimeRangeSelector
           range={context.range}
           onSelect={context.update}
-          showLabel={true}
+          showLabel
           size={size}
         />
       </Suspense>

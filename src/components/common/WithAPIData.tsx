@@ -153,6 +153,7 @@ export class WithAPIData<T> extends Component<
     if (this.props.flushOnUpdate) {
       // The props changed, so trigger a full reload of the data. Current data is
       // cleared so that loading indicators are shown.
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ apiResult: null });
       this.loadData();
     }
@@ -165,11 +166,11 @@ export class WithAPIData<T> extends Component<
 
     if (this.state.apiResult.isOk()) {
       return this.props.renderOk(this.state.apiResult.unwrap(), this.loadData);
-    } else {
-      return this.props.renderErr(
-        this.state.apiResult.unwrapErr(),
-        this.loadData
-      );
     }
+
+    return this.props.renderErr(
+      this.state.apiResult.unwrapErr(),
+      this.loadData
+    );
   }
 }

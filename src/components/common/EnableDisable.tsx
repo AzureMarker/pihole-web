@@ -8,8 +8,6 @@
  * This file is copyright under the latest version of the EUPL.
  * Please see LICENSE file for your rights under this license. */
 
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import React, { Component, FormEvent } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import NavButton from "./NavButton";

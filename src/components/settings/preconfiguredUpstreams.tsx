@@ -20,7 +20,7 @@ export interface PreconfiguredUpstream {
  * A list of preconfigured upstream DNS servers. Each item has primary and
  * secondary IPv4 and IPv6 server entries. Some addresses may be empty.
  */
-export const preconfiguredUpstreams: Array<PreconfiguredUpstream> = [
+export const preconfiguredUpstreams: PreconfiguredUpstream[] = [
   {
     name: "OpenDNS (ECS)",
     primaryIpv4: "208.67.222.222",
@@ -103,7 +103,7 @@ export const preconfiguredUpstreamOptions = preconfiguredUpstreams.flatMap(
       address
     });
 
-    let parsedUpstreams: Array<PreconfiguredUpstreamOption> = [];
+    const parsedUpstreams: PreconfiguredUpstreamOption[] = [];
 
     if (upstream.primaryIpv4.length > 0) {
       parsedUpstreams.push(

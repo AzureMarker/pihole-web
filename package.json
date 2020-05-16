@@ -78,7 +78,7 @@
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
     "codecov": "codecov",
-    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx .",
+    "lint": "eslint --ignore-path .gitignore --ext js,ts,tsx --cache --cache-location node_modules/.cache/.eslintcache --report-unused-disable-directives .",
     "eject": "react-scripts eject",
     "format": "prettier --write \"**/*.{js,tsx}\" --ignore-path .gitignore",
     "check-format": "prettier --list-different \"**/*.{js,tsx}\" --ignore-path .gitignore"
@@ -102,8 +102,18 @@
       "react-app"
     ],
     "rules": {
+      "@typescript-eslint/array-type": "error",
+      "@typescript-eslint/no-for-in-array": "error",
+      "no-else-return": "error",
+      "no-implicit-coercion": "error",
+      "no-lonely-if": "error",
+      "prefer-const": "error",
+      "react/button-has-type": "error",
       "react/display-name": "off",
+      "react/jsx-boolean-value": "error",
+      "react/jsx-curly-brace-presence": "error",
       "react/no-access-state-in-setstate": "error",
+      "react/no-did-update-set-state": "error",
       "react/prop-types": "off"
     }
   }

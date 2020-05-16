@@ -25,10 +25,10 @@ import {
 
 export interface ClientsGraphProps {
   loading: boolean;
-  labels: Array<string>;
+  labels: string[];
   timeUnit: TimeUnit;
   rangeName?: string;
-  datasets: Array<ChartDataSets>;
+  datasets: ChartDataSets[];
 }
 
 export class ClientsGraph extends Component<
@@ -179,11 +179,11 @@ export const transformData = (
   const labels = overTime.map(step =>
     new Date(1000 * step.timestamp).toISOString()
   );
-  const datasets: Array<ChartDataSets> = [];
+  const datasets: ChartDataSets[] = [];
 
   // Fill in dataset metadata
   let i = 0;
-  for (let client of data.clients) {
+  for (const client of data.clients) {
     datasets.push({
       label: client.name.length !== 0 ? client.name : client.ip,
       // If we ran out of colors, make a random one
@@ -191,7 +191,7 @@ export const transformData = (
         i < colors.length
           ? colors[i]
           : "#" +
-            parseInt("" + Math.random() * 0xffffff, 10)
+            parseInt(String(Math.random() * 0xffffff), 10)
               .toString(16)
               .padStart(6, "0"),
       pointRadius: 0,
@@ -205,12 +205,9 @@ export const transformData = (
   }
 
   // Fill in data & labels
-  for (let step of overTime) {
-    for (let destination in datasets) {
-      if (Object.prototype.hasOwnProperty.call(datasets, destination))
-        (datasets[destination].data as Array<number>).push(
-          step.data[destination]
-        );
+  for (const step of overTime) {
+    for (const [index, value] of datasets.entries()) {
+      (value.data as number[]).push(step.data[index]);
     }
   }
 

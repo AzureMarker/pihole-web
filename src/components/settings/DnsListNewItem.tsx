@@ -20,12 +20,12 @@ import {
 export interface DnsListNewItemProps {
   onAdd: (address: string) => void;
   isValid: (address: string) => boolean;
-  upstreams: Array<string>;
+  upstreams: string[];
 }
 
 export interface DnsListNewItemState {
   address: string;
-  selected: Array<PreconfiguredUpstreamOption>;
+  selected: PreconfiguredUpstreamOption[];
 }
 
 /**
