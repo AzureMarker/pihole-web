@@ -187,7 +187,7 @@ it("should clear the data when flushOnUpdate is true and props are changed", asy
       apiCall={apiCall}
       renderOk={renderOk}
       repeatOptions={{ ignoreCancel: true, interval: 0 }}
-      flushOnUpdate={true}
+      flushOnUpdate
     />
   );
 

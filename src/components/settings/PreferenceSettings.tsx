@@ -157,14 +157,13 @@ class PreferenceSettings extends Component<
       return t(this.state.alertMessage, {
         error: t(this.state.error.key, this.state.error.data)
       });
-    } else {
-      // Check if the message should be translated
-      if (this.state.translateMessage) {
-        return t(this.state.alertMessage);
-      } else {
-        return this.state.alertMessage;
-      }
     }
+
+    // Check if the message should be translated
+    if (this.state.translateMessage) {
+      return t(this.state.alertMessage);
+    }
+    return this.state.alertMessage;
   };
 
   render() {

@@ -39,14 +39,14 @@ export class ApiClient {
     return this.http.get("stats/database/summary?" + timeRangeToParams(range));
   };
 
-  getHistoryGraph = (): Promise<Array<ApiHistoryGraphItem>> => {
+  getHistoryGraph = (): Promise<ApiHistoryGraphItem[]> => {
     return this.http.get("stats/overTime/history");
   };
 
   getHistoryGraphDb = (
     range: TimeRange,
     interval: number
-  ): Promise<Array<ApiHistoryGraphItem>> => {
+  ): Promise<ApiHistoryGraphItem[]> => {
     return this.http.get(
       "stats/database/overTime/history?interval=" +
         interval +
@@ -71,11 +71,11 @@ export class ApiClient {
     );
   };
 
-  getQueryTypes = (): Promise<Array<ApiQueryType>> => {
+  getQueryTypes = (): Promise<ApiQueryType[]> => {
     return this.http.get("stats/query_types");
   };
 
-  getQueryTypesDb = (range: TimeRange): Promise<Array<ApiQueryType>> => {
+  getQueryTypesDb = (range: TimeRange): Promise<ApiQueryType[]> => {
     return this.http.get(
       "stats/database/query_types?" + timeRangeToParams(range)
     );
@@ -161,19 +161,19 @@ export class ApiClient {
     return this.http.get("stats/history?" + paramsToString(params));
   };
 
-  getExactWhitelist = (): Promise<Array<string>> => {
+  getExactWhitelist = (): Promise<string[]> => {
     return this.http.get("dns/whitelist/exact");
   };
 
-  getExactBlacklist = (): Promise<Array<string>> => {
+  getExactBlacklist = (): Promise<string[]> => {
     return this.http.get("dns/blacklist/exact");
   };
 
-  getRegexWhitelist = (): Promise<Array<string>> => {
+  getRegexWhitelist = (): Promise<string[]> => {
     return this.http.get("dns/whitelist/regex");
   };
 
-  getRegexBlacklist = (): Promise<Array<string>> => {
+  getRegexBlacklist = (): Promise<string[]> => {
     return this.http.get("dns/blacklist/regex");
   };
 

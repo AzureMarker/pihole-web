@@ -13,7 +13,7 @@ import { shallow } from "enzyme";
 import { TopTable } from "../TopTable";
 
 it("shows loading indicator correctly", () => {
-  const wrapper = shallow(<TopTable loading={true} />);
+  const wrapper = shallow(<TopTable loading />);
 
   expect(wrapper.children().last()).toHaveClassName("card-img-overlay");
 });

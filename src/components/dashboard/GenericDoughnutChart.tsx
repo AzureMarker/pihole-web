@@ -16,9 +16,9 @@ import { ChartOptions } from "chart.js";
 export interface GenericDoughnutChartProps {
   title: string;
   loading: boolean;
-  data: Array<number>;
-  colors: Array<string>;
-  labels: Array<string>;
+  data: number[];
+  colors: string[];
+  labels: string[];
 }
 
 export class GenericDoughnutChart extends Component<
@@ -152,7 +152,7 @@ export interface ChartItem {
  * @param apiData the API data
  * @returns GenericDoughnutChartProps
  */
-export const transformData = (apiData: Array<ChartItem>) => {
+export const transformData = (apiData: ChartItem[]) => {
   const colors = [
     "#20a8d8",
     "#f86c6b",
@@ -168,7 +168,7 @@ export const transformData = (apiData: Array<ChartItem>) => {
 
   // Fill in dataset metadata
   let i = 0;
-  for (let entry of apiData) {
+  for (const entry of apiData) {
     data.push(entry.percent);
     labels.push(entry.name.length !== 0 ? entry.name : entry.ip!);
     usedColors.push(
@@ -176,7 +176,7 @@ export const transformData = (apiData: Array<ChartItem>) => {
       i < colors.length
         ? colors[i]
         : "#" +
-            parseInt("" + Math.random() * 0xffffff, 10)
+            parseInt(String(Math.random() * 0xffffff), 10)
               .toString(16)
               .padStart(6, "0")
     );
@@ -210,7 +210,7 @@ export default function <T>({
 }: {
   apiCall: () => Promise<T>;
   title: string;
-  apiHandler: (data: T) => Array<ChartItem>;
+  apiHandler: (data: T) => ChartItem[];
 }) {
   return (
     <WithAPIData

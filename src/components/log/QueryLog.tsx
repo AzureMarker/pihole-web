@@ -34,12 +34,12 @@ import {
 } from "../../util/CancelablePromise";
 
 export interface QueryLogState {
-  history: Array<ApiQuery>;
+  history: ApiQuery[];
   cursor: null | string;
   loading: boolean;
   atEnd: boolean;
   filtersChanged: boolean;
-  filters: Array<Filter>;
+  filters: Filter[];
 }
 
 /**
@@ -107,10 +107,10 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
           color: [1, 4, 5, 6].includes(rowInfo.row.status) ? "red" : "green"
         }
       };
-    } else {
-      // Unknown queries do not get colored
-      return {};
     }
+
+    // Unknown queries do not get colored
+    return {};
   };
 
   /**
@@ -119,8 +119,8 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
    * @param tableFilters the filters requested by the table
    * @return the filters converted for use by the API
    */
-  parseFilters = (tableFilters: Array<Filter>) => {
-    let filters: any = {};
+  parseFilters = (tableFilters: Filter[]) => {
+    const filters: any = {};
 
     for (const filter of tableFilters) {
       switch (filter.id) {
@@ -246,7 +246,7 @@ class QueryLog extends Component<WithTranslation, QueryLogState> {
         className="-striped bg-white mb-4"
         style={{ lineHeight: 1 }}
         columns={columns(t)}
-        showPaginationTop={true}
+        showPaginationTop
         sortable={false}
         filterable={false}
         data={this.state.history}
@@ -366,7 +366,7 @@ const queryTypes = ["A", "AAAA", "ANY", "SRV", "SOA", "PTR", "TXT"];
 const selectionFilter = (
   items: string[],
   t: TFunction,
-  extras: Array<{ name: string; value: any }> = []
+  extras: { name: string; value: any }[] = []
 ) => {
   return ({
     filter,

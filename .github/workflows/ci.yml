@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: "${{ env.NODE }}"
 
-      - run: node --version
-      - run: npm --version
-
       - name: Set up npm cache
         uses: actions/cache@v1
         with:
@@ -44,9 +41,7 @@ jobs:
       - name: Build
         env:
           PUBLIC_URL: /
-        run: |
-          rm public/fakeAPI/.gitignore # Make sure that the fakeAPI data is deployed
-          npm run build-fake
+        run: npm run production
 
       - uses: codecov/codecov-action@v1
         with:

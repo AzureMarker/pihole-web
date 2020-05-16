@@ -21,7 +21,7 @@ it("collapses and displays normal if there is no error", () => {
 });
 
 it("expands and displays red if there is an error", () => {
-  const wrapper = shallow(<ForgotPassword error={true} />).dive();
+  const wrapper = shallow(<ForgotPassword error />).dive();
 
   expect(wrapper.childAt(0)).toHaveClassName("border-danger");
   expect(wrapper.childAt(0).childAt(0)).toHaveClassName("bg-danger");
@@ -39,7 +39,7 @@ it("expands and collapses if clicked without error", () => {
 });
 
 it("does not collapse if clicked with error", () => {
-  const wrapper = shallow(<ForgotPassword error={true} />).dive();
+  const wrapper = shallow(<ForgotPassword error />).dive();
 
   wrapper.find("button").simulate("click");
   expect(wrapper.childAt(0).children().last()).not.toHaveClassName("collapse");

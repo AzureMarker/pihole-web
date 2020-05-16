@@ -17,7 +17,7 @@ import { TimeRangeContext } from "../common/context/TimeRangeContext";
 
 export interface TopBlockedDomainsData {
   totalBlocked: number;
-  topBlocked: Array<ApiTopDomainItem>;
+  topBlocked: ApiTopDomainItem[];
 }
 
 /**

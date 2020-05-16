@@ -59,12 +59,12 @@ export interface RouteGroup {
   icon: string;
   auth: boolean;
   authStrict?: boolean;
-  children: Array<RouteData>;
+  children: RouteData[];
 }
 
 export type RouteData = RouteItem | RouteGroup | RouteCustomItem;
 
-export const nav: Array<RouteData> = [
+export const nav: RouteData[] = [
   {
     name: "Dashboard",
     url: "/dashboard",
