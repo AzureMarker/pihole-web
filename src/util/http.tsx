@@ -161,12 +161,14 @@ export const convertJSON = <T extends any>(
  * @returns A resolving promise with the data if no error, otherwise a
  * rejecting promise with the error
  */
-export const checkForErrors = <T extends any>(data: T): Promise<T> => {
-  if (data.error) {
-    return Promise.reject(data.error);
+export const checkForErrors = <T extends any>(
+  data: T | ApiErrorResponse
+): Promise<T> => {
+  if ((data as ApiErrorResponse).error) {
+    return Promise.reject((data as ApiErrorResponse).error);
   }
 
-  return Promise.resolve(data);
+  return Promise.resolve(data as T);
 };
 
 /**
