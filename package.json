@@ -13,7 +13,7 @@
     "bootstrap-daterangepicker": "^3.0.5",
     "chart.js": "^2.9.3",
     "i18next": "^19.4.4",
-    "i18next-browser-languagedetector": "^4.1.1",
+    "i18next-browser-languagedetector": "^4.2.0",
     "i18next-xhr-backend": "^3.2.2",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
