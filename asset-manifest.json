@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.1204f918.chunk.css",
-    "main.js": "/static/js/main.0e966c34.chunk.js",
-    "main.js.map": "/static/js/main.0e966c34.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.dcdce3be.js",
-    "runtime-main.js.map": "/static/js/runtime-main.dcdce3be.js.map",
-    "static/css/2.691b3c63.chunk.css": "/static/css/2.691b3c63.chunk.css",
-    "static/js/2.4b5e3762.chunk.js": "/static/js/2.4b5e3762.chunk.js",
-    "static/js/2.4b5e3762.chunk.js.map": "/static/js/2.4b5e3762.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.0a9d8e1727828b5c36aa35c48d3050fe.js": "/precache-manifest.0a9d8e1727828b5c36aa35c48d3050fe.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.691b3c63.chunk.css.map": "/static/css/2.691b3c63.chunk.css.map",
-    "static/css/main.1204f918.chunk.css.map": "/static/css/main.1204f918.chunk.css.map",
-    "static/js/2.4b5e3762.chunk.js.LICENSE.txt": "/static/js/2.4b5e3762.chunk.js.LICENSE.txt",
-    "static/media/style.scss": "/static/media/backgroundLight.07b6c584.png",
-    "static/media/all.min.css": "/static/media/fa-solid-900.cdfec5cf.woff",
-    "static/media/logo.svg": "/static/media/logo.efd0af1e.svg"
+    "main.css": "/pihole-web/static/css/main.fe3e59dd.chunk.css",
+    "main.js": "/pihole-web/static/js/main.6ea2deed.chunk.js",
+    "main.js.map": "/pihole-web/static/js/main.6ea2deed.chunk.js.map",
+    "runtime-main.js": "/pihole-web/static/js/runtime-main.85e194e3.js",
+    "runtime-main.js.map": "/pihole-web/static/js/runtime-main.85e194e3.js.map",
+    "static/css/2.4433981b.chunk.css": "/pihole-web/static/css/2.4433981b.chunk.css",
+    "static/js/2.73d4f952.chunk.js": "/pihole-web/static/js/2.73d4f952.chunk.js",
+    "static/js/2.73d4f952.chunk.js.map": "/pihole-web/static/js/2.73d4f952.chunk.js.map",
+    "index.html": "/pihole-web/index.html",
+    "precache-manifest.e87f0d5bae269f224acf434fbfcd73cf.js": "/pihole-web/precache-manifest.e87f0d5bae269f224acf434fbfcd73cf.js",
+    "service-worker.js": "/pihole-web/service-worker.js",
+    "static/css/2.4433981b.chunk.css.map": "/pihole-web/static/css/2.4433981b.chunk.css.map",
+    "static/css/main.fe3e59dd.chunk.css.map": "/pihole-web/static/css/main.fe3e59dd.chunk.css.map",
+    "static/js/2.73d4f952.chunk.js.LICENSE.txt": "/pihole-web/static/js/2.73d4f952.chunk.js.LICENSE.txt",
+    "static/media/style.scss": "/pihole-web/static/media/backgroundLight.07b6c584.png",
+    "static/media/all.min.css": "/pihole-web/static/media/fa-solid-900.ec763292.svg",
+    "static/media/logo.svg": "/pihole-web/static/media/logo.efd0af1e.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.dcdce3be.js",
-    "static/css/2.691b3c63.chunk.css",
-    "static/js/2.4b5e3762.chunk.js",
-    "static/css/main.1204f918.chunk.css",
-    "static/js/main.0e966c34.chunk.js"
+    "static/js/runtime-main.85e194e3.js",
+    "static/css/2.4433981b.chunk.css",
+    "static/js/2.73d4f952.chunk.js",
+    "static/css/main.fe3e59dd.chunk.css",
+    "static/js/main.6ea2deed.chunk.js"
   ]
 }
