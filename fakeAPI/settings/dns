@@ -1,1 +1,1 @@
-{"upstream_dns":["240.237.230.198","104.168.230.239","229.180.244.58"],"options":{"fqdn_required":true,"bogus_priv":true,"dnssec":false,"listening_type":"all"},"conditional_forwarding":{"enabled":false,"ip":"178.18.255.84","domain":"buckinghamshire","cidr":8}}
+{"upstream_dns":["60.234.93.97","255.156.248.2","245.79.200.82"],"options":{"fqdn_required":true,"bogus_priv":true,"dnssec":true,"listening_type":"all"},"conditional_forwarding":{"enabled":false,"ip":"215.82.99.184","domain":"neural","cidr":24}}
