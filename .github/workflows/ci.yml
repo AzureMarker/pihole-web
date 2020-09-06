@@ -40,7 +40,7 @@ jobs:
 
       - name: Build
         env:
-          PUBLIC_URL: /pihole-api
+          PUBLIC_URL: /pihole-web
         run: npm run production
 
       - uses: codecov/codecov-action@v1
@@ -73,6 +73,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: success()
         with:
-          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./build/
