@@ -1,1 +1,1 @@
-{"upstream_dns":["121.199.168.114","222.4.130.200","238.36.230.240"],"options":{"fqdn_required":false,"bogus_priv":false,"dnssec":false,"listening_type":"all"},"conditional_forwarding":{"enabled":true,"ip":"74.207.6.168","domain":"investment","cidr":24}}
+{"upstream_dns":["147.53.230.97","14.223.174.203","182.20.115.0"],"options":{"fqdn_required":true,"bogus_priv":true,"dnssec":true,"listening_type":"all"},"conditional_forwarding":{"enabled":true,"ip":"19.136.37.98","domain":"timor-leste","cidr":16}}
