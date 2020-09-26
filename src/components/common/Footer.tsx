@@ -11,20 +11,10 @@
 import React, { Suspense } from "react";
 import { withTranslation } from "react-i18next";
 import FooterUpdateStatus from "./FooterUpdateStatus";
-import FooterDonateLink from "./FooterDonateLink";
 
 const Footer = (props: any) => {
-  const { t } = props;
-
   return (
     <footer className="app-footer">
-      <div>
-        <i className="fab fa-paypal" />
-        <strong>
-          <FooterDonateLink t={t} />
-        </strong>{" "}
-        {t("if you found this useful")}
-      </div>
       <FooterUpdateStatus {...props} />
     </footer>
   );
