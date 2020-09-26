@@ -391,9 +391,10 @@ fs.removeSync("public/fakeAPI/auth");
 fs.removeSync("public/fakeAPI/version");
 
 console.log("Generating new fake API data...");
-write("public/fakeAPI/dns/whitelist", list());
-write("public/fakeAPI/dns/blacklist", list());
-write("public/fakeAPI/dns/regexlist", list());
+write("public/fakeAPI/dns/whitelist/exact", list());
+write("public/fakeAPI/dns/whitelist/regex", list());
+write("public/fakeAPI/dns/blacklist/exact", list());
+write("public/fakeAPI/dns/blacklist/regex", list());
 write("public/fakeAPI/dns/status", status());
 write("public/fakeAPI/dns/cacheinfo", cacheinfo());
 write("public/fakeAPI/settings/dhcp", getDHCPInfo());
