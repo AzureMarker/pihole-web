@@ -1,1 +1,1 @@
-{"upstream_dns":["147.53.230.97","14.223.174.203","182.20.115.0"],"options":{"fqdn_required":true,"bogus_priv":true,"dnssec":true,"listening_type":"all"},"conditional_forwarding":{"enabled":true,"ip":"19.136.37.98","domain":"timor-leste","cidr":16}}
+{"upstream_dns":["134.8.117.99","101.174.8.135","72.63.69.130"],"options":{"fqdn_required":false,"bogus_priv":true,"dnssec":false,"listening_type":"all"},"conditional_forwarding":{"enabled":true,"ip":"139.254.0.104","domain":"uniform","cidr":24}}
