@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pihole-web/precache-manifest.e87f0d5bae269f224acf434fbfcd73cf.js"
+  "/pihole-web/precache-manifest.1678930be1f47f4a671f6eaec7f56593.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a84950b2ba0c66bbfa9cde714d443ced",
+    "revision": "6fa023e5fbdf7a391f654a57aed5c036",
     "url": "/pihole-web/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pihole-web/static/css/2.4433981b.chunk.css"
   },
   {
-    "revision": "8d0380f8c045b6f1199d",
+    "revision": "b9f6d9c48a59354b7807",
     "url": "/pihole-web/static/css/main.fe3e59dd.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pihole-web/static/js/2.73d4f952.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8d0380f8c045b6f1199d",
-    "url": "/pihole-web/static/js/main.6ea2deed.chunk.js"
+    "revision": "b9f6d9c48a59354b7807",
+    "url": "/pihole-web/static/js/main.6827d4e0.chunk.js"
   },
   {
     "revision": "49f9ea378a5a23dbcfad",
