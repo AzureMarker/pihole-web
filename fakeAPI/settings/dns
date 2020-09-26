@@ -1,1 +1,1 @@
-{"upstream_dns":["85.102.131.7","158.79.255.83","112.239.209.21"],"options":{"fqdn_required":true,"bogus_priv":false,"dnssec":false,"listening_type":"all"},"conditional_forwarding":{"enabled":false,"ip":"130.63.91.197","domain":"bricks-and-clicks","cidr":16}}
+{"upstream_dns":["118.14.30.215","157.220.221.100","228.146.187.224"],"options":{"fqdn_required":false,"bogus_priv":false,"dnssec":true,"listening_type":"all"},"conditional_forwarding":{"enabled":false,"ip":"111.237.160.170","domain":"firmware","cidr":8}}
