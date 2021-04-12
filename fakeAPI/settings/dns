@@ -1,1 +1,1 @@
-{"upstream_dns":["134.8.117.99","101.174.8.135","72.63.69.130"],"options":{"fqdn_required":false,"bogus_priv":true,"dnssec":false,"listening_type":"all"},"conditional_forwarding":{"enabled":true,"ip":"139.254.0.104","domain":"uniform","cidr":24}}
+{"upstream_dns":["216.188.208.198","206.208.87.48","162.203.122.107"],"options":{"fqdn_required":true,"bogus_priv":false,"dnssec":true,"listening_type":"single"},"conditional_forwarding":{"enabled":false,"ip":"23.240.108.83","domain":"kwanza","cidr":24}}
