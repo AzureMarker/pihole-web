@@ -3,7 +3,9 @@
 View stats and control your Pi-hole via this web interface. For the previous PHP-based web interface,
 see [pi-hole/AdminLTE](https://github.com/pi-hole/AdminLTE/).
 
-### Web [Preview](https://azuremarker.github.io/pihole-web)
+### [Web Interface Preview](https://azuremarker.github.io/pihole-web)
+
+This web interface depends on the Pi-hole API, which is found here: https://github.com/AzureMarker/pihole-api
 
 ## Changes compared to the AdminLTE interface
 
